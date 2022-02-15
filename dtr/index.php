@@ -26,7 +26,6 @@ else
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<script type="text/javascript" src='../js/script.js'></script>
 
 <style type="text/css">
 .bgen{
@@ -97,7 +96,8 @@ table {
             <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>">
         </div>
         <div class="col-md-1">
-            <input type="submit" id="search" class="form-control btn btn-primary bgen" value="SEARCH">
+            <button type="submit" id="search" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                </button>
         </div>
 
     </div>

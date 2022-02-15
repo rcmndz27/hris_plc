@@ -926,7 +926,7 @@ opacity: 0.5;
                           
                                                                       
                             <div class="mt-3 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary sub" id="Submit">SUBMIT</button>
+                                <button type="button" class="empappbut" id="Submit"><i class="fas fa-check-circle"></i> SUBMIT</button>
                             </div>       
                                
                         </fieldset><!-- JobHistory  -->

@@ -309,7 +309,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,(a.lastname +','+a.firstname+' '+a.middlename) as fullname from employee_profile a where NOT EXISTS (SELECT * FROM employee_salary_management b where a.emp_code = b.emp_code) ");
+                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,(a.lastname +','+a.firstname+' '+a.middlename) as fullname from employee_profile a where NOT EXISTS (SELECT * FROM employee_salary_management b where a.emp_code = b.emp_code) order by a.lastname asc");
                 $sql->execute();
 
                 if ($type == "empsal")
@@ -498,6 +498,34 @@
             }
         }
 
+        public function GetUserAccntNames($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_code not in (SELECT emp_code from employee_profile a right join mf_user b on a.emp_code = b.userid where emp_code is not null)");
+                $sql->execute();
+
+                if ($type == "allusracnt")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["rowid"], $r["emp_code"]." - ".$r["fullname"]));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
 
 
         public function GetAllEmployeeDeduction($type)
@@ -587,6 +615,34 @@
         }
 
 
+        public function GetAllEmployeeLevelWrds($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT level_id,level_code,level_description FROM dbo.employee_level ORDER by level_id ASC");
+                $sql->execute();
+
+                if ($type == "emp_levelwrds")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["level_code"],$r["level_description"]));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
         public function GetAllEmployeeLevel($type)
         {
             global $connL;
@@ -603,7 +659,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["level_code"], $r["level_id"]." - ".$r["level_description"]));
+                       array_push( $data, array($r["level_code"],$r["level_id"]." - ".$r["level_description"]));
                     }
                 }
 

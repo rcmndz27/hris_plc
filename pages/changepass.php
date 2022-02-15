@@ -222,10 +222,7 @@ function password_show_hide() {
     hide_eye.style.display = "none";
   }
 }
-</script>
 
-
-<script type="text/javascript">
 function confirmpassword_show_hide() {
   var xcf = document.getElementById("confirmpassword");
   var cfshow_eye = document.getElementById("cfshow_eye");

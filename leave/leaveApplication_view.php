@@ -174,7 +174,8 @@ table {
                         
                                 <?php 
                                 $emp_type = $r['emp_type'];
-                                $sl = $rs['earned_sl'];                
+                                $sl = isset($rs['earned_sl']) ? $result['earned_sl'] : 0; 
+
                                 if($emp_type == 'Regular'){
                                 echo'<div id="sickleavebal">
                                             <div class="form-row align-items-center mb-2">
@@ -219,8 +220,8 @@ table {
                     
                         <?php 
                         $emp_type = $r['emp_type'];
-                        $vl = $rs['earned_vl'];  
-
+                        $vl =  isset($rs['earned_vl']) ? $result['earned_vl'] : 0; 
+                    
                        echo'<div id="vacleavebal">
                                     <div class="form-row align-items-center mb-2">
                                        <div class="col-md-2 d-inline">

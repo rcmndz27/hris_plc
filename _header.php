@@ -266,6 +266,7 @@ else
                                                   <li><a href='../salary/salarylist_view.php'>Salary Management</a></li>
                                                   <li><a href='../deduction/deductionlist_view.php'>Deduction Management</a></li>
                                                   <li><a href='../allowances/allowanceslist_view.php'>Allowances Management</a></li>
+                                                  <li><a href='../users/userslist_view.php'>Users Management</a></li>                                                  
                                                   <li><a href='../dtr/index.php'>Employee Attendance</a></li>
                                                   <li><a href='../leave/view-approved-leave.php'>View Approved Leaves</a></li>
                                                   <li><a href='../overtime/view-approved-overtime.php'>View Approved Overtime</a></li>

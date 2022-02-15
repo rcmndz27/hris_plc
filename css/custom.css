@@ -9,6 +9,21 @@ caption > button{
     
 }
 
+.empappbut{
+    height: 40px;
+    width: 150px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 25px;
+    border-radius: 1rem;
+}
+
+.empappbut:hover{
+    opacity: 0.5;
+}
+
 .genpyrll {
     height: 40px;
     width: 150px;

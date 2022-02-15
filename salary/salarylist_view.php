@@ -221,7 +221,7 @@ table {
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="bank_no">Bank Account No.<span class="req">*</span></label>
+                                        <label class="control-label" for="bank_no">Bank Account No.</label>
                                         <input type="text" class="form-control inputtext" name="bank_no"
                                             id="bank_no" onkeypress="return onlyNumberKey(event)" placeholder="Account No...." maxlength="15">
                                     </div>
