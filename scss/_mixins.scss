@@ -1,0 +1,65 @@
+// CROSS-BROWSER Compatibility
+
+@mixin xbTransition($xVal) {
+    -webkit-transition: $xVal;
+    -ms-transition: $xVal;
+    -moz-transition: $xVal;
+    -o-transition: $xVal;
+    transition: $xVal;
+}
+
+@mixin xbTransitionDelay($xVal) {
+    -webkit-transition-delay: $xVal;
+    -ms-transition-delay: $xVal;
+    -moz-transition-delay: $xVal;
+    -o-transition-delay: $xVal;
+    transition-delay: $xVal;
+}
+
+@mixin xbAnimation($anim) {
+    -webkit-animation: $anim;
+    -ms-animation: $anim;
+    -moz-animation: $anim;
+    -o-animation: $anim;
+    animation: $anim;
+}
+
+@mixin xbTransform($transform) {
+   -webkit-transform: $transform;
+   -ms-transform: $transform;
+   -moz-transform: $transform;
+   -o-transform: $transform;
+   transform: $transform;
+}
+
+@mixin xbBoxShadow($val) {
+    -webkit-box-shadow: $val;
+    -ms-box-shadow: $val;
+    -moz-box-shadow: $val;
+    -o-box-shadow: $val;
+    box-shadow: $val;
+}
+
+@mixin xbDisplay($style) {
+    display: -webkit- + $style;
+    display: -ms- + $style;
+    display: -moz- + $style;
+    display: -o- + $style;
+    display: $style;
+}
+
+@mixin xbDisplayContent($style, $display) {
+    #{-webkit- + $style}: $display;
+    #{-ms- + $style}: $display;
+    #{-moz- + $style}: $display;
+    #{-o- + $style}: $display;
+    #{$style}: $display;
+}
+
+@mixin xbCalc($parameter, $xExpression) {
+    #{$parameter}: unquote("-webkit-calc(#{$xExpression})");
+    #{$parameter}: unquote("-ms-calc(#{$xExpression})");
+    #{$parameter}: unquote("-moz-calc(#{$xExpression})");
+    #{$parameter}: unquote("-o-calc(#{$xExpression})");
+    #{$parameter}: unquote("calc(#{$xExpression})");
+}

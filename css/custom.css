@@ -1,0 +1,350 @@
+caption > button{
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    
+}
+
+.genpyrll {
+    height: 40px;
+    width: 150px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 18px;
+    border-radius: 1rem;
+}
+
+.genpyrll:hover{
+    opacity: 0.5;
+}
+
+.payreggoto {
+    font-size: 18PX;
+    font-weight: bolder;
+    color: #d64747;
+}
+
+.backtxt{
+font-size: 20px;
+font-weight: bolder;
+color: #d64747;
+}
+
+.svepyrll {
+    width: 250px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 25px;
+    border-radius: 1rem;
+}
+
+.svepyrll:hover{
+    opacity: 0.5;
+}
+
+.gotopay {
+    width: 250PX;
+    padding: 5px;
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    font-weight: bolder;
+    color: #ed6200;
+    font-size: 18px;
+    border-radius: 1rem;
+    margin-left: 10px;
+}
+
+.gotopay:hover{
+    opacity: 0.5;
+}
+
+.appLv {
+    width: 180px;
+    padding: 5px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.appLv:hover{
+    opacity: 0.5;
+}
+
+.appOt {
+    width: 220px;
+    padding: 5px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.appOt:hover{
+    opacity: 0.5;
+}
+
+.appWfh {
+    width: 310px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 1rem;
+}
+
+.appWfh:hover{
+    opacity: 0.5;
+}
+
+
+.conPyrll {
+    width: 360px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.conPyrll:hover{
+    opacity: 0.5;
+}
+
+
+.xprtxcl {
+    width: 220px;
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    font-weight: bolder;
+    color: #ed6200;
+    font-size: 18px;
+    border-radius: 1rem;
+}
+
+.xprtxcl:hover{
+    opacity: 0.5;
+}
+
+
+.serchtv {
+    width: 130px;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.serchtv:hover{
+    opacity: 0.5;
+}
+
+
+.hstry {
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #fbec1e;
+    font-size: 18px;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.hstry:hover{
+    opacity: 0.5;
+}
+
+.penLeave {
+    background-color: #fbec1e;
+    border-color:#fbec1e;
+    font-weight: bolder;
+    color: #ed6200;
+    font-size: 18px;
+    border-radius: 1rem;
+    width: 100%;
+}
+
+.penLeave:hover{
+    opacity: 0.5;
+}
+
+.chckbt{
+    background-color: #22900e;
+}
+
+.chckbt:hover{
+    opacity: 0.5;
+}
+
+.rejbt{
+    background-color: #f60f0f;
+}
+
+.rejbt:hover{
+    opacity: 0.5;
+}
+
+
+
+
+.voidHstry {
+    background-color: #ca0d0d;
+    border-color: #ca0d0d;
+    font-weight: bolder;
+    color: #fbec1e;
+    font-size: 18px;
+    border-radius: 0.25em;
+    width: 100%;
+}
+
+.voidHstry:hover{
+    opacity: 0.5;
+}
+
+.editcv {
+
+    width: 80px;
+    background-color: #fbec1e;
+    border-color:#fbec1e;
+    font-weight: bolder;   
+    color: #ed6200;
+    font-size: 14px;
+    border-radius:1rem;
+}
+
+.editcv:hover{
+    opacity: 0.5;
+}
+
+.actv {
+
+    width: 110px;
+    background-color: #fbec1e;
+    border-color:#fbec1e;
+    font-weight: bolder;   
+    color: #ed6200;
+    font-size: 14px;
+    border-radius:1rem;
+}
+
+.actv:hover{
+    opacity: 0.5;
+}
+
+
+.deactv{
+    width: 130px; 
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;   
+    color: #970606;
+    font-size: 14px;
+    border-radius:1rem;;
+}
+
+.deactv:hover{
+    opacity: 0.5;
+}
+
+.uptv{
+    width: 100px; 
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;   
+    color: #970606;
+    font-size: 14px;
+    border-radius:1rem;;
+}
+
+.uptv:hover{
+    opacity: 0.5;
+}
+.backbut{
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    border-radius: 1rem;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #d64747;
+}
+
+.backbut:hover{
+    opacity: 0.5;
+}
+
+.subbut{
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #ffff;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.subbut:hover{
+    opacity: 0.5;
+}
+
+
+caption > button:hover{
+    color: #fff;
+    background-color: #0069d9;
+    border: 1px solid #0062cc;
+}
+
+/*td:last-child button {
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .500em;
+}
+*/
+
+.btnView:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border: 1px solid #0062cc;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+
+.btnApprove:hover {
+    color: #fff;
+    background-color: #3a9e3f;
+    border: 1px solid #3a9e3f;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+.btnReject:hover {
+    color: #fff;
+    background-color: #9e413a;
+    border: 1px solid #9e413a;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+
+.modal-content{
+    color: #000;
+}

@@ -1,0 +1,18 @@
+.cv-thumbnail {
+    /* padding: .25rem; */
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 1rem;
+    max-width: 100%;
+    height: auto;
+}
+
+.bg-custom{
+    background-color: #11371d;
+}
+
+
+.imageContainer > img:hover {
+  width: 500px;
+  height: 200px;
+}

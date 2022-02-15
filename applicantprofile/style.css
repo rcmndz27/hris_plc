@@ -1,0 +1,107 @@
+body{
+    background-image: url('../img/hris_bg.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #fff;
+
+}
+
+nav{
+    background-color: #11371d;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #11371d;
+    border-color: #11371d #11371d #fff;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link{
+    color: #fff;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link:hover{
+    color: #fff;
+    border-color: #11371d #11371d #fff;
+}
+
+
+
+.nav-tabs{
+    border-bottom: 1px solid #11371d;
+    background-color: #11371d;
+}
+
+
+main > .container-fluid {
+    padding: 65px 10px 0;
+    color: #fff;
+}
+
+footer {
+    color: #fff;
+    padding: 10px 0 10px 0;
+    background-color: #11371d;
+    text-align: center;
+}
+
+form{
+    padding-bottom: 50px;
+}
+
+#imgInput{
+    width: 100px;
+}
+
+#imgPic{
+    width:150px;
+    height:150px;
+}
+
+fieldset.fieldset-border {
+    border: 1px groove #fff !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.fieldset-border {
+    width:inherit;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+input.error{
+    background-color: #943131;
+    border-color: #943131;
+    color: white;
+}
+
+
+
+label.error{
+    color: red;
+}
+
+.errmsg{
+    color: #d4a86c;
+}
+
+textarea{
+    resize: none;
+}
+
+.center-logo {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.modal-body{
+    color: #000;
+}
+
+
+

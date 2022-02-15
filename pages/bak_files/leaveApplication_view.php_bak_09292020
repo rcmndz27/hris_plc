@@ -1,0 +1,157 @@
+<?php
+    session_start();
+
+    if (empty($_SESSION['userid']))
+    {
+        echo '<script type="text/javascript">alert("Please login first!!");</script>';
+        header( "refresh:1;url=../index.php" );
+    }
+    else
+    {
+        include('../_header.php');
+        include('../controller/leaveApplication.php');
+
+        if (isset($_POST['submit-leave'])) {
+            $leaveDates = explode('-', $_POST['home-calendar']);
+        }
+?>
+
+<div class='container leaveapplicationContainer'>
+    <div class='row h-100'>
+        <div class='pic-background col-lg-5' style="background-image: url('../img/leave.jpg')">
+            <div class='overlay'>
+                <div class='row'>
+                    <div class='col-lg-12'>
+                        <h3 class='subtitle'><u>Leave Application</u></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='contents' class='col-lg-7 d-flex align-items-center form-container'>
+            <div class='container'>
+                <div class='d-flex justify-content-start optionButtonContainer'>
+                    <button class='btn btn-link optionButton' onclick='javascript:ShowSummary()'>SUMMARY</button>
+                    <button class='btn btn-link optionButton' onclick='javascript:ShowHistory()'>HISTORY</button>
+                </div>
+                <hr class='m-0'>
+                <div id='history' class='leaveHistory' style='display:none;'>
+                    <div style='height:213px; overflow-y:scroll;'>
+                        <?php GetLeaveHistory($_SESSION['userid']); ?>
+                    </div>
+                </div>
+                <div id='summary' class='leaveSummary'>
+                    <?php GetLeaveSummary($_SESSION['userid']); ?>
+                </div>
+                <hr>
+                <div class='container submissionForm'>
+                    <div class='row' style='margin-bottom: 0.35rem;'>
+                        <?php GetLeaveType(); ?>
+                    </div>
+                    <div class='row' style='margin-bottom: 0.35rem;'>
+                        <div class='col-2 d-flex align-items-center'>
+                            <label><b>DATE : </b></label>
+                        </div>
+                        <div class='col-10 d-flex align-items-center'>
+                            <div class='col-lg-5 form-group-date d-flex align-items-center'>
+
+                            <?php if (!isset($_POST['submit-leave'])) { ?>
+
+                                    <p class='m-0'>FROM:&nbsp;</p>
+                                    <input type='date' id='dateFrom' name='dateFrom' class='form-control' placeholder="<?= date('Y-m-d'); ?>" value="<?= date('Y-m-d'); ?>" onkeydown="return false">
+                                </div>
+                                <div class='col-lg-5 form-group-date d-flex align-items-center'>
+                                    <p class='m-0'>TO:&nbsp;</p>
+                                    <input type='date' id='dateTo' name='dateTo' class='form-control' placeholder="<?= date('Y-m-d'); ?>" value="<?= date('Y-m-d'); ?>" onkeydown="return false"><p class='my-auto'></p>
+
+                            <?php } else if (!isset($leaveDates[1])) { ?>
+
+                                    <p class='m-0'>FROM:&nbsp;</p>
+                                    <input type='text' id='dateFrom' name='dateFrom' class='form-control' placeholder="<?= $leaveDates[0]; ?>" value="<?= $leaveDates[0]; ?>" onkeydown="return false">
+                                </div>
+                                <div class='col-lg-5 form-group-date d-flex align-items-center'>
+                                    <p class='m-0'>TO:&nbsp;</p>
+                                    <input type='text' id='dateTo' name='dateTo' class='form-control' placeholder="<?= $leaveDates[0]; ?>" value="<?= $leaveDates[0]; ?>" onkeydown="return false"><p class='my-auto'></p>
+                            
+                            <?php } else { ?>
+
+                                    <p class='m-0'>FROM:&nbsp;</p>
+                                    <input type='text' id='dateFrom' name='dateFrom' class='form-control' placeholder="<?= $leaveDates[0]; ?>" value="<?= $leaveDates[0]; ?>" onkeydown="return false">
+                                </div>
+                                <div class='col-lg-5 form-group-date d-flex align-items-center'>
+                                    <p class='m-0'>TO:&nbsp;</p>
+                                    <input type='text' id='dateTo' name='dateTo' class='form-control' placeholder="<?= $leaveDates[1]; ?>" value="<?= $leaveDates[1]; ?>" onkeydown="return false"><p class='my-auto'></p>
+                                    
+
+                            <?php } ?>
+                            </div>
+                            <div class='col-lg-2 form-group-date d-flex align-items-center'>
+                                <p class='m-0'>HALF-DAY:&nbsp;</p>
+                                <input type='checkbox' id='half-day'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row' style='margin-bottom: 0.35rem;'>
+                        <div class='col-2 d-flex align-items-center'>
+                            <label for='leaveDesc'><b>DESCRIPTION : </b></label>
+                        </div>
+                        <div class='col-10 d-flex align-items-center'>
+                            <textarea id='leaveDesc' name='leaveDesc' class='form-control' style='min-height:200px;'></textarea>
+                        </div>
+                    </div>
+                    <div class='d-flex justify-content-end'>
+                        <input type='button' class='btn btn-primary w-25' value='SUBMIT' onclick='javascript:fileLeave()'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='../js/datepicker_standard_change.js'></script>
+<script type='text/javascript'>
+    function fileLeave()
+    {
+        var url = "../controller/leaveApplicationProcess.php";
+        var lType = $('#leaveType').val();
+        var lDesc = $('#leaveDesc').val();
+        var dtFrom = $("#dateFrom").val();
+        var dtTo = $('#dateTo').val();
+        var ch = ($("#half-day").is(":checked") ? '1' : '0');
+ 
+        if (lDesc != '')
+        {
+            $('#contents').html('');
+
+            $.post (
+                url,
+                {
+                    empCode: '<?= $empID ?>',
+                    empName: '<?= $empName ?>',
+                    leaveType: lType,
+                    dateFrom: dtFrom,
+                    dateTo: dtTo,
+                    leaveDesc: lDesc,
+                    _ch: ch
+                },
+                function(data) { $("#contents").html(data).show(); }
+            );
+        }
+        else { alert('No fields should be left blank before filing a leave!'); }
+    }
+</script>
+<script type='text/javascript'>
+    function ShowHistory()
+    {
+        $('#history').css('display', 'block');
+        $('#summary').css('display', 'none')
+    }
+</script>
+<script type='text/javascript'>
+    function ShowSummary()
+    {
+        $('#history').css('display', 'none');
+        $('#summary').css('display', 'block')
+    }
+</script>
+
+<?php include('../_footer.php'); } ?>

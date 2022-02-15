@@ -1,0 +1,114 @@
+<?php
+    session_start();
+
+    if (empty($_SESSION['userid']))
+    {
+        echo '<script type="text/javascript">alert("Please login first!!");</script>';
+        header( "refresh:1;url=../index.php" );
+    }
+    else
+    {
+        include('../_header.php');
+        include('../controller/dtr.php');
+?>
+<div class='container dtrContainer'>
+    <div class='d-flex my-2'>
+        <h3 class='subtitle'><u>Attendance Monitoring</u></h3>
+    </div>
+    <div class='d-flex mb-2 filter'>
+        <div class='col-md-6 px-1'>
+            <div class='d-flex'>
+                <div class='col-6 d-flex align-items-center form-group-date'>
+                    <p class='m-0 text-res'>FROM:&nbsp;</p><input type='date' id='dateFrom' class='form-control' name='dateFrom' value="<?= date('Y-m-d') ?>" onkeydown="return false">
+                </div>
+                <div class='col-6 d-flex align-items-center form-group-date'>
+                    <p class='m-0 text-res'>TO:&nbsp;</p><input type='date' id='dateTo' class='form-control' name='dateTo' value="<?= date('Y-m-d') ?>" onkeydown="return false">
+                </div>
+            </div>
+        </div>
+        <div class='col-md-6 px-1 dtrButtonContainer'>
+            <input type="submit" class="btn btn-primary" style='width:14%' value="Search" onmousedown="javascript:filterAtt()">
+
+            <?php
+                if ($empType == "Admin" || $empType == "Manager")
+                {
+                    echo "&nbsp; <input type='submit' class='btn btn-primary my-auto' style='width:14%;' value='Search All' onmousedown='javascript:showAllAtt()'>";
+                }
+                // else if ($empType == "Manager")
+                // {
+                //     echo "<input type='submit' class='btn btn-primary' style='width:14%; height:2.35rem' value='Search All' onmousedown='javascript:showSomeAtt()'> &nbsp; &nbsp;";
+                // }
+            ?>
+
+        </div>
+    </div>
+    <div id='contents' class='px-3'></div>
+</div>
+
+<script type='text/javascript' src='../js/datepicker_standard_change.js'></script>
+<?php
+    if ($empType == "Admin" || $empType == "Manager")
+    {
+        echo "<script type='text/javascript' src='../js/tableFilter.js'></script>";
+    }
+?>
+<script type='text/javascript'>
+    function filterAtt()
+    {
+        $("body").css("cursor", "progress");
+        var url = "../controller/dtrProcess.php";
+
+        $('#contents').html('');
+
+        $.post (
+            url,
+            {
+                attChoice: 1,
+                empId: '<?= $empID; ?>',
+                dateFrom: $('#dateFrom').attr('value'),
+                dateTo: $('#dateTo').attr('value')
+            },
+            function(data) { $("#contents").html(data).show(); }
+        );
+    }
+</script>
+<script type='text/javascript'>
+    function showAllAtt()
+    {
+        $("body").css("cursor", "progress");
+        var url = "../controller/dtrProcess.php";
+
+        $('#contents').html('');
+
+        $.post (
+            url,
+            {
+                attChoice: 2,
+                dateFrom: $('#dateFrom').attr('value'),
+                dateTo: $('#dateTo').attr('value')
+            },
+            function(data) { $("#contents").html(data).show(); }
+        );
+    }
+</script>
+<script type='text/javascript'>
+    function showSomeAtt()
+    {
+        var url = "../controller/dtrProcess.php";
+
+        $('#contents').html('');
+
+        $.post (
+            url,
+            {
+                attChoice: 3,
+                dateFrom: $('#dateFrom').attr('value'),
+                dateTo: $('#dateTo').attr('value'),
+                reportingTo: '<?= $empName ?>'
+            },
+            function(data) { $("#contents").html(data).show(); }
+        );
+    }
+</script>
+
+<?php include('../_footer.php'); } ?>

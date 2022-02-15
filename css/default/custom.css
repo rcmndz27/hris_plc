@@ -1,0 +1,56 @@
+caption > button{
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    
+}
+
+caption > button:hover{
+    color: #fff;
+    background-color: #0069d9;
+    border: 1px solid #0062cc;
+}
+
+td:last-child button {
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .500em;
+}
+
+
+.btnView:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border: 1px solid #0062cc;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+
+.btnApprove:hover {
+    color: #fff;
+    background-color: #3a9e3f;
+    border: 1px solid #3a9e3f;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+.btnReject:hover {
+    color: #fff;
+    background-color: #9e413a;
+    border: 1px solid #9e413a;
+    border-radius: .25rem;
+    width: 3.125em;
+    padding: .188em .625em;
+}
+
+.modal-content{
+    color: #000;
+}

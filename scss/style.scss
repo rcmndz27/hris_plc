@@ -1,0 +1,1588 @@
+@import '_variables';
+@import '_mixins';
+
+// CUSTOM
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// RESET - ELEMENTS
+
+html, body {
+    height: 100%;
+}
+body {
+    background-color: $white;
+}
+table {
+    text-align: center;
+    overflow-y: auto;
+    height: 100px;
+    font-size: 0.8rem;
+
+    tr:first-child {
+        background-color: $black;
+        color: $white;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background-color: $black;
+    }
+    tbody {
+        height: 50px;
+        overflow: scroll;
+    }
+    thead {
+        font-weight: 700;
+        background-color: $black;
+        color: $white;
+    }
+    td
+    {
+        text-decoration: none;
+    }
+}
+ul {
+    list-style: none;
+}
+a {
+    @include xbTransition(0.1s all ease);
+}
+input[type=date] {
+    padding: 0;
+}
+input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+input[type=file]
+{
+    &::-webkit-file-upload-button
+    {
+        visibility: hidden;
+    }
+    &::before
+    {
+        content: 'UPLOAD';
+        display: inline-block;
+        border-radius: 3px;
+        padding: 5px 8px;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        cursor: pointer;
+        font-size: 10pt;
+        border: 0;
+    }
+}
+
+// RESET - CLASSES
+
+.navbar {
+    padding: 0.5rem 0.9rem;
+}
+.container {
+    max-width: unset;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+.button {
+    border: none;
+    font-weight: 700;
+    @include xbTransition(1s all ease);
+}
+.button:hover {
+    text-decoration: underline;
+}
+.btnApprove, .btnReject {
+    border: none;
+    border-radius: 5px;
+    padding: 0.2rem 1.4rem;
+    @include xbTransition(0.5s all ease);
+}
+.btnReject {
+    background-color: $disabled-color;
+    color: $black;
+}
+.btnApprove {
+    background-color: $black;
+    color: $disabled-color;
+}
+.btnApprove:hover {
+    background-color: $green;
+    color: $disabled-color;
+}
+.btnReject:hover {
+    background-color: $red;
+    color: $disabled-color;
+}
+.btn-link {
+    text-decoration: underline;
+}
+.btn-link:hover {
+    color: $link-color;
+}
+.tableBtn {
+    color: $blue-dark;
+    border: none;
+    background-color: transparent;
+    font-weight: 700;
+    text-decoration: underline;
+}
+.tableBtn:hover {
+    color: $red;
+}
+.form-group-date {
+    input[type="date"] {
+        text-align: center;
+        //width: 30%;
+    }
+    input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+        display: none;
+    }
+}
+.label-flat {
+    margin-bottom: 0 !important;
+}
+
+// NAVBAR
+
+.navsContainer
+{
+    position: fixed;
+    z-index: 999;
+
+    .navbar {
+        #empOptionsText {
+            display: inline-block;
+        }
+        #empOptionsImg {
+            display: none;
+            background-color: $white;
+            
+            img {
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+
+    .head_nav {
+        background-color: $primary-color;
+        border-bottom: 0.05rem solid $yellow;
+        color: $white;
+        @include xbTransition(1s all ease);
+        
+        .navbar-brand {
+            color: inherit;
+            font-weight: 700;
+            font-size: 2.1rem;
+            @include xbTransition(0.5s all ease);
+        }
+        .navbar-empInfo {
+            .dropdown {
+                .dropdown-menu {
+                    width: 20rem;
+
+                    a:hover {
+                        background-color: $disabled-color-emp;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// FOOTER
+
+#sticky-footer {
+    position: absolute;
+    bottom: 0;
+}
+
+// LOGIN
+
+.frmLogin {
+    input[type='text'], input[type='password'], input[type='email'] {
+        background: transparent;
+    }
+    #login {
+        max-width: 500px;
+        padding: 40px 30px;
+        background-color: $white;
+        border-radius: 5px;
+        @include xbBoxShadow((0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba($black,.07)));
+
+        .form-group {
+            & + .form-group {
+                margin-top: 30px;
+            }
+        }
+        .form-label {
+            position: absolute;
+            left: 0.9rem;
+            top: 10px;
+            color: $disabled-color;
+            background-color: $white;
+            z-index: 10;
+            font-weight: 700;
+            margin-left: 5px;
+            @include xbTransition((transform 150ms ease-out, font-size 150ms ease-out));
+        }
+        .focused .form-label {
+            font-size: .65em;
+            @include xbTransform(translateY(-125%));
+        }
+        .form-input {
+            position: relative;
+            padding: 12px 5px 5px 5px;
+            outline: 0;
+            border: 0;
+            box-shadow: 0 1px 0 0 $disabled-color;
+            @include xbTransition(box-shadow 150ms ease-out);
+            
+            &:focus {
+                @include xbBoxShadow(0 2px 0 0 $blue-dark);
+            }
+        }
+        .form-input.filled {
+            @include xbBoxShadow(0 2px 0 0 $green-light);
+        }
+    }
+    .title-container {
+        width: 100%;
+        text-align: center;
+
+        .title {
+            color:#365D98;
+            margin: 20px auto;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: auto;
+            background: $gray url('../img/logo.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    }
+    .button {
+        border-radius: 20px;
+        padding: 15px;
+        width: 200px;
+    }
+    .errorMsg {
+        min-height: 15px;
+        padding: 2px;
+        color: $red;
+        margin: 0 0 10px 0;
+    }
+    .forgetlink {
+        color: $link-color;
+        text-decoration: underline;
+    }
+    .forgetlink:hover {
+        color: $red
+    }
+}
+.homeContainer, .travelorderContainer, .travelapprovalContainer, .leaveapplicationContainer, .leaveapprovalContainer, .otapplicationContainer, .otapprovalContainer, .otApprovalReportContainer, .dtrContainer, .payslipContainer, .profileSettingsContainer, .payrollApprovalContainer
+{
+    padding-top: 7.5rem;
+    height: 96.6%;
+}
+.homeContainer {
+    .profile-container {
+        background-color: #fafbdf;
+
+        .profile-pic {
+            border: 1px solid $black;
+        }
+    }
+}
+#main-menu {
+    background-color: #352929;
+    
+    a {
+        font-size: 1.15em;
+        color: $white;
+        margin-right: 32px;
+    }
+    a:hover {
+        color: $link-color;
+    }
+}
+
+// Page Settings - Home Module - Datepicker
+
+.datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade-, .-disabled-.-focus-.datepicker--cell-day.-other-month-, .-disabled-.-focus-.datepicker--cell-year.-other-decade-, .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover, .datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade-, .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover, .-disabled-.-focus-.datepicker--cell-day.-other-month-, .-disabled-.-focus-.datepicker--cell-year.-other-decade- {
+    color: $disabled-color;
+}
+.-selected-.datepicker--cell-day.-other-month-, .-selected-.datepicker--cell-year.-other-decade- {
+    color: $white;
+    background: $link-color;
+}
+.-selected-.-focus-.datepicker--cell-day.-other-month-, .-selected-.-focus-.datepicker--cell-year.-other-decade- {
+    background: $link-color;
+}
+.-in-range-.datepicker--cell-day.-other-month-, .-in-range-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.1);
+    color: $disabled-color;
+}
+.-in-range-.-focus-.datepicker--cell-day.-other-month-, .-in-range-.-focus-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell-day.-other-month-:empty, .datepicker--cell-year.-other-decade-:empty {
+    background: none;
+    border: none;
+}
+.datepicker--cells {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(flex-wrap, wrap);
+}
+.datepicker--cell {
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 32px;
+    z-index: 1;
+    @include xbDisplay(flex);
+    @include xbDisplayContent(justify-content, center);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-align, center);
+    @include xbDisplayContent(flex-pack, center);
+}
+.datepicker--cell.-focus- {
+    background: $disabled-color;
+}
+.datepicker--cell.-current-, .datepicker--cell.-current-.-in-range- {
+    color: $link-color;
+}
+.datepicker--cell.-current-.-focus- {
+    color: $disabled-color-emp;
+}
+.datepicker--cell.-in-range- {
+    background: rgba($black, 0.1);
+    color: $disabled-color-emp;
+    border-radius: 0;
+}
+.datepicker--cell.-in-range-.-focus- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell.-disabled-, .datepicker--cell.-disabled-.-focus-, .datepicker--cell.-disabled-.-in-range-, .datepicker--cell.-disabled-.-current-.-focus-, .datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade-, .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover {
+    color: $disabled-color;
+}
+.datepicker--cell.-range-from-, .datepicker--cell.-range-to- {
+    border: 1px solid rgba($black, 0.5);
+    background-color: rgba($black, 0.1);
+    border-radius: 0 4px 4px 0;
+}
+.datepicker--cell.-range-from-.-range-to- {
+    border-radius: 4px;
+}
+.datepicker--cell.-selected- {
+    color: $white;
+    border: none;
+    background: $link-color;
+}
+.datepicker--cell.-selected-.-current- {
+    color: $white;
+    background: $link-color;
+}
+.datepicker--cell.-selected-.-focus-, .-selected-.-focus-.datepicker--cell-day.-other-month-, .-selected-.-focus-.datepicker--cell-year.-other-decade- {
+    background: $link-color;
+}
+.datepicker--cell:empty { 
+    cursor: default;
+}
+.datepicker--days-names {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(flex-wrap, wrap);
+    margin: 8px 0 3px;
+}
+.datepicker--day-name {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(justify-content, center);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-align, center);
+    @include xbDisplayContent(flex-pack, center);
+    @include xbDisplayContent(flex, 1);
+    color: #FF9A19;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: .8em;
+}
+.datepicker--cell-day {
+    width: 14.28571%;
+}
+.datepicker--cells-months, .datepicker--years, .datepicker--cells-years {
+    height: 170px;
+}
+.datepicker--cell-month, .datepicker--cell-year {
+    width: 25%;
+    height: 33.33%;
+}
+.-selected-.datepicker--cell-day.-other-month-, .-selected-.datepicker--cell-year.-other-decade- {
+    color: $white;
+    background: $blue-sky;
+}
+.-in-range-.datepicker--cell-day.-other-month-, .-in-range-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.1);
+    color: $disabled-color;
+}
+.-in-range-.-focus-.datepicker--cell-day.-other-month-, .-in-range-.-focus-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell-day.-other-month-:empty, .datepicker--cell-year.-other-decade-:empty {
+    background: none;
+    border: none;
+}
+.datepickers-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+@media print {
+    .datepickers-container {
+        display: none;
+    }
+}
+.datepicker {
+    background: $white;
+    border: 1px solid $disabled-color;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-sizing: content-box;
+    font-family: Tahoma, sans-serif;
+    font-size: 14px;
+    color: $disabled-color-emp;
+    width: 100%;
+    position: absolute;
+    left: -100000px;
+    opacity: 0;
+    z-index: 100;
+    @include xbTransition((opacity 0.3s ease, transform 0.3s ease, left 0s 0.3s));
+}
+.datepicker.-from-top- {
+    @include xbTransform(translateY(-8px));
+}
+.datepicker.-from-right- {
+    @include xbTransform(translateX(8px));
+}
+.datepicker.-from-bottom- {
+    @include xbTransform(translateY(8px));
+}
+.datepicker.-from-left- {
+    @include xbTransform(translateX(-8px));
+}
+.datepicker.active {
+    opacity: 1;
+    @include xbTransform(translate(0));
+    @include xbTransition((opacity 0.3s ease, transform 0.3s ease, left 0s 0s));
+}
+.datepicker-inline .datepicker {
+    border-color: $disabled-color;
+    box-shadow: none;
+    position: static;
+    left: auto;
+    right: auto;
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+.datepicker-inline .datepicker--pointer, .-only-timepicker- .datepicker--content, .datepicker--body, .-only-timepicker- .datepicker--nav  {
+    display: none;
+}
+.datepicker--content {
+    box-sizing: content-box;
+    padding: 4px;
+}
+.datepicker--pointer {
+    position: absolute;
+    background: $white;
+    border-top: 1px solid $disabled-color;
+    border-right: 1px solid $disabled-color;
+    width: 10px;
+    height: 10px;
+    z-index: -1;
+}
+.-top-left- .datepicker--pointer, .-top-center- .datepicker--pointer, .-top-right- .datepicker--pointer {
+    @include xbCalc(top, "100% - 4px");
+    @include xbTransform(rotate(135deg));
+}
+.-right-top- .datepicker--pointer, .-right-center- .datepicker--pointer, .-right-bottom- .datepicker--pointer {
+    @include xbCalc(right, "100% - 4px");
+    @include xbTransform(rotate(225deg));
+}
+.-bottom-left- .datepicker--pointer, .-bottom-center- .datepicker--pointer, .-bottom-right- .datepicker--pointer {
+    @include xbCalc(bottom, "100% - 4px");
+    @include xbTransform(rotate(315deg));
+}
+.-left-top- .datepicker--pointer, .-left-center- .datepicker--pointer, .-left-bottom- .datepicker--pointer {
+    @include xbCalc(left, "100% - 4px");
+    @include xbTransform(rotate(45deg));
+}
+.-top-left- .datepicker--pointer, .-bottom-left- .datepicker--pointer {
+    left: 10px;
+}
+.-top-right- .datepicker--pointer, .-bottom-right- .datepicker--pointer {
+    right: 10px;
+}
+.-top-center- .datepicker--pointer, .-bottom-center- .datepicker--pointer {
+    @include xbCalc(left, "50% - 10px / 2");
+}
+.-left-top- .datepicker--pointer, .-right-top- .datepicker--pointer {
+    top: 10px;
+}
+.-left-bottom- .datepicker--pointer, .-right-bottom- .datepicker--pointer {
+    bottom: 10px;
+}
+.-left-center- .datepicker--pointer, .-right-center- .datepicker--pointer {
+    @include xbCalc(top, "50% - 10px / 2");
+}
+.datepicker--body.active {
+    display: block;
+}
+.-disabled-.-focus-.datepicker--cell-day.-other-month-, .-disabled-.-focus-.datepicker--cell-year.-other-decade- {
+    color: $disabled-color;
+}
+.-selected-.datepicker--cell-day.-other-month-, .-selected-.datepicker--cell-year.-other-decade- {
+    color: $white;
+    background: $blue-sky;
+}
+.-selected-.-focus-.datepicker--cell-day.-other-month-, .-selected-.-focus-.datepicker--cell-year.-other-decade- {
+    background: $link-color;
+}
+.-in-range-.datepicker--cell-day.-other-month-, .-in-range-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.1);
+    color: $disabled-color;
+}
+.-in-range-.-focus-.datepicker--cell-day.-other-month-, .-in-range-.-focus-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell-day.-other-month-:empty, .datepicker--cell-year.-other-decade-:empty {
+    background: none;
+    border: none;
+}
+.datepicker--nav {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(justify-content, space-between);
+    @include xbDisplayContent(flex-pack, justify);
+    border-bottom: 1px solid $white;
+    min-height: 32px;
+    padding: 4px;
+}
+.datepicker--nav-title, .datepicker--nav-action {
+    cursor: pointer;
+    @include xbDisplay(flex);
+    @include xbDisplayContent(flex-align, center);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(justify-content, center);
+    @include xbDisplayContent(flex-pack, center);
+}
+.datepicker--nav-action {
+    @include xbDisplayContent(user-select, none);
+    width: 32px;
+    border-radius: 4px;
+}
+.datepicker--nav-action:hover {
+    background: $white;
+}
+.datepicker--nav-action.-disabled- {
+    visibility: hidden;
+}
+.datepicker--nav-action svg {
+    width: 32px;
+    height: 32px;
+}
+.datepicker--nav-action path {
+    fill: none;
+    stroke: $disabled-color;
+    stroke-width: 2px;
+}
+.datepicker--nav-title {
+  border-radius: 4px;
+  padding: 0 8px;
+}
+.datepicker--nav-title i {
+    font-style: normal;
+    color: $disabled-color;
+    margin-left: 5px;
+}
+.datepicker--nav-title:hover {
+    background: $white;
+}
+.datepicker--nav-title.-disabled- {
+    cursor: default;
+    background: none;
+}
+.datepicker--buttons {
+    @include xbDisplay(flex);
+    padding: 4px;
+    border-top: 1px solid $white;
+}
+.datepicker--button {
+    cursor: pointer;
+    color: $link-color;
+    border-radius: 4px;
+    height: 32px;
+    @include xbDisplay(inline-flex);
+    @include xbDisplayContent(flex, 1);
+    @include xbDisplayContent(justify-content, center);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-pack, center);
+    @include xbDisplayContent(flex-align, center);
+}
+.datepicker--button:hover {
+    color: $disabled-color;
+    background: $white;
+}
+.datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade-, .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover, .-disabled-.-focus-.datepicker--cell-day.-other-month-, .-disabled-.-focus-.datepicker--cell-year.-other-decade- {
+    color: $disabled-color;
+}
+.-selected-.datepicker--cell-day.-other-month-, .-selected-.datepicker--cell-year.-other-decade- {
+    color: $white;
+    background: $blue-sky;
+}
+.-selected-.-focus-.datepicker--cell-day.-other-month-, .-selected-.-focus-.datepicker--cell-year.-other-decade- {
+    background: $blue-sky;
+}
+.-in-range-.datepicker--cell-day.-other-month-, .-in-range-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.1);
+    color: $disabled-color;
+}
+.-in-range-.-focus-.datepicker--cell-day.-other-month-, .-in-range-.-focus-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell-day.-other-month-:empty, .datepicker--cell-year.-other-decade-:empty {
+    background: none;
+    border: none;
+}
+.datepicker--time {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-align, center);
+    border-top: 1px solid $disabled-color;
+    padding: 4px;
+    position: relative;
+}
+.datepicker--time.-am-pm- .datepicker--time-sliders {
+    @include xbDisplayContent(flex, (0 1 138px));
+    max-width: 138px;
+}
+.-only-timepicker- .datepicker--time {
+    border-top: none;
+}
+.datepicker--time-sliders {
+    @include xbDisplayContent(flex, (0 1 153px));
+    margin-right: 10px;
+    max-width: 153px;
+}
+.datepicker--time-label {
+    display: none;
+    font-size: 12px;
+}
+.datepicker--time-current {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-align, center);
+    @include xbDisplayContent(flex, 1);
+    font-size: 14px;
+    text-align: center;
+    margin: 0 0 0 10px;
+}
+.datepicker--time-current-colon {
+    margin: 0 2px 3px;
+    line-height: 1;
+}
+.datepicker--time-current-hours, .datepicker--time-current-minutes {
+    position: relative;
+    line-height: 1;
+    font: normal 19px "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    z-index: 1;
+}
+.datepicker--time-current-hours:after, .datepicker--time-current-minutes:after {
+    content: '';
+    background: $white;
+    border-radius: 4px;
+    position: absolute;
+    left: -2px;
+    top: -3px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    opacity: 0;
+}
+.datepicker--time-current-hours.-focus-:after, .datepicker--time-current-minutes.-focus-:after {
+    opacity: 1;
+}
+.datepicker--time-current-ampm {
+    @include xbDisplayContent(align-self, flex-end);
+    @include xbDisplayContent(flex-item-align, end);
+    text-transform: uppercase;
+    color: $disabled-color;
+    margin-left: 6px;
+    font-size: 11px;
+    margin-bottom: 1px;
+}
+.datepicker--time-row {
+    @include xbDisplay(flex);
+    @include xbDisplayContent(align-items, center);
+    @include xbDisplayContent(flex-align, center);
+    font-size: 11px;
+    height: 17px;
+    background: linear-gradient(to right, $disabled-color, $disabled-color) left 50%/100% 1px no-repeat;
+}
+.datepicker--time-row:first-child {
+    margin-bottom: 4px;
+}
+.datepicker--time-row input[type='range'] {
+    cursor: pointer;
+    @include xbDisplayContent(flex, 1);
+    @include xbDisplayContent(appearance, none);
+    background: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.datepicker--time-row input[type='range']::-webkit-slider-thumb {
+    @include xbDisplayContent(appearance, none);
+}
+.datepicker--time-row input[type='range']::-ms-tooltip {
+    display: none;
+}
+.datepicker--time-row input[type='range']:hover::-webkit-slider-thumb, .datepicker--time-row input[type='range']:hover::-moz-range-thumb, .datepicker--time-row input[type='range']:hover::-ms-thumb {
+    border-color: $disabled-color;
+}
+.datepicker--time-row input[type='range']:focus {
+    outline: none;
+}
+.datepicker--time-row input[type='range']:focus::-webkit-slider-thumb, .datepicker--time-row input[type='range']:focus::-moz-range-thumb, .datepicker--time-row input[type='range']:focus::-ms-thumb {
+    background: $link-color;
+    border-color: $link-color;
+}
+.datepicker--time-row input[type='range']::-webkit-slider-thumb, .datepicker--time-row input[type='range']::-moz-range-thumb, .datepicker--time-row input[type='range']::-ms-thumb {
+    cursor: pointer;
+    @include xbTransition(background-color .2s);
+    box-sizing: border-box;
+    height: 12px;
+    width: 12px;
+    border-radius: 3px;
+    border: 1px solid $disabled-color;
+    background: $white;
+}
+.datepicker--time-row input[type='range']::-webkit-slider-thumb {
+    margin-top: -6px;
+}
+.datepicker--time-row input[type='range']::-webkit-slider-runnable-track, .datepicker--time-row input[type='range']::-moz-range-track, .datepicker--time-row input[type='range']::-ms-track {
+    cursor: pointer;
+    border: none;
+    height: 1px;
+    color: transparent;
+    background: transparent;
+}
+.datepicker--time-row input[type='range']::-ms-fill-lower, .datepicker--time-row input[type='range']::-ms-fill-upper {
+    background: transparent;
+}
+.datepicker--time-row span {
+    padding: 0 12px;
+}
+.datepicker--time-icon {
+    color: $disabled-color;
+    border: 1px solid;
+    border-radius: 50%;
+    font-size: 16px;
+    position: relative;
+    margin: 0 5px -1px 0;
+    width: 1em;
+    height: 1em;
+}
+.datepicker--time-icon:after, .datepicker--time-icon:before {
+    content: '';
+    background: currentColor;
+    position: absolute;
+}
+.datepicker--time-icon:after {
+    @include xbCalc(top, "50% + 1px");
+    @include xbCalc(left, "50% - 1px");
+    @include xbTransform(translateY(-100%));
+    height: .4em;
+    width: 1px;
+}
+.datepicker--time-icon:before {
+    @include xbCalc(top, "50% + 1px");
+    @include xbCalc(left, "50% - 1px");
+    width: .4em;
+    height: 1px;
+}
+.datepicker--cell-day.-other-month-, .datepicker--cell-year.-other-decade-, .datepicker--cell-day.-other-month-:hover, .datepicker--cell-year.-other-decade-:hover, .-disabled-.-focus-.datepicker--cell-day.-other-month-, .-disabled-.-focus-.datepicker--cell-year.-other-decade- {
+    color: $disabled-color;
+}
+.-selected-.datepicker--cell-day.-other-month-, .-selected-.datepicker--cell-year.-other-decade- {
+    color: $white;
+    background: $blue-sky;
+}
+.-selected-.-focus-.datepicker--cell-day.-other-month-, .-selected-.-focus-.datepicker--cell-year.-other-decade- {
+    background: $link-color;
+}
+.-in-range-.datepicker--cell-day.-other-month-, .-in-range-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.1);
+    color: $disabled-color;
+}
+.-in-range-.-focus-.datepicker--cell-day.-other-month-, .-in-range-.-focus-.datepicker--cell-year.-other-decade- {
+    background-color: rgba($black, 0.2);
+}
+.datepicker--cell-day.-other-month-:empty, .datepicker--cell-year.-other-decade-:empty {
+    background: none;
+    border: none;
+}
+
+// Page Settings - Attendance Monitoring
+
+.dtrContainer, .otApprovalReportContainer {
+    #contents {
+        height: 77.1%;
+
+        #table-container {
+            max-height: 89.5%;
+            overflow-x: scroll;
+            overflow-y: scroll;
+        
+            &::-webkit-scrollbar
+            {
+                width: 2px;
+                background: $white;
+            }
+            &::-webkit-scrollbar-thumb
+            {
+                background: $primary;
+            }
+        }
+    }
+}
+
+.otapprovalContainer {
+    #contents {
+        height: 85.1%;
+
+        #table-container {
+            max-height: 95%;
+            overflow-x: scroll;
+            overflow-y: scroll;
+        
+            &::-webkit-scrollbar
+            {
+                width: 2px;
+                background: $white;
+            }
+            &::-webkit-scrollbar-thumb
+            {
+                background: $primary;
+            }
+        }
+    }
+}
+
+.dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+    overflow-y: scroll;
+
+    .text-res {
+        min-width: 30px;
+    }
+    input[type=submit] {
+        min-width: 100px;
+        max-width: 180px;
+    }
+    .filter {
+        margin: 1rem auto;
+    }
+    .static {
+        .date-group {
+            padding: 10px 20px;
+
+            label {
+                font-size: 1.2rem;
+            }
+        }
+        .button {
+            border-radius: 5px;
+            padding: 5px 15px;
+            width: 100px;
+        }
+    }
+    #contents {
+
+        #table-container {
+
+            table {
+                .btn-toolbar button {
+                    @include xbTransition(0.5s all ease);
+                    color: rgba($blue, 0.808);
+                }
+                .btn-toolbar button:hover {
+                    color: $red;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+// Page Settings - Loan Ledger
+
+.loanledgerContainer {
+    #loanSummmary, #contents {
+        height:80%;
+        max-height: 94%;
+        overflow-x: scroll;
+        overflow-y: scroll;
+    }
+    .contentsContainer {
+        margin: 0.5rem 0;
+    }
+}
+
+// Page Settings - Travel Order
+
+.travelorderContainer, .leaveapplicationContainer, .otapplicationContainer {
+    .pic-background {
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 0 !important;
+
+        .overlay {
+            width:100%;
+            height:100%;
+            padding: 2rem;
+            background: rgba($black, 0.45);
+            color: $white;
+        }
+    }
+    .form-container {
+        label {
+            font-size: 1rem;
+        }
+    }
+    #history {
+        table {
+            text-align: center;
+            overflow-y: auto;
+            height: 50px !important;
+
+            th {
+                position: sticky;
+                top: 0;
+                background-color: $black;
+            }
+            tbody {
+                height: 50px;
+                overflow: scroll;
+            }
+            thead {
+                font-weight: 700;
+                background-color: $black;
+                color: $white;
+            }
+        }
+    }
+    #summary, #history {
+        padding: 1rem;
+    }
+    .submissionForm {
+        padding: 1rem 0;
+    }
+    .submissionForm {
+        .row {
+            margin-left: 0 !important;
+            margin-left: 0 !important;
+        }
+        .form-group-date {
+            padding-left: 0;
+        }
+        label {
+            margin-bottom: 0 !important;
+        }
+        input[type=button] {
+            margin-right: 15px;
+        }
+    }
+}
+
+.otapplicationContainer
+{
+    #contents
+    {
+        .datelist
+        {
+            label, input
+            {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+
+// Page Settings - Tavel Approval / Leave Approval
+
+.leaveapprovalContainer, .travelapprovalContainer {
+    #contents {
+        margin: 0.5rem 0;
+    }
+}
+
+// Page Settings - Payslip Viewing
+
+.payslipContainer {
+    #contents, .cutoffsContainer {
+        height: 85%;
+        max-height: 94%;
+        overflow-y: scroll;
+        
+        &::-webkit-scrollbar
+        {
+            width: 2px;
+            background: $white;
+        }
+        &::-webkit-scrollbar-thumb
+        {
+            background: $primary;
+        }
+    }
+    .cutoffsContainer {
+        ul {
+            padding-left: 1rem !important;
+        }
+    }
+    #contents {
+        overflow-x: scroll;
+    }
+}
+
+.payrollApprovalContainer
+{
+    #contents
+    {
+        height: 83%;
+
+        .table-container {
+            max-height: 89.5%;
+            overflow-x: scroll;
+            overflow-y: scroll;
+        
+            &::-webkit-scrollbar
+            {
+                width: 2px;
+                background: $white;
+            }
+            &::-webkit-scrollbar-thumb
+            {
+                background: $primary;
+            }
+        }
+    }
+}
+
+// Page Settings - Account Settings
+
+.profileSettingsContainer {
+    #contents {
+        height: 90%;
+        max-height: 94%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        
+        #settingsOption {
+            border-right: 1px solid $black;
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+        #contents-info {
+            .editbar {
+                //width: 95.09%;
+                width: 100%;
+                height: 50px;
+                position: absolute;
+                top: 0;
+                z-index: 100;
+                background-color: $white;
+                border-bottom: 1px solid $black;
+                padding: 0 2.3rem 0 0.5rem;
+
+                .errMessage {
+                    margin-right: auto;
+                    color: $red;
+                    font-weight: 700;
+                    font-size: 0.9rem;
+                }
+            }
+            .content-block-info {
+                //margin-top: 33px;
+                padding-left: 0;
+                padding-right: 6px;
+            }
+            .contents-info-basicdetails, .contents-info-familydetails, .contents-info-educdetails, .contents-info-accdetails {
+                //width: 97.15%;
+                height: 100%;
+                max-height: 95%;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                //margin-right: 1.1rem;
+                margin-top: 30px;
+
+                .profileSettings-SubtitleContainer {
+                    background: linear-gradient(transparent, $disabled-color, transparent);
+
+                    .profileSettings-Subtitle {
+                        color: $blue-dark;
+                    }
+                }
+                .labelHead, .labelInfo {
+                    font-size: 0.8rem;
+                }
+                .row {
+                    margin: 0.3rem 0;
+                }
+                ul {
+                    margin-bottom: 0;
+                    padding-left: 2rem;
+
+                    li {
+                        margin: 0.15rem 0;
+                    }
+                }
+                input:not([type="submit"]) {
+                    height: auto !important;
+                    border: none;
+                    border-radius: 0;
+                    background-image: none;
+                    background-color: transparent;
+                    @include xbBoxShadow(none);
+                }
+                input.edit {
+                    background-color: $white;
+                    padding-left: 0.3rem;
+                    padding-right: 0.3rem;
+                }
+            }
+        }
+    }
+}
+
+// BREAKPOINTS
+
+@media screen and (max-width: 1551px) {
+    .leaveapplicationContainer, .travelorderContainer {
+        .form-group {
+            margin-bottom: 0 !important;
+
+            legend {
+                font-size: 0.8rem !important;
+            }
+            ul {
+                li {
+                    font-size: 0.75rem !important;
+                }
+            }
+        }
+        .submissionForm {
+            font-size: 0.75rem !important;
+
+            label, p, input, select, textarea {
+                font-size: 0.6rem !important;
+            }
+            textarea {
+                height: 100px !important;
+                min-height: 100px !important;
+            }
+            button {
+                height: 2rem !important;
+                font-size: 0.7rem !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1355px) {
+    #login {
+        .title {
+            font-size: 1.3rem !important;
+        }
+        .form-input {
+            padding: 10px 5px 5px 5px !important; 
+        }
+    }
+    .navbar-empInfo {
+        .navbar-nav {
+            .dropdown-menu {
+                width: 15rem !important;
+
+                .dropdown-item {
+                    font-size: 0.6rem !important;
+                }
+            }
+        }
+    }
+    .table {
+        font-size: 0.75rem !important;
+    }
+    .datepicker {
+        .datepicker--nav {
+            padding: 0.8px !important;
+        }
+        .datepicker--cell, .datepicker--cell-day, .datepicker--nav-title, .datepicker--time-current {
+            font-size: 0.7rem !important;
+        }
+        .datepicker--time, .-am-pm- {
+            padding: 0.3px 2px !important;
+            .datepicker--time-current {
+                font-size: 0.6rem !important;
+            }
+        }
+    }
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+    #empOptions {
+        font-size: 0.7rem !important;
+    }
+    #main-menu {
+        a {
+            font-size: 0.6rem !important;
+        }
+    }
+    .profile-container {
+        padding-top: 1rem !important;
+        padding-bottom: 0 !important;
+        font-size: 0.8rem !important;
+
+        ul {
+            margin-bottom: 0 !important;
+        }
+        .profile-pic {
+            height:100px !important;
+            width: 100px !important;
+        }
+        label {
+            font-size: 0.6rem !important;
+        }
+        .col-sm-4 {
+            padding-left: 1rem !important;
+        }
+    }
+    #sticky-footer {
+        small {
+            font-size: 40% !important;
+        }
+    }
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        height: 85.8% !important;
+    }
+    .profileSettingsContainer {
+        #contents {
+            margin: 1.2rem !important;
+
+            #settingsOption {
+                button {
+                    font-size: 0.7rem !important;
+                }
+            }
+            #contents-info {
+                .editbar {
+                    height: 35px !important;
+
+                    button {
+                        font-size: 0.5rem !important;
+                    }
+                }
+                .contents-info-basicdetails, .contents-info-familydetails, .contents-info-educdetails, .contents-info-accdetails {
+                    .labelHead, .labelInfo {
+                        font-size: 0.55rem !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    #login {
+        .title {
+            font-size: 1.1rem !important;    
+        }
+        .form-input {
+            padding: 8px 5px 5px 5px !important; 
+        }
+    }
+    input[type="date"] {
+        font-size: 0.5rem !important;
+    }
+    .profile-container {
+        font-size: 0.6rem !important;
+    }
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        input[type="submit"], input[type="text"] {
+            font-size: 0.5rem !important;
+        }
+        button {
+            height: 2rem !important;
+            font-size: 0.8rem !important;
+        }
+        .filter {
+            margin: 0.2rem auto !important;
+        }
+        .text-res {
+            font-size: 0.8rem !important;
+        }
+    }
+    .profileSettingsContainer {
+        #contents {
+            margin: 0.1rem !important;
+
+            #settingsOption {
+                button {
+                    font-size: 0.6rem !important;
+                }
+            }
+            .contents-info-basicdetails, .contents-info-familydetails, .contents-info-educdetails, .contents-info-accdetails {
+                .editbar {
+                    button {
+                        width: 50px !important;
+                    }
+                    .errMessage {
+                        font-size: 0.5rem !important;
+                    }
+                }
+                .labelHead, .labelInfo {
+                    font-size: 0.45rem !important;
+                }
+                ul {
+                    padding-left: 0.3rem !important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1010px) {
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        .text-res {
+            font-size: 0.6rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .navbar {
+        padding: .5rem 1.5rem !important;
+    }
+    #login {
+        max-width: 400px !important;
+
+        .title {
+            font-size: 0.9rem !important;
+        }
+        .form-label {
+            font-size: 0.55rem !important;
+        }
+        .form-input {
+            padding: 6px 5px 5px 5px !important;
+            font-size: 0.55rem !important;
+        }
+        input[type=submit] {
+            font-size: 0.6rem !important;
+        }
+        a {
+            font-size: 0.6rem !important;
+        }
+    }
+    .table {
+        font-size: 0.5rem !important;
+
+        .btnApprove, .btnReject {
+            padding: 0.2rem 0.9rem !important;
+        }
+    }
+    .subtitle {
+        font-size: 0.8rem !important;
+    }
+    .leaveapplicationContainer, .travelorderContainer, .otapplicationContainer {
+        #contents {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        .leaveSummary, .submissionForm {
+            padding: 0 !important;
+        }
+        #summary, #history {
+            padding: 1rem !important;
+        }
+        .submissionForm {
+            font-size: 0.6rem !important;
+            
+            input, select {
+                font-size: 0.5rem !important;
+            }
+        }
+    }
+    .profileSettingsContainer {
+        #contents {
+            #settingsOption {
+                border-right: 0 !important;
+                border-bottom: 1px solid $black !important;
+
+                button {
+                    font-size: 0.4rem !important;
+                }
+            }
+            #contents-info {
+                .editbar .errMessage {
+                    font-size: 0.35rem !important;
+                }
+                .content-block-info {
+                    ul li {
+                        margin-top: 0.05rem !important;
+                        margin-bottom: 0.05rem !important;
+                    }
+                    .labelHead, .labelInfo {
+                        font-size: 0.4rem !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 834px) {
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        #attTotals {
+            font-size: 0.5rem !important;
+        }
+        .table-container {
+            table {
+                .btn-toolbar button {
+                    font-size: 0.6rem !important;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .dtrContainer, .otapprovalContainer {
+        .filter {
+            font-size: 0.7rem !important;
+        }
+        .text-res {
+            font-size: 0.5rem !important;
+        }
+        #filterTable {
+            font-size: 0.8rem;
+            margin-bottom: 0.4% !important;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        .btnContainer {
+            margin: 0.2rem 0;
+        }
+    }
+}
+
+@media screen and (max-width: 743px) {
+    .travelorderContainer, .leaveapplicationContainer, .otapplicationContainer {
+        .submissionForm {
+            label, button, p {
+                font-size: 0.5rem !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 720px) {
+    table, .table {
+        font-size: 0.4rem !important;
+    }
+    input[type=date] {
+        font-size: 0.3rem !important;
+    }
+
+    // Page Settings - Home
+
+    .navbar {
+        #empOptionsText {
+            display: none !important;
+        }
+        #empOptionsImg {
+            display: inline-block !important;
+        }
+    }
+    .profile-container {
+        font-size: 0.5rem !important;
+    }
+    .datepicker {
+        .datepicker--cell, .datepicker--day-name, .datepicker--cell-day, .datepicker--time-current {
+            font-size: 0.5rem !important;
+        }
+    }
+
+    // Page Settings - Loan Ledger
+
+    .loanledgerContainer {
+        .contentsContainer {
+            margin: 0.5rem !important;
+        }
+    }
+
+    // Page Settings - Travel Order / Leave Application
+
+    .travelorderContainer, .leaveapplicationContainer, .otapplicationContainer {
+        .optionButtonContainer {
+            .optionButton {
+                font-size:  0.6rem !important;
+            }
+        }
+        .form-group {
+            legend, ul li {
+                font-size: 0.5rem !important;
+            }
+        }
+    }
+
+    // Page Settings - Leave Approval / Travel Approval
+
+    .leaveapprovalContainer, .travelapprovalContainer {
+        #contents {
+            height: 93% !important;
+            margin: 0.5rem !important;
+        }
+    }
+
+    // Page Settings - Attendance
+
+    .dtrContainer, .otapprovalContainer, .otApprovalReportContainer {
+        #filterTable {
+            font-size: 0.6rem !important;
+        }
+        .filter {
+            input[type=date], input[type=submit] {
+                font-size: 0.3rem !important;
+            }
+        }
+    }
+
+    // Page Settings - Profile Settings
+
+    .profileSettingsContainer {
+        #contents {
+            height: 95% !important;
+            max-height: 96% !important;
+        }
+    }
+}
