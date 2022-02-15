@@ -1,13 +1,13 @@
 <?php
 
-            $dbstringsL = "sqlsrv:Server=SYSDEV-RMENDOZA\SQL2019;Database=hrissys_test";
+            $dbstringsL = "sqlsrv:Server=203.177.143.61;Database=hrissys_test";
             $connL = new PDO($dbstringsL, "mgr", "mgr");
             $connL->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
 
             try
             {
-                $dbstrings = "sqlsrv:Server=SYSDEV-RMENDOZA\SQL2019;Database=hrissys_test";
+                $dbstrings = "sqlsrv:Server=203.177.143.61;Database=hrissys_test";
                 
                 $dbConnection = new PDO($dbstrings, "mgr", "mgr"); 
 
