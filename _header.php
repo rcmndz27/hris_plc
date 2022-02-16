@@ -102,7 +102,7 @@ else
     <!-- <script type="text/javascript" src='../js/script.js'></script> -->
   </head>
 <body>
-
+<div id = "myDiv" style="display:none;" class="loader"></div>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
@@ -451,7 +451,12 @@ else
   <br>
  <!-- <script src="../assets/js/main.js"></script> -->
 </body>
+
   <script type="text/javascript">
+
+         function show() {
+            document.getElementById("myDiv").style.display="block";
+        }
 
     var urpath = window.location.pathname;
     // swal($('#lv').val() + $('#ot').val() + $('#wfh').val());

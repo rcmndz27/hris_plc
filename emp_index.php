@@ -124,7 +124,7 @@ if (empty($_SESSION['userid'])) {
 }
 .cb-slideshow:after { 
     content: '';
-    background: transparent url(../images/pattern.png) repeat top left; 
+    /*background: transparent url(../images/pattern.png) repeat top left; */
 }
 
 .cb-slideshow li span { 
@@ -305,6 +305,18 @@ ul{
     color: #000000;
 }
 
+
+.loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(img/loader.gif) 50% 50% no-repeat rgb(249,249,249) ;
+            opacity: .8;
+            /*background-size:200px 120px;*/
+        }
   </style>
 
 
@@ -313,7 +325,8 @@ ul{
     
 </head>
 <body>
-
+<div id = "myDiv" style="display:none;" class="loader">
+    </div>
 <!-- Bg code added -->
 
 <div class="bgslide"> 
@@ -388,7 +401,7 @@ ul{
             </div>
             <div class="row" id="loginbutt">
                 <div class="col">
-                    <input type="submit" class="btn btn-info btn-block wb loginbg" name="loginSubmit" value="LOGIN">
+                    <input type="submit" class="btn btn-info btn-block wb loginbg" name="loginSubmit" value="LOGIN" onclick="show()">
                 </div>
             </div>
             <br>
@@ -401,7 +414,13 @@ ul{
             </div>
         </form>
     </div>
+<script type="text/javascript">
 
+         function show() {
+            document.getElementById("myDiv").style.display="block";
+        }
+
+</script>
 
 <?php
     }

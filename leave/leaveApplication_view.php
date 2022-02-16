@@ -221,7 +221,7 @@ table {
                         <?php 
                         $emp_type = $r['emp_type'];
                         $vl =  isset($rs['earned_vl']) ? $result['earned_vl'] : 0; 
-                    
+                     
                        echo'<div id="vacleavebal">
                                     <div class="form-row align-items-center mb-2">
                                        <div class="col-md-2 d-inline">

@@ -115,18 +115,6 @@ table {
 </div>
 <br><br>
 
-
-
-  
-    background-color: #ffaa00;
-    border-color: #ffaa00;
-    font-weight: bolder;
-    color: #fbec1e;
-    font-size: 18px;
-    border-radius: 1rem;
-    width: 100%;
-    
-
 <script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

@@ -70,21 +70,6 @@ function uploadFile() {
     }
 
 
-            $('#wfhdateto').change(function(){
-
-                if($('#wfhdateto').val() < $('#wfhdate').val()){
-
-                    alert('`WFH Date To` must be greater than `WFH Date From`');
-
-                    var input2 = document.getElementById('wfhdateto');
-                    input2.value = $('#wfhdate').val();
-                }else{
-                    // alert('Error');
-                }   
-
-
-            });
-
 $('#Submit').click(function(){
 
  

@@ -166,7 +166,7 @@
                                  <label class="control-label" for="users_id">User Password<span class="req">*</span>
                                  </label>
                                 <div class="input-group mb-3">
-                                  <input name="password" type="password"  class="form-control inputtext" id="pssword" nameplaceholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" />
+                                  <input name="pssword" type="password"  class="form-control inputtext" id="pssword" nameplaceholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" />
                                   <div class="input-group-append">
                                     <span class="input-group-text" onclick="password_show_hide();">
                                       <i class="fas fa-eye" id="cfdshow_eye"></i>
@@ -186,7 +186,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="stts">Status
                                             <span class="req">*</span></label>
-                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                        <select type="select" class="form-select" id="stats" name="stats" >
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
                                         </select>                                               
@@ -270,7 +270,7 @@ function myFunction() {
         return true;
     }
 
-      function editUsrModal(empcd,name,usrtyp,usrmail,stts){
+      function editUsrModal(empcd,name,usrrtyp,usrmail,stts){
 
    
         $('#updateUsrs').modal('toggle');
@@ -279,16 +279,15 @@ function myFunction() {
         hidful.value =  name;   
 
         var bnkt = document.getElementById('usrtyp');
-        bnkt.value =  usrtyp;  
+        bnkt.value =  usrrtyp;  
 
-        var at = document.getElementById('stts');
+        var at = document.getElementById('stats');
         at.value =  stts;  
 
         var ast = document.getElementById('usrid');
         ast.value =  empcd;  
 
                                 
-
 
     }
 
@@ -300,7 +299,7 @@ function myFunction() {
         var url = "../users/updateusers_process.php";
         var emp_code = document.getElementById("usrid").value;
         var userpassword = document.getElementById("pssword").value;
-        var status = $('#stts').children("option:selected").val();
+        var status = $('#stats').children("option:selected").val();
         var usertype = $('#usrtyp').children("option:selected").val();
 
 

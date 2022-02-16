@@ -88,7 +88,7 @@ label{
                 <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>">
             </div>
             <div class="col-md-1">
-                <button type="submit" id="search" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                <button type="submit" id="search" class="genpyrll" ><i class="fas fa-search-plus"></i> GENERATE
                 </button>
             </div>
         </div>

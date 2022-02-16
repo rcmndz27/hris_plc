@@ -1,10 +1,16 @@
 <?php 
 
-    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$reporting_to,$rowid)
+    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$rowid)
     {
             global $connL;
 
-            $cmd = $connL->prepare("UPDATE dbo.employee_profile SET department = :department,position = :position,location = :location,emp_type = :emp_type,ranking = :emp_level,work_sched_type = :work_sched_type,minimum_wage = :minimum_wage,pay_type = :pay_type,reporting_to = :reporting_to  where emp_code = :rowid ");
+            $cmd = $connL->prepare("UPDATE dbo.employee_profile SET lastname = :lastname,firstname = :firstname,middlename = :middlename,emailaddress = :emailaddress,telno = :telno,celno = :celno,department = :department,position = :position,location = :location,emp_type = :emp_type,ranking = :emp_level,work_sched_type = :work_sched_type,minimum_wage = :minimum_wage,pay_type = :pay_type,reporting_to = :reporting_to  where emp_code = :rowid ");
+            $cmd->bindValue('lastname',$lastname);
+            $cmd->bindValue('firstname',$firstname);
+            $cmd->bindValue('middlename',$middlename);
+            $cmd->bindValue('emailaddress',$emailaddress);
+            $cmd->bindValue('telno',$telno);
+            $cmd->bindValue('celno',$celno);
             $cmd->bindValue('department',$department);
             $cmd->bindValue('position',$position);
             $cmd->bindValue('location',$location);

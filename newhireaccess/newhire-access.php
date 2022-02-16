@@ -24,8 +24,7 @@ Class NewHireAccess{
         </thead>
         <tbody>';
 
-        $query = "SELECT a.rowid,a.emp_code,(a.lastname+','+a.firstname+' '+ LEFT(a.middlename,1)+'.') as [emp_name],a.position,a.company,a.department,a.location,a.emp_type,a.datehired,a.reporting_to as [sup_name] from employee_profile a left join employee_profile b on a.emp_code = b.emp_code
-        ORDER BY a.datehired DESC";
+        $query = "SELECT * from dbo.employee_profile ORDER BY lastname asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -33,18 +32,30 @@ Class NewHireAccess{
 
         if($result){
             do { 
+                $fullname=  $result['lastname'].','.$result['firstname'].' '.substr($result['middlename'],0,1).'.';
                 $empcd = "'".$result['emp_code']."'";
-                $empname = "'".$result['emp_name']."'";
+                $empname = "'".$fullname."'";
+                $lname = "'".$result['lastname']."'";
+                $fname = "'".$result['firstname']."'";
+                $mname = "'".$result['middlename']."'";
+                $pstn = "'".$result['position']."'";
+                $dpt = "'".$result['department']."'";
+                $emailadd = "'".$result['emailaddress']."'";
+                $teln = "'".$result['telno']."'";
+                $celn = "'".$result['celno']."'";
+                $loct = "'".strtoupper($result['location'])."'";
+                $emptyp = "'".$result['emp_type']."'";
+
                 echo '
                 <tr>
                 <td>' . $result['emp_code'] . '</td>
-                <td>' . $result['emp_name'] . '</td>
+                <td>' . $fullname . '</td>
                 <td>' . $result['position'] . '</td>
                 <td>' . $result['company'] . '</td>
                 <td>' . $result['department'] . '</td>
                 <td>' . $result['location'] . '</td>
                 <td>' . $result['emp_type'] . '</td>';
-                echo '<td><button type="button" class="actv" onclick="updateEmpModal('.$empcd.','.$empname.')">
+                echo '<td><button type="button" class="actv" onclick="updateEmpModal('.$empcd.','.$empname.','.$lname.','.$fname.','.$mname.','.$pstn.','.$dpt.','.$emailadd.','.$teln.','.$celn.','.$loct.','.$emptyp.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
     

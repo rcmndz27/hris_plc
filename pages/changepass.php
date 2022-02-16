@@ -124,7 +124,7 @@
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
               <div class="card">
-                <div class="card-body">
+                <div class="card-body ">
                   <div class="d-flex flex-column align-items-center text-center">
                     <?php 
                     echo'<img src="https://bootdey.com/img/Content/avatar/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
@@ -158,7 +158,7 @@
             </div>
             <div class="col-md-8">
               <div class="card mb-3">
-                <div class="card-body">
+                <div class="card-body cdh">
                <!--Section: Block Content-->
                   <section class="mb-5 text-center">
 
@@ -196,7 +196,7 @@
           </div>
 
                       <button id="empCode" value="<?php echo $result['emp_code']; ?>" hidden></button>
-                      <button type="submit" class="btn btn-primary mb-4" id="Submit">Change Password</button>
+                      <button type="submit" class="chngpass" id="Submit"><i class="fas fa-key"></i> Change Password</button>
                   </section>
                 </div>
               </div>

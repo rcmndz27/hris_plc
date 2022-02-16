@@ -7,9 +7,9 @@ function UpdateUsers($emp_code,$userpassword,$status,$usertype)
 
             $hashpassword = hash('sha256', $userpassword);
 
-            $cmd = $connL->prepare("UPDATE dxbo.mf_user SET 
+            $cmd = $connL->prepare("UPDATE dbo.mf_user SET 
                 userpassword = :hashpassword,
-                status = :status, x
+                status = :status,
                 usertype = :usertype
                 where userid = :emp_code");
             $cmd->bindValue('emp_code',$emp_code);
