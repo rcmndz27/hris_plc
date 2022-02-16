@@ -14,10 +14,40 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-color: #464646;
+    background-color: #ffff;
+    font-family: "Dosis", sans-serif;
     
-
 }
+
+.deactv{
+    width: 100%; 
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    font-weight: bolder;   
+    color: #970606;
+    font-size: 14px;
+    border-radius:1rem;;
+}
+
+.deactv:hover{
+    opacity: 0.5;
+}
+
+.lgnbut {
+    height: 40px;
+    width: 100%;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #000000;
+    font-size: 20px;
+    border-radius: 1rem;
+}
+
+.lgnbut:hover{
+    opacity: 0.5;
+}
+
 
 .form-signin {
     width: 100%;

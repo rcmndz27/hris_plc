@@ -91,7 +91,7 @@ if (empty($_SESSION['userid'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Obanana | HRIS Portal</title>
+    <title>Obanana | Web Portal</title>
     <noscript><h3>Please enable Javascript in order to use this form.</h3><meta HTTP-EQUIV='refresh' content=0; url='JavascriptNotEnabled.php'></noscript>
     
     <meta charset='utf-8'>
@@ -105,6 +105,9 @@ if (empty($_SESSION['userid'])) {
     <link type='image/x-png' rel='icon' href='img/ob_icon.png'>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='css/login.css'>
+
+      <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
 
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -124,7 +127,7 @@ if (empty($_SESSION['userid'])) {
 }
 .cb-slideshow:after { 
     content: '';
-    background: transparent url(../images/pattern.png) repeat top left; 
+    /*background: transparent url(../images/pattern.png) repeat top left; */
 }
 
 .cb-slideshow li span { 
@@ -289,19 +292,34 @@ ul{
     border-color: #ffaa00;
 }
 
-.newemp{
-    background-color: #fbec1e;
-    border-color: #fbec1e;
-}
 .imgsze{
     height: 20px;
     width: 20px;
 }
 
+.bksze {
+    height: 30px;
+    width: 80px;
+}
+.bksze:hover{
+    opacity: 0.5;
+}
 .blk{
     color: #000000;
 }
 
+
+.loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(img/loader.gif) 50% 50% no-repeat rgb(249,249,249) ;
+            opacity: .8;
+            /*background-size:200px 120px;*/
+        }
   </style>
 
 
@@ -310,50 +328,7 @@ ul{
     
 </head>
 <body>
-
-<!-- Bg code added -->
-
-<div class="bgslide"> 
-<ul class="cb-slideshow">
-  <li>
-    <span>Image 01</span>
-    <div>
-      <h3>Humility</h3>
-    </div>
-  </li>
-   <li>
-    <span>Image 02</span>
-    <div>
-      <h3>Innovation</h3>
-    </div>
-  </li>
-  <li>
-    <span>Image 03</span>
-    <div>
-      <h3>Integrity</h3>
-    </div>
-    <li>
-    <span>Image 04</span>
-    <div>
-      <h3>Synergy</h3>
-    </div>
-  </li>
-  <li>
-    <span>Image 05</span>
-    <div>
-      <h3>Premium Services</h3>
-    </div>
-  </li>
-  <li>
-    <span>Image 06</span>
-    <div>
-      <h3>Commitment</h3>
-    </div>
-  </li>
-  </li>
-</ul>
-</div>
-
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <!-- end of code -->
     <div class="container form-signin bgform">
         <form class="container" method="post" action="" name="login">
@@ -363,49 +338,59 @@ ul{
                 </div>
             </div>
             <div class="row">
-                <div class="col" id="app_button">
-                    <button class="btn btn-info btn-block wb loginbg" />
-                        <a href='emp_index.php' class="blk">
-                            <img src="img/employee.png" class="imgsze">
-                        EMPLOYEE-LOGIN
-                        </a>
-                    </button>
+                <div class="col" id="usr_field">
+                    <div class="form-group">
+                        <label for="username"><b>USERNAME</b></label>
+                        <input type="text" name="userid" id="userid" class="form-control" placeholder="OBN000000" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
                 </div>
             </div>
-            <br>
             <div class="row">
-                <div class="col" id="app_button">
-                    <button class="btn btn-info btn-block wb newemp" />
-                        <a href='newhireaccess/newemployee_entry.php' class="blk">
-                            <img src="img/newemp.png" class="imgsze">
-                        NEW EMPLOYEE
-                        </a>
-                    </button>
+                <div class="col" id="pass_field">
+                    <div class="form-group">
+                        <label for="password"><b>PASSWORD</b></label>
+                        <input type="password" name="password" id="password" placeholder="***********" class="form-control" autocomplete="off">
+                    </div>
                 </div>
             </div>
-            <br>
-            <div class="row">
-                <div class="col" id="app_button">
-                    <button class="btn btn-info btn-block wb loginbg" />
-                        <a href='applicantprofile/applicant_entry.php' class="blk">
-                            <img src="img/applicant.png" class="imgsze">
-                        APPLICANT
-                        </a>
-                    </button>
+            <div class="row errorMsg">
+                <div class='col-lg-12'>
+                    <small><?php echo $errorMsgLogin; ?></small>
                 </div>
             </div>
+             <div class="form-row">
+                   <div class="col-lg-12">
+                     <div class="form-group">                
+                        <i class="fas fa-sign-in-alt"></i><input type="submit" class="lgnbut" name="loginSubmit" value="LOG-IN" onclick="show()">
+                        </div>
+                    </div>
+                   <div class="col-lg-6">
+                     <div class="form-group">                      
+                            <button class="deactv" />
+                                <a href='newhireaccess/newemployee_entry.php' class="blk" onclick="show()"><img src="img/newemp.png" class="imgsze">NEW EMPLOYEE</a>
+                            </button> 
+                        </div>
+                    </div> 
+                   <div class="col-lg-6">
+                     <div class="form-group">                      
+                                <button class="deactv" />
+                                    <a href='applicantprofile/applicant_entry.php' class="blk" onclick="show()">
+                                        <img src="img/applicant.png" class="imgsze">
+                                    APPLICANT
+                                    </a>
+                                </button>
+                        </div>
+                    </div>                                                                                      
+                </div> <!-- form row closing -->
         </form>
     </div>
+<script type="text/javascript">
 
-    <script type="text/javascript">
+         function show() {
+            document.getElementById("myDiv").style.display="block";
+        }
 
-        $('#app_button').show();
-        $('#emp_button').show();
-        $('#loginbutt').hide();
-        $('#usr_field').hide();
-        $('#pass_field').hide();
-     
-    </script>
+</script>
 
 <?php
     }
