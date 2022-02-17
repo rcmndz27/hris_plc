@@ -10,7 +10,7 @@
                         </style>
 
                   <div class="fixed-bottom text-center footers">
-                        <label for="">Copyright &copy; <?php echo date("Y");?> Systems Development</label>
+                        <label for="">Copyright &copy; <?php echo date("Y");?> Obanana : </label>
                         <label for="">All Rights Reserved. </label>
                   </div>
 

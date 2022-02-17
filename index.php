@@ -33,7 +33,7 @@ if (!empty($_POST['loginSubmit']))
     if ($validator->fetchColumn() >= 3)
     {
 
-        header("Location: blocked.php");
+        $_SESSION['msg_blocked'] = 'YOUR ACCOUNT IS BLOCKED! PLEASE CONTACT YOUR ADMINISTRATOR!';
     }
     else
     {
@@ -78,8 +78,8 @@ if (!empty($_POST['loginSubmit']))
                 $ins->bindParam(":act", $action_f, PDO::PARAM_STR);
                 $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
                 $ins->execute();
-
-                $errorMsgLogin = "Incorrect Username / Password.";
+                
+               $_SESSION['msg_error'] = 'Wrong Username/Password';
                 session_destroy();
             }
         }
@@ -108,7 +108,7 @@ if (empty($_SESSION['userid'])) {
 
       <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -308,6 +308,10 @@ ul{
     color: #000000;
 }
 
+.frgtpass{
+    color: red;
+}
+
 
 .loader {
             position: fixed;
@@ -320,7 +324,7 @@ ul{
             opacity: .8;
             /*background-size:200px 120px;*/
         }
-  </style>
+</style>
 
 
 
@@ -334,13 +338,13 @@ ul{
         <form class="container" method="post" action="" name="login">
             <div class="row">
                 <div class="col">
-                    <img class="mb-4 img-fluid mx-auto d-block" src="img/obanana.png" alt="">
+                    <img class="mb-4 img-fluid mx-auto d-block" src="img/obananahris.png" alt="">
                 </div>
             </div>
             <div class="row">
                 <div class="col" id="usr_field">
                     <div class="form-group">
-                        <label for="username"><b>USERNAME</b></label>
+                        <label for="username"><b>EMPLOYEE CODE:</b></label>
                         <input type="text" name="userid" id="userid" class="form-control" placeholder="OBN000000" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();">
                     </div>
                 </div>
@@ -348,22 +352,40 @@ ul{
             <div class="row">
                 <div class="col" id="pass_field">
                     <div class="form-group">
-                        <label for="password"><b>PASSWORD</b></label>
+                        <label for="password"><b>PASSWORD:</b></label>
                         <input type="password" name="password" id="password" placeholder="***********" class="form-control" autocomplete="off">
                     </div>
                 </div>
             </div>
-            <div class="row errorMsg">
+<!--             <div class="form-row" >
                 <div class='col-lg-12'>
                     <small><?php echo $errorMsgLogin; ?></small>
                 </div>
-            </div>
+            </div> -->
              <div class="form-row">
-                   <div class="col-lg-12">
-                     <div class="form-group">                
+                   <div class="col-lg-12">              
                         <i class="fas fa-sign-in-alt"></i><input type="submit" class="lgnbut" name="loginSubmit" value="LOG-IN" onclick="show()">
-                        </div>
                     </div>
+                 <div class="col-lg-4"> </div>                       
+                        <div class="col-lg-5">                     
+                            <label><a href="" class="frgtpass">FORGOT PASSWORD?</label>
+                        </div>    
+                 <div class="col-lg-3"></div>                     
+
+                    <?php 
+                     if(isset($_SESSION['msg_error']) && $_SESSION['msg_error'] != ''){
+                        echo'<body onload="showWrongPass()"></body>';
+                      unset($_SESSION['msg_error']);
+                      }
+                    ?>
+
+                    <?php 
+                     if(isset($_SESSION['msg_blocked']) && $_SESSION['msg_blocked'] != ''){
+                        echo'<body onload="showBlocked()"></body>';
+                      unset($_SESSION['msg_blocked']);
+                      }
+                    ?>
+                                       
                    <div class="col-lg-6">
                      <div class="form-group">                      
                             <button class="deactv" />
@@ -385,6 +407,14 @@ ul{
         </form>
     </div>
 <script type="text/javascript">
+
+    function showWrongPass() {
+        swal({text:"Incorrect Username and Password!",icon:"error"});
+      }
+
+     function showBlocked() {
+        swal({title:"Your account has been blocked. Kindly contact the administrator.",icon:"warning"});
+      }
 
          function show() {
             document.getElementById("myDiv").style.display="block";

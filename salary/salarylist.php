@@ -5,7 +5,7 @@ Class SalaryList{
     public function GetAllSalaryList(){
         global $connL;
 
-        echo '<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in employee code">
+        echo '<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for employee code.." title="Type in employee code">
         <table id="allSalaryList" class="table table-striped table-sm">
         <thead>
             <tr>

@@ -7825,7 +7825,7 @@ input[type=file]::before {
     width: 150px;
     height: 150px;
     margin: auto;
-    background: #9b9b9b url("../img/logo.jpg");
+    background: #9b9b9b url("../img/ob_icon.png");
     background-size: cover;
     background-position: center; }
 .frmLogin .button {
