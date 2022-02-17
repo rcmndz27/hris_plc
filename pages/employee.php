@@ -42,10 +42,10 @@
     $param = array(":empcode" => $empCode);
     $stmt->execute($param);
     $result = $stmt->fetch();
-    $earned_vl = round($result['earned_vl'],2); 
-    $earned_sl = round($result['earned_sl'],2);
-    $vlpct = round($result['vlpct'],2); 
-    $slpct = round($result['slpct'],2);
+    $earned_vl = (isset($result['earned_vl'])) ? round($result['earned_vl'],2) : 0 ;
+    $earned_sl = (isset($result['earned_sl'])) ? round($result['earned_sl'],2) : 0 ;
+    $vlpct = (isset($result['vlpct'])) ? round($result['vlpct'],2) : 0 ;
+    $slpct = (isset($result['slpct'])) ? round($result['slpct'],2) : 0 ;
 
 
     // TOTAL APPLIED LEAVE
