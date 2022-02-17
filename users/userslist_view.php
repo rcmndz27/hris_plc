@@ -335,6 +335,45 @@ function myFunction() {
                         });
    
                 }
+
+
+    function deleteLogsModal(empcd)
+    {
+
+        $("body").css("cursor", "progress");
+        var url = "../users/unblockeusers_process.php";
+        var emp_code = empcd;
+
+
+        $('#contents').html('');
+
+                        swal({
+                          title: "Are you sure?",
+                          text: "You want to unblocked this user account?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((unblkusr) => {
+                          if (unblkusr) {
+                                $.post (
+                                    url,
+                                    {
+                                        action: 1,
+                                        emp_code: emp_code 
+                                        
+                                    },
+                                    function(data) { $("#contents").html(data).show(); }
+                                );
+
+                                swal({text:"Successfully unblocked the user account!",icon:"success"});
+                                location.reload();
+                          } else {
+                            swal({text:"You cancel the unblocking of the user account!",icon:"error"});
+                          }
+                        });
+   
+                }
     
 
 </script>

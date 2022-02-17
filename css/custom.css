@@ -280,6 +280,36 @@ color: #d64747;
     opacity: 0.5;
 }
 
+.hactv {
+
+    width: 10;
+    background-color: #fbec1e;
+    border-color:#fbec1e;
+    font-weight: bolder;   
+    color: #ed6200;
+    font-size: 14px;
+    border-radius:1rem;
+}
+
+.hactv:hover{
+    opacity: 0.5;
+}
+
+
+.hdeactv{
+    width: 10; 
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;   
+    color: #970606;
+    font-size: 14px;
+    border-radius:1rem;;
+}
+
+.hdeactv:hover{
+    opacity: 0.5;
+}
+
 .actv {
 
     width: 110px;

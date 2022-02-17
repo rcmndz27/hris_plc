@@ -367,9 +367,11 @@ ul{
                         <i class="fas fa-sign-in-alt"></i><input type="submit" class="lgnbut" name="loginSubmit" value="LOG-IN" onclick="show()">
                     </div>
                  <div class="col-lg-4"> </div>                       
-                        <div class="col-lg-5">                     
-                            <label><a href="" class="frgtpass">FORGOT PASSWORD?</label>
-                        </div>    
+                        <div class="col-lg-5">  
+                        <div class="form-group">                    
+                            <!-- <label><a href="" class="">FORGOT PASSWORD?</label> -->
+                        </div> 
+                        </div>   
                  <div class="col-lg-3"></div>                     
 
                     <?php 

@@ -45,9 +45,13 @@ Class UsersList{
                 <td>' . $result['usertype']. '</td>
                 <td>' . $result['useremail']. '</td>
                 <td>' . $result['status']. '</td>';
-                echo'<td><button type="button" class="actv" onclick="editUsrModal('. $empcd.','. $name.','. $usrtyp.','. $usrmail.','. $stts.')">
-                                <i class="fas fa-edit"></i> UPDATE
-                            </button></td>';
+                echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.','. $usrtyp.','. $usrmail.','. $stts.')" title="Update User/Change Password">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="deleteLogsModal('. $empcd.')" title="Unblocked User">
+                                <i class="fas fa-lock-open"></i>
+                            </button>
+                            </td>';
                 
                 
             } while ($result = $stmt->fetch());
