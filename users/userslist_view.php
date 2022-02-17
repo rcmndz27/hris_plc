@@ -341,7 +341,7 @@ function myFunction() {
     {
 
         $("body").css("cursor", "progress");
-        var url = "../users/unblockeusers_process.php";
+        var url = "../users/unblockusers_process.php";
         var emp_code = empcd;
 
 

@@ -1,7 +1,7 @@
 <?php 
 
 
-function UnblockeUsers($emp_code)
+function UnblockUsers($emp_code)
     {
             global $connL;
 
