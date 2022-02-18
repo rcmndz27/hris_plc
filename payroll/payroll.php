@@ -46,7 +46,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                         <th colspan='13' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
                     </tr>
                     <tr class='noExl'>
-                        <th>Employee Name</th>
+                        <th>Employee Code</th>
                         <th>Cut-off From</th>
                         <th>Cut-off To</th>
                         <th>Total Days Absent</th>
@@ -66,7 +66,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                  if($r){
                     do {
                             echo "<tr>".
-                                    "<td>" . $r['employee'] . "</td>".
+                                    "<td>" . $r['badge_no'] . "</td>".
                                     "<td>" . date('m/d/Y', strtotime($r['period_from'])) . "</td>".
                                     "<td>" . date('m/d/Y', strtotime($r['period_to'])) . "</td>".                                            
                                     "<td>" . round($r['tot_days_absent'],2) . "</td>".

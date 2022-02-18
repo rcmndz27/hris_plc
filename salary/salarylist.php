@@ -42,9 +42,9 @@ Class SalaryList{
                 <tr>
                 <td>' . $result['emp_code']. '</td>
                 <td>' . $result['bank_type']. '</td>
-                <td>' . $result['bank_no']. '</td>
-                <td>' . $result['pay_rate']. '</td>
-                <td>' . 'P'.' '.round($result['amount'],3). '</td>
+                <td>' . $result['bank_no']. '</td> 
+                <td>' . $result['pay_rate']. '</td> 
+                <td>' . hash('sha256', $result['pay_rate']).'</td>
                 <td>' . $result['status'] . '</td>';
                 echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.','.$banktype.','.$bankno.','.$payrate.','.$amnt.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
