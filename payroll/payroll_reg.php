@@ -20,7 +20,7 @@ function GetPayrollRegList(){
                         <th colspan='55' class='paytop'>Payroll Register View</th>
                     </tr>
                     <tr>
-                        <th>Employee Name</th>
+                        <th>Employee Code</th>
                         <th>Bank Account#</th>
                         <th>Bank</th>
                         <th>Position</th>
@@ -84,7 +84,7 @@ function GetPayrollRegList(){
 
              
                             echo "<tr>".
-                                    "<td>" . $r['name'] . "</td>".
+                                    "<td>" . $r['emp_code'] . "</td>".
                                     "<td>" . $r['bank_acctno'] . "</td>".
                                     "<td>" . $r['bank'] . "</td>".
                                     "<td>" . $r['position'] . "</td>".

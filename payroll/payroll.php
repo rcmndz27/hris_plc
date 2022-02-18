@@ -68,7 +68,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                             echo "<tr>".
                                     "<td>" . $r['badge_no'] . "</td>".
                                     "<td>" . date('m/d/Y', strtotime($r['period_from'])) . "</td>".
-                                    "<td>" . date('m/d/Y', strtotime($r['period_to'])) . "</td>".                                            
+                                    "<td>" . date('m/d/Y', strtotime($r['period_to'])) . "</td>".
                                     "<td>" . round($r['tot_days_absent'],2) . "</td>".
                                     "<td>" . round($r['tot_days_work'],2) . "</td>".
                                     "<td>" . round($r['tot_lates'],2) . "</td>".
@@ -103,8 +103,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                             $rs = $stmt_q->fetch();
 
 
-                        if($rs){
-                                         
+                        if($rs){                                         
                                     $dtf = date('m/d/Y', strtotime($rs['date_from']));
                                     $dtt = date('m/d/Y', strtotime($rs['date_to']));
 
@@ -133,7 +132,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                                 "</tr></tfoot>";   
                                             }else{
                                                 echo"<td colspan='11' class='paytop'>".
-                                                "<button id='btnApproveView' style='font-weight:bolder;background-color: #b52020;border-color: #b52020;color: #ffff;width: 200px;' onmousedown='javascript:ApprovePayView()'>SAVE PAYROLL</button></td>".
+                                                "<button id='btnApproveView' class='svepyrll' onmousedown='javascript:ApprovePayView()'>SAVE PAYROLL</button></td>".
                                                 "</tr></tfoot>";  
                                             }
 
