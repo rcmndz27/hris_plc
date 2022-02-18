@@ -235,6 +235,7 @@ else
                                                   <li><a href='../payroll/payroll_view_register.php'>Payroll Register View</a></li>
                                                   <li><a href='../payroll/payroll_view_report.php'>Payroll Register Report</a></li>
                                                   <li><a href='../payslip/payslip_viewall.php'>Payslip All Employee</a></li>
+                                                  <li><a href='../salaryadjustment/salaryadjustmentlist_view.php'>Payroll Adjustment Management</a></li>                                                  
                                                 </ul>
                                               </li>
                                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval.")</span> 

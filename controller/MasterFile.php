@@ -102,6 +102,36 @@
             }
         }
 
+        public function GetCutoffSalAdj($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+
+               
+
+                $sql = $connL->prepare(@"select location,period_from,period_to from att_summary group by location,period_from,period_to");
+                $sql->execute();
+
+                if ($type == "saladj")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                        array_push( $data, array($r["location"], 
+                            date("m/d/Y", strtotime($r["period_from"])) . " - " . date("m/d/Y", strtotime($r["period_to"]))) );
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
         public function GetAllPayCutoff($type)
         {
             global $connL;
@@ -479,7 +509,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile ORDER by rowid ASC");
+                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile ORDER by lastname ASC");
                 $sql->execute();
 
                 if ($type == "allempnames")
