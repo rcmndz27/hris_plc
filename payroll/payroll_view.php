@@ -128,6 +128,7 @@ color: #ffff;
     font-weight: bolder;
 }
 </style>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL VIEW</h1>
@@ -154,7 +155,7 @@ color: #ffff;
                         <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()">
                             <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
-                        <button type="button" id="search" class="gotopay">
+                        <button type="button" id="search" class="gotopay" onclick="show()">
                                 <a href="../payroll/payroll_view_register.php" class="payreggoto">
                                 <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
                         </button>                                          
@@ -168,6 +169,11 @@ color: #ffff;
 </div>
 
 <script>
+
+             function show() {
+            document.getElementById("myDiv").style.display="block";
+        }
+
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
