@@ -33,101 +33,13 @@
     }
         
 ?>
- 
+
+<link rel="stylesheet" href="../payroll/payroll.css">
 <script type='text/javascript' src='../payroll/payroll.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-        text-align: center;
-}
-.paytop{
-text-align: left;
-}
-.btn-save{
-background-color: #b52020;
-border-color: #b52020;
-color: #ffff;
-}
-.savebtn{
-    background-color: #b52020;
-    border-color: #b52020;
-    color: #ffff;
-    width: 200px;
-    font-weight: bolder;
-}
-.mbot{
-    font-weight: bolder;
-    font-size: 17px;
-    margin-top: -50px;
-}
-
-.mleft{
-    margin-left: 50px;
-}
-
-.bgen{
-    font-weight: bolder;
-}
-
-#myInput {
-  background-image: url('../img/searchicon.png');
-  background-size: 30px;
-  background-position: 5px 5px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;  
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-.svepay{
-
-    background-color: #b52020;
-    border-color: #b52020;
-    color: #ffff;
-    width: 200px;
-    font-weight: bolder;
-
-}
-
-
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-    font-weight: bolder;
-}
-</style>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
