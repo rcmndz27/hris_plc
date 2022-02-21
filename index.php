@@ -104,6 +104,7 @@ if (empty($_SESSION['userid'])) {
 
     <link type='image/x-png' rel='icon' href='img/ob_icon.png'>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel='stylesheet' href='css/login_caru.css'>
     <link rel='stylesheet' href='css/login.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -112,208 +113,7 @@ if (empty($_SESSION['userid'])) {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<!-- Add new style -->
-
-  <style type="text/css">
-
-.cb-slideshow,
-.cb-slideshow:after { 
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-    z-index: 0; 
-}
-.cb-slideshow:after { 
-    content: '';
-    /*background: transparent url(../images/pattern.png) repeat top left; */
-}
-
-.cb-slideshow li span { 
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    color: transparent;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-repeat: none;
-    opacity: 0;
-    z-index: 0;
-    animation: imageAnimation 36s linear infinite 0s; 
-}
-
-.cb-slideshow li div { 
-    z-index: 1000;
-    position: absolute;
-    bottom: 30px;
-    left: 0px;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    color: #fff;
-    animation: titleAnimation 36s linear infinite 0s; 
-}
-.cb-slideshow li div h3 { 
-    font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
-    font-size: 240px;
-    padding: 0;
-    line-height: 200px; 
-}
-
-.cb-slideshow li:nth-child(1) span { 
-    background-image: url('img/PMITOWER_banner.jpg') 
-}
-.cb-slideshow li:nth-child(2) span { 
-    background-image: url('img/MBI_banner.jpg');
-    animation-delay: 6s; 
-}
-.cb-slideshow li:nth-child(3) span { 
-    background-image: url('img/MAC_banner.jpg');
-    animation-delay: 12s; 
-}
-.cb-slideshow li:nth-child(4) span { 
-    background-image: url('img/CSC_banner.jpg');
-    animation-delay: 18s; 
-}
-.cb-slideshow li:nth-child(5) span { 
-    background-image: url('img/CSC_banner2.jpg');
-    animation-delay: 24s; 
-}
-.cb-slideshow li:nth-child(6) span { 
-    background-image: url('img/IMC_banner.jpg');
-    animation-delay: 30s; 
-}
-
-.cb-slideshow li:nth-child(2) div { 
-    animation-delay: 6s; 
-}
-.cb-slideshow li:nth-child(3) div { 
-    animation-delay: 12s; 
-}
-.cb-slideshow li:nth-child(4) div { 
-    animation-delay: 18s; 
-}
-.cb-slideshow li:nth-child(5) div { 
-    animation-delay: 24s; 
-}
-.cb-slideshow li:nth-child(6) div { 
-    animation-delay: 30s; 
-}
-
-@keyframes imageAnimation { 
-    0% { opacity: 0; animation-timing-function: ease-in; }
-    8% { opacity: 1; animation-timing-function: ease-out; }
-    17% { opacity: 1 }
-    25% { opacity: 0 }
-    100% { opacity: 0 }
-}
-
-@keyframes titleAnimation { 
-    0% { opacity: 0 }
-    8% { opacity: 1 }
-    17% { opacity: 1 }
-    19% { opacity: 0 }
-    100% { opacity: 0 }
-}
-
-@keyframes imageAnimation { 
-  0% {
-      opacity: 0;
-      animation-timing-function: ease-in;
-  }
-  8% {
-      opacity: 1;
-      transform: scale(1.05);
-      animation-timing-function: ease-out;
-  }
-  17% {
-      opacity: 1;
-      transform: scale(1.1) rotate(3deg);
-  }
-  25% {
-      opacity: 0;
-      transform: scale(1.1) rotate(3deg);
-  }
-  100% { opacity: 0 }
-}
-
-@keyframes titleAnimation { 
-  0% {
-      opacity: 0;
-      transform: translateX(200px);
-  }
-  8% {
-      opacity: 1;
-      transform: translateX(0px);
-  }
-  17% {
-      opacity: 1;
-      transform: translateX(0px);
-  }
-  19% {
-      opacity: 0;
-      transform: translateX(-400px);
-  }
-  25% { opacity: 0 }
-  100% { opacity: 0 }
-}
-
-ul{
-     list-style:none;
-}
-
-.no-cssanimations .cb-slideshow li span{
-  opacity: 1;
-}
-
-@media screen and (max-width: 1140px) { 
-    .cb-slideshow li div h3 { font-size: 140px }
-}
-@media screen and (max-width: 600px) { 
-    .cb-slideshow li div h3 { font-size: 80px }
-}
-
-.bgform{
-    background-color: #ffffff;
-    opacity: 1;
-    color: black;
-    position: relative;
-    border-radius: 15px;
-}
-.wb{
-    font-weight: bolder;
-}
-
-.loginbg{
-    background-color: #ffaa00;
-    border-color: #ffaa00;
-}
-
-.imgsze{
-    height: 20px;
-    width: 20px;
-}
-
-.bksze {
-    height: 30px;
-    width: 80px;
-}
-.bksze:hover{
-    opacity: 0.5;
-}
-.blk{
-    color: #000000;
-}
-
-.frgtpass{
-    color: red;
-}
-
-
+<style type="text/css">    
 .loader {
             position: fixed;
             left: 0px;
@@ -326,11 +126,6 @@ ul{
             /*background-size:200px 120px;*/
         }
 </style>
-
-
-
-<!-- end of style -->
-    
 </head>
 <body class="login-page">
 <div id = "myDiv" style="display:none;" class="loader"></div>

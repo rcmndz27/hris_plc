@@ -276,44 +276,52 @@ function myFunction() {
     {
 
         $("body").css("cursor", "progress");
-        var url = "../salary/updatesalary_process.php";
+        var url = "../salaryadjustment/updatesalaryadjustment_process.php";
         var emp_code = document.getElementById("empcode").value;
-        var bank_type = document.getElementById("banktype").value;
-        var bank_no = document.getElementById("bankno").value;
-        var pay_rate = document.getElementById("payrate").value;
+        var ddcuts = $('#ddcut').children("option:selected").val();
+        var ddcutoff = ddcuts.split(" - ");
+        var period_from = ddcutoff[0];
+        var period_to = ddcutoff[1];
+        var description = document.getElementById("descript").value;
         var amount = document.getElementById("amnt").value;
-        var status = document.getElementById("stts").value;      
+        var inc_decr = document.getElementById("inc_de").value;
+        var remarks = document.getElementById("remark").value;  
 
+
+        // swal(amount);
+        // exit();
+        
         $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
-                          text: "You want to update this employee salary details?",
+                          text: "You want to update this employee salary adjustment details?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((verifyApp) => {
-                          if (verifyApp) {
+                        .then((updateSlAdj) => {
+                          if (updateSlAdj) {
                                 $.post (
                                     url,
                                     {
                                         action: 1,
                                         emp_code: emp_code ,
-                                        bank_type: bank_type ,
-                                        bank_no: bank_no ,
-                                        pay_rate: pay_rate ,
-                                        amount: amount ,               
-                                        status: status 
+                                        period_from: period_from,
+                                        period_to: period_to,
+                                        description: description,
+                                        amount: amount,
+                                        inc_decr: inc_decr,               
+                                        remarks: remarks 
                                         
                                     },
                                     function(data) { $("#contents").html(data).show(); }
                                 );
 
-                                swal({text:"Successfully update the employee salary details!",icon:"success"});
+                                swal({text:"Successfully update the employee salary adjustment details!",icon:"success"});
                                 location.reload();
                           } else {
-                            swal({text:"You cancel the updating of employee salary details!",icon:"error"});
+                            swal({text:"You cancel the updating of employee salary adjustment details!",icon:"error"});
                           }
                         });
    

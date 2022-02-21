@@ -1,21 +1,25 @@
 <?php 
 
 
-function UpdateDeduction($emp_code,$deduction_id,$period_cutoff,$amount,$effectivity_date)
+function UpdateSalaryAdj($emp_code,$period_from,$period_to,$description,$inc_decr,$amount,$remarks)
     {
             global $connL;
 
-            $cmd = $connL->prepare("UPDATE dbo.employee_deduction_management SET 
-                deduction_id = :deduction_id,
-                period_cutoff = :period_cutoff,
-                amount = :amount,
-                effectivity_date = :effectivity_date
+            $cmd = $connL->prepare("UPDATE dbo.employee_salaryadj_management SET 
+                period_from = :period_from,
+                period_to = :period_to,
+                description = :description,
+                inc_decr = :inc_decr,
+                amount = :amount,  
+                remarks = :remarks
              where emp_code = :emp_code");
             $cmd->bindValue('emp_code',$emp_code);
-            $cmd->bindValue('deduction_id',$deduction_id);
-            $cmd->bindValue('period_cutoff',$period_cutoff);
+            $cmd->bindValue('period_from',$period_from);
+            $cmd->bindValue('period_to',$period_to);
+            $cmd->bindValue('description',$description);
+            $cmd->bindValue('inc_decr',$inc_decr);
             $cmd->bindValue('amount',$amount);
-            $cmd->bindValue('effectivity_date',$effectivity_date);
+            $cmd->bindValue('remarks',$remarks);
             $cmd->execute();
     }
 

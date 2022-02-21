@@ -5,15 +5,17 @@
 
     $action = $_POST["action"];
     $emp_code = $_POST["emp_code"];
-    $salaryadjustment_id = $_POST["salaryadjustment_id"];
-    $period_cutoff = $_POST["period_cutoff"];
+    $period_from = $_POST["period_from"];
+    $period_to = $_POST["period_to"];
+    $description = $_POST["description"];  
+    $inc_decr = $_POST["inc_decr"];  
     $amount = $_POST["amount"];
-    $effectivity_date = $_POST["effectivity_date"];        
+    $remarks = $_POST["remarks"];        
 
 
     if ($action == 1)
     {
-        UpdateSalaryAdj($emp_code,$salaryadjustment_id,$period_cutoff,$amount,$effectivity_date);
+        UpdateSalaryAdj($emp_code,$period_from,$period_to,$description,$inc_decr,$amount,$remarks);
     }
     else {
 
