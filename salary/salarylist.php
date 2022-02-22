@@ -44,7 +44,7 @@ Class SalaryList{
                 <td>' . $result['bank_type']. '</td>
                 <td>' . $result['bank_no']. '</td> 
                 <td>' . $result['pay_rate']. '</td> 
-                <td>' . hash('sha256', $result['pay_rate']).'</td>
+                <td>' . substr(hash('sha256', $result['pay_rate']),50).'</td>
                 <td>' . $result['status'] . '</td>';
                 echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.','.$banktype.','.$bankno.','.$payrate.','.$amnt.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE

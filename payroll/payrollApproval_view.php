@@ -13,6 +13,7 @@
     {
         include('../_header.php');
         include('../payroll/payrollApproval.php');
+        include('../payroll/payrollapp_reg.php');
 
         if ($empType == 'Staff')
         {
@@ -29,43 +30,17 @@
         }
     }
 ?>
-<style type="text/css">
-     table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-    }
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../payroll/payroll_app.css">
+<link rel="stylesheet" type="text/css" href="../payroll/payroll_appreg.css">
+<script type='text/javascript' src='../payroll/payroll_app.js'></script>
+<script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
+<script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
+<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL APPROVAL</h1>
         </div>
     <div class="main-body mbt">
-
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
@@ -78,17 +53,100 @@ table {
                 <div class="col-md-12">
                     <div class="panel-body">
                         <div id="contents" class="table-responsive-sm table-body">
-                            <?php ShowAllPayroll(); ?>
-                                
+                            <?php ShowAllPayroll(); ?>                             
                         </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+    <div class="modal fade" id="viewPayReg" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW PAYROLL REGISTER <i class="fas fa-money-bill"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">                             
+            <div class="row pt-3">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                        <div id="contents2" class="table-responsive-sm table-body">
+                         <button type="button" id="search" hidden>GENERATE</button>                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        </div> <!-- form row closing -->
+                    </fieldset> 
+
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
+
+
+    </div> <!-- main body mbt closing -->
+</div><!-- container closing -->
 
 
 <script type='text/javascript'>
+
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("payrollAppRegList");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+
+
+function ViewPyReg(perfrom,perto,stats)
+    {
+        $('#viewPayReg').modal('toggle');
+        var url = "../payroll/payrollapp_process.php";
+        var period_from = perfrom;
+        var period_to = perto;
+        var payroll_status = stats;
+
+        $.post (
+            url,
+            {
+                _action: 1,
+                period_from: period_from,
+                period_to: period_to,
+                payroll_status: payroll_status
+                
+            },
+            function(data) { $("#contents2").html(data).show(); }
+        );
+    }
+
     function ApprovePayroll()
     {
                  var url = "../payroll/payrollApprovalProcess.php";     
@@ -146,6 +204,5 @@ table {
     }
 
 </script>
-<script type='text/javascript' src='../js/tableFilter.js'></script>
 
 <?php include('../_footer.php');?>

@@ -9,6 +9,14 @@ caption > button{
     
 }
 
+.vwPyReg {
+    background-color: #ffaa00;
+}
+
+.vwPyReg:hover{
+    opacity: 0.5;
+}
+
 .cdh {
     height: 468px;
 }

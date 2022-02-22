@@ -121,7 +121,7 @@
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <?php 
-                    echo'<img src="https://bootdey.com/img/Content/avatar/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
+                    echo'<img src="../img/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
                      ?>
                     
                     <div class="mt-3">

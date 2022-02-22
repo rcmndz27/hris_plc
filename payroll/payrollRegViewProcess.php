@@ -1,6 +1,6 @@
 <?php
 
-    include('../payroll/payroll_reg.php');
+    include('../payroll/payroll_confirm.php');
     include('../config/db.php');
 
     $choice = $_POST['choice'];
@@ -8,7 +8,7 @@
 
     if ($choice == 1)
     {
-        ApprovePayRegView($empCode);
+        ConfirmPayRegView($empCode);
     }
     else {
 

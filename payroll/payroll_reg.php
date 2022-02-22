@@ -2,7 +2,7 @@
  
 
 class PayrollRegApplication { 
-function GetPayrollRegList(){
+    function GetPayrollRegList(){
 
            
             global $connL;
@@ -144,7 +144,7 @@ function GetPayrollRegList(){
                               echo"</tbody><tfoot>".
                                     "</tr><tr>".
                                     "<td colspan='55' class='paytop'>".
-                                    "<button id='btnApproveView' class='conPyrll' onclick='ApprovePayView()'><i class='fas fa-check-square'></i> CONFIRM PAYROLL REGISTER</button></td>".
+                                    "<button class='conPyrll' onclick='ConfirmPayRegView()'><i class='fas fa-check-square'></i> CONFIRM PAYROLL REGISTER</button></td>".
                                     "</tr></tfoot>";    
            
                 }else { 
@@ -159,25 +159,5 @@ function GetPayrollRegList(){
 }
 
 
-function ApprovePayRegView($empCode)
-    {
-            global $connL;
 
-            $q_logs = 'SELECT* FROM dbo.payroll_period_logs WHERE rowid = (SELECT MAX(rowid) AS id from dbo.payroll_period_logs where emp_code = :emp_cd)';
-            $paramq = array(":emp_cd" => 'PMI14000010');
-            $stmt_q =$connL->prepare($q_logs);
-            $stmt_q->execute($paramq);
-            $rs = $stmt_q->fetch();
-
-            $prf = date('m/d/Y', strtotime($rs['period_from']));
-            $prt = date('m/d/Y', strtotime($rs['period_to']));
-            $loc = $rs["location"];
-        
-            $cmd = $connL->prepare("UPDATE dbo.payroll SET payroll_status = 'N' where date_from = :date_from and date_to = :date_to and location = :location  ");
-            $cmd->bindValue('date_from',$prf);
-            $cmd->bindValue('date_to', $prt);
-            $cmd->bindValue('location', $loc);
-            $cmd->execute();
-
-    }
 ?>

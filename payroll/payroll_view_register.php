@@ -30,91 +30,11 @@
     }
         
 ?>
+<link rel="stylesheet" type="text/css" href="../payroll/payroll_reg.css">
 <script type='text/javascript' src='../payroll/payroll_reg.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
-<style type="text/css">
-    
-
-    table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-        text-align: center;
-        width: 100%;
-        height: 600px;
-        display: block;
-        overflow-y:auto;
-}
-.paytop{
-text-align: left;
-}
-
-.btn-save{
-background-color: #b52020;
-border-color: #b52020;
-color: #ffff;
-
-}
-.btn-save:hover{
-/*opacity: 0.5;*/
-background-color: #b71e1e;
-}
-.mbot{
-    font-weight: bolder;
-    font-size: 17px;
-    margin-top: -50px;
-}
-
-.mleft{
-    margin-left: 50px;
-}
-
-#myInput {
-  background-image: url('../img/searchicon.png');
-  background-size: 30px;
-  background-position: 5px 5px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;  
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-    font-weight: bolder;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL REGISTER VIEW</h1>
@@ -135,13 +55,11 @@ background-color: #b71e1e;
                         <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>
                     </select>
                         <button type="button" id="search" hidden>GENERATE</button>
-                        <?php $payrollApplication->GetPayrollRegList()?>
+                            <?php $payrollApplication->GetPayrollRegList()?>
                 </div>
             </div>
-    <span id='pdfres'></span>
+    </div>
 </div>
-</div>
-<br><br>
 <script>
 jQuery(function(){
    jQuery('#search').click();
@@ -168,7 +86,7 @@ function myFunction() {
   }
 }
 
-    function ApprovePayView()
+    function ConfirmPayRegView()
     {
        
                 var empCode = $('#empCode').children("option:selected").val();
@@ -202,5 +120,4 @@ function myFunction() {
 
     
 </script>
-<script type='text/javascript' src='../js/tableFilter.js'></script>
 <?php include('../_footer.php');  ?>

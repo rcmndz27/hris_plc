@@ -91,13 +91,10 @@
 
 </style>
 <body>
-  <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
 
-<!-- font awesome  -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
 
 <script type='text/javascript' src='../js/changepass.js'></script>
+<script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">
     <div class="section-title">
           <h1>MY PROFILE</h1>
@@ -127,7 +124,7 @@
                 <div class="card-body ">
                   <div class="d-flex flex-column align-items-center text-center">
                     <?php 
-                    echo'<img src="https://bootdey.com/img/Content/avatar/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
+                    echo'<img src="../img/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
                      ?>
                     
                     <div class="mt-3">

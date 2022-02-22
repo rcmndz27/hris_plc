@@ -28,7 +28,6 @@
 ?>
 <script type="text/javascript" src="../deduction/deduction_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 table,th{
 

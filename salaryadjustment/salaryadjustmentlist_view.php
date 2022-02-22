@@ -267,8 +267,7 @@ function myFunction() {
 
         var ats = document.getElementById('inc_de');
         ats.value =  inc;  
-
-                              
+                            
     }
 
 
@@ -290,7 +289,7 @@ function myFunction() {
 
         // swal(amount);
         // exit();
-        
+
         $('#contents').html('');
 
                         swal({

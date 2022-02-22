@@ -39,7 +39,6 @@
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
@@ -64,10 +63,10 @@
                     </select>
                     <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
                 </div>           
-                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()">
+                        <button type="button" id="search" class="genpyrll" onclick="generatePayrll()">
                             <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
-                        <button type="button" id="search" class="gotopay" onclick="show()">
+                        <button type="button" id="srch" class="gotopay" onclick="show()">
                                 <a href="../payroll/payroll_view_register.php" class="payreggoto">
                                 <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
                         </button>                                          
@@ -82,9 +81,9 @@
 
 <script>
 
-             function show() {
-            document.getElementById("myDiv").style.display="block";
-        }
+function show() {
+    document.getElementById("myDiv").style.display="block";
+}
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -103,17 +102,16 @@ function myFunction() {
       }
     }       
   }
-}
+}  
 
     function ApprovePayView()
-    {
-        $("#btnApproveView").one('click', function (event) 
-        {
-
+    {   
+                $("body").css("cursor", "progress");
                 var empCode = $('#empCode').children("option:selected").val();
                 var url = "../payroll/payrollViewProcess.php";
-                $(this).prop('disabled', true);
-          
+
+                $('#contents').html('');
+  
               
                         swal({
                           title: "Are you sure?",
@@ -130,19 +128,19 @@ function myFunction() {
                                             choice: 1,
                                             emp_code: empCode
                                         },
-                                        function(data) { location.reload(true); }
+                                        function(data) {window.location.replace("../payroll/payroll_view_register.php"); }
                                     );
-                                    swal({text:"Successfully saved the payroll!",icon:"success"});
-                                    location.reload();
-                          } else {
+                                    // swal({text:"Successfully saved the payroll!",icon:"success"});
+                      } else {
                             swal({text:"You cancel the saving of payroll!",icon:"error"});
                           }
                         });
-            
-        });
+
+    
     }
 
-    function filterAtt()
+
+    function generatePayrll()
     {
         $("body").css("cursor", "progress");
         var url = "../payroll/payrollrep_process.php";

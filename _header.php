@@ -247,12 +247,6 @@ else
                                                   <li><a href='../payroll/payrollApproval_view.php'>Payroll (".$pyrll.")</a></li>
                                                 </ul>
                                               </li>
-                                             <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Adjustment</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul> 
-                                                  <li><a href='../payroll_att/payroll_attendance_view.php'>Attendance Adjusment</a></li>
-                                                </ul>
-                                              </li>
                                              <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
                                                 <i class='bi bi-chevron-right'></i></a>
                                                 <ul> 

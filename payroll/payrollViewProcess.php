@@ -1,6 +1,6 @@
 <?php
 
-    include('../payroll/payroll.php');
+    include('../payroll/payroll_save.php');
     include('../config/db.php');
 
     $choice = $_POST['choice'];
