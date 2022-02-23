@@ -50,26 +50,26 @@ if (!empty($_POST['loginSubmit']))
                 $url = 'pages/index.php';
                 $url_2 = 'pages/index.php';
 
-                if ($userid == 'PMI12000001' || $userid == 'PMI18000072')
-                {
-                    $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
-                    $ins->bindParam(":id", $userid, PDO::PARAM_STR);
-                    $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
-                    $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
-                    $ins->execute();
+                // if ($userid == 'PMI12000001' || $userid == 'PMI18000072')
+                // {
+                //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
+                //     $ins->bindParam(":id", $userid, PDO::PARAM_STR);
+                //     $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
+                //     $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
+                //     $ins->execute();
 
-                    header("Location: $url");
-                }
-                else
-                {
-                    $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
-                    $ins->bindParam(":id", $userid, PDO::PARAM_STR);
-                    $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
-                    $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
-                    $ins->execute();
+                //     header("Location: $url");
+                // }
+                // else
+                // {
+                //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
+                //     $ins->bindParam(":id", $userid, PDO::PARAM_STR);
+                //     $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
+                //     $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
+                //     $ins->execute();
                     
-                    header("Location: $url");
-                }
+                //     header("Location: $url");
+                // }
             }
             else
             {
@@ -109,10 +109,11 @@ if (empty($_SESSION['userid'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src='js/script.js'></script>
 <style type="text/css">    
 .loader {
             position: fixed;
@@ -127,7 +128,7 @@ if (empty($_SESSION['userid'])) {
         }
 </style>
 </head>
-<body class="login-page">
+<body class="login-page" >
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <!-- end of code -->
 <div class="login-box">
@@ -142,9 +143,9 @@ if (empty($_SESSION['userid'])) {
         <div class="card-body">
           <!-- <p class="login-box-msg">Sign in to start your session</p> -->
 
-          <form action="" method="post" name="login">
+          <form action="" method="post" name="login" onsubmit="show()">
             <div class="input-group mb-3">
-              <input type="text" name="userid" id="userid" class="form-control" placeholder="Emp. Code Ex. OBN000000" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();"/>
+              <input type="text" name="userid" id="userid" class="form-control" placeholder="Emp. Code Ex. OBN000000" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();" required/>
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fa fa-user"></span>
@@ -152,9 +153,7 @@ if (empty($_SESSION['userid'])) {
               </div>
             </div>
             <div class="input-group mb-3">
-              <input
-                type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="off"
-              />
+              <input type="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="off" required/>
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fa fa-lock"></span>
@@ -175,7 +174,7 @@ if (empty($_SESSION['userid'])) {
                 }
             ?>
           <div class="social-auth-links text-center mt-2 mb-3">
-            <input type="submit" class="btn btn-login btn-block" name="loginSubmit" value="Login" onclick="show()">
+            <input type="submit" class="btn btn-login btn-block" name="loginSubmit" value="Login" >
             <div class="row">
                 <div class="col-sm-6">
                     <a href="newhireaccess/newemployee_entry.php" class="btn btn-block btn-login-emp mt-2">

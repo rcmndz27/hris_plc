@@ -27,87 +27,9 @@
     }
         
 ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js" ></script>
-<style type="text/css">
-    
- table,
+<link rel="stylesheet" type="text/css" href="../payslip/payslip.css">
+<script src="../js/pdf.js" ></script>
 
-            th,
-            td {
-                border: 1px solid black;
-                border-collapse: collapse;
-                padding: 3px 3px 3px 3px;
-                border-color: black;
-                background-color: #ffff;
-                /*font-style: italic;*/
-                font-size: 15px;
-
-            }
-  
-            table {
-                /*width: 600px;*/
-                display: block;
-                overflow-y:auto;
-                overflow-x:auto;
-                padding: 20px 20px 20px 20px;
-                color: black;
-                /*background-image: url('../img/payroll4.png');*/
-            }
-.btn-save{
-background-color: #b52020;
-border-color: #b52020;
-color: #ffff;
-
-}
-.paybg{
-background-color: #D9E1F2;
-}
-
-.grossbg{
-background-color: #B4C6E7;
-}
-
-.dedbg{
-background-color: #FFF2CC;
-}
-.subbg{
-background-color: #FFE699;
-}
-.netbg{
-background-color: #C6E0B4;
-}
-.btn-save:hover{
-/*opacity: 0.5;*/
-background-color: #b71e1e;
-}
-.mbot{
-    font-weight: bolder;
-    font-size: 17px;
-}
-.pdfimg:hover{
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.mleft{
-    margin-left: 50px;
-}
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-}
-.cnt {
-    text-align: center;
-    font-size: 20px;
-    padding: 20px;
-    border-radius: 0.25rem;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1>PAYSLIP VIEW</h1>
@@ -135,7 +57,7 @@ background-color: #b71e1e;
                     <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
                 </div>
 
-                <div class="col-md-2 d-flex">
+                <div class="col-md-3 d-flex">
                         <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()" onclick="myFunction2()"><i class="fas fa-search-plus"></i>GENERATE                    
                         </button>
                         <a href='javascript:generatePDF()'><img src="../img/expdf.png" height="40" class="pdfimg" id='expdf'></a>
@@ -160,14 +82,11 @@ background-color: #b71e1e;
                     $('#expdf').hide();
                 }
     });
-</script>
-<script>
-                $("#saveb").hide();
+       $("#saveb").hide();
                 function myFunction2() {
                     $("#saveb").show();           
                 }
-</script>
-<script>
+
     function filterAtt()
     {
         $("body").css("cursor", "progress");
@@ -191,8 +110,7 @@ background-color: #b71e1e;
             function(data) { $("#contents").html(data).show(); }
         );
     }
-</script>
-<script>
+
     function filterAttAll()
     {
         $("body").css("cursor", "progress");
@@ -214,8 +132,7 @@ background-color: #b71e1e;
             function(data) { $("#contents").html(data).show(); }
         );
     }
-</script>
-<script type="text/javascript">
+
 function generatePDF() {
   console.log('converting...');
 

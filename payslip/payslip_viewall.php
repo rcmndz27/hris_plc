@@ -21,91 +21,22 @@
         $dd = new DropDown();
         $empCode = $_SESSION['userid'];
 
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
+        {
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        }
+
     }
         
 ?>
 
 
-<!-- <script type='text/javascript' src='../payslip/payslips.js'></script>	 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js" ></script>
-<style type="text/css">
-    
- table,
-
-            th,
-            td {
-                border: 1px solid black;
-                border-collapse: collapse;
-                padding: 3px 3px 3px 3px;
-                border-color: black;
-                background-color: #ffff;
-                /*font-style: italic;*/
-                font-size: 15px;
-
-            }
-  
-            table {
-                /*width: 600px;*/
-                display: block;
-                overflow-y:auto;
-                overflow-x:auto;
-                padding: 20px 20px 20px 20px;
-                color: black;
-                /*background-image: url('../img/payroll4.png');*/
-            }
-.btn-save{
-background-color: #b52020;
-border-color: #b52020;
-color: #ffff;
-
-}
-.paybg{
-background-color: #D9E1F2;
-}
-
-.grossbg{
-background-color: #B4C6E7;
-}
-
-.dedbg{
-background-color: #FFF2CC;
-}
-.subbg{
-background-color: #FFE699;
-}
-.netbg{
-background-color: #C6E0B4;
-}
-.btn-save:hover{
-/*opacity: 0.5;*/
-background-color: #b71e1e;
-}
-.mbot{
-    font-weight: bolder;    
-    font-size: 17px;
-}
-.pdfimg:hover{
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.mleft{
-    margin-left: 30px;
-}
-.bgen{
-    font-weight: bolder;
-}
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-    font-weight: bolder;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../payslip/payslip_viewall.css">
+<script src="../js/pdf.js" ></script>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL REGISTER VIEW</h1>
@@ -116,7 +47,7 @@ background-color: #b71e1e;
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-money-check fa-fw'>
-                        </i>&nbsp;PAYROLL REGISTER VIEW</b></li>
+                        </i>&nbsp;PAYSLIP ALL VIEWING </b></li>
             </ol>
           </nav>
 

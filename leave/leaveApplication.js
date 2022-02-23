@@ -669,18 +669,31 @@ $(function(){
         }
     });
 
-    $('#dateTo').change(function(){
 
-        
+            $('#dateTo').change(function(){
+
                 if($('#dateTo').val() < $('#dateFrom').val()){
 
-                    swal({text:"Leave Date TO must be greater than Leave Date From!",icon:"error"});
+                    swal({text:"Leave date TO must be greater than Leave Date From!",icon:"error"});
 
                     var input2 = document.getElementById('dateTo');
-                    input2.value = $('#dateFrom').val();
+                    input2.value = '';               
+
                 }else{
                     // alert('Error');
                 }   
+
+            });
+
+
+            $('#dateFrom').change(function(){
+
+                    var input2 = document.getElementById('dateTo');
+                    document.getElementById("dateTo").min = $('#dateFrom').val();
+                    input2.value = '';
+
+            });
+
 
 
         if($('#dateFrom').val() !== $('#dateTo').val()){
@@ -780,10 +793,3 @@ $(function(){
             }
         });//ajax
     });
-
-    
-    
-    
-   
-
-});

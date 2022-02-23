@@ -7,45 +7,21 @@
     else{
         include('../_header.php');
         include('../wfhome/wfh-approval.php');
-
         $wfhApproval = new WfhApproval();
+        
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' ||  $empUserType =='Team Manager')
+        {
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        }        
     }
 ?>
 
-
+<link rel="stylesheet" type="text/css" href="../wfhome/wfhome.css">
 <script type='text/javascript' src='../wfhome/wfh-approval.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-    table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-    }
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1>WORK FROM HOME APPROVAL</h1>
@@ -99,6 +75,5 @@ table {
     </div>
     </div>
 </div>
-<br><br>
 
 <?php include("../_footer.php");?>

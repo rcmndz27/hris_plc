@@ -186,14 +186,14 @@ else
                               $admintools = 'active';
                             }
 
-                      if($empUserType == 'Admin'){
+                      if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'){
                          echo'<li><a class="nav-link '.$admin.'" href="../pages/admin.php"><i class="fas fa-home fa-fw"></i>  &nbsp;Home</a></li>';
                         }else{
                          echo'<li><a class="nav-link '.$admin.'" href="../pages/employee.php"><i class="fas fa-home fa-fw"></i> &nbsp;Home</a></li>';
                        } 
 
                       echo"<li><a class='nav-link ".$dtr_view."' href='../pages/dtr_view.php'><i class='fas fa-calendar fa-fw'>
-                        </i>&nbsp;Attendance</a></li>
+                        </i>&nbsp;MY Attendance</a></li>
 
                          <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>LEAVE/OT/WFH</span> <i class='bi bi-chevron-down'></i></a>
                             <ul>
@@ -433,9 +433,9 @@ else
 
           <li class="dropdown"><a href="#" class='<?php echo $myprofile_view; ?>'><span><i class='fas fa-user-circle fa-fw'></i><?php echo $empName; ?></span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="../pages/myprofile_view.php"><i class='fas fa-id-card fa-fw'></i>MY PROFILE</a></li>
-              <li><a href="../pages/changepass.php"><i class="fas fa-cogs fa-fw"></i>CHANGE PASSWORD</a></li>
-              <li><a href="../controller/logout.php"><i class="fas fa-sign-out-alt fa-fw"></i>LOG-OUT</a></li>
+              <li><a href="../pages/myprofile_view.php" onclick="show()"><i class='fas fa-id-card fa-fw'></i>MY PROFILE</a></li>
+              <li><a href="../pages/changepass.php" onclick="show()"><i class="fas fa-cogs fa-fw"></i>CHANGE PASSWORD</a></li>
+              <li><a href="../controller/logout.php" onclick="show()"><i class="fas fa-sign-out-alt fa-fw"></i>LOG-OUT</a></li>
             </ul>
           </li>
         </ul>

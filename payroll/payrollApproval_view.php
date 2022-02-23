@@ -15,19 +15,14 @@
         include('../payroll/payrollApproval.php');
         include('../payroll/payrollapp_reg.php');
 
-        if ($empType == 'Staff')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
-            echo '<span class="etcMessage">
-                    <script type="text/javascript">
-                        alert("This page is RESTRICTED!!");
-                        $("etcMessage").remove();
-                    </script>
-                </span';
-        }
-        else
-        {
-
-        }
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        } 
     }
 ?>
 <link rel="stylesheet" type="text/css" href="../payroll/payroll_app.css">

@@ -19,7 +19,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
 
                 echo"<table id='payslipsList'><thead>
                     <tr>
-                        <th colspan='5' style='text-align:center;'>".$r['company']." <img src='../img/logo.png'></th>
+                        <th colspan='5' style='text-align:center;'><img src='../img/obanana.png' class='imgh'></th>
                         <button id='showpay' value='ok' hidden></button>
                     </tr>
                     <tr>

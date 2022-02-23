@@ -22,7 +22,7 @@ table {
         border: 2px solid black;
         background-color: white;
         text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-family: "Dosis", sans-serif;
 }
 #myInput {
   background-image: url('../img/searchicon.png');
@@ -38,7 +38,7 @@ table {
     .bb{
         font-weight: bolder;
         text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-family: "Dosis", sans-serif;
     }
     .cstat {
     color: #e65a5a;

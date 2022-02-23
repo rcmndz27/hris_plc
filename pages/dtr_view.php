@@ -14,58 +14,15 @@
     }
         
 ?>
-<!-- <script src="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/datepicker.bundle.js"></script> -->
+<link rel="stylesheet" type="text/css" href="../pages/dtr.css">
 <script type='text/javascript' src='../js/dtr.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<!-- <script type="text/javascript" src='../js/script.js'></script> -->
-
-<style type="text/css">
-.bgen{
-    font-weight: bolder;
-    width: 120px;
-}
-
-
-.pad{
-    padding: 5px 5px 5px 5px;
-}
-
-table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-        text-align: center;
-}
-
-label{
-    font-weight: bolder;
-}
-
-</style>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
-          <h1>MY PROFILE</h1>
+          <h1>MY ATTENDANCE</h1>
         </div>
     <div class="main-body mbt">
 
@@ -73,7 +30,7 @@ label{
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-calendar fa-fw'>
-                        </i>&nbsp;ATTENDANCE</b></li>
+                        </i>&nbsp;MY ATTENDANCE</b></li>
             </ol>
           </nav>
     <div class="form-row pt-3">
@@ -81,11 +38,11 @@ label{
                 <label class="control-label pad" for="dateFrom">FROM:</label>
             <div class="col-md-2">
                 <input type="date" id="dateFrom" class="form-control" name="dateFrom"
-                    value="<?php echo date('Y-m-d'); ?>">
+                    value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
             </div>
                 <label class="control-label pad" for="dateTo">TO:</label>
             <div class="col-md-2">
-                <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>">
+                <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
             </div>
             <div class="col-md-1">
                 <button type="submit" id="search" class="genpyrll" ><i class="fas fa-search-plus"></i> GENERATE
@@ -102,6 +59,31 @@ label{
     </div>
     </div>
 </div>
-    <br><br>
+<script type="text/javascript">
+
+           $('#dateTo').change(function(){
+
+                if($('#dateTo').val() < $('#dateFrom').val()){
+
+                    swal({text:"Date to must be greater than date from!",icon:"error"});
+
+                    var input2 = document.getElementById('dateTo');
+                    input2.value = '';               
+
+                }else{
+                    // alert('Error');
+                }   
+
+            });
+
+
+            $('#dateFrom').change(function(){
+
+                    var input2 = document.getElementById('dateTo');
+                    document.getElementById("dateTo").min = $('#dateFrom').val();
+                    input2.value = '';
+
+            });
+</script>
 
 <?php include('../_footer.php');  ?>

@@ -9,19 +9,20 @@
     else
     {
         include('../_header.php');
-        if ($empUserType == "Admin" || $empUserType == "HR-CreateStaff")
-        {
-            include("../users/userslist.php");
-            include('../elements/DropDown.php');
-            include('../controller/MasterFile.php');
-            $allUsersList = new UsersList(); 
-            $mf = new MasterFile();
-            $dd = new DropDown();
+        include("../users/userslist.php");
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');
+        $allUsersList = new UsersList(); 
+        $mf = new MasterFile(); 
+        $dd = new DropDown();
 
-        }
-        else
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
-            header( "refresh:1;url=../index.php" );
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
         }
 
     }    
@@ -100,13 +101,6 @@
                                 </div>
                                 </div>
                               </div> 
-<!--                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label" for="useremail">User Email<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="useremail"
-                                            id="useremail" readonly>    
-                                    </div>
-                                </div> -->
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="emp_level">User Level<span class="req">*</span></label>

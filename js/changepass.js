@@ -1,16 +1,12 @@
 $(function(){
 
-    $('#Submit').click(function(){ 
+   function chngPass(){
 
     var newp = $('#newpassword').val();
     var conf = $('#confirmpassword').val();
 
-        if(newp === '' || conf === ''){
-             swal({text:"Please fill-up all required (*) fields. ",icon:"error"});
-             return false;
-        }else{
-                if(newp === conf)
-                {
+     
+                if(newp === conf){
 
                     param = {
                         "Action":"ChangePass",
@@ -52,13 +48,9 @@ $(function(){
                      }else{
                     swal({text:"Password do not match!",icon:"error"});
                     }
-
-        }
-
-
-
-        
-    });
+    
+    }
+    
  });
 
 

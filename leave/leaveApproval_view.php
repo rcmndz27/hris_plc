@@ -11,53 +11,15 @@
         include('../_header.php');
         include('../leave/leaveApproval.php');
 
-        if ($empType == 'Staff')
-        {
-            echo '<span class="etcMessage">
-                    <script type="text/javascript">
-                        alert("This page is RESTRICTED!!");
-                        $("etcMessage").remove();
-                    </script>
-                </span';
-        }
-        else
-        {
-
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'){
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
         }
     }
 ?>
-<style type="text/css">
-table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-    }
-  
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../leave/leaveapp.css">
 <div class="container">
     <div class="section-title">
           <h1>LEAVE APPROVAL</h1>

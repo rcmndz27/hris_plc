@@ -8,9 +8,7 @@
     }
     else
     {
-        include('../_header.php');
-        if ($empUserType == "Admin" || $empUserType == "HR-CreateStaff")
-        {
+            include('../_header.php');
             include("../newhireaccess/newhire-access.php");
             include('../elements/DropDown.php');
             include('../controller/MasterFile.php');
@@ -18,21 +16,21 @@
             $mf = new MasterFile();
             $dd = new DropDown();
 
-        }
-        else
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
-            header( "refresh:1;url=../index.php" );
-        }
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        } 
+
+       
 
     }    
 ?>
 <link rel="stylesheet" href="../newhireaccess/newhire-access.css">
-<!-- <script type="text/javascript" src="../newhireaccess/newemp.js"></script> -->
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-
-</style>
 <div class="container">
     <div class="section-title">
           <h1>ALL EMPLOYEE LIST</h1>

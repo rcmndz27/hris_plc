@@ -17,131 +17,10 @@
     
 ?>   
 ?> 
-    <script type="text/javascript" src="../newhireaccess/newemp.js"></script>
-    <script type='text/javascript' src='../js/validator.js'></script>
+<link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
+<script type="text/javascript" src="../newhireaccess/newemp.js"></script>
+<script type='text/javascript' src='../js/validator.js'></script>
 
-<style type="text/css">
-    
-.bup{
-
-font-weight: bold;
-}
-
-.req{
-    color: red;
-}
-
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 10px 10px 10px 10px;
-    font-weight: bolder;
-}
-.note{
-    font-size: 11px;
-    font-style: italic;
-}
-.note2{
-    font-size: 14px;
-    font-style: italic;
-}
-.refby{
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 1px solid black;
-width: 30px;
-    height: 20px;
-}
-.tabrec{
-    text-transform: uppercase;
-    color: black;
-    font-weight: bolder;
-}
-.mar_dep{
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 1px solid black;
-  width: 30px;
-  height: 20px;
-}
-.sub{
-    width: 200px;
-    font-size: 20px;
-    color: #ffff;
-    font-weight: bolder;
-    background-color: #ffaa00;
-    border-color: #ffaa00;
-    border-radius: 1rem;
-}
-
-.samea{
-    width: 100px;
-    height: 20px;
-    padding: 1px;
-    font-size: 12px;
-    font-weight: bolder;
-    background-color: #8b8888;
-    border-color: gray;
-    color: #ffff;
-    border-radius: 1rem;
-}
-
-.samea:hover{
-opacity: 0.5;
-}
-
-.adddep{
-    background-color: #ffaa00;
-    font-weight: bolder;
-    border-color: #ffaa00;
-    border-radius: 1rem;
-    color: #ffff;
-    width: 75px;
-    height: 35px;
-    font-size: 12px;
-    padding: 2px;
-}
-
-.adddep:hover{
-opacity: 0.5;
-}
-
-.addjob {
-    background-color: #ffaa00;
-    font-weight: bolder;
-    border-color: #ffaa00;
-    border-radius: 1rem;
-    color: #ffff;
-    width: 160px;
-    height: 35px;
-    font-size: 12px;
-    padding: 2px;
-}
-
-.addjob:hover{
-opacity: 0.5;
-}
-
-
-.rememp {
-    width: 150px;
-    font-weight: bolder;
-    height: 40px;
-    padding: 3px;
-    font-size: 12px;
-    border-radius: 1rem;
-}
-
-.rememp:hover{
-opacity: 0.5;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1></h1>
@@ -155,7 +34,7 @@ opacity: 0.5;
                         </i>&nbsp; EMPLOYEE PROFILE - PERSONAL DATA SHEET</b></li>
             </ol>
           </nav>
-          <form id="applicantform">
+          <form id="applicantform" method="post">
                 <ul class="nav nav-tabs tabrec" id="myTab" name="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="personal-tab" name="personal-tab" data-toggle="tab"
@@ -205,7 +84,7 @@ opacity: 0.5;
                                     <div class="form-group">
                                         <label class="control-label" for="prefwork">Preferred field of work:<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="preffieldwork"
-                                            id="preffieldwork" placeholder="1.">
+                                            id="preffieldwork" placeholder="1." required>
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
@@ -213,20 +92,20 @@ opacity: 0.5;
                                         <label class="control-label" for="positionList">Position Title:<span class="req">*</span></label>
                                         <label class="note">(Please confirm vacancy you wish to be evaluated for by printing its position title below:)</label>
                                         <input type="text" class="form-control inputtext" name="positiontitle"
-                                            id="positiontitle" placeholder="1.">
+                                            id="positiontitle" placeholder="1." required>
 
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <input type="text" class="form-control inputtext" name="preffieldwork1"
-                                            id="preffieldwork1" placeholder="2.">
+                                            id="preffieldwork1" placeholder="2." required>
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <input type="text" class="form-control inputtext" name="positiontitle1"
-                                            id="positiontitle1" placeholder="2.">
+                                            id="positiontitle1" placeholder="2." required>
                                     </div>
                                 </div>                                                                
                             </div> 
@@ -615,7 +494,7 @@ opacity: 0.5;
                                         <label class="control-label" for="companyrelatives">Have you any near relatives working in another company like Obanana ?</label>
                                         <label class="note">If so, give name, relationship, and organization.</label>
                                   <textarea class="form-control" id="companyrelatives" name="companyrelatives" rows="4"
-                                    cols="90" placeholder="Have you any near relatives working in another company like Obanana ?relativeswork"></textarea>
+                                    cols="90" placeholder="Have you any near relatives working in another company like Obanana ?"></textarea>
                                     </div>
                                 </div> 
                                 <div class="col-lg-12">

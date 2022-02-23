@@ -8,9 +8,7 @@
     }
     else
     {
-        include('../_header.php');
-        if ($empUserType == "Admin" || $empUserType == "HR-CreateStaff")
-        {
+            include('../_header.php');
             include("../applicantprofile/applicantlist.php");
             include('../elements/DropDown.php');
             include('../controller/MasterFile.php');
@@ -24,10 +22,13 @@
 
             $today = $year . '-' . $month . '-' . $day;
 
-        }
-        else
+       if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
-            header( "refresh:1;url=../index.php" );
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
         }
 
     }    
@@ -61,7 +62,7 @@ table {
         border: 2px solid black;
         background-color: white;
         text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-family: "Dosis", sans-serif;
 }
 #myInput {
   background-image: url('../img/searchicon.png');
@@ -77,7 +78,7 @@ table {
     .bb{
         font-weight: bolder;
         text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-family: "Dosis", sans-serif;
     }
     .cstat {
     color: #e65a5a;
@@ -470,7 +471,7 @@ table {
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="Verifieddate">Verified Date</label>
-                                        <input type="date" class="form-control inputtext" id="verified_date" name="verified_date" value="<?php echo $today; ?>">
+                                        <input type="date" class="form-control inputtext" id="verified_date" name="verified_date" value="<?php echo $today; ?>" min="<?php echo $today; ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">

@@ -65,10 +65,10 @@
         $mf = new MasterFile();
         $dd = new DropDown();
 
-            if($empUserType == 'Admin'|| $empUserType == 'HR-CreateStaff') {
+            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'|| $empUserType == 'HR-CreateStaff') {
 
             }else{
-                        echo '<script type="text/javascript">alert("You do not have access here!");';
+                        echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
                         echo "window.location.href = '../index.php';";
                         echo "</script>";
             }

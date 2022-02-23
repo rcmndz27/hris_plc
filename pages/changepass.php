@@ -92,7 +92,6 @@
 </style>
 <body>
 
-
 <script type='text/javascript' src='../js/changepass.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">

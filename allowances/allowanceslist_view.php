@@ -8,9 +8,7 @@
     }
     else
     {
-        include('../_header.php');
-        if ($empUserType == "Admin" || $empUserType == "HR-CreateStaff")
-        {
+            include('../_header.php');
             include("../allowances/allowanceslist.php");
             include('../elements/DropDown.php');
             include('../controller/MasterFile.php');
@@ -18,146 +16,22 @@
             $mf = new MasterFile();
             $dd = new DropDown();
 
-        }
-        else
+
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
-            header( "refresh:1;url=../index.php" );
-        }
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        } 
 
     }    
 ?>
+<link rel="stylesheet" type="text/css" href="../allowances/all_view.css">
 <script type="text/javascript" src="../allowances/allowances_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-        border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
-        background-color: white;
-        text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-}
-#myInput {
-  background-image: url('../img/searchicon.png');
-  background-size: 30px;
-  background-position: 5px 5px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;  
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-    .bb{
-        font-weight: bolder;
-        text-align: center;
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    }
-    .cstat {
-    color: #e65a5a;
-    font-size: 10px;
-    text-align: center;
-    margin: 0;
-    padding: 5px 5px 5px 5px;
-    }
-    .ppclip{
-        height: 50px;
-        width: 50px;
-        cursor: pointer;
-    }
-    .ppclip:hover{
-        opacity: 0.5;
-    }
-
-    .bb{
-        font-weight: bolder;
-        text-align: center;
-    }
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-    font-weight: bolder;
-}
-
-.caps{
-    text-transform: uppercase;
-    font-weight: bolder;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.addapp{
-    color: #ffff;
-    font-weight: bolder;
-}
-.req{
-    color: red;
-}
-
-
-.addNewAppBut {
-    background-color: #fbec1e;
-    color: #ed6200;
-    border-color: #fbec1e;
-    border-radius: 1em;
-}
-
-
-.addNewAppBut:hover {
-    opacity: 0.5;
-}
-
-.backbut{
-    background-color: #fbec1e;
-    border-color: #fbec1e;
-    border-radius: 1rem;
-    font-size: 20px;
-    font-weight: bolder;
-    color: #d64747;
-}
-
-.backbut:hover{
-    opacity: 0.5;
-}
-
-.subbut{
-    background-color: #ffaa00;
-    border-color: #ffaa00;
-    font-weight: bolder;
-    color: #ffff;
-    font-size: 20px;
-    border-radius: 1rem;
-}
-
-.subbut:hover{
-    opacity: 0.5;
-}
-
-</style>
 <div class="container">
     <div class="section-title">
           <h1>ALL ALLOWANCE LIST</h1>
@@ -235,7 +109,7 @@ table {
                                     <label class="control-label" for="effectivity_date">Effectivity Date<span class="req">*</span>
                                     </label>                                        
                                         <input type="date" class="form-control inputtext" name="effectivity_date"
-                                            id="effectivity_date">
+                                            id="effectivity_date" min="<?php  echo date('Y-m-d'); ?>" value="<?php  echo date('Y-m-d'); ?>" onkeydown="return false">
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">

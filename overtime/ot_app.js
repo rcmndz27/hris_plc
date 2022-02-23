@@ -23,13 +23,24 @@
                     swal({text:"OT date TO must be greater than OT Date From!",icon:"error"});
 
                     var input2 = document.getElementById('otdateto');
-                    input2.value = $('#otdate').val();
+                    input2.value = '';               
+
                 }else{
                     // alert('Error');
                 }   
 
+            });
+
+
+            $('#otdate').change(function(){
+
+                    var input2 = document.getElementById('otdateto');
+                    document.getElementById("otdateto").min = $('#otdate').val();
+                    input2.value = '';
 
             });
+
+
 
 $('#Submit').click(function(){
 

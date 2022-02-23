@@ -19,7 +19,16 @@ $(function(){
     }
 
     $("#search").click(function(e){
-        e.preventDefault();
+        e.preventDefault();         
+
+        document.getElementById("myDiv").style.display="block";
+
+        if($('#dateTo').val()== '' ){
+
+            swal({text:"Kindly fill up blank fields!",icon:"warning"});
+            document.getElementById("myDiv").style.display="none";
+
+       }else{   
 
         param = {
           Action: "GetAttendanceList",
@@ -39,15 +48,19 @@ $(function(){
                 // console.log("success: "+ data);
                 $("#tableList").html(data);
                 XLSXExport();
+
+                document.getElementById("myDiv").style.display="none";
             },
             error: function (data){
+                
+                document.getElementById("myDiv").style.display="none";
                 // console.log("error: "+ data);	
             }
         });
 
-    });
+        }
 
 
-    
+    });    
 
 });

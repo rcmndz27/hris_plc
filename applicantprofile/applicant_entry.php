@@ -128,7 +128,7 @@ font-weight: bold;
                                     <div class="form-group">
                                         <label class="control-label" for="ReferredDate">Referred Date</label>
                                         <div id="refdate_show">
-                                            <input type="date" class="form-control inputtext" name="referreddate"
+                                            <input type="date" class="form-control inputtext" max="2022-02-22" name="referreddate"
                                                 id="referreddate">
                                         </div>
                                         <div id="refdate_dis">

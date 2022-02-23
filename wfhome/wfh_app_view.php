@@ -17,70 +17,12 @@
     }    
 ?>
 
+<link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <script type='text/javascript' src='../wfhome/wfh_app.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-range/4.0.1/moment-range.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style type="text/css">
-
-table,th{
-
-                border: 1px solid #dee2e6;
-                font-weight: 700;
-                font-size: 14px;
- }   
-
-
-table,td{
-
-                border: 1px solid #dee2e6;
- }  
-
- th,td{
-    border: 1px solid #dee2e6;
- }
-  
-table {
-        border: 1px solid #dee2e6;
-        color: #ffff;
-        margin-bottom: 100px;
-        border: 1px solid black;
-        background-color: white;
-        text-align: center;
-}
-
-    .cstat {
-    color: #e65a5a;
-    font-size: 10px;
-    text-align: center;
-    margin: 0;
-    padding: 5px 5px 5px 5px;
-    }
-    .ppclip{
-        height: 50px;
-        width: 50px;
-        cursor: pointer;
-    }
-    .ppclip:hover{
-        opacity: 0.5;
-    }
-
-    .bb{
-        font-weight: bolder;
-        text-align: center;
-    }
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-}
-</style>
+<script src="../wfhome/moment.min.js"></script>
+<script src="../wfhome/moment2.min.js"></script>
+<script src="../wfhome/moment-range.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>WORK FROM HOME APPLICATION</h1>

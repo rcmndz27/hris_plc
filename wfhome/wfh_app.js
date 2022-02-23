@@ -74,16 +74,26 @@ function uploadFile() {
 
                 if($('#wfhdateto').val() < $('#wfhdate').val()){
 
-                    alert('`WFH Date To` must be greater than `WFH Date From`');
+                    swal({text:"WFH date TO must be greater than WFH Date From!",icon:"error"});
 
                     var input2 = document.getElementById('wfhdateto');
-                    input2.value = $('#wfhdate').val();
+                    input2.value = '';               
+
                 }else{
                     // alert('Error');
                 }   
 
+            });
+
+
+            $('#wfhdate').change(function(){
+
+                    var input2 = document.getElementById('wfhdateto');
+                    document.getElementById("wfhdateto").min = $('#wfhdate').val();
+                    input2.value = '';
 
             });
+
 
 $('#Submit').click(function(){
 

@@ -20,33 +20,41 @@ $(function(){
 $('#search').click(function(e){
     e.preventDefault();
 
-    param = {
-        "Action":"GetEmployeeAttendannce",
-        "dateFrom":$('#dateFrom').val(),
-        "dateTo":$('#dateTo').val(),
-        "empCodeParam":$('#empCode').val()
 
-    };
-    
-    param = JSON.stringify(param);
-    
-    $.ajax({
-        type: "POST",
-        url: "../dtr/dtr-viewing-process.php",
-        data: {data:param} ,
-        success: function (data){
-            // console.log("success: "+ data);
-            $('#empDtrList').remove();
-            $('#dtrViewList').append(data);
-            XLSXExport();
+    if($('#empCode').val()== '' || $('#dateTo').val()== '' ){
 
-        },
-        error: function (data){
-            // console.log("error: "+ data);	
-        }
-    });//ajax
+            swal({text:"Kindly fill up blank fields!",icon:"warning"});
 
+       }else{    
 
-});
+            param = {
+                "Action":"GetEmployeeAttendannce",
+                "dateFrom":$('#dateFrom').val(),
+                "dateTo":$('#dateTo').val(),
+                "empCodeParam":$('#empCode').val()
+
+            };
+            
+            param = JSON.stringify(param);
+
+            
+            $.ajax({
+                type: "POST",
+                url: "../dtr/dtr-viewing-process.php",
+                data: {data:param} ,
+                success: function (data){
+                    // console.log("success: "+ data);
+                    $('#empDtrList').remove();
+                    $('#dtrViewList').append(data);
+                    XLSXExport();
+
+                },
+                error: function (data){
+                    // console.log("error: "+ data);	
+                }
+            });//ajax
+          }
+
+    });
     
 });

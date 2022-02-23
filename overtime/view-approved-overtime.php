@@ -9,28 +9,20 @@ else
 {
     include("../_header.php");
     include("../overtime/overtime-approval.php");
+    
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'  ||  $empUserType =='Team Manager')
+        {
+  
+        }else{
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        }      
 }
 ?>
 
+<link rel="stylesheet" type="text/css" href="../overtime/ot_vapp.css">
 <link rel="stylesheet" type="text/css" href="../overtime/overtime.css">
-<style type="text/css">
-    
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
-    font-weight: bolder;
-}
-
-.fb{
-   font-weight: bolder; 
-   width: 130px;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1>APPROVE OVERTIME VIEW</h1>
@@ -50,7 +42,7 @@ else
             <div id="list-box"></div>
         </div>
         <div class="col-md-1">
-            <input type="submit" id="search" class="form-control btn btn-primary fb" value="SEARCH">
+            <button type="submit" id="search" class="genpyrll" ><i class="fas fa-search-plus"></i> SEARCH</button>
         </div>
     </div>
 

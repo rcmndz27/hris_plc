@@ -23,10 +23,10 @@
         $mf = new MasterFile();
         $dd = new DropDown();
 
-            if($empUserType == 'Admin'|| $empUserType == 'Payroll') {
+            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
             }else{
-                        echo '<script type="text/javascript">alert("You do not have access here!");';
+                        echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
                         echo "window.location.href = '../index.php';";
                         echo "</script>";
             }
@@ -56,7 +56,6 @@
 
                 <div class="form-row">
                     <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD/LOCATION:</label>
-                    <!-- <label for="payroll_period" class="col-form-label mbot pad">Payroll Period/Location:</label> -->
                 <div class='col-md-4'>
                     <select class="form-control" id="empCode" name="empCode" value="" hidden>
                         <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>

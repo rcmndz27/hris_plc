@@ -654,7 +654,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT level_id,level_code,level_description FROM dbo.employee_level ORDER by level_id ASC");
+                $sql = $connL->prepare(@"SELECT level_id,level_code,level_description FROM dbo.employee_user_level ORDER by level_id ASC");
                 $sql->execute();
 
                 if ($type == "emp_levelwrds")

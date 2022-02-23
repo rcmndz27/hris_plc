@@ -42,7 +42,7 @@ Class AllowancesList{
                 <td>' . $result['emp_code']. '</td>
                 <td>' . $result['benefit_name']. '</td>
                 <td>' . $result['period_cutoff']. '</td>
-                <td>' . 'P'.' '.round($result['amount'],2). '</td>
+                <td>' . substr(hash('sha256', $result['amount']),50). '</td>
                 <td>' . date('m/d/Y', strtotime($result['effectivity_date'])) . '</td>';
                 echo'<td><button type="button" class="actv" onclick="editAlwModal(' . $empcd. ',' . $benname. ',' . $periodcutoff. ',' . $amnt. ',' . $effectivitydate. ')">
                                 <i class="fas fa-edit"></i> UPDATE
