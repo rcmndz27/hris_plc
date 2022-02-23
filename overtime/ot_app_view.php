@@ -17,7 +17,7 @@
     }    
 ?>
 
-<link rel="stylesheet" type="text/css" href="../leave/ot_view.css">
+<link rel="stylesheet" type="text/css" href="../overtime/ot_view.css">
 <script type='text/javascript' src='../overtime/ot_app.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
 <script src="../overtime/moment2.min.js"></script>
