@@ -2,9 +2,9 @@ $(function(){
 
    function chngPass(){
 
+alert('xxxxx');
     var newp = $('#newpassword').val();
     var conf = $('#confirmpassword').val();
-
      
                 if(newp === conf){
 

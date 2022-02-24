@@ -655,7 +655,7 @@
                                 </div>                                
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label class="control-label" for="schoolname">Name of  School/College/University:</label>
+                                        <label class="control-label" for="schoolname">Name of  School/College/University:</label><br><br>
                                         <input type="text" class="form-control" name="schoolname[]" placeholder="School Name...">                                            
                                     </div>
                                 </div>

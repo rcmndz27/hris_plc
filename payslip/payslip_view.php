@@ -75,17 +75,7 @@
 <script type="text/javascript">
     
         $('#expdf').hide();
-    //     $('#search').click(function(e){
-    //         var showpay = $('#showpay').val();  
-    //             if(showpay === 'ok'){
-    //                 $('#expdf').show();
-    //             }else{
-    //                 $('#expdf').hide();
-    //             }
-    // });
 
-
-   
 
     function genePayrl()
     {
