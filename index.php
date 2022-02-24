@@ -62,7 +62,7 @@ if (!empty($_POST['loginSubmit']))
                 // }
                 // else
                 // {
-                //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
+            //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
                 //     $ins->bindParam(":id", $userid, PDO::PARAM_STR);
                 //     $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
                 //     $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
@@ -100,14 +100,12 @@ if (empty($_SESSION['userid'])) {
     <meta name="robots" content="noindex">
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
-
-    <link type='image/x-png' rel='icon' href='img/ob_icon.png'>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel='stylesheet' href='css/login_caru.css'>
-    <link rel='stylesheet' href='css/login.css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+<meta http-equiv='pragma' content='no-cache'>
+<link type='image/x-png' rel='icon' href='img/ob_icon.png'>
+<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel='stylesheet' href='css/login_caru.css'>
+<link rel='stylesheet' href='css/login.css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
       <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
