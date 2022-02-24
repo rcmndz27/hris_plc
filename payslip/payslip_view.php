@@ -29,7 +29,7 @@
 ?>
 <link rel="stylesheet" type="text/css" href="../payslip/payslip.css">
 <script src="../js/pdf.js" ></script>
-
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>PAYSLIP VIEW</h1>
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="col-md-3 d-flex">
-                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()" onclick="myFunction2()"><i class="fas fa-search-plus"></i>GENERATE                    
+                        <button type="button" id="search" class="genpyrll" onclick="genePayrl()" ><i class="fas fa-search-plus"></i>GENERATE                    
                         </button>
                         <a href='javascript:generatePDF()'><img src="../img/expdf.png" height="40" class="pdfimg" id='expdf'></a>
                 </div>
@@ -71,24 +71,27 @@
     <span id='pdfres'></span>
 </div>
 </div>
-<br><br>
-<script type="text/javascript">
-        $('#expdf').hide();
-        $('#search').click(function(e){
-            var showpay = $('#showpay').val();  
-                if(showpay === 'ok'){
-                    $('#expdf').show();
-                }else{
-                    $('#expdf').hide();
-                }
-    });
-       $("#saveb").hide();
-                function myFunction2() {
-                    $("#saveb").show();           
-                }
 
-    function filterAtt()
+<script type="text/javascript">
+    
+        $('#expdf').hide();
+    //     $('#search').click(function(e){
+    //         var showpay = $('#showpay').val();  
+    //             if(showpay === 'ok'){
+    //                 $('#expdf').show();
+    //             }else{
+    //                 $('#expdf').hide();
+    //             }
+    // });
+
+
+   
+
+    function genePayrl()
     {
+
+        $('#expdf').show();
+        document.getElementById("myDiv").style.display="block";
         $("body").css("cursor", "progress");
         var url = "../payslip/payslips_process.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
@@ -107,35 +110,15 @@
                 _empCode: empCode
                 
             },
-            function(data) { $("#contents").html(data).show(); }
-        );
-    }
+            function(data) { $("#contents").html(data).show(); 
+            document.getElementById("myDiv").style.display="none";}
 
-    function filterAttAll()
-    {
-        $("body").css("cursor", "progress");
-        var url = "../payslip/payslips_process.php";
-        var cutoff = $('#ddcutoff').children("option:selected").val();
-        var dates = cutoff.split(" - ");
-        var empCode = $('#empCode').children("option:selected").val();
-
-        $('#contents').html('');
-
-        $.post (
-            url,
-            {
-                _action: 0,
-                _from: dates[0],
-                _to: dates[1],
-                _empCode: empCode
-            },
-            function(data) { $("#contents").html(data).show(); }
         );
     }
 
 function generatePDF() {
-  console.log('converting...');
 
+  // console.log('converting...');
   var printableArea = document.getElementById('payslipsList');
 
   html2canvas(printableArea, {

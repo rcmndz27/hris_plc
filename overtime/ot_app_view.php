@@ -90,18 +90,16 @@
                         <div class="form-row align-items-center mb-2">
 
                             <div class="col-md-2 d-inline">
-                                <label for="">Time in:</label>
+                                <label for="">OT Start Time:</label>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="time" id="otstartdtime" name="otstartdtime" class="form-control"
-                                    value="<?php echo date('h:i:sa');?>">
+                                <input type="time" id="otstartdtime" name="otstartdtime" class="form-control">
                             </div>
                             <div class="col-md-2 d-inline">
-                                <label for="">Time out:</label>
+                                <label for="">OT End Time:</label>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="time" id="otenddtime" name="otenddtime" class="form-control"
-                                    value="<?php echo date('h:i:sa'); ?>" readonly>
+                                <input type="time" id="otenddtime" name="otenddtime" class="form-control" readonly>
                             </div>
                         </div>
 

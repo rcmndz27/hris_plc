@@ -30,12 +30,11 @@
 ?>
 <link rel="stylesheet" type="text/css" href="../pages/ot_rep.css">
 <div class="container">
+<div id = "myDiv" style="display:none;" class="loader"></div>
     <div class="section-title">
           <h1>OT APPROVAL REPORT</h1>
         </div>
     <div class="main-body mbt">
-
-          <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-suitcase fa-fw'>
@@ -51,7 +50,7 @@
                     </select>
                     <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
                 </div>
-                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()">
+                        <button type="button" id="search" class="genpyrll" onclick="ottApprp()">
                         <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
         </div>
@@ -62,12 +61,10 @@
             </div>
     </div>
 </div>
-<br><br>
-
-
 <script>
-    function filterAtt()
+    function ottApprp()
     {
+        document.getElementById("myDiv").style.display="block";
         $("body").css("cursor", "progress");
         var url = "../controller/otApprovalReportProcess.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
@@ -83,46 +80,13 @@
                 _to: dates[1],
                 _rpt: '<?= $empID; ?>'
             },
-            function(data) { $("#contents").html(data).show(); }
+            function(data) { $("#contents").html(data).show(); 
+            document.getElementById("myDiv").style.display="none";
+            }
         );
     }
 
-    function filterAttAll()
-    {
-        $("body").css("cursor", "progress");
-        var url = "../controller/otApprovalReportProcess.php";
-        var cutoff = $('#ddcutoff').children("option:selected").val();
-        var dates = cutoff.split(" - ");
 
-        $('#contents').html('');
-
-        $.post (
-            url,
-            {
-                _action: 0,
-                _from: dates[0],
-                _to: dates[1]
-            },
-            function(data) { $("#contents").html(data).show(); }
-        );
-    }
-
-function ExportToPDF(status)
-{
-    var cutoff = $('#ddcutoff').children("option:selected").val();
-    var dates = cutoff.split(" - ");
-    var rpt = "<?= $empID; ?>";
-
-    if (status == 0)
-    {
-        window.open('../controller/PDFExporter.php?id=' + '&dfrom=' + dates[0] + '&dto=' + dates[1], '_blank');
-    }
-    else if (status == 1)
-    {
-        window.open('../controller/PDFExporter.php?id=' + rpt + '&dfrom=' + dates[0] + '&dto=' + dates[1], '_blank');
-    }
-    else { }
-}
 </script>
 
 <?php  include('../_footer.php');  ?>

@@ -6,7 +6,6 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
            
             global $connL;
 
-
             $cmd = $connL->prepare('EXEC hrissys_test.dbo.payslip_summary :date_start, :date_end , :emp_code');
             $cmd->bindValue(':date_start',$dtFrom);
             $cmd->bindValue(':date_end',$dtTo);
@@ -19,7 +18,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
 
                 echo"<table id='payslipsList'><thead>
                     <tr>
-                        <th colspan='5' style='text-align:center;'><img src='../img/obanana.png' class='imgh'></th>
+                        <th colspan='5' style='text-align:center;'><img src='../img/obanana.png' style='height:50px;'></th>
                         <button id='showpay' value='ok' hidden></button>
                     </tr>
                     <tr>

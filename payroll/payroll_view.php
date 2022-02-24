@@ -26,9 +26,9 @@
             if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
             }else{
-                        echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
-                        echo "window.location.href = '../index.php';";
-                        echo "</script>";
+                echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+                echo "window.location.href = '../index.php';";
+                echo "</script>";
             }
     }
         
@@ -141,6 +141,8 @@ function myFunction() {
 
     function generatePayrll()
     {
+
+        document.getElementById("myDiv").style.display="block";
         $("body").css("cursor", "progress");
         var url = "../payroll/payrollrep_process.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
@@ -159,7 +161,10 @@ function myFunction() {
                 _empCode: empCode
                 
             },
-            function(data) { $("#contents").html(data).show(); }
+            function(data) { 
+                $("#contents").html(data).show();
+                document.getElementById("myDiv").style.display="none"; 
+            }
         );
     }
 </script>

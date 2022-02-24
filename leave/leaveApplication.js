@@ -403,7 +403,7 @@ $(function(){
     $('#Submit').click(function(){
 
 
-            console.log(leaveCount);
+            // console.log(leaveCount);
 
 
                 var leave_pay ;
@@ -481,6 +481,8 @@ $(function(){
                         }
 
 
+            }else{
+                swal({text:"Kindly fill up blank fields.",icon:"warning"});
             }
 
     

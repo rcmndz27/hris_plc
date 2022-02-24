@@ -41,6 +41,7 @@
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
         <div class="section-title">
           <h1>
@@ -68,12 +69,10 @@
                 </div>
 
                 <div class="col-md-2 d-flex">
-                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()">
+                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:pviewRpt()">
                             <i class="fas fa-search-plus"></i>
                             GENERATE                      
                         </button>
-
-
                 </div>
         </div>
       <div class="row pt-5">
@@ -107,8 +106,9 @@ function myFunction() {
   }
 }
 
-    function filterAtt()
+    function pviewRpt()
     {
+        document.getElementById("myDiv").style.display="block";
         var url = "../payroll/payrollrep_rep_process.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
         var dates = cutoff.split(" - ");
@@ -127,7 +127,9 @@ function myFunction() {
                 _company: companies[0]
                 
             },
-            function(data) { $("#contents").html(data).show(); }
+            function(data) { $("#contents").html(data).show();
+            document.getElementById("myDiv").style.display="none"; 
+        }
         );
     }
 </script>

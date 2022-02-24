@@ -34,16 +34,14 @@
         
 ?>
 
-
 <link rel="stylesheet" type="text/css" href="../payslip/payslip_viewall.css">
 <script src="../js/pdf.js" ></script>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL REGISTER VIEW</h1>
         </div>
     <div class="main-body mbt">
-
-          <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-money-check fa-fw'>
@@ -58,7 +56,7 @@
                 </div>
 
                 <div class="col-md-3 d-flex">
-                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:filterAtt()">
+                        <button type="button" id="search" class="genpyrll" onclick="filterAtt()">
                             <i class="fas fa-search-plus"></i>GENERATE                       
                         </button>
                         <a href='javascript:generatePDF()'><img src="../img/expdf.png" height="40" class="pdfimg" id='expdf'></a>                        
@@ -78,21 +76,12 @@
 <br><br>
 <script type="text/javascript">
         $('#expdf').hide();
-        $('#search').click(function(e){
-            var showpay = $('#showpay').val();  
-                if(showpay === 'ok'){
-                    $('#expdf').show();
-                }else{
-                    $('#expdf').hide();
-                }
-    });
-</script>
-<script>
-
-
 
     function filterAtt()
     {
+        
+        $('#expdf').show();
+        document.getElementById("myDiv").style.display="block";
         $("body").css("cursor", "progress");
         var url = "../payslip/payslips_process.php";
         var cutoffe = $('#emppay').children("option:selected").val();
@@ -110,13 +99,14 @@
                 _to: data[3]
                 
             },
-            function(data) { $("#contents").html(data).show(); }
+            function(data) { $("#contents").html(data).show(); 
+            document.getElementById("myDiv").style.display="none";
+            }
         );
     }
-</script>
-<script type="text/javascript">
+
 function generatePDF() {
-  console.log('converting...');
+  // console.log('converting...');
 
   var printableArea = document.getElementById('payslipsList');
 

@@ -1,4 +1,4 @@
-
+    
  table,
 
             th,
@@ -35,22 +35,23 @@ background-color: #D9E1F2;
 .grossbg{
 background-color: #B4C6E7;
 }
-
+.imgh{
+    height: 50px;
+}
 .dedbg{
 background-color: #FFF2CC;
 }
 .subbg{
-background-color: #FFE699;
+    background-color: #FFE699;
 }
 .netbg{
-background-color: #C6E0B4;
+    background-color: #C6E0B4;
 }
 .btn-save:hover{
-/*opacity: 0.5;*/
-background-color: #b71e1e;
+    background-color: #b71e1e;
 }
 .mbot{
-    font-weight: bolder;    
+    font-weight: bolder;
     font-size: 17px;
 }
 .pdfimg:hover{
@@ -59,10 +60,7 @@ background-color: #b71e1e;
 }
 
 .mleft{
-    margin-left: 30px;
-}
-.bgen{
-    font-weight: bolder;
+    margin-left: 50px;
 }
 .mbt {
     background-color: #faf9f9;
@@ -72,5 +70,10 @@ background-color: #b71e1e;
 
 .pad{
     padding: 5px 5px 5px 5px;
-    font-weight: bolder;
+}
+.cnt {
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 0.25rem;
 }
