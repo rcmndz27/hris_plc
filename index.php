@@ -175,12 +175,12 @@ if (empty($_SESSION['userid'])) {
             <input type="submit" class="btn btn-login btn-block" name="loginSubmit" value="Login" >
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="newhireaccess/newemployee_entry.php" class="btn btn-block btn-login-emp mt-2">
+                    <a href="newhireaccess/newemployee_entry.php" class="btn btn-block btn-login-emp mt-2" onclick="show()">
                         <i class="fas fa-users"></i> New Employee
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="applicantprofile/applicant_entry.php" class="btn btn-block btn-login-emp mt-2">
+                    <a href="applicantprofile/applicant_entry.php" class="btn btn-block btn-login-emp mt-2" onclick="show()">
                         <i class="fas fa-file "></i> Applicant
                     </a>
                 </div>

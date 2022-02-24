@@ -20,7 +20,6 @@
 <link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
 <script type="text/javascript" src="../newhireaccess/newemp.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-
 <div class="container">
     <div class="section-title">
           <h1></h1>

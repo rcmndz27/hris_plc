@@ -10,60 +10,9 @@
 
     
 ?> 
+<link rel="stylesheet" type="text/css" href="../applicantprofile/appentry.css">
 <script type="text/javascript" src="../applicantprofile/appent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-
-<style type="text/css">
-    
-.bup{
-
-font-weight: bold;
-}
-
-.mbt {
-    background-color: #faf9f9;
-    padding: 30px;
-    border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 10px 10px 10px 10px;
-    font-weight: bolder;
-}
-.note{
-    font-size: 11px;
-    font-style: italic;
-}
-.note2{
-    font-size: 14px;
-    font-style: italic;
-}
-.refby{
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 1px solid black;
-    width: 30px;
-    height: 20px;
-}
-.tabrec{
-    text-transform: uppercase;
-    color: black;
-    font-weight: bolder;
-}
-.mar_dep{
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 1px solid black;
-  width: 30px;
-  height: 20px;
-}
-
-.req{
-    color: red;
-}
-</style>
 <div class="container">
     <div class="section-title">
           <h1>APPLICANT PROFILE</h1>
