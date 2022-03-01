@@ -124,7 +124,7 @@
             <thead>
                 <tr>
                     <th colspan="4"></th>
-                    <th colspan="2" class="text-center">Balance</th>
+                    <th colspan="3w" class="text-center">Balance</th>
                 </tr>
                 <tr>
                     <th class="text-center">Employee</th>
@@ -419,20 +419,6 @@
     function ApproveLeave($employee,$curApproved,$curDateFrom,$curDateTo,$curLeaveType,$rowid,$approver,$empcode){
 
 
-        $employee = explode(" ",$employee);
-
-        $balanceCount = GetBalanceCount($employee[0],$curLeaveType);
-        $leaveCount = GetActualCount($employee[1], $employee[0], $curDateFrom, $curDateTo);
-
-        if(floatval($leaveCount) === floatval($curApproved)){
-            UpdateLeaves($employee[1], $curApproved, $curDateFrom, $curDateTo, 2,'');
-        }else{
-            $excess = $leaveCount - $curApproved;
-            UpdateLeaves($employee[1], $curApproved, $curDateFrom, $curDateTo, 2,'');
-            UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $excess);
-        }
-
-
         global $connL;
 
         $querys = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
@@ -451,37 +437,59 @@
             $results = $stmts->execute($params);
 
             echo $results;
-    }
 
-    function RejectLeave($employee,$curDateFrom,$curDateTo,$curLeaveType,$curApproved,$remarks,$rwid,$rejecter,$empcd){
-        
+            // exit();
 
         $employee = explode(" ",$employee);
 
         $balanceCount = GetBalanceCount($employee[0],$curLeaveType);
+        $leaveCount = GetActualCount($employee[1], $employee[0], $curDateFrom, $curDateTo);
 
-        UpdateLeaves($employee[1], $curApproved, $curDateFrom, $curDateTo, 3,$remarks);
+        if(floatval($leaveCount) === floatval($curApproved)){
+            UpdateLeaves($employee[1], $curApproved, $curDateFrom, $curDateTo, 2,'');
+        }else{
+            $excess = $leaveCount - $curApproved;
+            UpdateLeaves($employee[1], $curApproved, $curDateFrom, $curDateTo, 2,'');
+            UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $excess);
+        }
 
-        UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $curApproved);
+
+      
+    }
+
+    function RejectLeave($employee,$curDateFrom,$curDateTo,$curLeaveType,$curRejected,$remarks,$rowid,$rejecter,$empcode){
+        
+
 
         global $connL;
 
-        $querys = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
+        $query = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
                 VALUES(:leave_id, :emp_code, :remarks,:audituser, :auditdate) ";
     
-                $stmts =$connL->prepare($querys);
+                $stmt =$connL->prepare($query);
     
-                $params = array(
-                    ":leave_id" => $rwid,
-                    ":emp_code"=> $empcd,
+                $param = array(
+                    ":leave_id" => $rowid,
+                    ":emp_code"=> $empcode,
                     ":remarks" => 'Rejected by '.$rejecter,
                     ":audituser" => $rejecter,
                     ":auditdate"=>date('m-d-Y')
                 );
 
-            $results = $stmts->execute($params);
+            $result = $stmt->execute($param);
 
-            echo $results;
+            echo $result;
+
+            // exit();
+
+        $employee = explode(" ",$employee);
+
+        $balanceCount = GetBalanceCount($employee[0],$curLeaveType);
+
+        UpdateLeaves($employee[1], $curRejected, $curDateFrom, $curDateTo, 3,$remarks);
+
+        UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $curRejected);
+
 
 
     }

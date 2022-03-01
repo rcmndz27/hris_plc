@@ -73,13 +73,14 @@ Class LeaveApplication{
     }
 
     public function GetLeaveHistory(){
+        
         global $connL;
 
         echo '
         <table id="dtrList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th colspan="9" class ="text-center">History of Leave</th>
+                <th colspan="10" class ="text-center">History of Leave</th>
             </tr>
             <tr>
                 <th>Date Filed</th>
@@ -91,11 +92,16 @@ Class LeaveApplication{
                 <th>Approved (Days)</th>
                 <th>Remarks</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = 'SELECT datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY datefiled DESC, leavetype';
+        $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,
+                    (CASE when approved = 1 then 'PENDING'
+                    when   approved = 2 then 'APPROVED'
+                    when   approved = 3 then 'REJECTED'
+                    when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY datefiled DESC, leavetype";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -103,6 +109,17 @@ Class LeaveApplication{
 
         if($result){
             do { 
+
+                $datefl = "'".date('m-d-Y', strtotime($result['datefiled']))."'";
+                $leavedesc = "'".$result['leave_desc']."'";
+                $leavetyp = "'".$result['leavetype']."'";
+                $datefr = "'".date('m-d-Y', strtotime($result['date_from']))."'";
+                $dateto = "'".date('m-d-Y', strtotime($result['date_to']))."'";
+                $remark = "'".(isset($result['remarks']) ? $result['remarks'] : 'n/a')."'";
+                $appdays = "'".$result['app_days']."'";
+                $appr_oved = "'".$result['approved']."'";
+                $actlcnt = "'".$result['actl_cnt']."'";
+                $leaveid = "'".$result['rowid']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['datefiled'])) . '</td>
@@ -112,32 +129,22 @@ Class LeaveApplication{
                 <td>' . $result['leave_desc'] . '</td>
                 <td>' . $result['actl_cnt'] . '</td>
                 <td>' . $result['app_days'] . '</td>
-                <td>' . $result['remarks'] . '</td>';
-
-                switch((int)$result['approved'])
-                {
-                    case 1:
-                        echo '<td><p class="text-warning">PENDING</p></td>';
-                        break;
-                    case 2:
-                        echo '<td><p class="text-success">APPROVED</p></td>';
-                        break;
-                    case 3:
-                        echo '<td><p class="text-danger">REJECTED</p></td>';
-                        break;
-                    case 4:
-                        echo '<td><p class="text-danger">VOID</p></td>';
-                        break;    
-                    default:
-                        break;
-                }
+                <td>' . $result['remarks'] . '</td>
+                <td>' . $result['approved'] . '</td>
+                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            </td>';
 
             } while ($result = $stmt->fetch());
 
             echo '</tr></tbody>';
 
         }else { 
-            echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
+            echo '<tfoot><tr><td colspan="10" class="text-center">No Results Found</td></tr></tfoot>'; 
         }
         echo '</table>';
     }

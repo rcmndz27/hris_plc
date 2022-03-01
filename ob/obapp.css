@@ -1,29 +1,4 @@
-    .cstat {
-        color: #e65a5a;
-        font-size: 20px;
-        margin: 0;
-        padding: 5px 5px 5px 5px;
-        width: 500px;
-    }
-    .ppclip{
-        height: 50px;
-        width: 50px;
-        cursor: pointer;
-    }
-    .ppclip:hover{
-        opacity: 0.5;
-    }
-
-    .bb{
-        font-weight: bolder;
-    }
-    .wr{
-        width: 150px;
-    }
-
-
-
-     table,th{
+table,th{
 
                 border: 1px solid #dee2e6;
                 font-weight: 700;
@@ -46,14 +21,9 @@ table {
         margin-bottom: 100px;
         border: 2px solid black;
         background-color: white;
-        text-align: center;
-}
+    }
 .mbt {
     background-color: #faf9f9;
     padding: 30px;
     border-radius: 0.25rem;
-}
-
-.pad{
-    padding: 5px 5px 5px 5px;
 }

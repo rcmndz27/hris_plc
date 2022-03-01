@@ -19,14 +19,15 @@
 
     if($wfhApplication->{"Action"} == "ApplyWfhApp"){
 
-        $attachment = $wfhApplication->{"attachment"};
-        $remarks = $wfhApplication->{"remarks"};
+        $wfh_task = $wfhApplication->{"wfh_task"};
+        $wfh_output = $wfhApplication->{"wfh_output"};
+        $wfh_percentage = $wfhApplication->{"wfh_percentage"};      
         $arr = $wfhApplication->{"wfhdate"} ;
 
         foreach($arr as $value){
             $wfhDate = $value;
 
-        $wfhApp->InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$remarks,$attachment);
+        $wfhApp->InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$wfh_task,$wfh_output,$wfh_percentage);
 
         }
 

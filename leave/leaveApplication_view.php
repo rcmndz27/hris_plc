@@ -30,15 +30,77 @@
     }    
 ?>
 
+<script type="text/javascript">
+    
+     function showAttachment() {
+
+            $("#Attachment").show();
+            $("#medicalfiles").show();
+            $("#LabelAttachment").show();
+            $("#AddAttachment").hide();            
+          }
+
+        function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
+
+   
+        $('#viewLeaveModal').modal('toggle');
+
+        var hidful = document.getElementById('datefl');
+        hidful.value =  datefl;   
+
+        var bnkt = document.getElementById('leavedesc');
+        bnkt.value =  leavedesc;  
+
+        var at = document.getElementById('leavetyp');
+        at.value =  leavetyp;  
+
+        var ast = document.getElementById('datefr');
+        ast.value =  datefr;  
+
+        var hidful2 = document.getElementById('dateto');
+        hidful2.value =  dateto;   
+
+        var bnkt2 = document.getElementById('remark');
+        bnkt2.value =  remark;  
+
+        var at2 = document.getElementById('appdays');
+        at2.value =  appdays;  
+
+        var ast2 = document.getElementById('appr_oved');
+        ast2.value =  appr_oved;  
+
+        var ast3 = document.getElementById('actlcnt');
+        ast3.value =  actlcnt;        
+
+                          
+    }
+
+    function viewLeaveHistoryModal(lvlogid)
+    {
+       $('#viewLeaveHistoryModal').modal('toggle');
+        var url = "../leave/leave_viewlogs.php";
+        var lvlogid = lvlogid;
+
+        $.post (
+            url,
+            {
+                _action: 1,
+                lvlogid: lvlogid             
+            },
+            function(data) { $("#contents2").html(data).show(); }
+        );
+    }
+
+</script>
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
+
 <div class="container">
     <div class="section-title">
           <h1>LEAVE APPLICATION</h1>
         </div>
     <div class="main-body mbt">
-
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
@@ -78,13 +140,13 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">APPLY LEAVE <i class="fas fa-suitcase "></i></h5>
+                        <h5 class="modal-title bb" id="popUpModalTitle">APPLY LEAVE <i class="fas fa-suitcase ">
+                        </i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div>
                         <?php $leaveApp->GetLeaveType(); ?>
                         <div id="leavepay">
                             <div class="row">
@@ -101,20 +163,17 @@
                                         <input class="form-check-input" type="radio" name="leavepay"
                                             id="leave_pay2" value="WithoutPay">
                                         <label class="form-check-label" for="withoutpay">Without Pay</label>
-                            </div>
-
+                                        </div>
                                 </div>
                             </div>
-                        </div>
-
-                        
-                                <input type='text' id='emptype' name='emptype' class='form-control'
+                        </div> 
+                        <input type='text' id='emptype' name='emptype' class='form-control'
                                             value=<?php echo $r['emp_type']; ?> hidden>                            
                         
                         
                                 <?php 
                                 $emp_type = $r['emp_type'];
-                                $sl = isset($rs['earned_sl']) ? $result['earned_sl'] : 0; 
+                                $sl = isset($rs['earned_sl']) ? $rs['earned_sl'] : 0; 
 
                                 if($emp_type == 'Regular'){
                                 echo'<div id="sickleavebal">
@@ -130,8 +189,6 @@
                                     </div>';
                                 }else{
                                 }
-
-
                                  ?>                                            
 
                          <!-- sick leave advance filing  -->
@@ -156,11 +213,10 @@
                             </div>
                         </div>
 
-           
-                    
+                        
                         <?php 
                         $emp_type = $r['emp_type'];
-                        $vl =  isset($rs['earned_vl']) ? $result['earned_vl'] : 0; 
+                        $vl =  isset($rs['earned_vl']) ? $rs['earned_vl'] : 0; 
                      
                        echo'<div id="vacleavebal">
                                     <div class="form-row align-items-center mb-2">
@@ -176,9 +232,6 @@
                       
 
                         ?>
-
-
-
 
                     <div id="paternity">
                                <div class="form-row mb-2">
@@ -225,10 +278,8 @@
                                 </div>
                         </div>
 
-                        <div id="specialwomen">
-                        </div>
 
-                            <div id="specialviolence">
+                        <div id="specialviolence">
                                 <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
                                         <label for="">Operation Date:</label>
@@ -239,11 +290,6 @@
                                     </div>
                                 </div>
                         </div>
-
-                        <div id="soloparent">
-                        </div>
-
-
 
                         <div class="form-row align-items-center mb-2">
 
@@ -270,8 +316,7 @@
                         </div>
 
                         <div class="form-row mb-2 align-items-center" id="halfdayset">
-                            <div class="col-md-2 d-inline">
-                            </div>
+                            <div class="col-md-2 d-inline"></div>
 
                             <div class="col-md-3 d-inline">
                                 <div class="form-check">
@@ -310,7 +355,7 @@
                                     <label for="">Attach File:</label>
                                 </div>
                                 <div class="col-md-10 d-inline">
-                                    <a class="" onclick="myFunction()"><img src='../img/ppclip.jpg' class='ppclip' onclick="myFunction()"></img></a>
+                                    <a class="" onclick="showAttachment()"><img src='../img/ppclip.jpg' class='ppclip'></img></a>
                                 </div>
                             </div>
                         </div>
@@ -319,7 +364,7 @@
                         <div id='Attachment'>
                              <div class="row pb-2">
                                 <div class="col-md-2">
-                                    <label for="">Attachment:</label>
+                                    <label for="Attachment" id="LabelAttachment">Attachment:</label>
                                 </div>
                                 <div class="col-md-10">
                                     <input type="file" name="medicalfiles" id="medicalfiles" accept=".pdf" onChange="GetMedFile()">
@@ -327,32 +372,141 @@
                             </div>
                         </div>
 
-
-                    </div>
-                </div>
                 <div class="modal-footer">
                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                     <button type="button" class="subbut" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<br><br>
-
-         <script>
-                $("#Attachment").hide();
-                $("#AddAttachment").show();
-                function myFunction() {
-                    $("#Attachment").show();
-                    $("#AddAttachment").hide();            
-                }
+                </div> <!-- main body closing -->
+            </div> <!-- modal body closing -->
+        </div> <!-- modal content closing -->
+    </div> <!-- modal dialog closing -->
 
 
+    <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW LEAVE <i class="fas fa-suitcase fa-fw"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="datefl">Date Filed</label>
+                                        <input type="text" id="datefl" name="datefl" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="form-group">
+                                        <label class="control-label" for="leavetyp">Leave Type</label>
+                                        <input type="text" id="leavetyp" name="leavetyp" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="datefr">Date From</label>
+                                        <input type="text" id="datefr" name="datefr" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dateto">Date To</label>
+                                        <input type="text" id="dateto" name="dateto" class="form-control" readonly>                                        
+                                    </div>
+                                </div> 
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="control-label" for="actlcnt">Leave Count</label>
+                                        <input type="text" id="actlcnt" name="actlcnt" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="control-label" for="appdays">Approved/Rejected</label>
+                                        <input type="text" id="appdays" name="appdays" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="leavedesc">Description</label>
+                                        <input type="text" id="leavedesc" name="leavedesc" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="form-group">
+                                        <label class="control-label" for="remark">Remarks</label>
+                                        <input type="text" id="remark" name="remark" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="appr_oved">Status</label>
+                                        <input type="text" id="appr_oved" name="appr_oved" class="form-control" readonly>
+                                    </div>
+                                </div>                                
+                            </div> <!-- form row closing -->
+                    </fieldset> 
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
 
-           </script>
+<div class="modal fade" id="viewLeaveHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW LEAVE LOGS   <i class="fas fa-suitcase"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+                            <div class="row pt-3">
+                                <div class="col-md-12">
+                                    <div class="panel-body">
+                                        <div id="contents2" class="table-responsive-sm table-body">
+                                            <button type="button" id="search" hidden>GENERATE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                                               
+                        </div> <!-- form row closing -->
+                    </fieldset> 
+
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->        
+
+    </div> <!-- main body mbt closing -->
+</div><!-- container closing -->
+
 
 
 <?php include("../_footer.php");?>

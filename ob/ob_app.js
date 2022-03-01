@@ -1,29 +1,30 @@
  $(function(){
 
-   $('#planot').hide();
-
+   
     function CheckInput() {
 
         var inputValues = [];
 
         inputValues = [
-
-            $('#remarks'),
-            $('#otstartdtime')           
-        ]
+            
+            $('#ob_destination'),
+            $('#ob_purpose'),
+            $('#ob_percmp')
+            
+        ];
 
         var result = (CheckInputValue(inputValues) === '0') ? true : false;
         return result;
     }
 
 
-            $('#otdateto').change(function(){
+            $('#ob_to').change(function(){
 
-                if($('#otdateto').val() < $('#otdate').val()){
+                if($('#ob_to').val() < $('#ob_from').val()){
 
-                    swal({text:"OT date TO must be greater than OT Date From!",icon:"error"});
+                    swal({text:"OB date TO must be greater than OB Date From!",icon:"error"});
 
-                    var input2 = document.getElementById('otdateto');
+                    var input2 = document.getElementById('ob_to');
                     input2.value = '';               
 
                 }else{
@@ -33,31 +34,21 @@
             });
 
 
-            $('#otdate').change(function(){
+            $('#ob_from').change(function(){
 
-                    var input2 = document.getElementById('otdateto');
-                    document.getElementById("otdateto").min = $('#otdate').val();
+                    var input2 = document.getElementById('ob_to');
+                    document.getElementById("ob_to").min = $('#ob_from').val();
                     input2.value = '';
 
             });
 
 
-            $('#otstartdtime').change(function(){
-                $('#planot').show();
-                var styme = document.getElementById('otenddtime');
-                styme.value = ''; 
-
-                var styme = document.getElementById('otreqhrs');
-                styme.value = 0; 
-            });
-
 
 $('#Submit').click(function(){
 
-    
 
-            var dte = $('#otdate').val();
-            var dte_to = $('#otdateto').val();
+            var dte = $('#ob_from').val();
+            var dte_to = $('#ob_to').val();
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             dateArr = []; //Array where rest of the dates will be stored
 
@@ -75,64 +66,61 @@ $('#Submit').click(function(){
 
             const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
-
             if (CheckInput() === true) {
 
                 param = {
-                    "Action":"ApplyOtApp",
-                    "otdate": ite_date,
-                    "otstartdtime": $('#otstartdtime').val(),
-                    "otenddtime": $('#otenddtime').val(),
-                    "otreqhrs": $('#otreqhrs').val(),
-                    "remarks": $('#remarks').val()
+                    "Action":"ApplyObApp",
+                    "ob_date": ite_date,
+                    "ob_time": $('#ob_time').val(),
+                    "ob_destination": $('#ob_destination').val(),
+                    "ob_purpose": $('#ob_purpose').val(),
+                    "ob_percmp": $('#ob_percmp').val()
                 };
                 
                 param = JSON.stringify(param);
 
-                    if($('#otdateto').val() >= $('#otdate').val()){
+                // swal(param);
+                // exit();
+
+                    if($('#ob_to').val() >= $('#ob_from').val()){
 
                             swal({
                               title: "Are you sure?",
-                              text: "You want to apply this overtime?",
-                              icon: "info",
+                              text: "You want to apply this official business?",
+                              icon: "success",
                               buttons: true,
                               dangerMode: true,
                             })
-                            .then((applyOT) => {
-                              if (applyOT) {
+                            .then((applyOb) => {
+                              if (applyOb) {
                                         $.ajax({
                                         type: "POST",
-                                        url: "../overtime/ot_app_process.php",
+                                        url: "../ob/ob_app_process.php",
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            $('#popUpModal').modal('toggle');
+                                            // $('#popUpModal').modal('toggle');
                                             location.reload();
                                         },
                                         error: function (data){
-                                            alert('error');
+                                            // alert('error');
                                         }
                                     });//ajax
 
                               } else {
-                                swal("Your cancel your overtime!");
+                                swal({text:"You cancel your official business!",icon:"error"});
                               }
                             });
                         }else{
-                            swal({text:"OT date TO must be greater than OT Date From!",icon:"error"});
-                        }
-                 
-            }else{
-                swal({text:"Kindly fill up blank fields!",icon:"error"});
+                            swal({text:"OB DATE TO must be greater than OB DATE FROM!",icon:"error"});
+                    }                
             }
-                        
-      
-        
+                              
     });
 
 
 
- $('#applyOvertime').click(function(e){
+ $('#applyOfBus').click(function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');
 

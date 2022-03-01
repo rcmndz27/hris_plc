@@ -62,7 +62,7 @@
                     </select>
                     <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
                 </div>           
-                        <button type="button" id="search" class="genpyrll" onclick="generatePayrll()">
+                        <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
                             <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
                         <button type="button" id="srch" class="gotopay" onclick="show()">
@@ -79,6 +79,7 @@
 </div>
 
 <script>
+
 
 function show() {
     document.getElementById("myDiv").style.display="block";
@@ -167,6 +168,8 @@ function myFunction() {
             }
         );
     }
+
+
 </script>
 
 

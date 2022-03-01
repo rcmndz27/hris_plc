@@ -49,7 +49,7 @@
 
             global $connL;
 
-            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.wfh_date,a.remarks,a.attachment from tr_workfromhome a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
+            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.wfh_date,a.wfh_task,a.wfh_output,a.wfh_percentage,a.date_filed,a.attachment from tr_workfromhome a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empReportingTo , ":emp_code" => $empId );
             $stmt->execute($param);
@@ -62,8 +62,11 @@
                             <th colspan ='6' class='text-center'>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</th>
                         </tr>
                         <tr>
+                            <th>Date Filed</th>
                             <th>WFH Date</th>
-                            <th>Remarks</th>
+                            <th>Task</th>
+                            <th>Expected Output</th>
+                            <th>Percentage %</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,22 +74,17 @@
             ";
             if($result){
                 do{
-                    $mf = $result['attachment'];
                     echo"
                         <tr>
-                            <td>".date('m-d-Y',strtotime($result['wfh_date']))."</td>
-                            <td>".$result['remarks']."</td>";
-      
-                        echo "<td>";
-                        if(empty($mf)){
-                        }else {
-                            echo"<button type='button' class='btnView'><a title='Attachment' href='../uploads/".$result['attachment']."' style='color:#ffff;font-weight:bold;'  
-                                        target='popup' onclick='window.open('../uploads/".$result['attachment']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>";  
-                        }             
-                        echo'
-                            <button class="chckbt btnApproved" id="'.$result['rowid'].'"><i class="fas fa-check"></i></button>
-                            <button class="rejbt btnRejectd" id="'.$result['rowid'].'"><i class="fas fa-times"></i></button></td>
-                            </tr>';
+                            <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
+                            <td>".date('m-d-Y', strtotime($result['wfh_date']))."</td>
+                            <td>".$result['wfh_task']."</td>
+                            <td>".$result['wfh_output']."</td>
+                            <td>".$result['wfh_percentage']."</td>
+                            <td>".
+                                "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
+                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>"."</td>
+                        </tr>";                                
                 } while($result = $stmt->fetch());
                 echo "</tbody>";
             }else{
@@ -99,6 +97,23 @@
         function ApproveWfh($empReportingTo,$empId,$rowId){
 
             global $connL;
+
+                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+    
+                $stmts =$connL->prepare($querys);
+    
+                $params = array(
+                    ":wfh_id" => $rowId,
+                    ":emp_code"=> $empId,
+                    ":remarks" => 'Approved by '.$empReportingTo,
+                    ":audituser" => $empReportingTo,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $results = $stmts->execute($params);
+
+            echo $results;
 
             $query = " UPDATE tr_workfromhome SET status = :apvd_stat, audituser = :audituser, auditdate = :auditdate 
             WHERE reporting_to = :reporting_to AND emp_code = :emp_code AND rowid = :rowid";
@@ -116,18 +131,31 @@
 
             $result = $stmt->execute($param);
 
-            echo $result;
-
-             
+            echo $result;         
         }
 
         function RejectWfh($empReportingTo,$empId,$rjctRsn,$rowId){
 
             global $connL;
 
-            $query = " UPDATE tr_workfromhome 
-            SET status = :apvd_stat, audituser = :audituser, auditdate = :auditdate, reject_reason = :reject_reason
-            WHERE reporting_to = :reporting_to AND emp_code = :emp_code AND rowid = :rowid";
+                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+    
+                $stmts =$connL->prepare($querys);
+    
+                $params = array(
+                    ":wfh_id" => $rowId,
+                    ":emp_code"=> $empId,
+                    ":remarks" => 'Rejected by '.$empReportingTo.' because of '.$rjctRsn,
+                    ":audituser" => $empReportingTo,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $results = $stmts->execute($params);
+
+            echo $results;
+
+            $query = " UPDATE tr_workfromhome SET status = :apvd_stat, audituser = :audituser, auditdate = :auditdate, reject_reason = :reject_reason WHERE reporting_to = :reporting_to AND emp_code = :emp_code AND rowid = :rowid";
 
             $stmt =$connL->prepare($query);
 

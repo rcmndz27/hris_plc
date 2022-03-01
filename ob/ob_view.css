@@ -1,9 +1,9 @@
     .cstat {
-        color: #e65a5a;
-        font-size: 20px;
-        margin: 0;
-        padding: 5px 5px 5px 5px;
-        width: 500px;
+    color: #e65a5a;
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    padding: 5px 5px 5px 5px;
     }
     .ppclip{
         height: 50px;
@@ -16,14 +16,10 @@
 
     .bb{
         font-weight: bolder;
-    }
-    .wr{
-        width: 150px;
+        text-align: center;
     }
 
-
-
-     table,th{
+    table,th{
 
                 border: 1px solid #dee2e6;
                 font-weight: 700;

@@ -11,7 +11,7 @@
         include('../_header.php');
         include('../leave/leaveApproval.php');
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'){
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'Team Manager'){
         }else{
             echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
             echo "window.location.href = '../index.php';";
@@ -19,6 +19,7 @@
         }
     }
 ?>
+<script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <link rel="stylesheet" type="text/css" href="../leave/leaveapp.css">
 <div class="container">
     <div class="section-title">
@@ -64,20 +65,15 @@
                             <input type="text" name="remarks" id="remarks" class="form-control">
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                         <button type="button" class="subbut btnRemarks" id="submit"><i class="fas fa-check-circle"></i> SUBMIT</button>
                     </div>
-
                 </div>
             </div>
         </div>       
     </div>
 </div>
-<br><br>
 
-<script type='text/javascript' src='../leave/leaveApplication.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <?php  include('../_footer.php');?>

@@ -31,6 +31,8 @@ $(function(){
 
         param = JSON.stringify(param);
 
+        // alert(param);
+        // exit();
                    swal({
                           title: "Are you sure?",
                           text: "You want to approve this work from home?",
@@ -53,7 +55,7 @@ $(function(){
                                             }
                                         });//ajax
                           } else {
-                            swal("Your cancel the approval of work from home!");
+                            swal({text:"You cancel the approval of work from home!",icon:"error"});
                           }
                         });
 
@@ -123,10 +125,9 @@ $(function(){
                                     });//ajax
 
                           } else {
-                            swal("Your cancel the rejection of work from home!");
+                            swal({text:"You cancel the approval of work from home!",icon:"error"});
                           }
-                        });
-
+                });
 
     });
 

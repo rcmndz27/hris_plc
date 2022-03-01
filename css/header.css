@@ -1,4 +1,18 @@
 /*Start CSS*/
+
+/*end css*/
+
+body{
+   /*background: url("../img/hris_bg.jpg");*/
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-size: cover;
+   font-family: "Dosis", sans-serif;
+   /*overflow: hidden;  */
+}
+
+
 .fc-daygrid-day-number{
     color: #fff!important;
     font-weight: bolder;
@@ -161,16 +175,6 @@ label{
     border-radius: 0.25rem;
 }
 
-/*end css*/
-
-body{
-   /*background: url("../img/hris_bg.jpg");*/
-   background-position: center center;
-   background-repeat: no-repeat;
-   background-attachment: fixed;
-   background-size: cover;
-   font-family: "Dosis", sans-serif;
-}
 
 
 body::after {

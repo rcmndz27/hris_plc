@@ -20,14 +20,19 @@ Class WfhApp{
             </tr>
             <tr>
                 <th>WFH Date</th>
-                <th>Remarks</th>
-                <th>Reject Reason</th>
+                <th>Task</th>
+                <th>Expected Output</th>
+                <th>Percentage %</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = 'SELECT * FROM dbo.tr_workfromhome where emp_code = :emp_code ORDER BY wfh_date DESC';
+        $query = "SELECT (CASE when status = 1 then 'PENDING'
+                    when   status = 2 then 'APPROVED'
+                    when   status = 3 then 'REJECTED'
+                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,* FROM dbo.tr_workfromhome where emp_code = :emp_code ORDER BY wfh_date DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -35,29 +40,28 @@ Class WfhApp{
 
         if($result){
             do { 
+
+                $wfhdate = "'".date('m-d-Y', strtotime($result['wfh_date']))."'";
+                $wfhtask = "'".$result['wfh_task']."'";
+                $wfhoutput = "'".$result['wfh_output']."'";
+                $wfhpercentage = "'".$result['wfh_percentage']."'";
+                $wfhstats = "'".$result['stats']."'";
+                $wfhid = "'".$result['rowid']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['wfh_date'])) . '</td>
-                <td>' . $result['remarks'] . '</td>
-                <td>' . $result['reject_reason'] . '</td>';
+                <td>' . $result['wfh_task'] . '</td>
+                <td>' . $result['wfh_output'] . '</td>
+                <td>' . $result['wfh_percentage'] . '</td>
+                <td>' . $result['stats'] . '</td>
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Overtime">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            </td>';
 
-                switch((int)$result['status'])
-                {
-                    case 1:
-                        echo '<td><p class="text-warning">PENDING</p></td>';
-                        break;
-                    case 2:
-                        echo '<td><p class="text-success">APPROVED</p></td>';
-                        break;
-                    case 3:
-                        echo '<td><p class="text-danger">REJECTED</p></td>';
-                        break;
-                    case 4:
-                        echo '<td><p class="text-danger">VOID</p></td>';
-                        break;    
-                    default:
-                        break;
-                }
 
             } while ($result = $stmt->fetch());
 
@@ -69,21 +73,23 @@ Class WfhApp{
         echo '</table>';
     }
 
-    public function InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$remarks,$attachment){
+    public function InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$wfh_task,$wfh_output,$wfh_percentage){
 
-        global $connL;
+            global $connL;
 
-            $query = "INSERT INTO tr_workfromhome (emp_code,wfh_date,reporting_to,remarks,attachment,audituser,auditdate) 
-                VALUES(:emp_code,:wfhDate,:empReportingTo,:remarks,:attachment,:audituser,:auditdate) ";
+            $query = "INSERT INTO tr_workfromhome (emp_code,wfh_date,date_filed,wfh_task,wfh_output,wfh_percentage,reporting_to,audituser,auditdate) 
+                VALUES(:emp_code,:wfhDate,:date_filed,:wfh_task,:wfh_output,:wfh_percentage,:empReportingTo,:audituser,:auditdate) ";
     
                 $stmt =$connL->prepare($query);
 
                 $param = array(
                     ":emp_code"=> $empCode,
                     ":wfhDate" => $wfhDate,
+                    ":date_filed"=>date('m-d-Y'),
                     ":empReportingTo" => $empReportingTo,
-                    ":remarks"=> $remarks,
-                    ":attachment"=> $attachment,
+                    ":wfh_task"=> $wfh_task,
+                    ":wfh_output"=> $wfh_output,
+                    ":wfh_percentage"=> $wfh_percentage,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y')
                 );
@@ -91,6 +97,29 @@ Class WfhApp{
             $result = $stmt->execute($param);
 
             echo $result;
+
+            $qry = 'SELECT max(rowid) as maxid FROM tr_workfromhome WHERE emp_code = :emp_code';
+            $prm = array(":emp_code" => $empCode);
+            $stm =$connL->prepare($qry);
+            $stm->execute($prm);
+            $rst = $stm->fetch();
+
+            $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+    
+                $stmts =$connL->prepare($querys);
+    
+                $params = array(
+                    ":wfh_id" => $rst['maxid'],
+                    ":emp_code"=> $empCode,
+                    ":remarks" => 'Apply WFH for '.$wfhDate,
+                    ":audituser" => $empCode,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $results = $stmts->execute($params);
+
+            echo $results;            
 
     }
 }

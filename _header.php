@@ -38,6 +38,12 @@ else
     $stmt->execute($param);
     $result = $stmt->fetch();
 
+    $uery = "SELECT count(emp_code) as ob_count from tr_offbusiness where status = 1 and ob_reporting = :empcode";
+    $tmt =$connL->prepare($uery);
+    $aram = array(":empcode" => $empCode);
+    $tmt->execute($aram);
+    $esult = $tmt->fetch();
+
 
     $querys = "SELECT count(emp_code) as lv_count from tr_leave where approved = 1 and approval = :empcode";
     $stmts =$connL->prepare($querys);
@@ -73,7 +79,7 @@ else
   <!-- Favicons -->
   <link type='image/x-png' rel='icon' href='../img/ob_icon.png'>
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="../css/bootstrap-icons.css" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
@@ -96,10 +102,10 @@ else
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
   <link href="../css/styles.css" rel="stylesheet" />
-  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script type='text/javascript' src='../js/jquery.min.js'></script>
   <script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
   <script src="../js/sweetalert.min.js"></script>
-    <script type="text/javascript" src='../js/script.js'></script>
+  <!-- <script type="text/javascript" src='../js/script.js'></script> -->
   </head>
 <body>
 <div id = "myDiv" style="display:none;" class="loader"></div>
@@ -187,18 +193,19 @@ else
                             }
 
                       if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'){
-                         echo'<li><a class="nav-link '.$admin.'" href="../pages/admin.php" onclick="show()"><i class="fas fa-home fa-fw"></i>  &nbsp;Home</a></li>';
+                         echo'<li><a class="nav-link '.$admin.'" href="../pages/admin.php" onclick="show()"><i class="fas fa-home fa-fw"></i>  &nbsp; Home</a></li>';
                         }else{
-                         echo'<li><a class="nav-link '.$admin.'" href="../pages/employee.php" onclick="show()"><i class="fas fa-home fa-fw" >></i> &nbsp;Home</a></li>';
+                         echo'<li><a class="nav-link '.$admin.'" href="../pages/employee.php" onclick="show()"><i class="fas fa-home fa-fw" ></i> &nbsp;Home</a></li>';
                        } 
 
                       echo"<li><a class='nav-link ".$dtr_view."' href='../pages/dtr_view.php' onclick='show()'><i class='fas fa-calendar fa-fw'></i>&nbsp;MY Attendance</a></li>
 
-                         <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>LEAVE/OT/WFH</span> <i class='bi bi-chevron-down'></i></a>
+                         <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>LEAVE/OT/WFH/OB</span> <i class='bi bi-chevron-down'></i></a>
                             <ul>
                               <li><a href='../leave/leaveApplication_view.php' onclick='show()'><i class='fas fa-suitcase fa-fw'></i>Leave</a></li>
                               <li><a href='../overtime/ot_app_view.php' onclick='show()'><i class='fas fa-hourglass fa-fw'></i>Overtime</a></li>
                               <li><a href='../wfhome/wfh_app_view.php' onclick='show()'><i class='fas fa-warehouse fa-fw'></i>Work From Home</a></li>
+                              <li><a href='../ob/ob_app_view.php' onclick='show()'><i class='fas fa-building'></i>Official Business</a></li>                              
                             </ul>
                         </li>
                         <li><a class='nav-link ".$payslip_view."' href='../payslip/payslip_view.php' onclick='show()'><i class='fas fa-money-bill-wave fa-fw'></i>
@@ -206,19 +213,23 @@ else
 
                             $lv = (isset($results['lv_count'])) ? $results['lv_count'] : '0' ;
                             $ot = (isset($result['ot_count'])) ? $result['ot_count'] : '0' ;
+                            $ob = (isset($esult['ob_count'])) ? $esult['ob_count'] : '0' ;
                             $wfh = (isset($resultss['wfh_count'])) ? $resultss['wfh_count'] : '0' ;
                             $pyrll = (isset($rst['pyrll_count'])) ? $rst['pyrll_count'] : '0' ;
                             echo"<button id='lv_count' value='You have ".$lv." leave approval!' hidden></button>
                             <button id='ot_count' value='You have ".$ot." overtime approval!' hidden></button>
+                            <button id='ob_count' value='You have ".$ob." official business approval!' hidden></button>
                             <button id='wfh_count' value='You have ".$wfh." work from home approval!' hidden></button>
                             <button id='pyrll_count' value='You have ".$pyrll." payroll approval!' hidden></button>
                             <button id='lv' value='".$lv."' hidden></button>
                             <button id='ot' value='".$ot."' hidden></button>
                             <button id='wfh' value='".$wfh."' hidden></button>
-                            <button id='pyrll' value='".$pyrll."' hidden></button>"; 
+                            <button id='pyrll' value='".$pyrll."' hidden></button>
+                            <button id='ob' value='".$ob."' hidden></button>"; 
 
-                            $approval_adm = $lv + $ot + $wfh + $pyrll;
-                            $approval_tm = $lv + $ot + $wfh;
+
+                            $approval_adm = $lv + $ot + $wfh + $ob + $pyrll;
+                            $approval_tm = $lv + $ot + $wfh + $ob;
                             if ($approval_adm > 0) {
                               $apprm = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_adm."</span>";
                              }else{
@@ -253,7 +264,8 @@ else
                                                   <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
                                                   <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
                                                   <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
-                                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>
+                                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Work From Home (".$ob.")</a></li>                                                     
+                                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
                                                 </ul>
                                               </li>
                                              <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
@@ -308,6 +320,7 @@ else
                                                     <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
                                                     <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
                                                     <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
+                                                     <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
                                                   </ul>
                                                 </li>
                                                <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 

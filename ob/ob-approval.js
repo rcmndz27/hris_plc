@@ -11,12 +11,12 @@ $(function(){
 
         $.ajax({
             type: "POST",
-            url: "../overtime/overtime-approval-process.php",
+            url: "../ob/ob-approval-process.php",
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
                 $('#approvedList').remove();
-                $('#approvedOvertimeList').append(data);
+                $('#approvedObList').append(data);
             },
             error: function (data){
                 // console.log("error: "+ data);	
@@ -26,15 +26,15 @@ $(function(){
 
     $(document).on('click','.btnApproved',function(e){
 
-        var apvdOt = $(this).closest('tr').find("td:eq(4) input").val();
+        var apvdOb = $(this).closest('tr').find("td:eq(5) input").val();
 
-        param = {"Action":"ApproveOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId};
+        param = {"Action":"ApproveOB",'rowid': this.id,'approvedob': apvdOb,'empId':empId};
 
         param = JSON.stringify(param);
 
                         swal({
                           title: "Are you sure?",
-                          text: "You want to approve this overtime?",
+                          text: "You want to approve this official business?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
@@ -43,7 +43,7 @@ $(function(){
                           if (savePayroll) {
                                             $.ajax({
                                                 type: "POST",
-                                                url: "../overtime/overtime-approval-process.php",
+                                                url: "../ob/ob-approval-process.php",
                                                 data: {data:param} ,
                                                 success: function (data){
                                                     console.log("success: "+ data);
@@ -55,7 +55,8 @@ $(function(){
                                             });//ajax
 
                           } else {
-                            swal("Your cancel the approval of overtime!");
+                             swal({text:"You cancel the approval of official business!",icon:"error"});
+
                           }
                         });
 
@@ -74,18 +75,18 @@ $(function(){
 
         empId = this.id;
 
-        param = {"Action":"GetOTDetails",'empId': empId};
+        param = {"Action":"GetOBDetails",'empId': empId};
 
         param = JSON.stringify(param);
         
         $.ajax({
             type: "POST",
-            url: "../overtime/overtime-approval-process.php",
+            url: "../ob/ob-approval-process.php",
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
-                $("#employeeOTDetailList").remove();
-                $("#otDetails").append(data);
+                $("#employeeOBDetailList").remove();
+                $("#obDetails").append(data);
                 // location.reload();
             },
             error: function (data){
@@ -98,14 +99,16 @@ $(function(){
     $('#submit').click(function(e){
         e.preventDefault();
 
-        param = {"Action":"RejectOT",'rowid': rowid,'empId':empId, "rjctRsn": $('#rejectReason').val()};
+        param = {"Action":"RejectOB",'rowid': rowid,'empId':empId, "rjctRsn": $('#rejectReason').val()};
 
         param = JSON.stringify(param);
 
-
+       
+        // swal(param);
+        // exit();
                         swal({
                           title: "Are you sure?",
-                          text: "You want to reject this overtime?",
+                          text: "You want to reject this official business?",
                           icon: "error",
                           buttons: true,
                           dangerMode: true,
@@ -114,7 +117,7 @@ $(function(){
                           if (rejPayroll) {
                                     $.ajax({
                                         type: "POST",
-                                        url: "../overtime/overtime-approval-process.php",
+                                        url: "../ob/ob-approval-process.php",
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
@@ -126,7 +129,7 @@ $(function(){
                                     });//ajax
 
                           } else {
-                            swal("Your cancel the rejection of overtime!");
+                            swal({text:"You cancel the rejection of official business!",icon:"error"});
                           }
                         });
 
@@ -142,7 +145,7 @@ $(function(){
 
         $.ajax({
             type: "POST",
-            url: "../overtime/overtime-approval-process.php",
+            url: "../ob/ob-approval-process.php",
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);

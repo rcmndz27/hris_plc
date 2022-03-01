@@ -52,8 +52,8 @@ function uploadFile() {
 
 }
 
-
     
+  
 
 $(function(){
 
@@ -199,30 +199,11 @@ $(function(){
                                             }
                                         });
                           } else {
-                            swal("Your cancel the approval of leave!");
+                            swal({text:"Your cancel the approval of leave!",icon:"error"});
                           }
                         });
         
 
-
-    });
-
-    $(document).on('click','.btnRejectd',function(e){
-
-
-        empId = this.id;
-        rwid = $('.btnRejectd').val();
-        empcd = $('#empcode').val();
-        dateFrom = $(this).closest('tr').find('td:eq(1)').text();
-        dateTo = $(this).closest('tr').find('td:eq(2)').text();
-        leaveType = $(this).closest('tr').find('td:eq(3)').text();
-        rejecter = $(this).closest('tr').find('td:eq(5)').text();
-        approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
-
-        $('#remarksModal').modal('toggle');
-
-        btnAccessed = 'Reject';
-    
 
     });
 
@@ -301,6 +282,27 @@ $(function(){
         btnAccessed = 'Void';
     });
 
+
+    $(document).on('click','.btnRejectd',function(e){
+
+
+        empId = this.id;
+        rowid = $('.btnRejectd').val();
+        empcode = $('#empcode').val();
+        dateFrom = $(this).closest('tr').find('td:eq(1)').text();
+        dateTo = $(this).closest('tr').find('td:eq(2)').text();
+        leaveType = $(this).closest('tr').find('td:eq(3)').text();
+        rejecter = $(this).closest('tr').find('td:eq(5)').text();
+        rejecteddDays = $(this).closest('tr').find("td:eq(6) input").val();
+
+        $('#remarksModal').modal('toggle');
+
+        btnAccessed = 'Reject';
+    
+
+    });
+
+
     $('.btnRemarks').click(function(e){
         e.preventDefault();
 
@@ -311,13 +313,13 @@ $(function(){
             param = {
                 "Action":"RejectLeave",
                 'curLeaveType': leaveType,
-                "curApproved": approvedDays,
+                "curRejected": rejecteddDays,
                 "curDateFrom": dateFrom,
                 "curDateTo": dateTo,
                 "employee": empId,
-                "rwid": rwid,
+                "rowid": rowid,
                 "rejecter": rejecter,
-                "empcd": empcd,
+                "empcode": empcode,
                 "remarks": $('#remarks').val()
             };
 
@@ -345,8 +347,8 @@ $(function(){
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((approveLeave) => {
-                          if (approveLeave) {
+                        .then((rejectLeave) => {
+                          if (rejectLeave) {
 
                                         $.ajax({
                                             type: "POST",
@@ -361,17 +363,23 @@ $(function(){
                                             }
                                         });//ajax
                           } else {
-                            swal("Your cancel the rejection!");
+                             swal({text:"You cancel the rejection !",icon:"error"});
                           }
                         });
         
 
     });
+       
 
     $('#applyLeave').click(function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');
 
+            $("#Attachment").hide();
+            $("#LabelAttachment").hide();
+            $("#medicalfiles").hide();
+            $("#AddAttachment").show();
+            
         var options = document.getElementById("leaveType").options;
         for (var i = 0; i < options.length; i++) {
           if (options[i].text == "Vacation Leave" && $('#emptype').val() === 'Regular' && $('#vac_leavebal').val() !== '0.0') {
