@@ -15,6 +15,7 @@ Class MfallowancesList{
                 <th>Allowances ID</th>
                 <th>Allowances Code</th>
                 <th>Allowances Name</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,13 +32,15 @@ Class MfallowancesList{
                 $rowd = "'".$result['rowid']."'";
                 $benefitcode = "'".$result['benefit_code']."'";
                 $benefitname = "'".$result['benefit_name']."'";
+                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
                 <td>' . $result['benefit_code']. '</td>
-                <td>' . $result['benefit_name']. '</td>';
+                <td>' . $result['benefit_name']. '</td>
+                <td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfallowancesModal('.$rowd.','.$benefitcode.','.$benefitname.')">
+                onclick="editMfallowancesModal('.$rowd.','.$benefitcode.','.$benefitname.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

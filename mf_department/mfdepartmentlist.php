@@ -5,16 +5,27 @@ Class MfdepartmentList{
     public function GetAllMfdepartmentList(){
         global $connL;
 
-        echo '<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for department.." title="Type in employee code">
+        echo '<div class="form-group">   
+                    <select class  ="form-control" name="state" id="maxRows">
+                         <option value="5000">Show ALL Rows</option>
+                         <option value="5">5</option>
+                         <option value="10">10</option>
+                         <option value="15">15</option>
+                         <option value="20">20</option>
+                         <option value="50">50</option>
+                         <option value="70">70</option>
+                         <option value="100">100</option>
+                        </select>             
+                </div>
         <table id="allMfdepartmentList" class="table table-striped table-sm">
         <thead>
             <tr>
                 <th colspan="6" class ="text-center">List of All Department</th>
             </tr>
             <tr>
-                <th>Department ID</th>
                 <th>Department Code</th>
                 <th>Department Name</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,13 +42,14 @@ Class MfdepartmentList{
                 $rowd = "'".$result['rowid']."'";
                 $cde = "'".$result['code']."'";
                 $des = "'".$result['descs']."'";
+                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
                 <td>' . $result['code']. '</td>
-                <td>' . $result['descs']. '</td>';
+                <td>' . $result['descs']. '</td>
+                <td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfdepartmentModal('.$rowd.','.$cde.','.$des.')">
+                onclick="editMfdepartmentModal('.$rowd.','.$cde.','.$des.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 
@@ -49,10 +61,21 @@ Class MfdepartmentList{
         }else { 
             echo '<tfoot><tr><td colspan="6" class="text-center">No Results Found</td></tr></tfoot>'; 
         }
-        echo '</table>';
+        echo '</table>
+        <div class="pagination-container">
+        <nav>
+          <ul class="pagination">
+            
+            <li data-page="prev" >
+                <span> < <span class="sr-only">(current)</span></span></li>
+    
+          <li data-page="next" id="prev">
+                  <span> > <span class="sr-only">(current)</span></span>
+            </li>
+          </ul>
+        </nav>
+      </div>';
     }
-
-
 }
 
 ?>

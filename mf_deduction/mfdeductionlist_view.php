@@ -30,7 +30,6 @@
 <link rel="stylesheet" href="../mf_deduction/mfdeduction.css">
 <script type="text/javascript" src="../mf_deduction/mfdeduction_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>ALL DEDUCTION LIST</h1>
@@ -92,7 +91,18 @@
                                         <input type="text" class="form-control inputtext" name="deduction_name"
                                             id="deduction_name" placeholder="Deduction Name....." > 
                                     </div>
-                                </div>                                                   
+                                </div> 
+                                 <div class="col-lg-6">
+                                 </div>                                 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="status" name="status" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                                                                   
                         </div> <!-- form row closing -->
                     </fieldset> 
 
@@ -138,8 +148,18 @@
                                             id="deductionname"> 
                                     </div>
                                 </div> 
-                                <input type="text" class="form-control" name="rowd"
-                                            id="rowd" hidden> 
+                                 <div class="col-lg-6">
+                                 </div> 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                
+                                <input type="text" class="form-control" name="rowd"id="rowd" hidden> 
 
                         </div> <!-- form row closing -->
                     </fieldset> 
@@ -179,7 +199,7 @@ function myFunction() {
   }
 }
 
-    function editMfdeductionModal(id,desc,name){
+    function editMfdeductionModal(id,desc,name,stts){
           
         $('#updateMfded').modal('toggle');
 
@@ -191,6 +211,11 @@ function myFunction() {
 
         var bno = document.getElementById('deductionname');
         bno.value =  name;  
+
+
+        var sts = document.getElementById('stts');
+        sts.value =  stts;                                      
+
                                  
 
     }
@@ -204,6 +229,7 @@ function myFunction() {
         var rowid = document.getElementById("rowd").value;
         var deduction_code = document.getElementById("deductioncode").value;
         var deduction_name = document.getElementById("deductionname").value;     
+        var status = document.getElementById("stts").value;  
 
         $('#contents').html('');
 
@@ -222,7 +248,8 @@ function myFunction() {
                                         action: 1,
                                         rowid: rowid ,
                                         deduction_code: deduction_code,
-                                        deduction_name: deduction_name 
+                                        deduction_name: deduction_name ,
+                                        status: status
                                         
                                     },
                                     function(data) { $("#contents").html(data).show(); }

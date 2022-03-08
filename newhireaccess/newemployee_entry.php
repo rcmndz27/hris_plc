@@ -199,7 +199,7 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                         <label class="control-label" for="telno">Telephone Number:<span class="req">*</span></label>
+                                         <label class="control-label" for="telno">Telephone Number:</label>
                                         <input type="text" class="form-control" name="telno" id="telno" onkeypress="return onlyNumberKey(event)" maxlength="11" placeholder="02......">
                                     </div>
                                     <div class="form-group">

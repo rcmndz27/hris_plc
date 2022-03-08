@@ -13,7 +13,8 @@ $(function(){
     
         inputValues = [
             $('#descsb'),
-            $('#descsb_name')
+            $('#descsb_name'),
+            $('#status')
         ];
 
 
@@ -27,13 +28,12 @@ $(function(){
 
 
         if (CheckInput() === true) {
-
-
    
             param = {
                 'Action': 'InsertBankEnt',
                 'descsb': $('#descsb').val(),
-                'descsb_name': $('#descsb_name').val()                 
+                'descsb_name': $('#descsb_name').val(),
+                'status': $('#status').children("option:selected").val()                   
             }
     
             param = JSON.stringify(param);
@@ -58,8 +58,8 @@ $(function(){
                                         },
                                         success: function (result) {
                                             console.log('success: ' + result);
-                                            swal({text:"Successfully added bank type!",icon:"success"});
-                                            location.reload();
+                                            // swal({text:"Successfully added bank type!",icon:"success"});
+                                            // location.reload();
                                         },
                                         error: function (result) {
                                             console.log('error: ' + result);

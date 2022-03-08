@@ -1,4 +1,4 @@
-<?php
+0<?php
 
 Class NewHireAccess{
 
@@ -34,18 +34,6 @@ Class NewHireAccess{
             do { 
                 $fullname=  $result['lastname'].','.$result['firstname'].' '.substr($result['middlename'],0,1).'.';
                 $empcd = "'".$result['emp_code']."'";
-                $empname = "'".$fullname."'";
-                $lname = "'".$result['lastname']."'";
-                $fname = "'".$result['firstname']."'";
-                $mname = "'".$result['middlename']."'";
-                $pstn = "'".$result['position']."'";
-                $dpt = "'".$result['department']."'";
-                $emailadd = "'".$result['emailaddress']."'";
-                $teln = "'".$result['telno']."'";
-                $celn = "'".$result['celno']."'";
-                $loct = "'".strtoupper($result['location'])."'";
-                $emptyp = "'".$result['emp_type']."'";
-
                 echo '
                 <tr>
                 <td>' . $result['emp_code'] . '</td>
@@ -55,9 +43,13 @@ Class NewHireAccess{
                 <td>' . $result['department'] . '</td>
                 <td>' . $result['location'] . '</td>
                 <td>' . $result['emp_type'] . '</td>';
-                echo '<td><button type="button" class="actv" onclick="updateEmpModal('.$empcd.','.$empname.','.$lname.','.$fname.','.$mname.','.$pstn.','.$dpt.','.$emailadd.','.$teln.','.$celn.','.$loct.','.$emptyp.')">
-                                <i class="fas fa-edit"></i> UPDATE
-                            </button></td>';
+                echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
+                            </button><button type="button" class="hdeactv" onclick="updateEmpModal()" title="Update Employee Profile">
+                                <i class="fas fa-edit"></i>
+                            </button><button type="button" class="hactv" onclick="viewEmpHistoryModal()" title="View Employee Logs">
+                                <i class="fas fa-history"></i>
+                            </button></td>
+                            ';
     
                 
 

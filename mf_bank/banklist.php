@@ -15,6 +15,7 @@ Class BankList{
                 <th>Bank ID</th>
                 <th>Bank Acronym</th>
                 <th>Bank Name</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,19 +26,20 @@ Class BankList{
         $stmt->execute();
         $result = $stmt->fetch();
 
-
         if($result){
             do { 
                 $rowd = "'".$result['rowid']."'";
                 $dscsb = "'".$result['descsb']."'";
                 $descsbname = "'".$result['descsb_name']."'";
+                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
                 <td>' . $result['descsb']. '</td>
-                <td>' . $result['descsb_name']. '</td>';
+                <td>' . $result['descsb_name']. '</td>
+                <td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editBankModal('.$rowd.','.$dscsb.','.$descsbname.')">
+                onclick="editBankModal('.$rowd.','.$dscsb.','.$descsbname.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

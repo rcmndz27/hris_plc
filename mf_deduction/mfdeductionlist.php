@@ -15,6 +15,7 @@ Class MfdeductionList{
                 <th>Deduction ID</th>
                 <th>Deduction Code</th>
                 <th>Deduction Name</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,13 +32,15 @@ Class MfdeductionList{
                 $rowd = "'".$result['rowid']."'";
                 $deductioncode = "'".$result['deduction_code']."'";
                 $deductionname = "'".$result['deduction_name']."'";
+                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
                 <td>' . $result['deduction_code']. '</td>
-                <td>' . $result['deduction_name']. '</td>';
+                <td>' . $result['deduction_name']. '</td>
+                <td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfdeductionModal('.$rowd.','.$deductioncode.','.$deductionname.')">
+                onclick="editMfdeductionModal('.$rowd.','.$deductioncode.','.$deductionname.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

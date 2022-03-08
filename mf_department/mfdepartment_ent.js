@@ -13,7 +13,8 @@ $(function(){
     
         inputValues = [
             $('#code'),
-            $('#descs')
+            $('#descs'),
+            $('#status')
         ];
 
 
@@ -33,7 +34,8 @@ $(function(){
             param = {
                 'Action': 'InsertMfdepartmentEnt',
                 'code': $('#code').val(),
-                'descs': $('#descs').val()                 
+                'descs': $('#descs').val(),
+                'status': $('#status').children("option:selected").val()                   
             }
     
             param = JSON.stringify(param);

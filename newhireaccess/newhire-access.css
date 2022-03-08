@@ -25,13 +25,40 @@ table,td{
 table {
         border: 1px solid #dee2e6;
         color: #ffff;
-        margin-bottom: 100px;
-        border: 2px solid black;
+        /*margin-bottom: 100px;*/
+        /*border: 2px solid black;*/
+        background-color: white;
+        text-align: center;
+        font-family: "Dosis", sans-serif;
+}
+.thw{
+        width: 180px;
+        text-align: left;
+}
+
+.wtable {
+        width: 730px;
+        /*border: 1px solid #dee2e6;*/
+        color: black;
+        /*border: 2px solid black;*/
         background-color: white;
         text-align: center;
         font-family: "Dosis", sans-serif;
 }
 
+
+
+.obc {
+    text-align: center;
+    font-size: 16.5px;
+    font-weight: bolder;
+}
+
+.imgob{
+    height: 120px;
+    width: 186px;
+    padding: 20px;
+}
     .bb{
         font-weight: bolder;
         text-align: center;

@@ -29,11 +29,31 @@
 
     }    
 ?>
+<script type="text/javascript">
+
+    function viewEmpModal(lvlogid)
+    {
+       $('#viewEmpModal').modal('toggle');
+        var url = "../newhireaccess/nh_viewprofile.php";
+        var lvlogid = lvlogid;
+
+        $.post (
+            url,
+            {
+                _action: 1,
+                lvlogid: lvlogid             
+            },
+            function(data) { $("#contents2").html(data).show(); }
+        );
+    }
+
+</script>
+
 <link rel="stylesheet" href="../newhireaccess/newhire-access.css">
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEE LIST</h1>
+          <h4>ALL EMPLOYEE LIST</h4>
         </div>
     <div class="main-body mbt">
 
@@ -181,6 +201,65 @@
                                 <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                                 <button type="button" class="subbut" id="Submit" onclick="updateEmpHired()"><i class="fas fa-check-circle"></i> SUBMIT</button>
                             </div>
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
+
+        <div class="modal fade" id="viewEmpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW EMPLOYEE PROFILE <i class="fas fa-profile fa-fw fa-fw"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+
+                                <div class="col-lg-3">
+                                    <label class="control-label" for=""> 
+                                        <img src="../img/newob.png" class="imgob">
+                                    </label>                                        
+                                </div>  
+
+                                <div class="col-lg-8">
+                                    <div class="d-flex justify-content-center obc">            
+                                        OBANANA CORP.<br>
+                                        PMI Tower Cabanillas Corner, 273 Pablo Ocampo Sr. Ext
+                                        Makati, 1203 Metro Manila, Makati, Philippines
+                                        Cel. No.: +63 945 729 5298 | Website: www.obanana.com 
+                                    </div>
+                                </div> 
+                                <div class="col-lg-1">
+                                    <label class="control-label">
+                                </div>                                   
+
+                            <div class="row pt-3">
+                                <div class="col-md-12">
+                                    <div class="panel-body">
+                                        <div id="contents2" class="table-responsive-sm table-body">
+                                            <button type="button" id="search" hidden>GENERATE</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                                                     
+                        </div> <!-- form row closing -->
+                    </fieldset> 
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
                 </div> <!-- modal content closing -->

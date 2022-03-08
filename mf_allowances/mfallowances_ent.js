@@ -13,7 +13,8 @@ $(function(){
     
         inputValues = [
             $('#benefit_code'),
-            $('#benefit_name')
+            $('#benefit_name'),
+            $('#status')
         ];
 
 
@@ -28,18 +29,17 @@ $(function(){
 
         if (CheckInput() === true) {
 
-
-   
             param = {
                 'Action': 'InsertMfallowancesEnt',
                 'benefit_code': $('#benefit_code').val(),
-                'benefit_name': $('#benefit_name').val()                 
+                'benefit_name': $('#benefit_name').val(),
+                'status': $('#status').children("option:selected").val()                
             }
     
             param = JSON.stringify(param);
 
-            // swal(param);
-            // exit();
+            swal(param);
+            exit();
 
                      swal({
                           title: "Are you sure ?",

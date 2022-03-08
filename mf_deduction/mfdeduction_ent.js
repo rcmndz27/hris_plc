@@ -13,7 +13,8 @@ $(function(){
     
         inputValues = [
             $('#deduction_code'),
-            $('#deduction_name')
+            $('#deduction_name'),
+            $('#status')
         ];
 
 
@@ -31,7 +32,8 @@ $(function(){
             param = {
                 'Action': 'InsertMfdeductionEnt',
                 'deduction_code': $('#deduction_code').val(),
-                'deduction_name': $('#deduction_name').val()                 
+                'deduction_name': $('#deduction_name').val(),
+                'status': $('#status').children("option:selected").val()                 
             }
     
             param = JSON.stringify(param);

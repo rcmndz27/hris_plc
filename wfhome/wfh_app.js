@@ -151,8 +151,8 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            // $('#popUpModal').modal('toggle');
-                                            // location.reload();
+                                            $('#popUpModal').modal('toggle');
+                                            location.reload();
                                         },
                                         error: function (data){
                                             swal('error');

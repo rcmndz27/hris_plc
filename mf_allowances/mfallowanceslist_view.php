@@ -92,13 +92,24 @@
                                         <input type="text" class="form-control inputtext" name="benefit_name"
                                             id="benefit_name" placeholder="Allowances Name....." > 
                                     </div>
-                                </div>                                                   
+                                </div>
+                                 <div class="col-lg-6">
+                                 </div>                                 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="status" name="status" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                                                                   
                         </div> <!-- form row closing -->
                     </fieldset> 
 
-                                <div class="modal-footer">
+                                <div class="modal-footer">                                  
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -137,16 +148,26 @@
                                         <input type="text" class="form-control inputtext" name="benefitname"
                                             id="benefitname"> 
                                     </div>
-                                </div> 
-                                <input type="text" class="form-control" name="rowd"
-                                            id="rowd" hidden> 
+                                </div>
+                                 <div class="col-lg-6">
+                                 </div> 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                   
+                                <input type="text" class="form-control" name="rowd"id="rowd" hidden> 
 
                         </div> <!-- form row closing -->
                     </fieldset> 
 
-                                <div class="modal-footer">
+                                <div class="modal-footer">                                   
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateMfalw()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" onclick="updateMfalw()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                     
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -179,7 +200,7 @@ function myFunction() {
   }
 }
 
-    function editMfallowancesModal(id,desc,name){
+    function editMfallowancesModal(id,desc,name,stts){
           
         $('#updateMfalw').modal('toggle');
 
@@ -191,6 +212,9 @@ function myFunction() {
 
         var bno = document.getElementById('benefitname');
         bno.value =  name;  
+
+        var sts = document.getElementById('stts');
+        sts.value =  stts;            
                                  
 
     }
@@ -203,7 +227,8 @@ function myFunction() {
         var url = "../mf_allowances/updatemfallowances_process.php";
         var rowid = document.getElementById("rowd").value;
         var benefit_code = document.getElementById("benefitcode").value;
-        var benefit_name = document.getElementById("benefitname").value;     
+        var benefit_name = document.getElementById("benefitname").value;  
+        var status = document.getElementById("stts").value;             
 
         $('#contents').html('');
 
@@ -222,7 +247,8 @@ function myFunction() {
                                         action: 1,
                                         rowid: rowid ,
                                         benefit_code: benefit_code ,
-                                        benefit_name: benefit_name 
+                                        benefit_name: benefit_name ,
+                                        status: status
                                         
                                     },
                                     function(data) { $("#contents").html(data).show(); }

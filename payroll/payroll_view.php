@@ -65,8 +65,8 @@
                         <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
                             <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
-                        <button type="button" id="srch" class="gotopay" onclick="show()">
-                                <a href="../payroll/payroll_view_register.php" class="payreggoto">
+                        <button type="button" id="srch" class="gotopay" >
+                                <a href="../payroll/payroll_view_register.php" class="payreggoto" onclick="show()">
                                 <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
                         </button>                                          
                 </div>

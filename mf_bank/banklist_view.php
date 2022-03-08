@@ -14,7 +14,8 @@
             include('../controller/MasterFile.php');
             $allBankList = new BankList(); 
             $mf = new MasterFile();
-            $dd = new DropDown();
+            $dd = new DropDown();   
+
 
        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
@@ -60,8 +61,7 @@
             </div>
         </div>
     </div>
-
-
+ 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -80,11 +80,11 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-3">
+                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Bank Code<span class="req">*</span></label>
                                         <input type="text" style="text-transform:uppercase" class="form-control inputtext" name="descsb"
-                                            id="descsb" placeholder="BDO....." maxlength="3" >
+                                            id="descsb" placeholder="BDO....." maxlength="4" onkeyup="srchDuplicate()">
                                     </div>
                                 </div> 
                                 <div class="col-lg-9">
@@ -93,7 +93,18 @@
                                         <input type="text" class="form-control inputtext" name="descsb_name"
                                             id="descsb_name" placeholder="Banco De Oro....." > 
                                     </div>
-                                </div>                                                   
+                                </div>
+                                 <div class="col-lg-6">
+                                 </div>                                 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="status" name="status" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                                                                       
                         </div> <!-- form row closing -->
                     </fieldset> 
 
@@ -139,15 +150,24 @@
                                             id="descsbname"> 
                                     </div>
                                 </div> 
-                                <input type="text" class="form-control" name="rowd"
-                                            id="rowd" hidden> 
+                                 <div class="col-lg-6">
+                                 </div> 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>                                 
+                                <input type="text" class="form-control" name="rowd" id="rowd" hidden> 
 
                         </div> <!-- form row closing -->
                     </fieldset> 
-
-                                <div class="modal-footer">
+                                <div class="modal-footer">                                  
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateBan()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" onclick="updateBan()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -180,8 +200,28 @@ function myFunction() {
   }
 }
 
+function srchDuplicate() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("allBankList");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        swal({text:"Duplicate value!",icon:"error"});
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 
-    function editBankModal(id,desc,name){
+
+
+    function editBankModal(id,desc,name,stts){
           
         $('#updateBan').modal('toggle');
 
@@ -192,7 +232,10 @@ function myFunction() {
         bnkt.value =  desc;  
 
         var bno = document.getElementById('descsbname');
-        bno.value =  name;  
+        bno.value =  name; 
+
+        var sts = document.getElementById('stts');
+        sts.value =  stts;          
                                  
 
     }
@@ -205,7 +248,8 @@ function myFunction() {
         var url = "../mf_bank/updatebank_process.php";
         var rowid = document.getElementById("rowd").value;
         var descsb = document.getElementById("dscsb").value;
-        var descsb_name = document.getElementById("descsbname").value;     
+        var descsb_name = document.getElementById("descsbname").value;
+        var status = document.getElementById("stts").value;     
 
         $('#contents').html('');
 
@@ -224,7 +268,8 @@ function myFunction() {
                                         action: 1,
                                         rowid: rowid ,
                                         descsb: descsb ,
-                                        descsb_name: descsb_name 
+                                        descsb_name: descsb_name ,
+                                        status: status 
                                         
                                     },
                                     function(data) { $("#contents").html(data).show(); }

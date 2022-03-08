@@ -13,7 +13,8 @@ $(function(){
     
         inputValues = [
             $('#code'),
-            $('#descs')
+            $('#descs'),
+            $('#status')
         ];
 
 
@@ -27,13 +28,12 @@ $(function(){
 
 
         if (CheckInput() === true) {
-
-
    
             param = {
                 'Action': 'InsertMfcompanyEnt',
                 'code': $('#code').val(),
-                'descs': $('#descs').val()                 
+                'descs': $('#descs').val(),
+                'status': $('#status').children("option:selected").val()                                    
             }
     
             param = JSON.stringify(param);

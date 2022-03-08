@@ -24,6 +24,11 @@ table {
         text-align: center;
         font-family: "Dosis", sans-serif;
 }
+
+.pagination li:hover{
+    cursor: pointer;
+}
+    
 #myInput {
   background-image: url('../img/searchicon.png');
   background-size: 30px;
