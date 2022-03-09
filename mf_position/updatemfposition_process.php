@@ -6,10 +6,11 @@
     $action = $_POST["action"];
     $rowid = $_POST["rowid"];
     $position = $_POST["position"];
+    $status = $_POST["status"];
 
     if ($action == 1)
     {
-        UpdateMfposition($rowid,$position);
+        UpdateMfposition($rowid,$position,$status);
     }
     else {
 

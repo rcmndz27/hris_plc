@@ -12,9 +12,10 @@ if($mfpos->{"Action"} == "InsertMfpositionEnt")
 {
 
     $position = $mfpos->{"position"};
+    $status = $mfpos->{"status"};
 
 
-    $mfPos->InseryMfpositionEnt($position);
+    $mfPos->InseryMfpositionEnt($position,$status);
 
 }else{
 

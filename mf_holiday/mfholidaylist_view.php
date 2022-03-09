@@ -9,10 +9,10 @@
     else
     {
             include('../_header.php');
-            include("../mf_position/mfpositionlist.php");
+            include("../mf_holiday/mfholidaylist.php");
             include('../elements/DropDown.php');
             include('../controller/MasterFile.php');
-            $allMfpositionList = new MfpositionList(); 
+            $allMfholidayList = new MfholidayList(); 
             $mf = new MasterFile();
             $dd = new DropDown();
 
@@ -27,33 +27,32 @@
 
     }    
 ?>
-<link rel="stylesheet" href="../mf_position/mfposition.css">
-<script type="text/javascript" src="../mf_position/mfposition_ent.js"></script>
+<link rel="stylesheet" href="../mf_holiday/mfholiday.css">
+<script type="text/javascript" src="../mf_holiday/mfholiday_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL JOB POSITION LIST</h1>
+          <h1>ALL HOLIDAY LIST</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item active bb" aria-current="page"><b><i class='fas fa-users'>
-                        </i>&nbsp;JOB POSITION LIST</b></li>
+              <li class="breadcrumb-item active bb" aria-current="page"><b><i class='fas fa-calendar-alt'>
+                        </i>&nbsp;HOLIDAY LIST</b></li>
             </ol>
           </nav>
     <div class="pt-3">
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="bb addNewAppBut" id="mfpositionEntry"><i class="fas fa-users"></i> ADD NEW JOB POSITION </button>
+                <button type="button" class="bb addNewAppBut" id="mfholidayEntry"><i class="fas fa-calendar-alt"></i> ADD NEW HOLIDAY </button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allMfpositionList->GetAllMfpositionList(); ?>
-
+                        <?php $allMfholidayList->GetAllMfholidayList(); ?>
                     </div>
                 </div>
             </div>
@@ -66,7 +65,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">JOB POSITION ENTRY <i class="fas fa-users"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">HOLIDAY ENTRY <i class="fas fa-calendar-alt"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -79,18 +78,29 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label class="control-label" for="position">Job Position Name<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="position"
-                                            id="position" placeholder="Position Name....." > 
+                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
+                                        <input type="date" id="holidaydate" name="holidaydate" class="form-control">
+                                    </div>
+                                </div> 
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
+                                        <input type="text" class="form-control inputtext" name="holidaydescs"
+                                            id="holidaydescs" placeholder="Holiday Name....." > 
                                     </div>
                                 </div>
-                                 <div class="col-lg-8">
-                                    <label class="control-label" for="depname">Department Name<span class="req">*</span></label>
-                                    <?php $dd->GenerateMultipledDropDown("department", $mf->GetDeptForJob("depwid")); ?>                                    
-                                 </div>                                 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="holidaytype" name="holidaytype" >
+                                            <option value="Regular Holiday">Regular Holiday</option>
+                                            <option value="Special Holiday">Special Holiday</option>
+                                        </select>    
+                                    </div>
+                                </div>                                                            
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="status" name="status" >
@@ -112,12 +122,12 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-    <div class="modal fade" id="updateMfpos" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+    <div class="modal fade" id="updateMfhol" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE POSITION <i class="fas fa-users"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE HOLIDAY <i class="fas fa-calendar-alt"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -130,32 +140,44 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label class="control-label" for="pstn">Job Position Name<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="pstn"
-                                            id="pstn"> 
+                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
+                                        <input type="date" id="hodate" name="hdate" class="form-control">
                                     </div>
                                 </div> 
-                                 <div class="col-lg-6">
-                                </div> 
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
+                                        <input type="text" class="form-control inputtext" name="hdescs"
+                                            id="hdescs" placeholder="Holiday Name....." > 
+                                    </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
-                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                        <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="htype" name="htype" >
+                                            <option value="Regular Holiday">Regular Holiday</option>
+                                            <option value="Special Holiday">Special Holiday</option>
+                                        </select>    
+                                    </div>
+                                </div>                                                            
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="stts" name="stts" >
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
                                         </select>                                    
                                     </div>
-                                </div>                                 
+                                </div>                                  
                                 <input type="text" class="form-control" name="rowd" id="rowd" hidden> 
-
                         </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateMfpos()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" onclick="updateMfhol()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -173,10 +195,10 @@ function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allMfpositionList");
+  table = document.getElementById("allMfholidayList");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[3];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -188,94 +210,84 @@ function myFunction() {
   }
 }
 
-    function editMfpositionModal(id,desc,stts){
+    function editMfholidayModal(id,hdate,htype,hdescs,stts){
           
-        $('#updateMfpos').modal('toggle');
+        $('#updateMfhol').modal('toggle');
 
         var hidful = document.getElementById('rowd');
         hidful.value =  id;   
 
-        var bnkt = document.getElementById('pstn');
-        bnkt.value =  desc;  
+        var bnkt = document.getElementById('hdate');
+        bnkt.value =  hdate;  
 
-        var sts = document.getElementById('stts');
-        sts.value =  stts;               
+        var bno = document.getElementById('htype');
+        bno.value =  htype;
 
+        var dsch = document.getElementById('hdescs');
+        dsch.value =  hdescs;          
                                  
+        var sts = document.getElementById('stts');
+        sts.value =  stts;                                      
 
     }
 
 
-     function updateMfpos()
+    function updateMfhol()
     {
 
         $("body").css("cursor", "progress");
-        var url = "../mf_position/updatemfposition_process.php";
+        var url = "../mf_holiday/updatemfholiday_process.php";
         var rowid = document.getElementById("rowd").value;
-        var position = document.getElementById("pstn").value; 
-        var status = document.getElementById("stts").value; 
+        var holidaydate = document.getElementById("hdate").value;
+        var holidaytype = document.getElementById("htype").value;
+        var holidaydescs = document.getElementById("hdescs").value;
+        var status = document.getElementById("stts").value;       
 
         $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
-                          text: "You want to update this position type?",
+                          text: "You want to update this holiday type?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((updateMfpos) => {
-                          if (updateMfpos) {
+                        .then((updateMfhol) => {
+                          if (updateMfhol) {
                                 $.post (
                                     url,
                                     {
                                         action: 1,
                                         rowid: rowid ,
-                                        position: position ,
-                                        status : status
+                                        holidaydate: holidaydate ,
+                                        holidaytype: holidaytype ,
+                                        holidaydescs: holidaydescs ,
+                                        status: status
                                         
                                     },
-                                    function(data) { 
-
-                                            swal({
-                                            title: "Wow!", 
-                                            text: "Successfully update the job position details!", 
-                                            type: "success",
-                                            icon: "success",
-                                        }).then(function() {
-                                            location.href = '../mf_position/mfpositionlist_view.php';
-                                        });
-                                        // swal({text:"Successfully update the job position details!",icon:"success"});
-                                        // window.location.replace(""); 
-                                    }
+                                    function(data) { $("#contents").html(data).show(); }
                                 );
+
+                                swal({text:"Successfully update the holiday details!",icon:"success"});
+                                location.reload();
                           } else {
-                            swal({text:"You cancel the updating of job position details!",icon:"error"});
+                            swal({text:"You cancel the updating of holiday details!",icon:"error"});
                           }
                         });
    
                 }
+    
 
 
-getPagination('#allMfpositionList');
-                    //getPagination('.table-class');
-                    //getPagination('table');
-
-          /*                    PAGINATION 
-          - on change max rows select options fade out all rows gt option value mx = 5
-          - append pagination list as per numbers of rows / max rows option (20row/5= 4pages )
-          - each pagination li on click -> fade out all tr gt max rows * li num and (5*pagenum 2 = 10 rows)
-          - fade out all tr lt max rows * li num - max rows ((5*pagenum 2 = 10) - 5)
-          - fade in all tr between (maxRows*PageNum) and (maxRows*pageNum)- MaxRows 
-          */
-         
+              getPagination('#allMfholidayList');
 
 function getPagination(table) {
   var lastPage = 1;
 
   $('#maxRows')
     .on('change', function(evt) {
-      //$('.paginationprev').html('');                      // reset pagination
+      //$('.paginationprev').html('');  
+      // reset pagination
 
      lastPage = 1;
       $('.pagination')
@@ -394,8 +406,6 @@ function limitPagging(){
         }
     }
 }
-
-    
 
 </script>
 

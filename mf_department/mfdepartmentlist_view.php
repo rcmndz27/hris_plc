@@ -28,11 +28,8 @@
     }    
 ?>
 <link rel="stylesheet" href="../mf_department/mfdepartment.css">
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../mf_department/mfdepartment_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <div class="container">
     <div class="section-title">
           <h1>ALL DEPARTMENT LIST</h1>
@@ -188,7 +185,7 @@ function myFunction() {
   table = document.getElementById("allMfdepartmentList");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[2];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -263,9 +260,7 @@ function myFunction() {
                 }
     
 
-</script>
 
-<script type="text/javascript">
               getPagination('#allMfdepartmentList');
                     //getPagination('.table-class');
                     //getPagination('table');
@@ -376,7 +371,7 @@ function getPagination(table) {
       }); // end of on click pagination list
       limitPagging();
     })
-    .val(5)
+    .val(10)
     .change();
 
   // end of on select change
@@ -403,21 +398,6 @@ function limitPagging(){
         }
     }
 }
-
-$(function() {
-  // Just to append id number for each row
-  $('table tr:eq(0)').prepend('<th> ID </th>');
-
-  var id = 0;
-
-  $('table tr:gt(0)').each(function() {
-    id++;
-    $(this).prepend('<td>' + id + '</td>');
-  });
-});
-
-//  Developed By Yasser Mas
-// yasser.mas2@gmail.com
 
 </script>
 

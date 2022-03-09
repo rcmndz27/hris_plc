@@ -1,8 +1,8 @@
 <?php
 
-Class MfpositionList{
+Class MfholidayList{
 
-    public function GetAllMfpositionList(){
+    public function GetAllMfholidayList(){
         global $connL;
 
         echo '<div class="form-row">  
@@ -21,22 +21,24 @@ Class MfpositionList{
                 <div class="col-lg-8">
                 </div>                               
                 <div class="col-lg-3">        
-                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Position Name.." title="Type in position name"> 
+                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Holiday Name.." title="Type in holiday name"> 
                         </div>                     
                 </div>  
-        <table id="allMfpositionList" class="table table-striped table-sm">
+                                     
+        <table id="allMfholidayList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Job Position ID</th>
-                <th>Job Position Name</th>
-                <th>Department</th>
+                <th>Holiday ID</th>
+                <th>Holiday Date</th>
+                <th>Holiday Type</th>
+                <th>Holiday Name</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.mf_position ORDER BY rowid asc";
+        $query = "SELECT * from dbo.mf_holiday ORDER BY rowid asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -44,16 +46,20 @@ Class MfpositionList{
 
         if($result){
             do { 
-                $rowd = "'".$result['rowid']."'";
-                $pstn = "'".$result['position']."'";
+                $hdate = "'".date('m-d-Y', strtotime($result['holidaydate']))."'";
+                $htype = "'".$result['holidaytype']."'";
+                $hdescs = "'".$result['holidaydescs']."'";
                 $stts = "'".$result['status']."'";
+                $rowd = "'".$result['rowid']."'";
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
-                <td>' . $result['position']. '</td>
+                <td>' . date('m-d-Y', strtotime($result['holidaydate'])). '</td>
+                <td>' . $result['holidaytype']. '</td>
+                <td>' . $result['holidaydescs']. '</td>
                 <td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfpositionModal('.$rowd.','.$pstn.','.$stts.')">
+                onclick="editMfholidayModal('.$rowd.','.$hdate.','.$htype.','.$hdescs.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 
@@ -80,8 +86,6 @@ Class MfpositionList{
         </nav>
       </div>';
     }
-
-
 }
 
 ?>

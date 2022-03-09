@@ -1,6 +1,6 @@
 $(function(){
 
-    $('#mfpositionEntry').click(function(e){
+    $('#mfholidayEntry').click(function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');
 
@@ -12,7 +12,9 @@ $(function(){
         var inputValues = [];
     
         inputValues = [
-            $('#position'),
+            $('#holidaydate'),
+            $('#holidaytype'),
+            $('#holidaydescs'),
             $('#status')
         ];
 
@@ -29,12 +31,13 @@ $(function(){
         if (CheckInput() === true) {
 
 
-        
+   
             param = {
-                'Action': 'InsertMfpositionEnt',
-                'position': $('#position').val(),
-                'department': $('#department').val(),
-                'status': $('#status').children("option:selected").val()                  
+                'Action': 'InsertMfholidayEnt',
+                'holidaydate': $('#holidaydate').val(),
+                'holidaytype': $('#holidaytype').children("option:selected").val(),
+                'holidaydescs': $('#holidaydescs').val(),
+                'status': $('#status').children("option:selected").val()                   
             }
     
             param = JSON.stringify(param);
@@ -44,7 +47,7 @@ $(function(){
 
                      swal({
                           title: "Are you sure ?",
-                          text: "You want to add this job position.",
+                          text: "You want to add this holiday.",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
@@ -53,13 +56,13 @@ $(function(){
                           if (appEnt) {
                                     $.ajax({
                                         type: 'POST',
-                                        url: '../mf_position/mfpositionent_process.php',
+                                        url: '../mf_holiday/mfholidayent_process.php',
                                         data: {
                                             data: param
                                         },
                                         success: function (result) {
                                             console.log('success: ' + result);
-                                            swal({text:"Successfully added job position!",icon:"success"});
+                                            swal({text:"Successfully added holiday!",icon:"success"});
                                             location.reload();
                                         },
                                         error: function (result) {
@@ -67,7 +70,7 @@ $(function(){
                                         }
                                     }); //ajax
                           } else {
-                            swal({text:"You cancel the addition of the job position!",icon:"error"});
+                            swal({text:"You cancel the addition of the holiday!",icon:"error"});
                           }
                         });
 

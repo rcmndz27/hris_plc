@@ -130,7 +130,7 @@ function myFunction() {
                                         },
                                         function(data) {window.location.replace("../payroll/payroll_view_register.php"); }
                                     );
-                                    // swal({text:"Successfully saved the payroll!",icon:"success"});
+                                    
                       } else {
                             swal({text:"You cancel the saving of payroll!",icon:"error"});
                           }

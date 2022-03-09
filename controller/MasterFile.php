@@ -500,6 +500,34 @@
             }
         }
 
+        public function GetDeptForJob($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT rowid,descs FROM dbo.mf_dept where status = 'Active' ORDER by rowid ASC");
+                $sql->execute();
+
+                if ($type == "depwid")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["rowid"], $r["rowid"]." - ".$r["descs"]));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
         public function GetEmployeeNames($type)
         {
             global $connL;
