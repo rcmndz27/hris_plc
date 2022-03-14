@@ -63,7 +63,7 @@
 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">JOB POSITION ENTRY <i class="fas fa-users"></i></h5>
@@ -71,6 +71,7 @@
                         <span aria-hidden="true">&times; </span>
                     </button>
                 </div>
+
         <div class="modal-body">
             <div class="main-body">
                 <fieldset class="fieldset-border">
@@ -86,11 +87,13 @@
                                             id="position" placeholder="Position Name....." > 
                                     </div>
                                 </div>
-                                 <div class="col-lg-8">
+                                 <div class="col-lg-12">
+                                    <div class="form-group">
                                     <label class="control-label" for="depname">Department Name<span class="req">*</span></label>
-                                    <?php $dd->GenerateMultipledDropDown("department", $mf->GetDeptForJob("depwid")); ?>                                    
+                                    <?php $dd->GenerateMultipledDropDown("department", $mf->GetDeptForJob("depwid")); ?>  
+                                     </div>                                  
                                  </div>                                 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="status" name="status" >
@@ -114,7 +117,7 @@
 
     <div class="modal fade" id="updateMfpos" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">UPDATE POSITION <i class="fas fa-users"></i></h5>
@@ -133,13 +136,16 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="pstn">Job Position Name<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="pstn"
-                                            id="pstn"> 
+                                        <input type="text" class="form-control inputtext" name="pstn" id="pstn" placeholder="Job Position"> 
                                     </div>
                                 </div> 
-                                 <div class="col-lg-6">
-                                </div> 
-                                <div class="col-lg-6">
+                                 <div class="col-lg-12">
+                                    <div class="form-group">
+                                    <label class="control-label" for="depment">Department Name<span class="req">*</span></label>
+                                    <?php $dd->GenerateMultipledDropDown("depment", $mf->GetDeptForJob("depwid")); ?>
+                                    </div>                                    
+                                 </div>   
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="stts">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select" id="stts" name="stts" >
@@ -147,9 +153,10 @@
                                             <option value="Inactive">Inactive</option>
                                         </select>                                    
                                     </div>
-                                </div>                                 
+                                </div> 
+                              <form action=""></form>
+                                <input type="text" class="form-control" name="dscsbup" id="dscsbup" hidden>
                                 <input type="text" class="form-control" name="rowd" id="rowd" hidden> 
-
                         </div> <!-- form row closing -->
                     </fieldset> 
 
@@ -162,12 +169,75 @@
                 </div> <!-- modal content closing -->
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
-
+        <input type="text" class="form-control" name="empCode" id="empCode" value="<?php echo $empCode; ?>" hidden>
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
 
+        <?php 
+
+        $query = "SELECT * from dbo.mf_position ORDER BY rowid asc";
+        $stmt =$connL->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$result['position']);
+                
+            } while ($result = $stmt->fetch());
+
+
+
+        $queryd = "SELECT * from dbo.mf_jobdept";
+        $stmtd =$connL->prepare($queryd);
+        $stmtd->execute();
+        $resultd = $stmtd->fetch();
+
+        $totalVal2 = [];
+        if($resultd){
+            do { 
+                array_push($totalVal2,$resultd);
+                
+            } while ($resultd = $stmtd->fetch());
+        }
+        ?>
+
 
 <script>
+
+                var totalVal3 = <?php echo json_encode($totalVal2) ;?>;
+
+                $('#position').change(function(){
+                var totalVal = <?php echo json_encode($totalVal) ;?>;
+                var cd = $('#position').val();
+
+                if(totalVal.includes(cd)){
+                    swal({text:"Duplicate Position Name!",icon:"error"});
+                    var dbc = document.getElementById('position');
+                    dbc.value = '';               
+                }else{
+                }
+
+            });
+
+                $('#pstn').change(function(){
+                var totalVal = <?php echo json_encode($totalVal) ;?>;
+                var cd = $('#pstn').val();
+                var hidb = $('#dscsbup').val();
+
+                if(totalVal.includes(cd)){
+                        if(hidb === cd){
+
+                        }else{
+                            swal({text:"Duplicate Position Name!",icon:"error"});
+                            var dbc = document.getElementById('pstn');
+                            dbc.value = hidb;                            
+                        }               
+                }else{
+                }
+
+            });
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -175,25 +245,38 @@ function myFunction() {
   filter = input.value.toUpperCase();
   table = document.getElementById("allMfpositionList");
   tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
+for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td");
+    if(td.length > 0){ // to avoid th
+       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
+
+    }
+ }
 }
 
+
+
     function editMfpositionModal(id,desc,stts){
+
           
         $('#updateMfpos').modal('toggle');
 
+        $("#depment").val([]);
+
+        $.each(totalVal3, function(i){
+            if(totalVal3[i]['1'] == id)
+            {
+                $("#depment option[value='" +totalVal3[i]['dept_id']  + "']").prop("selected", true);
+            }
+        });
+
         var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
+        hidful.value =  id;         
 
         var bnkt = document.getElementById('pstn');
         bnkt.value =  desc;  
@@ -201,6 +284,8 @@ function myFunction() {
         var sts = document.getElementById('stts');
         sts.value =  stts;               
 
+        var ghdsa = document.getElementById('dscsbup');
+        ghdsa.value =  desc;     
                                  
 
     }
@@ -214,6 +299,11 @@ function myFunction() {
         var rowid = document.getElementById("rowd").value;
         var position = document.getElementById("pstn").value; 
         var status = document.getElementById("stts").value; 
+        var empCode = document.getElementById("empCode").value; 
+        var department =  $('#depment').val();
+
+        // alert(department);
+        // exit();
 
         $('#contents').html('');
 
@@ -229,24 +319,23 @@ function myFunction() {
                                 $.post (
                                     url,
                                     {
-                                        action: 1,
                                         rowid: rowid ,
                                         position: position ,
-                                        status : status
+                                        status : status,
+                                        department:department,
+                                        empCode: empCode
                                         
                                     },
                                     function(data) { 
-
                                             swal({
                                             title: "Wow!", 
-                                            text: "Successfully update the job position details!", 
+                                            text: "Successfully updated the job position details!", 
                                             type: "success",
                                             icon: "success",
-                                        }).then(function() {
-                                            location.href = '../mf_position/mfpositionlist_view.php';
-                                        });
-                                        // swal({text:"Successfully update the job position details!",icon:"success"});
-                                        // window.location.replace(""); 
+                                            }).then(function(e) {
+
+                                                location.href = '../mf_position/mfpositionlist_view.php';
+                                            });
                                     }
                                 );
                           } else {
@@ -258,17 +347,6 @@ function myFunction() {
 
 
 getPagination('#allMfpositionList');
-                    //getPagination('.table-class');
-                    //getPagination('table');
-
-          /*                    PAGINATION 
-          - on change max rows select options fade out all rows gt option value mx = 5
-          - append pagination list as per numbers of rows / max rows option (20row/5= 4pages )
-          - each pagination li on click -> fade out all tr gt max rows * li num and (5*pagenum 2 = 10 rows)
-          - fade out all tr lt max rows * li num - max rows ((5*pagenum 2 = 10) - 5)
-          - fade in all tr between (maxRows*PageNum) and (maxRows*pageNum)- MaxRows 
-          */
-         
 
 function getPagination(table) {
   var lastPage = 1;

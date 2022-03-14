@@ -13,7 +13,7 @@ public function InsertMfdeductionEnt($deduction_code,$deduction_name,$status)
                 $param = array(
                     ":deduction_code"=> $deduction_code,
                     ":deduction_name" => $deduction_name,
-                    ":status" => $status                                        
+                    ":status" => 'Active'                                        
                 );
 
             $result = $stmt->execute($param);

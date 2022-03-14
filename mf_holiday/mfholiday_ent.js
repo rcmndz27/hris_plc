@@ -61,12 +61,17 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
-                                            console.log('success: ' + result);
-                                            swal({text:"Successfully added holiday!",icon:"success"});
-                                            location.reload();
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully added the holiday details!", 
+                                            type: "success",
+                                            icon: "success",
+                                            }).then(function() {
+                                                location.href = '../mf_holiday/mfholidaylist_view.php';
+                                            }); 
                                         },
                                         error: function (result) {
-                                            console.log('error: ' + result);
+                                            // console.log('error: ' + result);
                                         }
                                     }); //ajax
                           } else {

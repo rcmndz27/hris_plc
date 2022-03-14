@@ -36,7 +36,7 @@ Class MfpositionList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.mf_position ORDER BY rowid asc";
+        $query = "SELECT * from dbo.mf_position ORDER BY rowid desc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -47,11 +47,34 @@ Class MfpositionList{
                 $rowd = "'".$result['rowid']."'";
                 $pstn = "'".$result['position']."'";
                 $stts = "'".$result['status']."'";
+
+                $queryd = "SELECT c.code,a.job_id,b.rowid,a.dept_id from mf_jobdept a 
+                left join mf_position b on a.job_id = b.rowid
+                left join mf_dept c on a.dept_id = c.rowid
+                where a.job_id = ".$rowd."";
+                $stmtd =$connL->prepare($queryd);
+                $stmtd->execute();
+                $resultd = $stmtd->fetch();
+                $data = array();
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
-                <td>' . $result['position']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td>' . $result['position']. '</td><td>';
+                if($resultd){
+                do { 
+                    array_push($data,$resultd['code']);
+                    $cdde = $resultd['code'];
+                 
+                    
+                }
+                while ($resultd = $stmtd->fetch());
+
+                        $codess = implode(",", $data);
+                        echo $codess;
+
+                }
+                echo'
+                </td><td>' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
                 onclick="editMfpositionModal('.$rowd.','.$pstn.','.$stts.')">
                                 <i class="fas fa-edit"></i> UPDATE

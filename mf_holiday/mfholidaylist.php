@@ -51,10 +51,12 @@ Class MfholidayList{
                 $hdescs = "'".$result['holidaydescs']."'";
                 $stts = "'".$result['status']."'";
                 $rowd = "'".$result['rowid']."'";
+                $ddt = date('Y/m/d', strtotime($result['holidaydate']));
+                $newdate= date('d M, Y', strtotime($ddt));
                 echo '
                 <tr>
                 <td>' . $result['rowid']. '</td>
-                <td>' . date('m-d-Y', strtotime($result['holidaydate'])). '</td>
+                <td>' . $newdate. '</td>
                 <td>' . $result['holidaytype']. '</td>
                 <td>' . $result['holidaydescs']. '</td>
                 <td>' . $result['status']. '</td>';

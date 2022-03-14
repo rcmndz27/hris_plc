@@ -38,8 +38,8 @@ $(function(){
     
             param = JSON.stringify(param);
 
-            swal(param);
-            exit();
+            // swal(param);
+            // exit();
 
                      swal({
                           title: "Are you sure ?",
@@ -57,12 +57,17 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
-                                            console.log('success: ' + result);
-                                            swal({text:"Successfully added allowances type!",icon:"success"});
-                                            location.reload();
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully added allowances type!", 
+                                            type: "success",
+                                            icon: "success",
+                                        }).then(function() {
+                                            location.href = '../mf_allowances/mfallowanceslist_view.php';
+                                        });
                                         },
                                         error: function (result) {
-                                            console.log('error: ' + result);
+                                            // console.log('error: ' + result);
                                         }
                                     }); //ajax
                           } else {

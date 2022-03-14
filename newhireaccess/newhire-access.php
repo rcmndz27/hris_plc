@@ -28,9 +28,6 @@ Class NewHireAccess{
         <table id="allEmpList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th colspan="9" class ="text-center">List of All Employees</th>
-            </tr>
-            <tr>
                 <th>Emp Code</th>
                 <th>Name</th>
                 <th>Position</th>
@@ -43,7 +40,7 @@ Class NewHireAccess{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_profile ORDER BY lastname asc";
+        $query = "SELECT * from dbo.employee_profile where emp_status = 'Active' ORDER BY lastname asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();

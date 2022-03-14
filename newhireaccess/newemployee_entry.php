@@ -13,10 +13,7 @@
     $year = date('Y');
 
     $today = $year . '-' . $month . '-' . $day;
-
-    
 ?>   
-?> 
 <link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
 <script type="text/javascript" src="../newhireaccess/newemp.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
@@ -45,13 +42,13 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="job-tab" name="job-tab" data-toggle="tab" href="#job" role="tab"
-                            aria-controls="job" aria-selected="false">Employment Record</a>
+                            aria-controls="job" aria-selected="false">Employment Record </a>
                     </li>
 
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab"><br>
+                    <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
                       <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
@@ -61,7 +58,7 @@
                         <div class="form-row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                <label class="control-label" for="collegeCourse">Attach recent photograph <span class="req">*</span></label>
+                                <label class="control-label" for="collegeCourse">Upload Photo <span class="req">*</span></label>
                                 <input class="d-block" type="file" name="empimgpic" id="empimgpic" accept="image/png, image/jpeg" onChange="GetEmpImgFile()">
                                 </div>
                             </div>
@@ -108,7 +105,7 @@
                                     </div>
                                 </div>                                                                
                             </div> 
-                        <div class="form-row mb-2">
+<!--                         <div class="form-row mb-2">
                             <div class="col-lg-6">
                                 <label class="control-label" for="reasonsfor">Reason for wishing to be considered for the position at hand:<span class="req">*</span></label>
                                   <textarea class="form-control" id="reason_position" name="reason_position" rows="1"
@@ -119,16 +116,20 @@
                                         <input type="text" class="form-control inputtext" onkeypress="return onlyNumberKey(event)"name="expected_salary"
                                             id="expected_salary" placeholder="P 00,000.00">
                             </div>                            
-                        </div>  
+                        </div>   -->
 
                           <div class="form-row">
                                 <div class="col-lg-8">
                                     <div class="form-group">
-                                        <label class="control-label" for="How you come to apply">How you come to apply?<span class="req">*</span></label>
+                                        <label class="control-label" for="How you come to apply">Source of Application<span class="req">*</span></label>
                                         <select type="select" class="form-select" id="howtoapply" name="howtoapply" >
                                             <option value="Walk-in">Walk-in</option>
                                             <option value="Ads">Ads</option>
                                             <option value="College Placement Office">College Placement Office</option>
+                                            <option value="LinkedIn">LinkedIn</option>
+                                            <option value="Indeed">Indeed</option>
+                                            <option value="JobStreet">JobStreet</option>
+                                            <option value="Website">Website</option>
                                             <option value="Referred By">Referred By</option>
                                         </select>
                                     </div>
@@ -179,7 +180,7 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="Address">(A) Address at which you reside at present<span class="req">*</span></label>
+                                        <label class="control-label" for="Address">(A) Present Address<span class="req">*</span></label>
                                         <label class="note">(indicate since when)</label>
                                   <textarea class="form-control" id="emp_address" name="emp_address" rows="2"
                                     cols="90" placeholder="Address....."></textarea>
@@ -188,7 +189,7 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="Permanent">(B) Permanent Residence<span class="req">*</span></label>
+                                        <label class="control-label" for="Permanent">(B) Permanent Address<span class="req">*</span></label>
                                         <label class="note"><input class="btn samea" id="perma" value="SAME IN (A)"></label>
                                   <textarea class="form-control" id="emp_address2" name="emp_address2" rows="2"
                                     cols="90" placeholder="Address....."></textarea>
@@ -621,7 +622,8 @@
                 </div> 
 
                             <div class="d-flex justify-content-center">
-                                    -- Next, Go to Education Tab --
+                                    <!-- -- Next, Go to Education Tab -- -->
+                                    <a class="btn-success" id="education-tab" name="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false" onclick='changeETabAct();'>Education</a>
                              </div>
                         </fieldset>
                 </div>
@@ -691,7 +693,7 @@
                         <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
-                                    EMPLOYMENT RECORD
+                                    EMPLOYMENT RECORD ( <span id="empcnt">1</span> )
                                 </legend>
                              </div>
                             <div class="form-row">
@@ -702,7 +704,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="philhealth">1. Present or Most Recent Employment</label>
+                                        <label class="control-label" for="philhealth">Present or Most Recent Employment</label>
                                     </div>
                                 </div>                                
                                 <div class="col-lg-4">
@@ -826,6 +828,38 @@
         return true;
     }
 
+   
+    function changeETabAct() {
+        
+        var ptab = document.getElementById("personal-tab");
+        var etab = document.getElementById("education-tab");
+        var jtab = document.getElementById("job-tab");
+        ptab.classList.remove("active");
+        etab.classList.add("active");
+        jtab.classList.remove("active");
+
+        // $('#personal-tab').trigger('click');
+
+        document.getElementById("personal-tab").setAttribute("aria-selected",false) ;
+        document.getElementById("education-tab").setAttribute("aria-selected",true) ;
+        document.getElementById("job-tab").setAttribute("aria-selected",false) ;        
+
+
+    }
+
+
+    // function changeJTabAct() {
+
+    //     var ptab = document.getElementById("personal-tab");
+    //     var etab = document.getElementById("education-tab");
+    //     var jtab = document.getElementById("job-tab");
+    //     ptab.classList.remove("active");
+    //     etab.classList.remove("active");
+    //     jtab.classList.add("active");
+
+    // }
+
+
 </script>
 
  <script>  
@@ -892,14 +926,21 @@
 <script>  
  $(document).ready(function(){  
       var i=1;  
+
       $('#add_job').click(function(){  
+            var empCount = document.getElementById("empcnt").innerText;
+            var parseEmpC = parseInt(empCount);
+            document.getElementById("empcnt").innerText = parseEmpC + 1;
            i++;  
-            $('#job_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-12"><div class="form-group"><label class="control-label" for="jobcnt">'+i+'. </label></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="Period">Period</label></div></div> <div class="col-lg-8"><div class="form-group"><label class="control-label" for="Positions">Positions you have handled in the same organization before:</label></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobfrom">From:</label><input type="date" class="form-control inputtext" id="jobfrom" name="jobfrom"></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobto">To:</label><input type="date" class="form-control inputtext" id="jobto" name="jobto"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="stratingposition">Starting:</label><input type="text" class="form-control inputtext" id="stratingposition"name="stratingposition" placeholder="Starting..."></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="mostrecentposition">Most Recent:</label><input type="text" class="form-control inputtext" id="mostrecentposition"name="mostrecentposition" placeholder="Most Recent..."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="notypeemployees">Number and type of employees supervised by you, (if any):</label><input type="text" class="form-control inputtext" id="notypeemployees"name="notypeemployees" placeholder="Required"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employername">Name of Employer:</label><input type="text" class="form-control inputtext" id="employername"name="employername" placeholder="Employer&#39s Name..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employeraddress">Address of Employer:</label><input type="text" class="form-control inputtext" id="employeraddress"name="employeraddress" placeholder="Employer&#39s Address..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisorname">Name  of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisorname"name="supervisorname" placeholder="Supervisor&#39s Name"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisortitle">Title of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisortitle"name="supervisortitle" placeholder="Supervisor&#39s Title"></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="duties">Brief description of your duties and responsibilities:</label><input type="text" class="form-control inputnumber" id="duties" name="duties"placeholder="Duties...."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="reasonforleaving">Reason for leaving:</label><input type="text" class="form-control inputnumber" id="reasonforleaving"name="reasonforleaving" placeholder="Required"></div></div><div class="col-lg-10"></div><div class="col-lg-2"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove rememp">(x) Remove Employment</button></div></div></div>');
+            $('#job_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-12"><hr></div><div class="col-lg-12"><div class="form-group"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="Period">Period</label></div></div> <div class="col-lg-8"><div class="form-group"><label class="control-label" for="Positions">Positions you have handled in the same organization before:</label></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobfrom">From:</label><input type="date" class="form-control inputtext" id="jobfrom" name="jobfrom"></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobto">To:</label><input type="date" class="form-control inputtext" id="jobto" name="jobto"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="stratingposition">Starting:</label><input type="text" class="form-control inputtext" id="stratingposition"name="stratingposition" placeholder="Starting..."></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="mostrecentposition">Most Recent:</label><input type="text" class="form-control inputtext" id="mostrecentposition"name="mostrecentposition" placeholder="Most Recent..."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="notypeemployees">Number and type of employees supervised by you, (if any):</label><input type="text" class="form-control inputtext" id="notypeemployees"name="notypeemployees" placeholder="Required"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employername">Name of Employer:</label><input type="text" class="form-control inputtext" id="employername"name="employername" placeholder="Employer&#39s Name..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employeraddress">Address of Employer:</label><input type="text" class="form-control inputtext" id="employeraddress"name="employeraddress" placeholder="Employer&#39s Address..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisorname">Name  of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisorname"name="supervisorname" placeholder="Supervisor&#39s Name"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisortitle">Title of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisortitle"name="supervisortitle" placeholder="Supervisor&#39s Title"></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="duties">Brief description of your duties and responsibilities:</label><input type="text" class="form-control inputnumber" id="duties" name="duties"placeholder="Duties...."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="reasonforleaving">Reason for leaving:</label><input type="text" class="form-control inputnumber" id="reasonforleaving"name="reasonforleaving" placeholder="Required"></div></div><div class="col-lg-10"></div><div class="col-lg-2"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove rememp">(x) Remove Employment</button></div></div></div>');
 
       });  
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
+           $('#row'+button_id+'').remove();
+            var empCount = document.getElementById("empcnt").innerText;
+            var parseEmpC = parseInt(empCount);
+            document.getElementById("empcnt").innerText = parseEmpC - 1;           
       });   
  });  
  </script>

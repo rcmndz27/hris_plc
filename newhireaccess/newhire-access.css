@@ -33,7 +33,7 @@ table {
 }
 
  .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
-    z-index: 2;
+    z-index: 1;
     color: #23527c;
     background-color: #eee;
     border-color: #ddd;
@@ -52,7 +52,7 @@ table {
 }
 
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
-    z-index: 3;
+    z-index: 1;
     color: #fff;
     cursor: default;
     background-color: #337ab7;
@@ -75,7 +75,7 @@ table {
     border-bottom-right-radius: 4px;
 }
 .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
-    z-index: 2;
+    z-index: 1;
     color: #23527c;
     background-color: #eee;
     border-color: #ddd;

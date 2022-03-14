@@ -110,7 +110,7 @@ $('#Submit').click(function(){
                                             location.reload();
                                         },
                                         error: function (data){
-                                            alert('error');
+                                            // alert('error');
                                         }
                                     });//ajax
 

@@ -13,7 +13,7 @@ public function InsertBankEnt($descsb,$descsb_name,$status)
                 $param = array(
                     ":descsb"=> $descsb,
                     ":descsb_name" => $descsb_name,
-                    ":status" => $status                                       
+                    ":status" => 'Active'                                       
                 );
 
             $result = $stmt->execute($param);

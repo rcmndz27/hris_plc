@@ -62,7 +62,7 @@
 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">DEPARTMENT ENTRY <i class="fas fa-warehouse"></i></h5>
@@ -78,30 +78,19 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="code">Department Code<span class="req">*</span></label>
-                                        <input type="text" style="text-transform:uppercase" class="form-control inputtext" name="code" id="code" placeholder="CMP....." maxlength="3" >
+                                        <input type="text" style="text-transform:uppercase" class="form-control inputtext" name="code" id="code" placeholder="CMP....." maxlength="4" >
                                     </div>
                                 </div> 
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="descs">Department Name<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="descs"
                                             id="descs" placeholder="Department Name....." > 
                                     </div>
-                                </div>
-                                 <div class="col-lg-6">
-                                 </div>                                 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
-                                        <select type="select" class="form-select inputtext" id="status" name="status" >
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>                                    
-                                    </div>
-                                </div>                                                                                   
+                                </div>                                                                                 
                         </div> <!-- form row closing -->
                     </fieldset> 
 
@@ -117,7 +106,7 @@
 
     <div class="modal fade" id="updateMfdep" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">UPDATE DEPARTMENT <i class="fas fa-warehouse"></i></h5>
@@ -133,23 +122,21 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="cde">Department Code<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="cde"
-                                            id="cde" maxlength="3">
+                                            id="cde" maxlength="4" style="text-transform:uppercase">
                                     </div>
                                 </div> 
-                                <div class="col-lg-9">
+                                <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="dscs">Department Name<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="dscs"
                                             id="dscs"> 
                                     </div>
                                 </div> 
-                                 <div class="col-lg-6">
-                                 </div> 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="stts">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select" id="stts" name="stts" >
@@ -157,7 +144,8 @@
                                             <option value="Inactive">Inactive</option>
                                         </select>                                    
                                     </div>
-                                </div>                                  
+                                </div>  
+                                <input type="text" class="form-control" name="dscsbup" id="dscsbup" hidden>
                                 <input type="text" class="form-control" name="rowd" id="rowd" hidden> 
                         </div> <!-- form row closing -->
                     </fieldset> 
@@ -175,8 +163,58 @@
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
 
+        <?php 
+        $query = "SELECT * from dbo.mf_dept ORDER BY rowid asc";
+        $stmt =$connL->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$result['code']);
+                
+            } while ($result = $stmt->fetch());
+
+           ?>
 
 <script>
+
+
+
+            $('#code').change(function(){
+                var totalVal = <?php echo json_encode($totalVal) ;?>;
+                var cd = $('#code').val();
+                var res = cd.toUpperCase();
+;
+
+                if(totalVal.includes(res)){
+                    swal({text:"Duplicate Department Code!",icon:"error"});
+                    var dbc = document.getElementById('code');
+                    dbc.value = '';               
+                }else{
+                }
+
+            });
+
+                $('#cde').change(function(){
+                var totalVal = <?php echo json_encode($totalVal) ;?>;
+                var cd = $('#cde').val();
+                var res = cd.toUpperCase();
+                var hidb = $('#dscsbup').val();
+
+                if(totalVal.includes(res)){
+                        if(hidb === res){
+
+                        }else{
+                            swal({text:"Duplicate Department Code!",icon:"error"});
+                            var dbc = document.getElementById('cde');
+                            dbc.value = hidb;                            
+                        }               
+                }else{
+                }
+
+            });
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -211,7 +249,11 @@ function myFunction() {
         bno.value =  name;  
                                  
         var sts = document.getElementById('stts');
-        sts.value =  stts;                                      
+        sts.value =  stts;   
+
+        var ghdsa = document.getElementById('dscsbup');
+        ghdsa.value =  desc;                                              
+
 
     }
 
@@ -247,11 +289,18 @@ function myFunction() {
                                         status: status
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the department details!", 
+                                            type: "success",
+                                            icon: "success",
+                                            }).then(function() {
+                                                location.href = '../mf_department/mfdepartmentlist_view.php';
+                                            });  
+                                    }
                                 );
 
-                                swal({text:"Successfully update the department details!",icon:"success"});
-                                location.reload();
                           } else {
                             swal({text:"You cancel the updating of department details!",icon:"error"});
                           }
@@ -260,19 +309,8 @@ function myFunction() {
                 }
     
 
+getPagination('#allMfdepartmentList');
 
-              getPagination('#allMfdepartmentList');
-                    //getPagination('.table-class');
-                    //getPagination('table');
-
-          /*                    PAGINATION 
-          - on change max rows select options fade out all rows gt option value mx = 5
-          - append pagination list as per numbers of rows / max rows option (20row/5= 4pages )
-          - each pagination li on click -> fade out all tr gt max rows * li num and (5*pagenum 2 = 10 rows)
-          - fade out all tr lt max rows * li num - max rows ((5*pagenum 2 = 10) - 5)
-          - fade in all tr between (maxRows*PageNum) and (maxRows*pageNum)- MaxRows 
-          */
-         
 
 function getPagination(table) {
   var lastPage = 1;

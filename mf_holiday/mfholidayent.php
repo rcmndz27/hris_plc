@@ -13,7 +13,7 @@ public function InsertMfdepartmentEnt($code,$descs)
                 $param = array(
                     ":code"=> $code,
                     ":descs" => $descs,
-                    ":status" => $status                                       
+                    ":status" => 'Active'                                       
                 );
 
             $result = $stmt->execute($param);

@@ -62,7 +62,7 @@
 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">HOLIDAY ENTRY <i class="fas fa-calendar-alt"></i></h5>
@@ -78,20 +78,20 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
-                                        <input type="date" id="holidaydate" name="holidaydate" class="form-control">
-                                    </div>
-                                </div> 
-                                <div class="col-lg-9">
+                                <div class="col-lg-7">
                                     <div class="form-group">
                                         <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="holidaydescs"
                                             id="holidaydescs" placeholder="Holiday Name....." > 
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
+                                </div>                            
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
+                                        <input type="date" id="holidaydate" name="holidaydate" class="form-control">
+                                    </div>
+                                </div> 
+                                <div class="col-lg-7">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="holidaytype" name="holidaytype" >
@@ -99,17 +99,8 @@
                                             <option value="Special Holiday">Special Holiday</option>
                                         </select>    
                                     </div>
-                                </div>                                                            
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
-                                        <select type="select" class="form-select inputtext" id="status" name="status" >
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>                                    
-                                    </div>
-                                </div>                                                                                   
-                        </div> <!-- form row closing -->
+                                </div>
+                            </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">
@@ -124,7 +115,7 @@
 
     <div class="modal fade" id="updateMfhol" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">UPDATE HOLIDAY <i class="fas fa-calendar-alt"></i></h5>
@@ -140,20 +131,20 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
-                                        <input type="date" id="hodate" name="hdate" class="form-control">
-                                    </div>
-                                </div> 
-                                <div class="col-lg-9">
+                                <div class="col-lg-7">
                                     <div class="form-group">
                                         <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="hdescs"
                                             id="hdescs" placeholder="Holiday Name....." > 
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
+                                </div>                            
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
+                                        <input type="date" id="hodate" name="hdate" class="form-control">
+                                    </div>
+                                </div> 
+                                <div class="col-lg-7">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="htype" name="htype" >
@@ -162,7 +153,7 @@
                                         </select>    
                                     </div>
                                 </div>                                                            
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="stts" name="stts" >
@@ -170,7 +161,7 @@
                                             <option value="Inactive">Inactive</option>
                                         </select>                                    
                                     </div>
-                                </div>                                  
+                                </div>
                                 <input type="text" class="form-control" name="rowd" id="rowd" hidden> 
                         </div> <!-- form row closing -->
                     </fieldset> 
@@ -262,24 +253,21 @@ function myFunction() {
                                         holidaydate: holidaydate ,
                                         holidaytype: holidaytype ,
                                         holidaydescs: holidaydescs ,
-                                        status: status
-                                        
+                                        status: status                                       
                                     },
                                     function(data) { $("#contents").html(data).show(); }
                                 );
-
                                 swal({text:"Successfully update the holiday details!",icon:"success"});
                                 location.reload();
                           } else {
                             swal({text:"You cancel the updating of holiday details!",icon:"error"});
                           }
                         });
-   
+
                 }
     
 
-
-              getPagination('#allMfholidayList');
+getPagination('#allMfholidayList');
 
 function getPagination(table) {
   var lastPage = 1;

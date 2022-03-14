@@ -58,7 +58,7 @@ else
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src='../js/script.js'></script>
+    <!-- <script type="text/javascript" src='../js/script.js'></script> -->
     </head>
 <body>
 <div id = "myDiv" style="display:none;" class="loader"></div>

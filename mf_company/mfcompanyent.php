@@ -13,7 +13,7 @@ public function InsertMfcompanyEnt($code,$descs,$status)
                 $param = array(
                     ":code"=> $code,
                     ":descs" => $descs,                                        
-                    ":status" => $status  
+                    ":status" => 'Active'  
                 );
 
             $result = $stmt->execute($param);

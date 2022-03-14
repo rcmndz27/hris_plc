@@ -3,13 +3,11 @@
 /*end css*/
 
 body{
-   /*background: url("../img/hris_bg.jpg");*/
    background-position: center center;
    background-repeat: no-repeat;
    background-attachment: fixed;
    background-size: cover;
    font-family: "Dosis", sans-serif;
-   /*overflow: hidden;  */
 }
 
 
