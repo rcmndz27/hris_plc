@@ -19,7 +19,7 @@
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">
     <div class="section-title">
-          <h1></h1>
+          <h1>EMPLOYEE PROFILE - PERSONAL DATA SHEET</h1>
         </div>
     <div class="main-body mbt">
 
@@ -48,7 +48,7 @@
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                    <div class="tab-pane fade active show" id="personal" role="tabpanel" aria-labelledby="personal-tab">
                       <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
@@ -360,8 +360,7 @@
                                 </div>                                                                    
                             </div>
 
-                <div class="form-row">
- 
+                                <div class="form-row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
                                                 <label class="control-label" for="depname">Dependent's Name:</label>
@@ -383,41 +382,19 @@
                                         <div class="col-lg-1">
                                             <div class="form-group"> 
                                                 <label class="control-label" for="adddep">&nbsp;</label>
-                                                <button type="button" name="add_dep" id="add_dep" class="btn btn-success adddep">+Add More 
+                                                <button type="button" name="add_dep" id="add_dep" class="btn btn-success adddep">+ &nbsp;Add More 
                                                 </button> 
                                             </div>
-                                       </div> 
-                        
-                </div>
-            <div id="dep_dynamic_field"></div>
-
-                            <div class="form-row">
-                                <div class="col-lg-6">
-                                    <label class="control-label" for="spousename">Spouse Name:</label>
-                                    <input type="text" class="form-control" name="spousename" id="spousename" placeholder="Spouse Name">
+                                        </div>                         
                                 </div>
+            <div id="dep_dynamic_field"></div>
+                        <div class="form-row">
                                 <div class="col-lg-6">
+                                    <div class="form-group">
                                     <label class="control-label" for="fathername">Father's Name:</label>
                                     <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father's Name">
-                                </div>                               
-                            </div><br>                         
-                            <div class="form-row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" s for="spousebirthdate">Spouse Birthdate:</label>
-                                        <input type="date" class="form-control inputtext" id="spousebirthdate"
-                                            name="spousebirthdate" value="<?php echo $today; ?>">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" for="spouseage">Spouse Age:</label>
-                                        <input type="text" class="form-control inputtext" name="spouseage" id="spouseage"
-                                            placeholder="00" readonly>
-                                    </div>
-                                </div>
-
+                                    </div> 
+                                </div> 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="fatheroccupation">Father's Occupation:</label>
@@ -428,27 +405,13 @@
                                     <div class="form-group">
                                         <label class="control-label" for="fatherbirthdate">Father's Birthdate:</label>
                                         <input type="date" class="form-control inputtext" name="fatherbirthdate"
-                                            id="fatherbirthdate">
+                                            id="fatherbirthdate" max="<?php echo $today; ?>">
                                     </div>
-                                </div> 
-                            </div>
-                            <div class="form-row">
-                                <div class="col-lg-6">
-                                    <label class="control-label" for="spouseoccupation">Spouse Occupation:</label>
-                                    <input type="text" class="form-control" name="spouseoccupation" id="spouseoccupation" placeholder="Occupation">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="control-label" for="mothername">Mother's Name:</label>
-                                    <input type="text" class="form-control" name="mothername" id="mothername" placeholder="Mother's Name">
-                                </div>                               
-                            </div><br> 
-
-                        <div class="form-row">
+                                </div>  
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="spousecompany">Spouse Company Name and Address:</label>
-                                  <textarea  type="text" class="form-control" id="spousecompany" name="spousecompany" rows="1"
-                                    cols="90" placeholder="Company Name and Address....."></textarea>
+                                    <label class="control-label" for="mothername">Mother's Name:</label>
+                                    <input type="text" class="form-control" name="mothername" id="mothername" placeholder="Mother's Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -460,10 +423,43 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="motherbirthdate">Mother's Birhdate:</label>
-                                        <input type="date" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate">
+                                        <label class="control-label" for="motherbirthdate">Mother's Birthdate:</label>
+                                        <input type="date" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate" max="<?php echo $today; ?>"> 
                                     </div>
-                                </div> 
+                                </div>                                                           
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                    <label class="control-label" for="spousename">Spouse Name:</label>
+                                    <input type="text" class="form-control" name="spousename" id="spousename" placeholder="Spouse Name">
+                                    </div>
+                                </div>                                                              
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" s for="spousebirthdate">Spouse Birthdate:</label>
+                                        <input type="date" class="form-control inputtext" id="spousebirthdate"
+                                            name="spousebirthdate" max="<?php echo $today; ?>">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseage">Spouse Age:</label>
+                                        <input type="text" class="form-control inputtext" name="spouseage" id="spouseage"
+                                            placeholder="00" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="spouseoccupation">Spouse Occupation:</label>
+                                        <input type="text" class="form-control" name="spouseoccupation" id="spouseoccupation" placeholder="Occupation">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="spousecompany">Spouse Company Name and Address:</label>
+                                  <textarea  type="text" class="form-control" id="spousecompany" name="spousecompany" rows="1"
+                                    cols="90" placeholder="Company Name and Address....."></textarea>
+                                    </div>
+                                </div>
                                     <div class="col-lg-7">
                                         <div class="form-group">
                                             <label class="control-label" for="sibname">Name of Siblings:</label>
@@ -479,16 +475,13 @@
                                     <div class="col-lg-1">
                                                 <div class="form-group"> 
                                                     <label class="control-label" for="adddep">&nbsp;</label>
-                                                    <button type="button" name="add_sib" id="add_sib" class="btn btn-success adddep">+Add More 
-                                                    </button> 
-                                                </div>
+                                                    <button type="button" name="add_sib" id="add_sib" class="btn btn-success adddep">+ &nbsp;Add More 
+                                                </button> 
+                                         </div>
                                     </div> 
-            </div> 
-            <div id="sib_dynamic_field">
-
-             </div>   
-
-                <div class="form-row">
+                            </div> 
+            <div id="sib_dynamic_field"></div>   
+                            <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="companyrelatives">Have you any near relatives working in another company like Obanana ?</label>
@@ -599,32 +592,29 @@
                                     <div class="col-lg-1">
                                         <div class="form-group"> 
                                                 <label class="control-label" for="adddep">&nbsp;</label>
-                                                <button type="button" name="add_con" id="add_con" class="btn btn-success adddep">+Add More 
+                                                <button type="button" name="add_con" id="add_con" class="btn btn-success adddep">+ &nbsp;Add More 
                                                 </button> 
                                         </div>
                                     </div>
             </div>
        
-            <div id="con_dynamic_field">
-
-             </div>            
-
+            <div id="con_dynamic_field"></div>            
              <div class="form-row">
-
-                                <div class="col-lg-12">
-                                    <div class="form-group">
+                <div class="col-lg-12">
+                            <div class="form-group">
                                         <label class="control-label" for="rightsemployee">Will you have or can you arrange return rights to your present employer?</label>
                                         <input type="text" class="form-control inputtext" name="rightsemployee"
                                             id="rightsemployee" placeholder="Will you have or can you arrange return rights to your present employer?">                                        
-                                    </div>
-                                </div>      
-                                                                            
+                            </div>
+                    </div>
                 </div> 
 
                             <div class="d-flex justify-content-center">
                                     <!-- -- Next, Go to Education Tab -- -->
-                                    <a class="btn-success" id="education-tab" name="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false" onclick='changeETabAct();'>Education</a>
-                             </div>
+                                    <button type="button" class="btn btn-success adddep" onclick='nextPTabAct();'>  NEXT >>
+                                    </button>    
+                             </div>                
+
                         </fieldset>
                 </div>
 
@@ -675,7 +665,7 @@
                                     <div class="col-lg-1">
                                         <div class="form-group"> 
                                                 <label class="control-label" for="adddep">&nbsp;</label><br><br>
-                                                <button type="button" name="add_edu" id="add_edu" class="btn btn-success adddep">+Add More 
+                                                <button type="button" name="add_edu" id="add_edu" class="btn btn-success adddep">+ &nbsp;Add More 
                                                 </button> 
                                         </div>
                                     </div>
@@ -684,7 +674,11 @@
                         <div id="edu_dynamic_field"></div>  
 
                             <div class="d-flex justify-content-center">
-                                    -- Next, Go to Employment Tab --
+                                    <!-- -- Next, Go to Employment Tab -- -->
+                                    <button type="button" class="btn btn-success adddep" onclick='prevETabAct();'> << PREV 
+                                    </button>&nbsp;
+                                    <button type="button" class="btn btn-success adddep" onclick='nextETabAct();'>  NEXT >>
+                                    </button>
                              </div>
                 </fieldset>
             </div>
@@ -694,8 +688,9 @@
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
                                     EMPLOYMENT RECORD ( <span id="empcnt">1</span> )
-                                </legend>
+                                </legend>                              
                              </div>
+                             
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -795,14 +790,26 @@
                                     </div>
                                 </div>
 
-                <div id="job_dynamic_field"></div>  
-                                <div class="col-lg-12">
+                <div id="job_dynamic_field"></div> 
+                                 <div class="col-lg-4">
+                                </div>
+                                 <div class="col-lg-3">
+                                </div>
+                                 <div class="col-lg-3">
+                                </div>
+                                <div class="col-lg-2">
                                         <div class="form-group"> 
-                                                <button type="button" name="add_job" id="add_job" class="btn btn-success addjob">+Add More Employment
+                                                <button type="button" name="add_job" id="add_job" class="btn btn-success addjob">+ &nbsp;Add More Employment
                                                 </button> 
                                         </div>
                                 </div>                                
                             </div> 
+
+                            <div class="d-flex justify-content-center">
+                                    <!-- -- Next, Go to Employment Tab -- -->
+                                    <button type="button" class="btn btn-success adddep" onclick='prevJTabAct();'> << PREV 
+                                    </button>&nbsp;
+                                </div> 
                           
                                                                       
                             <div class="mt-3 d-flex justify-content-center">
@@ -829,37 +836,21 @@
     }
 
    
-    function changeETabAct() {
-        
-        var ptab = document.getElementById("personal-tab");
-        var etab = document.getElementById("education-tab");
-        var jtab = document.getElementById("job-tab");
-        ptab.classList.remove("active");
-        etab.classList.add("active");
-        jtab.classList.remove("active");
+    function nextPTabAct() {   
+        document.getElementById("education-tab").click();
+}
 
-        // $('#personal-tab').trigger('click');
+    function prevJTabAct() {   
+        document.getElementById("education-tab").click();
+}
 
-        document.getElementById("personal-tab").setAttribute("aria-selected",false) ;
-        document.getElementById("education-tab").setAttribute("aria-selected",true) ;
-        document.getElementById("job-tab").setAttribute("aria-selected",false) ;        
+    function nextETabAct() {   
+        document.getElementById("job-tab").click();
+}
 
-
-    }
-
-
-    // function changeJTabAct() {
-
-    //     var ptab = document.getElementById("personal-tab");
-    //     var etab = document.getElementById("education-tab");
-    //     var jtab = document.getElementById("job-tab");
-    //     ptab.classList.remove("active");
-    //     etab.classList.remove("active");
-    //     jtab.classList.add("active");
-
-    // }
-
-
+    function prevETabAct() {   
+        document.getElementById("personal-tab").click();
+}
 </script>
 
  <script>  
