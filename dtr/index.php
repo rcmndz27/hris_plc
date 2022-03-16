@@ -47,11 +47,11 @@ else
         </div>
         <label for="from" class="col-form-label pad">FROM:</label>
         <div class="col-md-2">
-            <input type="date" id="dateFrom" class="form-control" name="dateFrom" value="<?php echo date('Y-m-d'); ?>" required>
+            <input type="date" id="dateFrom" class="form-control" name="dateFrom" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false" required>
         </div>
         <label for="to" class="col-form-label pad">TO:</label>
         <div class="col-md-2">
-            <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>" required>
+            <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false" required>
         </div>
         <div class="col-md-1">
             <button type="submit" id="search" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
@@ -77,9 +77,7 @@ else
                     var input2 = document.getElementById('dateTo');
                     input2.value = '';               
 
-                }else{
-                    // alert('Error');
-                }   
+                }  
 
             });
 

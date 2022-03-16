@@ -151,13 +151,19 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            $('#popUpModal').modal('toggle');
-                                            location.reload();
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added work from home details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../wfhome/wfh_app_view.php';
+                                                    });
                                         },
                                         error: function (data){
                                             swal('error');
                                         }
-                                    });//ajax
+                                    });
                           } else {
                             swal({text:"You cancel your work from home!!",icon:"error"});
                           }

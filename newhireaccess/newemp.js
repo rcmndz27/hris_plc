@@ -40,19 +40,19 @@ $(function(){
         var inputValues = [];
     
         inputValues = [
-            $('#empimgpic'),
+            // $('#empimgpic'),
+            // $('#telno'),            
+            // $('#reason_position'),
+            // $('#expected_salary'),
             $('#preffieldwork'),
             $('#preffieldwork1'),
             $('#positiontitle'),
             $('#positiontitle1'),
-            // $('#reason_position'),
-            // $('#expected_salary'),
             $('#howtoapply'),
             $('#firstname'),
             $('#lastname'),
             $('#emp_address'),
             $('#emp_address2'),
-            // $('#telno'),
             $('#celno'),
             $('#emailaddress'),
             $('#birthdate'),
@@ -169,13 +169,18 @@ $(function(){
 
         if(format.test(eadd)){
           // return swal('correct email');
-        } else {
-          return        swal({
-                          title: "Oops...wrong email format",
-                          text: "example: useremp@yahoo.com",
-                          icon: "error",
-                          dangerMode: true
-                        });
+        } else {      
+            swal({
+           title: "Oops...wrong email format",
+           text: "example: useremp@yahoo.com",
+            type: "error",
+             icon: "error",
+              dangerMode: true
+            }).then(function() {
+                var input2 = document.getElementById('emailaddress');
+                input2.value = '';                       
+            });          
+
         }   
 
     });
@@ -187,12 +192,16 @@ $(function(){
         if(format.test(eadd)){
           // return swal('correct email');
         } else {
-          return        swal({
-                          title: "Oops...wrong email format",
-                          text: "example: useremp@yahoo.com",
-                          icon: "error",
-                          dangerMode: true
-                        });
+            swal({
+           title: "Oops...wrong email format",
+           text: "example: useremp@yahoo.com",
+            type: "error",
+             icon: "error",
+              dangerMode: true
+            }).then(function() {
+                var input2 = document.getElementById('emailaddress1');
+                input2.value = '';                       
+            }); 
         }   
 
     });
@@ -246,8 +255,8 @@ $(function(){
                 'preffieldwork1': $('#preffieldwork1').val(),
                 'positiontitle': $('#positiontitle').val(),
                 'positiontitle1': $('#positiontitle1').val(),  
-                'reason_position': $('#reason_position').val(),
-                'expected_salary': $('#expected_salary').val(),  
+                // 'reason_position': $('#reason_position').val(),
+                // 'expected_salary': $('#expected_salary').val(),  
                 'howtoapply': $( "#howtoapply option:selected" ).text(),
                 'referredby': $('#referredby').val(),                                
                 'firstname': $('#firstname').val(),
@@ -323,7 +332,9 @@ $(function(){
                 'duties': $("input[name='duties[]']").map(function(){return $(this).val();}).get(),
                 'reasonforleaving': $("input[name='reasonforleaving[]']").map(function(){return $(this).val();}).get()
             }
-    
+        
+            // console.log(param);
+            // exit();
             param = JSON.stringify(param);
 
 
@@ -361,12 +372,18 @@ $(function(){
                                                     data: param
                                                 },
                                                 success: function (result) {                                            
-                                                    console.log('success: ' + result);
-                                                    swal({text:"Successfully added applicant details!",icon:"success"});
-                                                    window.location.href ='../index.php';
+                                                    // console.log('success: ' + result);
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added new employee details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../index.php';
+                                                    });
                                                 },
                                                 error: function (result) {
-                                                    console.log('error: ' + result);
+                                                    // console.log('error: ' + result);
                                                 }
                                             }); //ajax
                                   } else {

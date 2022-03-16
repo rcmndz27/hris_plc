@@ -13,6 +13,8 @@
     $year = date('Y');
 
     $today = $year . '-' . $month . '-' . $day;
+
+    $date = strtotime($today.'-18 year');
 ?>   
 <link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
 <script type="text/javascript" src="../newhireaccess/newemp.js"></script>
@@ -242,7 +244,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="birthdate">Date of Birth:<span class="req">*</span></label>
                                         <input type="date" class="form-control inputtext" id="birthdate"
-                                            name="birthdate" value="<?php echo $today; ?>">
+                                            name="birthdate" max="<?php echo date('Y-m-d',$date); ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -255,7 +257,7 @@
                                 <div class="col-lg-2">
                                     <label class="control-label" for="maidenname">Age:<span class="req">*</span></label>
                                      <label class="note">(as of last birthday)</label>
-                                    <input type="text" class="form-control" name="age" id="age" readonly>
+                                    <input type="text" class="form-control" name="age" id="age" placeholder="0" readonly>
                                 </div>                                 
                                 <div class="col-lg-4">
                                     <div class="form-group">
@@ -285,7 +287,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="tin_no">TIN:</label>
                                         <input type="text" class="form-control inputtext" name="tin_no" id="tin_no"
-                                            placeholder="Required" onkeypress="return onlyNumberKey(event)">
+                                            placeholder="TIN" onkeypress="return onlyNumberKey(event)">
                                     </div>
                                 </div>
 
@@ -293,7 +295,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="sss_no">SSS No. :</label>
                                         <input type="text" class="form-control inputtext" name="sss_no" id="sss_no"
-                                            placeholder="Required" onkeypress="return onlyNumberKey(event)">
+                                            placeholder="SSS No." onkeypress="return onlyNumberKey(event)">
                                     </div>
                                 </div>
 
@@ -301,7 +303,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="phil_no">Philhealth No. :</label>
                                         <input type="text" class="form-control inputtext" name="phil_no"
-                                            id="phil_no" placeholder="Required" onkeypress="return onlyNumberKey(event)">
+                                            id="phil_no" placeholder="Philhealth No." onkeypress="return onlyNumberKey(event)">
                                     </div>
                                 </div>
 
@@ -309,7 +311,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="pagibig_no">Pag-ibig No. :</label>
                                         <input type="text" class="form-control inputtext" name="pagibig_no" id="pagibig_no"
-                                            placeholder="Required" onkeypress="return onlyNumberKey(event)">
+                                            placeholder="Pag-ibig No." onkeypress="return onlyNumberKey(event)">
                                     </div>
                                 </div> 
                             </div>
@@ -405,7 +407,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="fatherbirthdate">Father's Birthdate:</label>
                                         <input type="date" class="form-control inputtext" name="fatherbirthdate"
-                                            id="fatherbirthdate" max="<?php echo $today; ?>">
+                                            id="fatherbirthdate" max="<?php echo date('Y-m-d',$date); ?>">
                                     </div>
                                 </div>  
                                 <div class="col-lg-6">
@@ -424,7 +426,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label class="control-label" for="motherbirthdate">Mother's Birthdate:</label>
-                                        <input type="date" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate" max="<?php echo $today; ?>"> 
+                                        <input type="date" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate" max="<?php echo date('Y-m-d',$date); ?>"> 
                                     </div>
                                 </div>                                                           
                                 <div class="col-lg-6">
@@ -435,18 +437,19 @@
                                 </div>                                                              
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label class="control-label" s for="spousebirthdate">Spouse Birthdate:</label>
+                                        <label class="control-label" for="spousebirthdate">Spouse Birthdate:</label>
                                         <input type="date" class="form-control inputtext" id="spousebirthdate"
-                                            name="spousebirthdate" max="<?php echo $today; ?>">
+                                            name="spousebirthdate" max="<?php echo date('Y-m-d',$date); ?>" >
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label class="control-label" for="spouseage">Spouse Age:</label>
+                                        <label class="control-label" for="spouseage">Spouse Age:
+                                        </label>
                                         <input type="text" class="form-control inputtext" name="spouseage" id="spouseage"
                                             placeholder="00" readonly>
                                     </div>
-                                </div>
+                                </div>                              
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="spouseoccupation">Spouse Occupation:</label>
@@ -715,69 +718,69 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label class="control-label" for="jobfrom">From:</label>
-                                        <input type="date" class="form-control inputtext" id="jobfrom" name="jobfrom">
+                                        <input type="date" class="form-control inputtext" name="jobfrom[]">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label class="control-label" for="jobto">To:</label>
-                                        <input type="date" class="form-control inputtext" id="jobto" name="jobto">
+                                        <input type="date" class="form-control inputtext" name="jobto[]">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="startingposition">Starting:</label>
-                                        <input type="text" class="form-control inputtext" id="startingposition"
-                                            name="startingposition" placeholder="Starting...">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="startingposition[]" placeholder="Starting...">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="mostrecentposition">Most Recent:</label>
-                                        <input type="text" class="form-control inputtext" id="mostrecentposition"
-                                            name="mostrecentposition" placeholder="Most Recent...">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="mostrecentposition[]" placeholder="Most Recent...">
                                     </div>
                                 </div>                                                                                   
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="notypeemployees">Number and type of employees supervised by you, (if any):</label>
-                                        <input type="text" class="form-control inputtext" id="notypeemployees"
-                                            name="notypeemployees" placeholder="Required">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="notypeemployees[]" placeholder="Required">
                                     </div>
                                 </div>
                                  <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="employername">Name of Employer:</label>
-                                        <input type="text" class="form-control inputtext" id="employername"
-                                            name="employername" placeholder="Employer's Name...">
+                                        <input type="text" class="form-control inputtext"
+                                            name="employername[]" placeholder="Employer's Name...">
                                     </div>
                                 </div>                               
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="employeraddress">Address of Employer:</label>
-                                        <input type="text" class="form-control inputtext" id="employeraddress"
-                                            name="employeraddress" placeholder="Employer's Address...">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="employeraddress[]" placeholder="Employer's Address...">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="supervisorname">Name  of Supervisor:</label>
-                                        <input type="text" class="form-control inputtext" id="supervisorname"
-                                            name="supervisorname" placeholder="Supervisor's Name">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="supervisorname[]" placeholder="Supervisor's Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="supervisortitle">Title of Supervisor:</label>
-                                        <input type="text" class="form-control inputtext" id="supervisortitle"
-                                            name="supervisortitle" placeholder="Supervisor's Title">
+                                        <input type="text" class="form-control inputtext" 
+                                            name="supervisortitle[]" placeholder="Supervisor's Title">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="duties">Brief description of your duties and responsibilities:</label>
-                                        <input type="text" class="form-control inputnumber" id="duties" name="duties"
+                                        <input type="text" class="form-control inputnumber" name="duties[]"
                                             placeholder="Duties....">
                                     </div>
                                 </div>
@@ -785,8 +788,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="reasonforleaving">Reason for leaving:</label>
-                                        <input type="text" class="form-control inputnumber" id="reasonforleaving"
-                                            name="reasonforleaving" placeholder="Reason for leaving...">
+                                        <input type="text" class="form-control inputnumber" 
+                                            name="reasonforleaving[]" placeholder="Reason for leaving...">
                                     </div>
                                 </div>
 
@@ -858,7 +861,7 @@
       var i=1;  
       $('#add_dep').click(function(){  
            i++;  
-            $('#dep_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-5" ><div class="form-group"><input type="text" class="form-control inputtext"name="depname[]" placeholder="Dependent&#39 Name" ></div></div><div class="col-lg-3"><div class="form-group"><input type="date" class="form-control inputtext"name="depbirthdate[]"></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext"name="deprelationship[]" placeholder="Relationship" ></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
+            $('#dep_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-5" ><div class="form-group"><input type="text" class="form-control inputtext" name="depname[]" placeholder="Dependent&#39 Name" ></div></div><div class="col-lg-3"><div class="form-group"><input type="date" class="form-control inputtext" name="depbirthdate[]"></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="deprelationship[]" placeholder="Relationship" ></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
 
       });  
       $(document).on('click', '.btn_remove', function(){  
@@ -873,7 +876,7 @@
       var i=1;  
       $('#add_sib').click(function(){  
            i++;  
-            $('#sib_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-7"><div class="form-group"><input type="text" class="form-control inputtext" name="sibname"id="sibname" placeholder="Name..."></div></div><div class="col-lg-4"><div class="form-group"><input type="text" class="form-control inputtext" name="sibrelationship" id="sibrelationship" placeholder="Relationship..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
+            $('#sib_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-7"><div class="form-group"><input type="text" class="form-control inputtext" name="sibname[]" placeholder="Name..."></div></div><div class="col-lg-4"><div class="form-group"><input type="text" class="form-control inputtext" name="sibrelationship[]" placeholder="Relationship..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
 
       });  
       $(document).on('click', '.btn_remove', function(){  
@@ -889,7 +892,7 @@
       var i=1;  
       $('#add_con').click(function(){  
            i++;  
-            $('#con_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="conname" id="conname" placeholder="Name..."></div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control inputtext" name="conoccupation" id="conoccupation" placeholder="Occupation..."></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="concompany"id="concompany" placeholder="Company..."></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="conconviction" id="conconviction" placeholder="Conviction..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
+            $('#con_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="conname[]" placeholder="Name..."></div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control inputtext" name="conoccupation[]" placeholder="Occupation..."></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="concompany[]" placeholder="Company..."></div></div><div class="col-lg-3"><div class="form-group"><input type="text" class="form-control inputtext" name="conconviction[]" placeholder="Conviction..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
 
       });  
       $(document).on('click', '.btn_remove', function(){  
@@ -904,9 +907,9 @@
       var i=1;  
       $('#add_edu').click(function(){  
            i++;  
-            $('#edu_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-2"><div class="form-group"><input type="date" class="form-control" id="schoolfrom" name="schoolfrom"></div></div><div class="col-lg-2"><div class="form-group"><input type="date" class="form-control" id="schoolto" name="schoolto"></div></div> <div class="col-lg-3"><div class="form-group"><input type="text" class="form-control" id="schoolname" name="schoolname" placeholder="School Name...."></div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control" id="coursename" name="coursename" placeholder="Course Name..."> </div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control" id="certificatedegree" name="certificatedegree" placeholder="Certificate/Diploma..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
-
+            $('#edu_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-2"><div class="form-group"><input type="date" class="form-control"  name="schoolfrom[]"></div></div><div class="col-lg-2"><div class="form-group"><input type="date" class="form-control" name="schoolto[]"></div></div> <div class="col-lg-3"><div class="form-group"><input type="text" class="form-control"  name="schoolname[]" placeholder="School Name...."></div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control"  name="coursename[]" placeholder="Course Name..."> </div></div><div class="col-lg-2"><div class="form-group"><input type="text" class="form-control"  name="certificatedegree[]" placeholder="Certificate/Diploma..."></div></div><div class="col-lg-1"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">x</button></div></div></div>');
       });  
+
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
            $('#row'+button_id+'').remove();  
@@ -923,7 +926,7 @@
             var parseEmpC = parseInt(empCount);
             document.getElementById("empcnt").innerText = parseEmpC + 1;
            i++;  
-            $('#job_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-12"><hr></div><div class="col-lg-12"><div class="form-group"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="Period">Period</label></div></div> <div class="col-lg-8"><div class="form-group"><label class="control-label" for="Positions">Positions you have handled in the same organization before:</label></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobfrom">From:</label><input type="date" class="form-control inputtext" id="jobfrom" name="jobfrom"></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobto">To:</label><input type="date" class="form-control inputtext" id="jobto" name="jobto"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="stratingposition">Starting:</label><input type="text" class="form-control inputtext" id="stratingposition"name="stratingposition" placeholder="Starting..."></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="mostrecentposition">Most Recent:</label><input type="text" class="form-control inputtext" id="mostrecentposition"name="mostrecentposition" placeholder="Most Recent..."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="notypeemployees">Number and type of employees supervised by you, (if any):</label><input type="text" class="form-control inputtext" id="notypeemployees"name="notypeemployees" placeholder="Required"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employername">Name of Employer:</label><input type="text" class="form-control inputtext" id="employername"name="employername" placeholder="Employer&#39s Name..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employeraddress">Address of Employer:</label><input type="text" class="form-control inputtext" id="employeraddress"name="employeraddress" placeholder="Employer&#39s Address..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisorname">Name  of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisorname"name="supervisorname" placeholder="Supervisor&#39s Name"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisortitle">Title of Supervisor:</label><input type="text" class="form-control inputtext" id="supervisortitle"name="supervisortitle" placeholder="Supervisor&#39s Title"></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="duties">Brief description of your duties and responsibilities:</label><input type="text" class="form-control inputnumber" id="duties" name="duties"placeholder="Duties...."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="reasonforleaving">Reason for leaving:</label><input type="text" class="form-control inputnumber" id="reasonforleaving"name="reasonforleaving" placeholder="Required"></div></div><div class="col-lg-10"></div><div class="col-lg-2"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove rememp">(x) Remove Employment</button></div></div></div>');
+            $('#job_dynamic_field').append('<div class="form-row" id="row'+i+'"><div class="col-lg-12"><hr></div><div class="col-lg-12"><div class="form-group"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="Period">Period</label></div></div> <div class="col-lg-8"><div class="form-group"><label class="control-label" for="Positions">Positions you have handled in the same organization before:</label></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobfrom">From:</label><input type="date" class="form-control inputtext" name="jobfrom[]"></div></div><div class="col-lg-2"><div class="form-group"><label class="control-label" for="jobto">To:</label><input type="date" class="form-control inputtext"  name="jobto[]"></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="stratingposition">Starting:</label><input type="text" class="form-control inputtext" name="startingposition[]" placeholder="Starting..."></div></div><div class="col-lg-4"><div class="form-group"><label class="control-label" for="mostrecentposition">Most Recent:</label><input type="text" class="form-control inputtext" name="mostrecentposition[]" placeholder="Most Recent..."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="notypeemployees">Number and type of employees supervised by you, (if any):</label><input type="text" class="form-control inputtext" name="notypeemployees[]" placeholder="Required"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employername">Name of Employer:</label><input type="text" class="form-control inputtext" name="employername[]" placeholder="Employer&#39s Name..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="employeraddress">Address of Employer:</label><input type="text" class="form-control inputtext" name="employeraddress[]" placeholder="Employer&#39s Address..."></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisorname">Name  of Supervisor:</label><input type="text" class="form-control inputtext" name="supervisorname[]" placeholder="Supervisor&#39s Name"></div></div><div class="col-lg-6"><div class="form-group"><label class="control-label" for="supervisortitle">Title of Supervisor:</label><input type="text" class="form-control inputtext" name="supervisortitle[]" placeholder="Supervisor&#39s Title"></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="duties">Brief description of your duties and responsibilities:</label><input type="text" class="form-control inputnumber"  name="duties[]" placeholder="Duties...."></div></div><div class="col-lg-12"><div class="form-group"><label class="control-label" for="reasonforleaving">Reason for leaving:</label><input type="text" class="form-control inputnumber" name="reasonforleaving[]" placeholder="Required"></div></div><div class="col-lg-10"></div><div class="col-lg-2"><div class="form-group"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove rememp">(x) Remove Employment</button></div></div></div>');
 
       });  
       $(document).on('click', '.btn_remove', function(){  

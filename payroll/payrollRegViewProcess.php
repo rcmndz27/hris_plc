@@ -10,8 +10,4 @@
     {
         ConfirmPayRegView($empCode);
     }
-    else {
-
-    }
-
 ?>

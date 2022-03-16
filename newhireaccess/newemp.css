@@ -84,7 +84,10 @@ opacity: 0.5;
 }
 
 .adddep:hover{
-opacity: 0.5;
+background-color: #fbec1e;
+border-color: #fbec1e;
+color: #000;
+
 }
 
 .addjob {
@@ -100,7 +103,9 @@ opacity: 0.5;
 }
 
 .addjob:hover{
-opacity: 0.5;
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    color: #000;
 }
 
 

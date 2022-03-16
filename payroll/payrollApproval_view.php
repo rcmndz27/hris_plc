@@ -159,10 +159,18 @@ function ViewPyReg(perfrom,perto,stats)
                                     {
                                         choice: 1
                                     },
-                                    function(data) { location.reload(true); }
+                                    function(data) { 
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully approved payroll details!", 
+                                            type: "success",
+                                            icon: "success",
+                                            }).then(function() {
+                                                location.href = '../payroll/payrollApproval_view.php';
+                                            });   
+                                    }
                                 );
-                            swal({text:"Successfully activated the payroll!",icon:"success"});
-                            location.reload();
+
                           } else {
                             swal({text:"You cancel the approval of payroll!",icon:"error"});
                           }
@@ -187,9 +195,17 @@ function ViewPyReg(perfrom,perto,stats)
                                     {
                                         choice: 2
                                     },
-                                    function(data) { location.reload(true); }
+                                    function(data) { 
+                                            swal({
+                                            title: "Oops!", 
+                                            text: "Successfully rejected payroll details!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                location.href = '../payroll/payrollApproval_view.php';
+                                            });  
+                                    }
                                 );
-                            swal({text:"Successfully rejected the payroll!",icon:"success"});
                             location.reload();
                           } else {
                             swal({text:"You cancel the rejection of payroll!",icon:"error"});

@@ -68,7 +68,8 @@ Class BankList{
         }else { 
             echo '<tfoot><tr><td colspan="6" class="text-center">No Results Found</td></tr></tfoot>'; 
         }
-        echo '</table><div class="pagination-container">
+        echo '</table>
+        <div class="pagination-container">
         <nav>
           <ul class="pagination">
             

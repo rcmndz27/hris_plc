@@ -58,11 +58,10 @@
 
                 
 
-                }   echo "</td></tr>";
+                }   echo "</td></tr><tfoot><tr><td colspan='55' class='paytop'>You have zero pending payroll approval</td></tr></tfoot>'; ";
             }
-        }
-        else { 
-            echo '<tr><td colspan="8" class="text-center">You have zero pending payroll approval.</td></tr>'; 
+        }else{
+            echo 'sdagfdsgsdgsdgds';
         }
         
     }

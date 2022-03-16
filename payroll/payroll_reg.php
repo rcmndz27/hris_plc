@@ -13,7 +13,25 @@ class PayrollRegApplication {
             $r = $stmt->fetch();
 
             echo "
-            <input type='text' id='myInput' onkeyup='myFunction()' placeholder='Search for names..' title='Type in a name'>
+        <div class='form-row'>  
+                    <div class='col-lg-1'>
+                        <select class='form-select' name='state' id='maxRows'>
+                             <option value='5000'>ALL</option>
+                             <option value='5'>5</option>
+                             <option value='10'>10</option>
+                             <option value='15'>15</option>
+                             <option value='20'>20</option>
+                             <option value='50'>50</option>
+                             <option value='70'>70</option>
+                             <option value='100'>100</option>
+                        </select> 
+                </div>         
+                <div class='col-lg-8'>
+                </div>                               
+                <div class='col-lg-3'>        
+                    <input type='text' id='myInput' class='form-control' onkeyup='myFunction()' placeholder='Search for employee payroll..' title='Type in employee details'> 
+                        </div>                     
+                </div>   
             <table id='payrollRegList' class='table table-striped table-sm'>
                 <thead>
                     <tr>

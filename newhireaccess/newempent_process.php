@@ -16,8 +16,8 @@ if($newempent->{"Action"} == "InsertNewEmpEnt")
     $preffieldwork1 = $newempent->{"preffieldwork1"};
     $positiontitle = $newempent->{"positiontitle"};
     $positiontitle1 = $newempent->{"positiontitle1"};
-    $reason_position = $newempent->{"reason_position"};
-    $expected_salary = $newempent->{"expected_salary"};
+    // $reason_position = $newempent->{"reason_position"};
+    // $expected_salary = $newempent->{"expected_salary"};
     $howtoapply = $newempent->{"howtoapply"};
     $referredby = $newempent->{"referredby"};
     $firstname = $newempent->{"firstname"};
@@ -92,7 +92,7 @@ if($newempent->{"Action"} == "InsertNewEmpEnt")
     $arrduties = $newempent->{"duties"};
     $arrreasonforleaving = $newempent->{"reasonforleaving"}; 
    
-    $newEmpEnt->InsertNewEmpEnt($emp_pic_loc,$preffieldwork,$preffieldwork1,$positiontitle,$positiontitle1,$reason_position,$expected_salary,$howtoapply,$referredby,$firstname,$middlename,$lastname,$maidenname,$emp_address,$emp_address2,$telno,$telno1,$celno,$celno1,$emailaddress,$emailaddress1,$birthdate,$birthplace,$nationality,$residence_certno,$residence_certdate,$residence_certplace,$tin_no,$sss_no,$phil_no,$pagibig_no,$tax_status,$married_dependents,$sex,$marital_status,$spousename,$spousebirthdate,$spouseoccupation,$spousecompany,$fathername,$fatheroccupation,$fatherbirthdate,$mothername,$motheroccupation,$motherbirthdate,$companyrelatives,$contactpersonname,$contactpersonno,$contactpersonaddress,$legalconvictioncharge,$legalconvictiondate,$legalconvictionwhere,$legalconviction,$civilcase,$rightsemployee);
+    $newEmpEnt->InsertNewEmpEnt($emp_pic_loc,$preffieldwork,$preffieldwork1,$positiontitle,$positiontitle1,$howtoapply,$referredby,$firstname,$middlename,$lastname,$maidenname,$emp_address,$emp_address2,$telno,$telno1,$celno,$celno1,$emailaddress,$emailaddress1,$birthdate,$birthplace,$nationality,$residence_certno,$residence_certdate,$residence_certplace,$tin_no,$sss_no,$phil_no,$pagibig_no,$tax_status,$married_dependents,$sex,$marital_status,$spousename,$spousebirthdate,$spouseoccupation,$spousecompany,$fathername,$fatheroccupation,$fatherbirthdate,$mothername,$motheroccupation,$motherbirthdate,$companyrelatives,$contactpersonname,$contactpersonno,$contactpersonaddress,$legalconvictioncharge,$legalconvictiondate,$legalconvictionwhere,$legalconviction,$civilcase,$rightsemployee);
 
     foreach($arrdepname as $key => $value){
             $depname = $value;
@@ -134,7 +134,7 @@ if($newempent->{"Action"} == "InsertNewEmpEnt")
             $mostrecentposition = $arrmostrecentposition[$key];
             $jobfrom = $arrjobfrom[$key];
             $jobto= $arrjobto[$key];
-            $notypeemployees = $arnotypeemployees[$key];
+            $notypeemployees = $arrnotypeemployees[$key];
             $employername = $arremployername[$key];
             $employeraddress = $arremployeraddress[$key];
             $supervisorname = $arrsupervisorname[$key];
@@ -146,8 +146,6 @@ if($newempent->{"Action"} == "InsertNewEmpEnt")
     }
 
 
-
-}else{
 
 }
     

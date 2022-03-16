@@ -471,9 +471,15 @@ $(function(){
                                         url: "../leave/leaveApplicationProcess.php",
                                         data: {data:param} ,
                                         success: function (data){
-                                            console.log("success: "+ data);
-                                            $('#popUpModal').modal('toggle');
-                                            location.reload();
+                                            // console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added leave details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../leave/leaveApplication_view.php';
+                                                    });
                                         },
                                         error: function (data){
                                             // console.log("error: "+ data);    

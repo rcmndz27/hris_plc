@@ -4,7 +4,7 @@ function ConfirmPayRegView($empCode)
     {
             global $connL;
 
-            $q_logs = 'SELECT* FROM dbo.payroll_period_logs WHERE rowid = (SELECT MAX(rowid) AS id from dbo.payroll_period_logs where emp_code = :emp_cd)';
+            $q_logs = 'SELECT * FROM dbo.payroll_period_logs WHERE rowid = (SELECT MAX(rowid) AS id from dbo.payroll_period_logs where emp_code = :emp_cd)';
             $paramq = array(":emp_cd" => $empCode);
             $stmt_q =$connL->prepare($q_logs);
             $stmt_q->execute($paramq);

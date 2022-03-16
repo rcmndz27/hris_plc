@@ -99,8 +99,14 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            // $('#popUpModal').modal('toggle');
-                                            location.reload();
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added official business details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../ob/ob_app_view.php';
+                                                    });
                                         },
                                         error: function (data){
                                             // alert('error');

@@ -105,9 +105,15 @@ $('#Submit').click(function(){
                                         url: "../overtime/ot_app_process.php",
                                         data: {data:param} ,
                                         success: function (data){
-                                            console.log("success: "+ data);
-                                            $('#popUpModal').modal('toggle');
-                                            location.reload();
+                                            // console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added overtime details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../overtime/ot_app_view.php';
+                                                    });
                                         },
                                         error: function (data){
                                             // alert('error');
