@@ -79,7 +79,6 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                        <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>

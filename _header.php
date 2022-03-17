@@ -255,8 +255,10 @@ else
                                                   <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
                                                   <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
                                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
-                                                  <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Payroll Adjustment Management</a></li>                                                  
-                                                </ul>
+                                                  <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
+                                                  <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
+                                                  <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li> 
+                                                  </ul>
                                               </li>
                                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
                                                 <i class='bi bi-chevron-right'></i></a>
@@ -264,7 +266,7 @@ else
                                                   <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
                                                   <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
                                                   <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
-                                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Work From Home (".$ob.")</a></li>                                                     
+                                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>                                                     
                                                   <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
                                                 </ul>
                                               </li>

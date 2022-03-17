@@ -1,12 +1,11 @@
 <?php
 
-    include('../salaryadjustment/updatesalaryadjustment.php');
+    include('../overtimeadjustment/updateovertimeadjustment.php');
     include('../config/db.php');
 
     $action = $_POST["action"];
     $emp_code = $_POST["emp_code"];
-    $period_from = $_POST["period_from"];
-    $period_to = $_POST["period_to"];
+    $otadj_date = $_POST["otadj_date"];
     $description = $_POST["description"];  
     $inc_decr = $_POST["inc_decr"];  
     $amount = $_POST["amount"];
@@ -15,7 +14,7 @@
 
     if ($action == 1)
     {
-        UpdateSalaryAdj($emp_code,$period_from,$period_to,$description,$inc_decr,$amount,$remarks);
+        UpdateOvertimeAdj($emp_code,$otadj_date,$description,$inc_decr,$amount,$remarks);
     }
     else {
 

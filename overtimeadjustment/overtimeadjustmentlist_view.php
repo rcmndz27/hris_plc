@@ -9,10 +9,10 @@
     else
     {
         include('../_header.php');
-        include("../salaryadjustment/salaryadjustmentlist.php");
+        include("../overtimeadjustment/overtimeadjustmentlist.php");
         include('../elements/DropDown.php');
         include('../controller/MasterFile.php');
-        $allSalaryList = new SalaryAdjList(); 
+        $allOvertimeList = new OvertimeAdjList(); 
         $mf = new MasterFile();
         $dd = new DropDown();
 
@@ -26,33 +26,32 @@
 
     }    
 ?>
-<link rel="stylesheet" href="../salaryadjustment/salaryadjustmentent.css">
-<script type="text/javascript" src="../salaryadjustment/salaryadjustment_ent.js"></script>
+<link rel="stylesheet" href="../overtimeadjustment/overtimeadjustmentent.css">
+<script type="text/javascript" src="../overtimeadjustment/overtimeadjustment_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL PAYROLL ADJUSTMENT MANAGEMENT LIST</h1>
+          <h1>ALL OVERTIME ADJUSTMENT MANAGEMENT LIST</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active bb" aria-current="page"><b><i class='fas fa-money-bill-wave fa-fw'>
-                        </i>&nbsp;PAYROLL ADJUSTMENT MANAGEMENT LIST</b></li>
+                        </i>&nbsp;OVERTIME ADJUSTMENT MANAGEMENT LIST</b></li>
             </ol>
           </nav>
     <div class="pt-3">
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="bb addNewAppBut" id="salaryAdjEntry"><i class="fas fa-money-bill"></i> ADD NEW  ADJUSTMENT </button>
+                <button type="button" class="bb addNewAppBut" id="overtimeAdjEntry"><i class="fas fa-money-bill"></i> ADD NEW  ADJUSTMENT </button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allSalaryList->GetAllSalaryAdjList(); ?>
+                        <?php $allOvertimeList->GetAllOvertimeAdjList(); ?>
 
                     </div>
                 </div>
@@ -60,13 +59,12 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">SALARY ADJUSTMENT ENTRY <i class="fas fa-money-bill"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">OVERTIME ADJUSTMENT ENTRY <i class="fas fa-money-bill"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -79,7 +77,6 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                        <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>
@@ -90,14 +87,15 @@
                                     <div class="form-group">
                                         <label class="control-label" for="description">Adjustment Category<span class="req">*</span>
                                         </label>
-                                        <input class="form-control inputtext" type="text"  id="description" name="description" placeholder="ex.Salary,Allowances etc.">
+                                        <input class="form-control inputtext" type="text"  id="description" name="description" placeholder="Category">
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="period_cutoff">Period Cutoff<span class="req">*</span>
+                                        <label class="control-label" for="otadj_date">OT Date<span class="req">*</span>
                                         </label>
-                                        <?php $dd->GenerateDropDown("ddcutoff", $mf->GetCutoffSalAdj("saladj")); ?>
+                                       <input type="date" class="form-control inputtext" name="otadj_date"
+                                            id="otadj_date" max="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                                     </div>
                                 </div> 
                                 <div class="col-lg-2">
@@ -136,12 +134,12 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-    <div class="modal fade" id="updateSalAdj" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+    <div class="modal fade" id="updateOtAdj" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE SALARY ADJUSTMENT ENTRY <i class="fas fa-money-bill"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE OVERTIME ADJUSTMENT ENTRY <i class="fas fa-money-bill"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -169,9 +167,10 @@
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="ddcut">Period Cutoff<span class="req">*</span>
+                                        <label class="control-label" for="otadjdate">OT Date<span class="req">*</span>
                                         </label>
-                                        <?php $dd->GenerateDropDown("ddcut", $mf->GetCutoffSalAdj("saladj")); ?>
+                                       <input type="date" class="form-control inputtext" name="otadjdate"
+                                            id="otadjdate" max="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                                     </div>
                                 </div> 
                                 <div class="col-lg-2">
@@ -202,7 +201,7 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateSalAdj()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" onclick="updateOtAdj()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -227,15 +226,15 @@
 
 
 
-    function editSalAdjModal(empcd,percutoff,descrip,amnts,rremark,inc){
+    function editOtAdjModal(empcd,otadjdate,descrip,amnts,rremark,inc){
           
-        $('#updateSalAdj').modal('toggle');
+        $('#updateOtAdj').modal('toggle');
 
         var hidful = document.getElementById('empcode');
         hidful.value =  empcd;   
 
-        var bnkt = document.getElementById('ddcut');
-        bnkt.value =  percutoff;  
+        var bnkt = document.getElementById('otadjdate');
+        bnkt.value =  otadjdate;  
 
         var bno = document.getElementById('descript');
         bno.value =  descrip;  
@@ -252,30 +251,24 @@
     }
 
 
-     function updateSalAdj()
+     function updateOtAdj()
     {
 
         $("body").css("cursor", "progress");
-        var url = "../salaryadjustment/updatesalaryadjustment_process.php";
+        var url = "../overtimeadjustment/updateovertimeadjustment_process.php";
         var emp_code = document.getElementById("empcode").value;
-        var ddcuts = $('#ddcut').children("option:selected").val();
-        var ddcutoff = ddcuts.split(" - ");
-        var period_from = ddcutoff[0];
-        var period_to = ddcutoff[1];
+        var otadj_date = document.getElementById("otadjdate").value;
         var description = document.getElementById("descript").value;
         var amount = document.getElementById("amnt").value;
         var inc_decr = document.getElementById("inc_de").value;
         var remarks = document.getElementById("remark").value;  
 
 
-        // swal(amount);
-        // exit();
-
         $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
-                          text: "You want to update this employee salary adjustment details?",
+                          text: "You want to update this employee overtime adjustment details?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
@@ -287,8 +280,7 @@
                                     {
                                         action: 1,
                                         emp_code: emp_code ,
-                                        period_from: period_from,
-                                        period_to: period_to,
+                                        otadj_date: otadj_date,
                                         description: description,
                                         amount: amount,
                                         inc_decr: inc_decr,               
@@ -298,18 +290,18 @@
                                     function(data) { 
                                         swal({
                                         title: "Wow!", 
-                                        text: "Successfully updated employee salary adjustment detailss!", 
+                                        text: "Successfully updated employee overtime adjustment detailss!", 
                                         type: "success",
                                         icon: "success",
                                         }).then(function() {
-                                            location.href = '../salaryadjustment/salaryadjustmentlist_view.php';
+                                            location.href = '../overtimeadjustment/overtimeadjustmentlist_view.php';
                                         });
 
                                 }
                                 );
 
                           } else {
-                            swal({text:"You cancel the updating of employee salary adjustment details!",icon:"error"});
+                            swal({text:"You cancel the updating of employee overtime adjustment details!",icon:"error"});
                           }
                         });
    
@@ -319,7 +311,7 @@ function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allSalaryAdjList");
+  table = document.getElementById("allOvertimeAdjList");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -338,7 +330,7 @@ for (i = 0; i < tr.length; i++) {
 
 
 
-getPagination('#allSalaryAdjList');
+getPagination('#allOvertimeAdjList');
 
 function getPagination(table) {
   var lastPage = 1;

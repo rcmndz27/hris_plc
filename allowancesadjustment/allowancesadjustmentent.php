@@ -1,21 +1,21 @@
 <?php
 
-Class OvertimeAdjEnt{
+Class AllowancesAdjEnt{
 
-public function InsertOvertimeAdjEnt($emp_code,$description,$otadj_date,$inc_decr,$amount,$remarks)
+public function InsertAllowancesAdjEnt($emp_code,$description,$aladj_date,$inc_decr,$amount,$remarks)
     {
         global $connL;
 
-            $query = "INSERT INTO employee_overtimeadj_management (emp_code,description,otadj_date,inc_decr,amount,remarks,audituser,auditdate) 
+            $query = "INSERT INTO employee_allowancesadj_management (emp_code,description,aladj_date,inc_decr,amount,remarks,audituser,auditdate) 
 
-                VALUES(:emp_code,:description,:otadj_date,:inc_decr,:amount,:remarks,:audituser,:auditdate)";
+                VALUES(:emp_code,:description,:aladj_date,:inc_decr,:amount,:remarks,:audituser,:auditdate)";
     
                 $stmt =$connL->prepare($query);
 
                 $param = array(
                     ":emp_code"=> $emp_code,
                     ":description" => $description,
-                    ":otadj_date" => $otadj_date,
+                    ":aladj_date" => $aladj_date,
                     ":inc_decr"=> $inc_decr,
                     ":amount"=> $amount,
                     ":remarks"=> $remarks,

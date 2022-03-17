@@ -1,6 +1,6 @@
 $(function(){
 
-    $('#salaryAdjEntry').click(function(e){
+    $('#allowancesAdjEntry').click(function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');
 
@@ -13,8 +13,9 @@ $(function(){
     
         inputValues = [
             $('#emp_code'),
-            $('#salaryAdj_id'),
+            $('#allowancesadj_id'),
             $('#remarks'),
+            $('#aladj_date'),
             $('#description'),
             $('#inc_decr'),
             $('#amount')        
@@ -32,18 +33,15 @@ $(function(){
 
         var empcode = $('#emp_code').children("option:selected").val();
         var emp_code = empcode.split(" - ");
-        var ddcut_off = $('#ddcutoff').children("option:selected").val();
-        var ddcutoff = ddcut_off.split(" - ");
 
 
         if (CheckInput() === true) {
    
             param = {
-                'Action': 'InsertSalaryAdjEnt',
+                'Action': 'InsertAllowancesAdjEnt',
                 'emp_code': emp_code[0],
                 'description': $('#description').val(),
-                'period_from': ddcutoff[0],
-                'period_to': ddcutoff[1],
+                'aladj_date': $('#aladj_date').val(),
                 'inc_decr': $('#inc_decr').val(),
                 'amount': $('#amount').val(),
                 'remarks': $('#remarks').val()              
@@ -55,7 +53,7 @@ $(function(){
             // exit();
 
                      swal({
-                          title: "Are you sure you want to add this employee salary adjustment details?",
+                          title: "Are you sure you want to add this employee allowances adjustment details?",
                           text: "Please make sure all information are true and correct.",
                           icon: "success",
                           buttons: true,
@@ -65,18 +63,18 @@ $(function(){
                           if (appEnt) {
                                     $.ajax({
                                         type: 'POST',
-                                        url: '../salaryadjustment/salaryadjustmentent_process.php',
+                                        url: '../allowancesadjustment/allowancesadjustmentent_process.php',
                                         data: {
                                             data: param
                                         },
                                         success: function (result) {
                                                     swal({
                                                     title: "Wow!", 
-                                                    text: "Successfully added employee salary adjustment detailss!", 
+                                                    text: "Successfully added employee allowances adjustment detailss!", 
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
-                                                        location.href = '../salaryadjustment/salaryadjustmentlist_view.php';
+                                                        location.href = '../allowancesadjustment/allowancesadjustmentlist_view.php';
                                                     });
                                         },
                                         error: function (result) {
@@ -84,7 +82,7 @@ $(function(){
                                         }
                                     }); //ajax
                           } else {
-                            swal({text:"You cancel the submission of your employee salary adjustment details!",icon:"error"});
+                            swal({text:"You cancel the submission of your employee allowances adjustment details!",icon:"error"});
                           }
                         });
 

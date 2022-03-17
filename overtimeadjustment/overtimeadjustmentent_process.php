@@ -1,26 +1,25 @@
 <?php
 
 
-    include('../salaryadjustment/salaryadjustmentent.php');
+    include('../overtimeadjustment/overtimeadjustmentent.php');
     include('../config/db.php');
 
-$saladjEnt = new SalaryAdjEnt();
+$otadjEnt = new OvertimeAdjEnt();
 
-$saladjent = json_decode($_POST["data"]);
+$otadjent = json_decode($_POST["data"]);
 
-if($saladjent->{"Action"} == "InsertSalaryAdjEnt")
+if($otadjent->{"Action"} == "InsertOvertimeAdjEnt")
 {   
 
-    $emp_code = $saladjent->{"emp_code"};
-    $description = $saladjent->{"description"};
-    $period_from = $saladjent->{"period_from"};
-    $period_to = $saladjent->{"period_to"};
-    $inc_decr = $saladjent->{"inc_decr"};
-    $amount = $saladjent->{"amount"};
-    $remarks = $saladjent->{"remarks"};
+    $emp_code = $otadjent->{"emp_code"};
+    $description = $otadjent->{"description"};
+    $otadj_date = $otadjent->{"otadj_date"};
+    $inc_decr = $otadjent->{"inc_decr"};
+    $amount = $otadjent->{"amount"};
+    $remarks = $otadjent->{"remarks"};
 
 
-    $saladjEnt->InsertSalaryAdjEnt($emp_code,$description,$period_from,$period_to,$inc_decr,$amount,$remarks);
+    $otadjEnt->InsertOvertimeAdjEnt($emp_code,$description,$otadj_date,$inc_decr,$amount,$remarks);
 
 }else{
 
