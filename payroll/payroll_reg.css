@@ -76,7 +76,7 @@ background-color: #b71e1e;
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     z-index: 1;
     color: #fff;
-    cursor: default;
+    cursor: pointer;
     background-color: #337ab7;
     border-color: #337ab7;
 }
@@ -90,6 +90,7 @@ background-color: #b71e1e;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .pagination>li:last-child>a, .pagination>li:last-child>span {
@@ -112,4 +113,5 @@ background-color: #b71e1e;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #ddd;
+    cursor: pointer;    
 }

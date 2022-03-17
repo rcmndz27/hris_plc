@@ -316,6 +316,30 @@
 
   <script>
 
+        function myChangeFunction(input1) {
+            var dte = $('#otdate').val();
+            var dte_to = $('#otdateto').val();
+            var otstrt = $('#otstartdtime').val();
+            var dt = dte+' '+otstrt;
+            var othrs = $('#otreqhrs').val();
+            var dt_input = new Date(dt);
+            var hr = parseFloat(othrs);
+
+            var hours = dt_input.getHours() + hr;
+            var minutes = dt_input.getMinutes();
+            var ampm = hours < 12 || hours > 24 ? 'AM' : 'PM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            var dt = moment(strTime, ["h:mm A"]).format("HH:mm");
+
+            var input2 = document.getElementById('otenddtime');
+            input2.value = dt;
+
+        }
+
+        
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
@@ -339,28 +363,6 @@ for (i = 0; i < tr.length; i++) {
 }
 
 
-        function myChangeFunction(input1) {
-            var dte = $('#otdate').val();
-            var dte_to = $('#otdateto').val();
-            var otstrt = $('#otstartdtime').val();
-            var dt = dte+' '+otstrt;
-            var othrs = $('#otreqhrs').val();
-            var dt_input = new Date(dt);
-            var hr = parseFloat(othrs);
-
-            var hours = dt_input.getHours() + hr;
-            var minutes = dt_input.getMinutes();
-            var ampm = hours < 12 || hours > 24 ? 'AM' : 'PM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0'+minutes : minutes;
-            var strTime = hours + ':' + minutes + ' ' + ampm;
-            var dt = moment(strTime, ["h:mm A"]).format("HH:mm");
-
-            var input2 = document.getElementById('otenddtime');
-            input2.value = dt;
-
-        }
 
 
 getPagination('#otList');

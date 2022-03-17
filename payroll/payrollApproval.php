@@ -23,12 +23,14 @@
 
         if ($ct->fetchColumn() >= 1)
         {
+
+
             $cmd = $connL->prepare(@"SELECT company,location,date_from,date_to,payroll_status,sum(netpay) as net_pay from payroll where payroll_status = 'N'
                 group by company,location,date_from,date_to,payroll_status ");
             $cmd->execute();
 
             while ($r = $cmd->fetch(PDO::FETCH_ASSOC))
-            {
+            {   
                 $rnd = round($r['net_pay'],2) ;
                 $netpy = number_format($rnd, 2,'.',',');
                 $datefrom = "'".date('Y-m-d', strtotime($r['date_from']))."'";  
@@ -40,33 +42,28 @@
                         <td>" . date("F d, Y", strtotime($r['date_from'])) ."</td>
                         <td>" . date("F d, Y", strtotime($r['date_to'])) ."</td>
                         <td>" . '&#8369; '. $netpy ."</td>
-                        <td>";
-                
-                switch($r["payroll_status"])
-                {
-                    case "N":
+                        <td>";               
+
+                    if($r["payroll_status"] == 'N'){
                         echo "<button class='chckbt'  onclick='ApprovePayroll()' title='Approve Payroll'><i class='fas fa-check'></i></button>";
                         echo "<button class='rejbt'  onclick='RejectPayroll()' title='Reject Payroll'><i class='fas fa-times'></i></button>";
-                        echo'<button title="View Payroll Register" type="button" class="vwPyReg" onclick="ViewPyReg('.$datefrom.','. $dateto.','.$stats.')"><i class="fas fa-search-dollar"></i></button>';
-                        break;
-                    case "A":
+                        echo'<button title="View Payroll Register" type="button" class="vwPyReg" onclick="ViewPyReg('.$datefrom.','. $dateto.','.$stats.')"><i class="fas fa-search-dollar"></i></button>';                        
+                    }else if($r["payroll_status"] == 'A'){
                         echo "<p style='color:green; font-weight:bold; vertical-align:middle; display:inline;'>APPROVED</p>";
-                        break;
-                    case "R":
+                    }else{
                         echo "<p style='color:red; font-weight:bold; vertical-align:middle; display:inline;'>REJECTED</p>";
-                        break;
 
-                
-
-                }   echo "</td></tr><tfoot><tr><td colspan='55' class='paytop'>You have zero pending payroll approval</td></tr></tfoot>'; ";
+                    }      
+                    echo "</td></tr>";
             }
-        }else{
-            echo 'sdagfdsgsdgsdgds';
-        }
-        
-    }
+    
+          }else if($ct->fetchColumn() >= 0){ 
+            
+            echo '<tfoot><tr><td colspan="55" class="paytop">No Pending Approval</td></tr></tfoot>'; 
 
-     echo "<tbody></table>";
+        } 
+         echo"</table>";
+      }; 
 
     function ApprovePayroll()
     {
