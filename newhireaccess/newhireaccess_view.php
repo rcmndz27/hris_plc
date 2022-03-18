@@ -127,13 +127,13 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="fnameg">Telephone No.</label>
-                                        <input type="text" id="telng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="0991234567" maxlength="11">
+                                        <input type="text" id="telng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09*******" maxlength="11">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="mnameg">Mobile No.</label>
-                                        <input type="text" id="celng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="0991234567" maxlength="11">
+                                        <input type="text" id="celng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09*******" maxlength="11">
                                     </div>
                                 </div>                                
                                 <div class="col-lg-6">
@@ -162,7 +162,7 @@
 
                                 <div class="col-lg-3">
                                     <label class="control-label" for="maidenname">Employee Level</label>
-                                        <?php $dd->GenerateDropDown("emp_level", $mf->GetAllEmployeeLevel("emp_level")); ?>
+                                        <?php $dd->GenerateSingleDropDown("emp_level", $mf->GetAllEmployeeLevel("emp_level")); ?>
                                 </div>  
 
                                 <div class="col-lg-3">
@@ -191,7 +191,7 @@
 
                                  <div class="col-lg-6">
                                     <label class="control-label" for="pay_type">Reporting To</label>
-                                        <?php $dd->GenerateDropDown("reporting_to", $mf->GetEmployeeNames("allempnames")); ?>
+                                        <?php $dd->GenerateSingleDropDown("reporting_to", $mf->GetEmployeeNames("allempnames")); ?>
                                 </div>  
 
                                 <input id="rowid" name="rowid" hidden>
@@ -271,6 +271,8 @@
 
 <script type="text/javascript">
 
+  
+
     $('#emailaddg').change(function(){
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         var eadd = document.getElementById("emailaddg").value;
@@ -318,45 +320,7 @@ for (i = 0; i < tr.length; i++) {
     }
 
     
-    
- function updateEmpModal(empcd,empname,lname,fname,mname,pstn,dpt,emailadd,teln,celn,loct,emptyp){
 
-        $('#HireEmp').modal('toggle');
-
-        var idrow = document.getElementById('rowid');
-        idrow.value = empcd;
-
-        var empcdname1 = document.getElementById('lnameg');
-        empcdname1.value = lname;
-
-        var empcdname2 = document.getElementById('fnameg');
-        empcdname2.value = fname;
-
-        var empcdname3 = document.getElementById('mnameg');
-        empcdname3.value = mname;
-
-        var e1 = document.getElementById('emailaddg');
-        e1.value = emailadd;
-
-        var e2 = document.getElementById('telng');
-        e2.value = teln;
-
-        var e3 = document.getElementById('celng');
-        e3.value = celn;        
-
-        var p1 = document.getElementById('position');
-        p1.value = pstn;
-
-        var p2 = document.getElementById('department');
-        p2.value = dpt;
-
-        var p3 = document.getElementById('location');
-        p3.value = loct;    
-
-        var p4 = document.getElementById('emp_type');
-        p4.value = emptyp;                           
-                
-    }
 
 
     function updateEmpHired()
@@ -415,10 +379,19 @@ for (i = 0; i < tr.length; i++) {
                                             reporting_to: reportingto[0],
                                             rowid: rowid                
                                         },
-                                        function(data) { $("#contents").html(data).show(); }
+                                        function(data) {
+
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully updated employee detailss!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                       window.location.reload();
+                                                    });
+                                            }
                                     );
-                                swal({text:"Successfully updated the employee details!",icon:"success"});
-                                window.location.reload(true);
+
                           } else {
                             swal({text:"You cancel the updating of employee details!",icon:"error"});
                           }

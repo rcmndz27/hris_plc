@@ -44,12 +44,11 @@ Class NewHireAccess{
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
-        
-
         if($result){
             do { 
                 $fullname=  $result['lastname'].','.$result['firstname'].' '.substr($result['middlename'],0,1).'.';
                 $empcd = "'".$result['emp_code']."'";
+                 $day[] = $result;
                 echo '
                 <tr>
                 <td>' . $result['emp_code'] . '</td>
@@ -60,7 +59,7 @@ Class NewHireAccess{
                 <td>' . $result['location'] . '</td>
                 <td>' . $result['emp_type'] . '</td>';
                 echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
-                            </button><button type="button" class="hdeactv" onclick="updateEmpModal()" title="Update Employee Profile">
+                            </button><button type="button" class="hdeactv" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
                                 <i class="fas fa-edit"></i>
                             </button><button type="button" class="hactv" onclick="viewEmpHistoryModal()" title="View Employee Logs">
                                 <i class="fas fa-history"></i>
@@ -70,8 +69,46 @@ Class NewHireAccess{
                 
 
             } while ($result = $stmt->fetch());
-
+            $name = json_encode($day);
             echo '</tr></tbody>';
+            echo "
+            <script type=\"text/javascript\">
+                var name='$name';
+                var nameD = JSON.parse(name);
+                console.log(nameD);
+                function updateEmpModal(result){
+
+                $('#HireEmp').modal('toggle');
+
+                console.log(nameD.length);
+                for(var i=0;i<nameD.length;i++)
+                {
+                    if(nameD[i][0] == result)
+                    {
+                        document.getElementById('rowid').value = nameD[i][0];
+                        document.getElementById('fnameg').value = nameD[i][2];
+                        document.getElementById('mnameg').value = nameD[i][3];
+                        document.getElementById('lnameg').value = nameD[i][4];
+                        document.getElementById('emailaddg').value = nameD[i][36];
+                        document.getElementById('telng').value = nameD[i][38];
+                        document.getElementById('celng').value = nameD[i][40];
+                        document.getElementById('department').value = nameD[i][24];
+                        document.getElementById('position').value = nameD[i][27];
+                        document.getElementById('location').value = nameD[i][22];
+                        document.getElementById('emp_type').value = nameD[i][21];
+                        document.getElementById('emp_level').value = nameD[i][89];
+                        document.getElementById('work_sched_type').value = nameD[i][83];
+                        document.getElementById('minimum_wage').value = nameD[i][84];
+                        document.getElementById('pay_type').value = nameD[i][85];
+                        document.getElementById('reporting_to').value = nameD[i][23];
+                        console.log(nameD[i]);
+                        break;
+                    }
+                }
+                        
+            }
+            </script>
+        ";
 
         }else { 
             echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
@@ -94,5 +131,7 @@ Class NewHireAccess{
 
 }
 
+
 ?>
+
 

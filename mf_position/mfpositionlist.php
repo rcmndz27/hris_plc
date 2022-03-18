@@ -36,7 +36,7 @@ Class MfpositionList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.mf_position ORDER BY rowid desc";
+        $query = "SELECT * from dbo.mf_position ORDER BY rowid asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();

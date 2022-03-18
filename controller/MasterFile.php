@@ -544,7 +544,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"], $r["emp_code"]." - ".$r["fullname"]));
+                       array_push( $data, array($r["emp_code"], $r["emp_code"]." - ".$r["fullname"]));
                     }
                 }
 
@@ -717,7 +717,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["level_code"],$r["level_id"]." - ".$r["level_description"]));
+                       array_push( $data, array($r["level_id"],$r["level_id"]." - ".$r["level_description"]));
                     }
                 }
 

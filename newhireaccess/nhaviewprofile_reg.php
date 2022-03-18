@@ -14,16 +14,11 @@
         </thead>
         <tbody>';
 
-        $query = "SELECT a.lastname,a.firstname,a.middlename,a.emp_address,a.emp_address2,a.celno,a.celno1,a.emailaddress,a.emailaddress1,a.birthdate,a.birthplace,a.sex,a.sss_no,a.marital_status,
+        $query = "SELECT a.emp_code,a.lastname,a.firstname,a.middlename,a.emp_address,a.emp_address2,a.celno,a.celno1,a.emailaddress,a.emailaddress1,a.birthdate,a.birthplace,a.sex,a.sss_no,a.marital_status,
             a.height,a.pagibig_no,a.weight,a.tin_no,a.bloodtype,a.phil_no,a.driver_lic,a.non_driver_lic,
             a.expirydate_non,a.expirydate,a.spousename,a.marriagedate,a.spousebirthdate,a.spousesssno,
             a.spousetinno,a.spouseoccupation
-        from employee_profile a 
-                    left join employee_employments b on a.emp_code = b.emp_code 
-                    left join employee_educations c on  a.emp_code = c.emp_code  
-                    left join employee_convictions d on a.emp_code = d.emp_code 
-                    left join employee_siblings e on a.emp_code = e.emp_code
-                    left join employee_dependents f on a.emp_code = f.emp_code where a.emp_code = :lvlogid ";
+        from employee_profile a where a.emp_code = :lvlogid ";
         $param = array(':lvlogid' => $lvlogid);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -32,10 +27,9 @@
         if($result){
             do { 
                 $birthDate = $result['birthdate'];
-
                 $currentDate = date("Y-m-d");
-
                 $age = date_diff(date_create($birthDate), date_create($currentDate));
+                $emp_code = "'".$result['emp_code']."'";
 
                 echo '
                 <tr><th class="thw" colspan="4"></th></tr> 
@@ -104,8 +98,34 @@
                 <td >' . $result['spouseoccupation'] . '</td>
                 <td class="thw">TIN No.:</td>
                 <td>' . $result['spousetinno']. '</td></tr>
-                <tr><th class="thw" colspan="4">Name of Children:</th></tr>
-                <tr>' . $result['spousetinno']. ':</tr> ';
+                <tr><th class="thw" colspan="2">Name of Children:</th>
+                <th class="thw" colspan="2">Birthday of Children:</th></tr>';
+
+                $queryd = "SELECT depname,depbirthdate from dbo.employee_dependents
+                where emp_code = ".$emp_code."";
+                $stmtd =$connL->prepare($queryd);
+                $stmtd->execute();
+                $resultd = $stmtd->fetch();
+                $data = array();
+                
+                if($resultd){
+                do { 
+                    array_push($data,$resultd['depname']);
+                    $cdde = $resultd['depname'];
+
+                    array_push($data,$resultd['depbirthdate']);
+                    $cddes = $resultd['depbirthdate'];
+                 echo'<tr>
+                <td colspan="2">'.$cdde.'</td>
+                <td colspan="2">'.$cddes.'</td></tr>';
+                    
+                }
+                while ($resultd = $stmtd->fetch());
+
+                        // $codess = implode(",", $data);
+                        // echo $codess;
+
+                }
 
 
             } while ($result = $stmt->fetch());
