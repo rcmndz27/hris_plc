@@ -32,3 +32,8 @@ table {
 .paytop{
     text-align: center;
 }
+
+.pdfimg:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}

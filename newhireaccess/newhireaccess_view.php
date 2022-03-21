@@ -142,7 +142,7 @@
                                         <?php $dd->GenerateDropDown("department", $mf->GetAllDepartment("alldep")); ?> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label"  for="position">Job Title</label>
                                         <?php $dd->GenerateDropDown("position", $mf->GetJobPosition("jobpos")); ?>
@@ -156,29 +156,49 @@
                                 </div>
 
                                 <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="maidenname">Employee Status</label>
+                                        <select type="select" class="form-select" id="emp_status" name="emp_status" >
+                                            <option value="Active">Active</option>
+                                            <option value="Resigned">Resigned</option>
+                                            <option value="Terminated">Terminated</option>
+                                            <option value="Separated">Separated</option>                                            
+                                        </select>
+                                    </div>
+                                </div>                                 
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
                                     <label class="control-label" for="maidenname">Employee Type</label>
                                         <?php $dd->GenerateDropDown("emp_type", $mf->GetEmpJobType("empjobtype")); ?>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-3">
+                                    <div class="form-group">
                                     <label class="control-label" for="maidenname">Employee Level</label>
                                         <?php $dd->GenerateSingleDropDown("emp_level", $mf->GetAllEmployeeLevel("emp_level")); ?>
-                                </div>  
+                                    </div>  
+                                </div>
 
                                 <div class="col-lg-3">
+                                    <div class="form-group">
                                     <label class="control-label" for="work_sched_type">Work Schedule</label>
                                         <select type="select" class="form-select" id="work_sched_type" name="work_sched_type" >
                                             <option value="0">Compressed</option>
                                             <option value="1">Regular</option>
                                         </select>
+                                        </div>
                                 </div> 
 
                                 <div class="col-lg-3">
-                                    <label class="control-label" for="minimum_wage">Minimum Wage</label>
-                                        <select type="select" class="form-select" id="minimum_wage" name="minimum_wage" >
-                                            <option value="1">Yes</option>
-                                            <option value="0">No</option>
-                                        </select>
+                                    <div class="form-group">
+                                            <label class="control-label" for="minimum_wage">Minimum Wage</label>
+                                            <select type="select" class="form-select" id="minimum_wage" name="minimum_wage" >
+                                                <option value="1">Yes</option>
+                                                <option value="0">No</option>
+                                            </select>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-3">
@@ -344,6 +364,7 @@ for (i = 0; i < tr.length; i++) {
         var work_sched_type = $( "#work_sched_type option:selected" ).val();
         var minimum_wage = $( "#minimum_wage option:selected" ).val();
         var pay_type = $( "#pay_type option:selected" ).val();
+        var emp_status = $( "#emp_status option:selected" ).val();
         var reporting_to = $('#reporting_to').children("option:selected").val();
         var reportingto = reporting_to.split(" - ");
 
@@ -376,6 +397,7 @@ for (i = 0; i < tr.length; i++) {
                                             work_sched_type: work_sched_type,
                                             minimum_wage: minimum_wage,
                                             pay_type: pay_type,
+                                            emp_status : emp_status,
                                             reporting_to: reportingto[0],
                                             rowid: rowid                
                                         },

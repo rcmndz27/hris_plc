@@ -40,7 +40,7 @@ Class NewHireAccess{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_profile where emp_status = 'Active' ORDER BY lastname asc";
+        $query = "SELECT * from dbo.employee_profile ORDER BY lastname asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -100,8 +100,9 @@ Class NewHireAccess{
                         document.getElementById('work_sched_type').value = nameD[i][83];
                         document.getElementById('minimum_wage').value = nameD[i][84];
                         document.getElementById('pay_type').value = nameD[i][85];
+                        document.getElementById('emp_status').value = nameD[i][20];
                         document.getElementById('reporting_to').value = nameD[i][23];
-                        console.log(nameD[i]);
+                       
                         break;
                     }
                 }
@@ -110,6 +111,7 @@ Class NewHireAccess{
             </script>
         ";
 
+         // console.log(nameD[i]);
         }else { 
             echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
         }

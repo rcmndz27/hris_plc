@@ -13,6 +13,7 @@
     $work_sched_type = $_POST["work_sched_type"];
     $minimum_wage = $_POST["minimum_wage"];
     $pay_type = $_POST["pay_type"];
+    $emp_status = $_POST["emp_status"];
     $reporting_to = $_POST["reporting_to"];
     $rowid = $_POST["rowid"];
     $lastname = $_POST["lastname"];
@@ -26,7 +27,7 @@
 
     if ($action == 1)
     {
-        UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$rowid);
+        UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$rowid);
     }
     else {
 
