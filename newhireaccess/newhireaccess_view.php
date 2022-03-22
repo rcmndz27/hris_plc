@@ -111,7 +111,7 @@
                 </div>
             <div class="modal-body">
                 <div class="main-body">
-                    <fieldset class="fieldset-border">
+                    <fieldset class="fieldset-border emmp">
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
                                 </legend>
@@ -150,15 +150,86 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="fnameg">Telephone No.</label>
-                                        <input type="text" id="telng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09*******" maxlength="11">
+                                        <input type="text" id="telng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09" maxlength="11">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="mnameg">Mobile No.</label>
-                                        <input type="text" id="celng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09*******" maxlength="11">
+                                        <input type="text" id="celng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09" maxlength="11">
                                     </div>
-                                </div>                                
+                                </div>  
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="lnameg">Present Address</label>
+                                        <input type="text" id="emp_address" class="form-control">
+                                    </div>
+                                </div> 
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="lnameg">Permanent Address</label>
+                                        <input class="btn samea" id="perma" value="SAME IN PRESENT">
+                                        <input type="text" id="emp_address2" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="sss_no">SSS No</label>
+                                        <input type="text" id="sss_no" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="phil_no">Philhealth No</label>
+                                        <input type="text" id="phil_no" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="pagibig_no">Pag-IBIG No</label>
+                                        <input type="text" id="pagibig_no" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tin_no">TIN No</label>
+                                        <input type="text" id="tin_no" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="birthdate">Birthday</label>
+                                        <input type="date" id="birthdate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="birthplace">Birthplace</label>
+                                        <input type="text" id="birthplace" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="sex">Sex</label>
+                                        <select type="select" class="form-select" id="sex" name="sex" >
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="marital_status">Civil Status</label>
+                                        <select type="select" class="form-select" id="marital_status" name="marital_status" >
+                                            <option value="Single">Single</option>
+                                            <option value="Widow(er)">Widow(er)</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Single Parent">Single Parent</option>
+
+                                        </select>
+                                    </div>
+                                </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="department">Department</label>
@@ -234,7 +305,7 @@
 
                                  <div class="col-lg-6">
                                     <label class="control-label" for="pay_type">Reporting To</label>
-                                        <?php $dd->GenerateSingleDropDown("reporting_to", $mf->GetEmployeeNames("allempnames")); ?>
+                                        <?php $dd->GenerateSingleDropDown("reporting_to", $mf->GetActEmployeeNames("allempnames")); ?>
                                 </div>  
 
                                 <input id="rowid" name="rowid" hidden>
@@ -262,7 +333,7 @@
                 </div>
         <div class="modal-body">
             <div class="main-body">
-                <fieldset class="fieldset-border">
+                <fieldset class="fieldset-border ">
                             <div class="d-flex justify-content-center">
                                 <legend class="fieldset-border pad">
                                 </legend>
@@ -314,7 +385,13 @@
 
 <script type="text/javascript">
 
-  
+      $('#perma').click(function(){
+    
+        var input2 = document.getElementById('emp_address2');
+        input2.value = $('#emp_address').val();
+
+    });
+
 
     $('#emailaddg').change(function(){
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -369,7 +446,6 @@ for (i = 0; i < tr.length; i++) {
     function updateEmpHired()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../newhireaccess/update_newhireaccess_process.php";
         var rowid = $('#rowid').val();
         var lastname = $('#lnameg').val();
@@ -378,6 +454,16 @@ for (i = 0; i < tr.length; i++) {
         var emailaddress = $('#emailaddg').val();
         var telno = $('#telng').val();
         var celno = $('#celng').val();
+        var emp_address = $('#emp_address').val();
+        var emp_address2 = $('#emp_address2').val();
+        var sss_no = $('#sss_no').val();
+        var phil_no = $('#phil_no').val();
+        var pagibig_no = $('#pagibig_no').val();
+        var tin_no = $('#tin_no').val(); 
+        var birthdate = $('#birthdate').val();
+        var birthplace = $('#birthplace').val();
+        var sex = $( "#sex option:selected" ).val();
+        var marital_status = $( "#marital_status option:selected" ).val();                        
         var department = $( "#department option:selected" ).text();
         var position = $( "#position option:selected" ).text();
         var location = $( "#location option:selected" ).text();
@@ -391,8 +477,6 @@ for (i = 0; i < tr.length; i++) {
         var reporting_to = $('#reporting_to').children("option:selected").val();
         var reportingto = reporting_to.split(" - ");
 
-        $('#contents').html('');
-
                         swal({
                           title:"Are you sure?",
                           text: "You want to update this profile?",
@@ -405,13 +489,23 @@ for (i = 0; i < tr.length; i++) {
                                     $.post (
                                         url,
                                         {
-                                            action: 1,
+                                            _action : 1,
                                             lastname: lastname,
                                             firstname: firstname,
                                             middlename: middlename,
                                             emailaddress: emailaddress,
                                             telno: telno,
                                             celno: celno,
+                                            emp_address: emp_address,
+                                            emp_address2: emp_address2,
+                                            sss_no: sss_no,
+                                            phil_no: phil_no,
+                                            pagibig_no: pagibig_no,
+                                            tin_no: tin_no, 
+                                            birthdate: birthdate,
+                                            birthplace: birthplace,
+                                            sex: sex,
+                                            marital_status: marital_status,
                                             department: department,
                                             position: position,
                                             location: location,
@@ -425,6 +519,8 @@ for (i = 0; i < tr.length; i++) {
                                             rowid: rowid                
                                         },
                                         function(data) {
+
+                                            // console.log(data);
 
                                                     swal({
                                                     title: "Wow!", 
@@ -545,7 +641,7 @@ function getPagination(table) {
       }); // end of on click pagination list
       limitPagging();
     })
-    .val(10)
+    .val(100)
     .change();
 
   // end of on select change

@@ -146,8 +146,8 @@ $(function(){
 
     $('#perma').click(function(){
     
-        var input2 = document.getElementById('emp_address2');
-        input2.value = $('#emp_address').val();
+        var empad = document.getElementById('emp_address2');
+        empad.value = $('#emp_address').val();
 
     });
 

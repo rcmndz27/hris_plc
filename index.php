@@ -22,7 +22,7 @@ if (!empty($_POST['loginSubmit']))
     $stmt->execute($param);
     $r = $stmt->fetch();
 
-    $userid = $r['userid'];
+    $userid = isset($r['userid']) ? $r['userid'] : 'OBN00000';
     $password = $_POST['password'];
 
     $date1 = date("Y-m-d");

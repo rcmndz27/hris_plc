@@ -1,16 +1,54 @@
 <?php 
 
-    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$rowid)
+    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$emp_address,$emp_address2,$sss_no,$phil_no,$pagibig_no,$tin_no,$birthdate,$birthplace,$sex,$marital_status,$rowid)
     {
             global $connL;
 
-            $cmd = $connL->prepare("UPDATE dbo.employee_profile SET lastname = :lastname,firstname = :firstname,middlename = :middlename,emailaddress = :emailaddress,telno = :telno,celno = :celno,department = :department,position = :position,location = :location,emp_type = :emp_type,ranking = :emp_level,work_sched_type = :work_sched_type,minimum_wage = :minimum_wage,pay_type = :pay_type,emp_status = :emp_status,reporting_to = :reporting_to  where emp_code = :rowid ");
+            $cmd = $connL->prepare("UPDATE dbo.employee_profile SET 
+                lastname = :lastname,
+                firstname = :firstname,
+                middlename = :middlename,
+                emailaddress = :emailaddress,
+                telno = :telno,
+                celno = :celno, 
+                emp_address = :emp_address,
+                emp_address2 = :emp_address2,
+                sss_no = :sss_no,
+                phil_no = :phil_no,
+                pagibig_no = :pagibig_no,
+                tin_no = :tin_no,
+                birthdate = :birthdate,
+                birthplace = :birthplace,
+                sex = :sex,
+                marital_status = :marital_status,
+                department = :department,
+                position = :position,
+                location = :location,
+                emp_type = :emp_type,
+                ranking = :emp_level,
+                work_sched_type = :work_sched_type,
+                minimum_wage = :minimum_wage,
+                pay_type = :pay_type,
+                emp_status = :emp_status,
+                reporting_to = :reporting_to
+                where emp_code = :emp_code ");
+
             $cmd->bindValue('lastname',$lastname);
             $cmd->bindValue('firstname',$firstname);
             $cmd->bindValue('middlename',$middlename);
             $cmd->bindValue('emailaddress',$emailaddress);
             $cmd->bindValue('telno',$telno);
             $cmd->bindValue('celno',$celno);
+            $cmd->bindValue('emp_address',$emp_address);
+            $cmd->bindValue('emp_address2',$emp_address2);            
+            $cmd->bindValue('sss_no',$sss_no);
+            $cmd->bindValue('phil_no',$phil_no);
+            $cmd->bindValue('pagibig_no',$pagibig_no);
+            $cmd->bindValue('tin_no',$tin_no);
+            $cmd->bindValue('birthdate',$birthdate);
+            $cmd->bindValue('birthplace',$birthplace);
+            $cmd->bindValue('sex',$sex);
+            $cmd->bindValue('marital_status',$marital_status);
             $cmd->bindValue('department',$department);
             $cmd->bindValue('position',$position);
             $cmd->bindValue('location',$location);
@@ -21,7 +59,7 @@
             $cmd->bindValue('pay_type',$pay_type);
             $cmd->bindValue('emp_status',$emp_status);
             $cmd->bindValue('reporting_to',$reporting_to);
-            $cmd->bindValue('rowid', $rowid);
+            $cmd->bindValue('emp_code', $rowid);
             $cmd->execute();
     }
 

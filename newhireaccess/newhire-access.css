@@ -43,6 +43,11 @@ table {
     font-weight: 500;
 }
 
+.emmp{
+    height: 500px;
+    overflow: auto;
+}
+
 
  .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
     z-index: 1;

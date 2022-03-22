@@ -31,10 +31,10 @@ Class NewHireAccess{
                 <th>Emp Code</th>
                 <th>Name</th>
                 <th>Position</th>
-                <th>Company</th>
                 <th>Department</th>
                 <th>Location</th>
                 <th>Employee Type</th>
+                <th>Employee Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -54,10 +54,10 @@ Class NewHireAccess{
                 <td>' . $result['emp_code'] . '</td>
                 <td>' . $fullname . '</td>
                 <td>' . $result['position'] . '</td>
-                <td>' . $result['company'] . '</td>
                 <td>' . $result['department'] . '</td>
                 <td>' . $result['location'] . '</td>
-                <td>' . $result['emp_type'] . '</td>';
+                <td>' . $result['emp_type'] . '</td>
+                <td>' . $result['emp_status'] . '</td>';
                 echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
                             </button><button type="button" class="hdeactv" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
                                 <i class="fas fa-edit"></i>
@@ -80,7 +80,7 @@ Class NewHireAccess{
 
                 $('#HireEmp').modal('toggle');
 
-                console.log(nameD.length);
+             
                 for(var i=0;i<nameD.length;i++)
                 {
                     if(nameD[i][0] == result)
@@ -102,15 +102,26 @@ Class NewHireAccess{
                         document.getElementById('pay_type').value = nameD[i][85];
                         document.getElementById('emp_status').value = nameD[i][20];
                         document.getElementById('reporting_to').value = nameD[i][23];
-                       
+                        document.getElementById('emp_address').value = nameD[i][34];
+                        document.getElementById('emp_address2').value = nameD[i][35];
+                        document.getElementById('sss_no').value = nameD[i][77];
+                        document.getElementById('phil_no').value = nameD[i][78];
+                        document.getElementById('pagibig_no').value = nameD[i][79];
+                        document.getElementById('tin_no').value = nameD[i][76];
+                        document.getElementById('birthdate').value = nameD[i][32];
+                        document.getElementById('birthplace').value = nameD[i][33];
+                        document.getElementById('sex').value = nameD[i][28];
+                        document.getElementById('marital_status').value = nameD[i][29];                        
+                        console.log(nameD[i]);
                         break;
+
                     }
                 }
                         
             }
             </script>
         ";
-
+           //console.log(nameD.length);
          // console.log(nameD[i]);
         }else { 
             echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 

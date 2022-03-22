@@ -109,7 +109,7 @@
                                     <label class="control-label" for="effectivity_date">Effectivity Date<span class="req">*</span>
                                     </label>                                        
                                         <input type="date" class="form-control inputtext" name="effectivity_date"
-                                            id="effectivity_date" min="<?php  echo date('Y-m-d'); ?>" value="<?php  echo date('Y-m-d'); ?>" onkeydown="return false">
+                                            id="effectivity_date" value="<?php  echo date('Y-m-d'); ?>" onkeydown="return false">
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
