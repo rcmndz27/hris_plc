@@ -35,7 +35,6 @@
 ?>
 
 <link rel="stylesheet" href="../payroll/payroll.css">
-<script type='text/javascript' src='../payroll/payroll.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
@@ -65,7 +64,7 @@
                         <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
                             <i class="fas fa-search-plus"></i> GENERATE                      
                         </button>
-                        <button type="button" id="srch" class="gotopay" >
+                        <button type="button" class="gotopay" >
                                 <a href="../payroll/payroll_view_register.php" class="payreggoto" onclick="show()">
                                 <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
                         </button>                                          
@@ -79,6 +78,32 @@
 </div>
 
 <script>
+
+$(function(){
+
+
+    function XLSXExport(){
+        $("#payrollList").tableExport({
+            headers: true,
+            footers: true,
+            formats: ['xlsx'],
+            filename: 'id',
+            bootstrap: false,
+            exportButtons: true,
+            position: 'top',
+            ignoreRows: null,
+            ignoreCols: null,
+            trimWhitespace: true,
+            RTL: false,
+            sheetname: 'Payroll Attendance'
+        });
+    }
+
+        $("#search").click(function(e){
+             XLSXExport();
+             $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+        });
+});
 
 
 function show() {

@@ -27,10 +27,6 @@
 ?>
 <link rel="stylesheet" type="text/css" href="../payroll/payroll_app.css">
 <link rel="stylesheet" type="text/css" href="../payroll/payroll_appreg.css">
-<script type='text/javascript' src='../payroll/payroll_app.js'></script>
-<script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
-<script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
-<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL APPROVAL</h1>
@@ -76,8 +72,7 @@
                 <div class="col-md-12">
                     <div class="panel-body">
                         <div id="contents2" class="table-responsive-sm table-body">
-                         <button type="button" id="search" hidden>GENERATE</button>                      
-                        </div>
+                     </div>
                     </div>
                 </div>
             </div>
@@ -100,7 +95,8 @@
 
 <script type='text/javascript'>
 
-    function myFunction() {
+
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -124,6 +120,7 @@
 function ViewPyReg(perfrom,perto,stats)
     {
         $('#viewPayReg').modal('toggle');
+
         var url = "../payroll/payrollapp_process.php";
         var period_from = perfrom;
         var period_to = perto;
@@ -140,6 +137,7 @@ function ViewPyReg(perfrom,perto,stats)
             },
             function(data) { $("#contents2").html(data).show(); }
         );
+
     }
 
     function ApprovePayroll()
@@ -213,6 +211,8 @@ function ViewPyReg(perfrom,perto,stats)
                         });
       
     }
+
+    
 
 </script>
 

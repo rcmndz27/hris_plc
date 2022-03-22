@@ -19,7 +19,6 @@ $(function(){
     }
 
     $("#search").click(function(e){
-        e.preventDefault();         
 
         document.getElementById("myDiv").style.display="block";
 
@@ -48,6 +47,7 @@ $(function(){
                 // console.log("success: "+ data);
                 $("#tableList").html(data);
                 XLSXExport();
+                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
 
                 document.getElementById("myDiv").style.display="none";
             },
@@ -59,7 +59,6 @@ $(function(){
         });
 
         }
-
 
     });    
 

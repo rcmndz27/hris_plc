@@ -25,7 +25,7 @@ Class NewHireAccess{
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for names.." title="Type in employee name"> 
                         </div>                     
                 </div>  
-        <table id="allEmpList" class="table table-striped table-sm">
+        <table id="allEmpList" class="table empp table-striped table-sm">
         <thead>
             <tr>
                 <th>Emp Code</th>

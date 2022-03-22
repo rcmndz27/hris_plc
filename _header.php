@@ -105,6 +105,9 @@ else
   <script type='text/javascript' src='../js/jquery.min.js'></script>
   <script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
   <script src="../js/sweetalert.min.js"></script>
+  <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
+<script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
+<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
   <!-- <script type="text/javascript" src='../js/script.js'></script> -->
   </head>
 <body>

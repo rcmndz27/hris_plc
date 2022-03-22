@@ -2,16 +2,27 @@
 session_start(); 
 include('config/db.php');
 include('class/userClass.php');
-include('controller/indexProcess.php');
+// include('controller/indexProcess.php');
 
 $userClass = new userClass();
 
 $errorMsgReg='';
 $errorMsgLogin='';
 
-if (!empty($_POST['loginSubmit'])) 
+
+
+if (!empty($_POST['loginSubmit']))
+
+
 {
-    $userid = $_POST['userid'];
+
+    $query = 'SELECT userid FROM dbo.mf_user WHERE useremail =:email';
+    $param = array(":email" => $_POST['userid']);
+    $stmt =$connL->prepare($query);
+    $stmt->execute($param);
+    $r = $stmt->fetch();
+
+    $userid = $r['userid'];
     $password = $_POST['password'];
 
     $date1 = date("Y-m-d");
@@ -143,7 +154,7 @@ if (empty($_SESSION['userid'])) {
 
           <form action="" method="post" name="login" onsubmit="show()">
             <div class="input-group mb-3">
-              <input type="text" name="userid" id="userid" class="form-control" placeholder="Emp. Code Ex. OBN000000" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();" required/>
+              <input type="text" name="userid" id="userid" class="form-control" placeholder="Email" autocomplete="off" required/>
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fa fa-user"></span>

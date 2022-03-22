@@ -61,6 +61,12 @@
 </div>
 <script type="text/javascript">
 
+// jQuery(function(){
+//    jQuery('#search').click();
+//    $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+// });
+
+
            $('#dateTo').change(function(){
 
                 if($('#dateTo').val() < $('#dateFrom').val()){
@@ -69,11 +75,7 @@
 
                     var input2 = document.getElementById('dateTo');
                     input2.value = '';               
-
-                }else{
-                    // alert('Error');
-                }   
-
+                }
             });
 
 

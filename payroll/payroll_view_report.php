@@ -37,10 +37,6 @@
 
  
 <link rel="stylesheet" href="../css/payviewrpt.css">
-<script type='text/javascript' src='../payroll/payroll_rep.js'></script>
-<script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
-<script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
-<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
         <div class="section-title">
@@ -86,6 +82,31 @@
 </div>
 <script>
 
+$(function(){
+
+
+    function XLSXExport(){
+        $("#payrollRepList").tableExport({
+            headers: true,
+            footers: true,
+            formats: ['xlsx'],
+            filename: 'id',
+            bootstrap: false,
+            exportButtons: true,
+            position: 'top',
+            ignoreRows: null,
+            ignoreCols: null,
+            trimWhitespace: true,
+            RTL: false,
+            sheetname: 'Payroll Report' 
+        });
+    }
+
+        $("#search").click(function(e){
+             XLSXExport();
+             $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+        });
+});
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

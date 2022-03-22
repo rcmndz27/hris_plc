@@ -53,7 +53,7 @@
                 <tr><td>' . $result['celno1'] . '</td>
                 <td colspan ="2">'.((isset($result['emailaddress1'])) ? $result['emailaddress1'] : 'no email found').'</td></tr>
                 <tr><th class="thw">Birthday:</th>
-                <td >' . $result['birthdate'] . '</td>
+                <td >' . date('F d, Y', strtotime($birthDate)) . '</td>
                 <td class="thw">Age:</td>
                 <td colspan ="2">'.$age->format("%y").'</td></tr>
                 <tr><th class="thw">Birthplace:</th>

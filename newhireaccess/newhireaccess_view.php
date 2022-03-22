@@ -30,6 +30,30 @@
     }    
 ?>
 <script type="text/javascript">
+    
+    $(function(){
+
+    function XLSXExport(){
+        $("#allEmpList").tableExport({
+            headers: true,
+            footers: true,
+            formats: ['xlsx'],
+            filename: 'id',
+            bootstrap: false,
+            exportButtons: true,
+            position: 'top',
+            ignoreRows: null,
+            ignoreCols: null,
+            trimWhitespace: true,
+            RTL: false,
+            sheetname: 'Employees OBN'
+        });
+    }
+    XLSXExport();
+    $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+
+});
+
 
     function viewEmpModal(lvlogid)
     {
@@ -48,7 +72,6 @@
     }
 
 </script>
-
 <link rel="stylesheet" href="../newhireaccess/newhire-access.css">
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">

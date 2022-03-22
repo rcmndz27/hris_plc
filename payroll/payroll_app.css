@@ -1,4 +1,4 @@
-     table,th{
+table,th{
 
                 border: 1px solid #dee2e6;
                 font-weight: 700;
@@ -22,6 +22,7 @@ table {
         border: 2px solid black;
         background-color: white;
     }
+    
 .mbt {
     background-color: #faf9f9;
     padding: 30px;

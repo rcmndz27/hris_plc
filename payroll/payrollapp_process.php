@@ -11,7 +11,6 @@
     if ($action == 1)
     {
         GetPayrollAppRegList($period_from,$period_to,$payroll_status);
-    }else{
     }
 
 ?>

@@ -10,13 +10,16 @@ table,th{
                 font-family: "Dosis", sans-serif;
  }   
 
+/*thead{
+    text-transform: uppercase;
+ }*/
+
 
 table,td{
 
         border: 1px solid #dee2e6;
         font-family: "Dosis", sans-serif;
-
-
+        font-weight: 600;
  }  
 
  th,td{
@@ -36,6 +39,9 @@ table {
         font-family: "Dosis", sans-serif;
 }
 
+.empp{
+    font-weight: 500;
+}
 
 
  .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
