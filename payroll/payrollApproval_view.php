@@ -132,12 +132,27 @@ function ViewPyReg(perfrom,perto,stats)
                 _action: 1,
                 period_from: period_from,
                 period_to: period_to,
-                payroll_status: payroll_status
-                
+                payroll_status: payroll_status           
             },
-            function(data) { $("#contents2").html(data).show(); }
-        );
-
+            function(data) { 
+                $("#contents2").html(data).show(); 
+                $("#payrollAppRegList").tableExport({
+                    headers: true,
+                    footers: true,
+                    formats: ['xlsx'],
+                    filename: 'id',
+                    bootstrap: false,
+                    exportButtons: true,
+                    position: 'top',
+                    ignoreRows: null,
+                    ignoreCols: null,
+                    trimWhitespace: true,
+                    RTL: false,
+                    sheetname: 'Payroll Register View'
+                });
+                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+            }
+       );
     }
 
     function ApprovePayroll()

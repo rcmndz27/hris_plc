@@ -22,7 +22,7 @@ Class NewHireAccess{
                 <div class="col-lg-8">
                 </div>                               
                 <div class="col-lg-3">        
-                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for names.." title="Type in employee name"> 
+                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search..." title="Type in employee name"> 
                         </div>                     
                 </div>  
         <table id="allEmpList" class="table empp table-striped table-sm">
