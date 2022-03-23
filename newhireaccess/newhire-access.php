@@ -61,12 +61,12 @@ Class NewHireAccess{
                 echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
                             </button><button type="button" class="hdeactv" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
                                 <i class="fas fa-edit"></i>
-                            </button><button type="button" class="hactv" onclick="viewEmpHistoryModal()" title="View Employee Logs">
-                                <i class="fas fa-history"></i>
                             </button></td>
                             ';
     
-                
+                // <button type="button" class="hactv" onclick="viewEmpHistoryModal()" title="View Employee Logs">
+                //                 <i class="fas fa-history"></i>
+                //             </button>
 
             } while ($result = $stmt->fetch());
             $name = json_encode($day);
