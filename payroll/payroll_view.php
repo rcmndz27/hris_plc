@@ -39,6 +39,7 @@
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
+<body  onload="javascript:generatePayrll();">
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL VIEW</h1>
@@ -74,41 +75,183 @@
                         <div id='contents'></div>
                     </div>
                 </div>
+
+<div class="modal fade" id="updateAtt" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE EMPLOYEE ATTENDANCE <i class="fas fa-money-check fa-fw"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dscsb">Code:</label>
+                                        <input type="text" class="form-control" name="badge_no"
+                                            id="badge_no" readonly> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dscsb">Employee Name:</label>
+                                        <input type="text" class="form-control" name="employee"
+                                            id="employee" readonly> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_overtime_reg">Regular Overtime:</label>
+                                        <input type="number" class="form-control" name="tot_overtime_reg"
+                                            id="tot_overtime_reg"> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_overtime_rest">Rest Day Overtime:</label>
+                                        <input type="number" class="form-control" name="tot_overtime_rest"
+                                            id="tot_overtime_rest"> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_overtime_regholiday">Regular Holiday Overtime:</label>
+                                        <input type="number" class="form-control" name="tot_overtime_regholiday"
+                                            id="tot_overtime_regholiday"> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_overtime_spholiday">Special Holiday Overtime:</label>
+                                        <input type="number" class="form-control" name="tot_overtime_spholiday"
+                                            id="tot_overtime_spholiday"> 
+                                    </div>
+                                </div> 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_overtime_sprestholiday">Special Rest Day Holiday Overtime:</label>
+                                        <input type="number" class="form-control" name="tot_overtime_sprestholiday"
+                                            id="tot_overtime_sprestholiday"> 
+                                    </div>
+                                </div>                                                                                                  
+                                
+
+                        </div> <!-- form row closing -->
+                    </fieldset> 
+                                <div class="modal-footer">                                  
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                                    <button type="button" class="subbut" onclick="updateAtt()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
+
+
+
         </div>
 </div>
-
+</body>
 <script>
-
-$(function(){
-
-
-    function XLSXExport(){
-        $("#payrollList").tableExport({
-            headers: true,
-            footers: true,
-            formats: ['xlsx'],
-            filename: 'id',
-            bootstrap: false,
-            exportButtons: true,
-            position: 'top',
-            ignoreRows: null,
-            ignoreCols: null,
-            trimWhitespace: true,
-            RTL: false,
-            sheetname: 'Payroll Attendance'
-        });
-    }
-
-        $("#search").click(function(e){
-             XLSXExport();
-             $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
-        });
-});
 
 
 function show() {
     document.getElementById("myDiv").style.display="block";
 }
+
+
+
+    function editAttModal(empname,empcd,regot,restot,reghot,spot,sphresot){
+          
+        $('#updateAtt').modal('toggle');
+
+        var empnamem = document.getElementById('employee');
+        empnamem.value =  empname;
+
+        var empcdm = document.getElementById('badge_no');
+        empcdm.value =  empcd;      
+
+        var hidful = document.getElementById('tot_overtime_reg');
+        hidful.value =  regot;   
+
+        var bnkt = document.getElementById('tot_overtime_rest');
+        bnkt.value =  restot;  
+
+        var bno = document.getElementById('tot_overtime_regholiday');
+        bno.value =  reghot; 
+
+        var sts = document.getElementById('tot_overtime_spholiday');
+        sts.value =  spot;  
+
+        var ghdsa = document.getElementById('tot_overtime_sprestholiday');
+        ghdsa.value =  sphresot;          
+                                 
+
+    }
+
+    function updateAtt()
+    {
+
+
+        var url = "../payroll/updateAtt_process.php";
+        var badge_no = document.getElementById("badge_no").value;
+        var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
+        var tot_overtime_rest = document.getElementById("tot_overtime_rest").value;
+        var tot_overtime_regholiday = document.getElementById("tot_overtime_regholiday").value;
+        var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
+        var tot_overtime_sprestholiday = document.getElementById("tot_overtime_sprestholiday").value;                
+
+                        swal({
+                          title: "Are you sure?",
+                          text: "You want to update this employee attendance details?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((updateAtt) => {
+                          if (updateAtt) {
+                                $.post (
+                                    url,
+                                    {
+                                        action: 1,
+                                        badge_no: badge_no ,
+                                        tot_overtime_reg: tot_overtime_reg ,
+                                        tot_overtime_rest: tot_overtime_rest ,
+                                        tot_overtime_regholiday: tot_overtime_regholiday, 
+                                        tot_overtime_spholiday: tot_overtime_spholiday, 
+                                        tot_overtime_sprestholiday: tot_overtime_sprestholiday                                        
+                                    },
+                                    function(data) {     
+                                    console.log(data);                                        
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the attendance details!", 
+                                            type: "success",
+                                            icon: "success",
+                                        }).then(function() {
+                                            location.href = '../payroll/payroll_view.php';
+                                        }); 
+                                    }
+                                );
+
+                          } else {
+                            swal({text:"You cancel the updating of employee details!",icon:"error"});
+                          }
+                        });
+   
+                }
+
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -189,6 +332,21 @@ function myFunction() {
             },
             function(data) { 
                 $("#contents").html(data).show();
+            $("#payrollList").tableExport({
+            headers: true,
+            footers: true,
+            formats: ['xlsx'],
+            filename: 'id',
+            bootstrap: false,
+            exportButtons: true,
+            position: 'top',
+            ignoreRows: null,
+            ignoreCols: null,
+            trimWhitespace: true,
+            RTL: false,
+            sheetname: 'Payroll Attendance'
+        });
+        $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
                 document.getElementById("myDiv").style.display="none"; 
             }
         );
