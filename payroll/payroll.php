@@ -29,7 +29,18 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             $result = $stmt_ins->execute($params);
 
 
-            $query = 'SELECT * FROM dbo.att_summary WHERE period_from = :period_from AND period_to = :period_to and location = :location ORDER BY employee ASC';
+            $query = 'SELECT b.badge_no,b.employee,b.location,period_from
+                  ,period_to,tot_days_absent,tot_days_work
+                  ,tot_lates
+                  ,tot_overtime_reg
+                  ,tot_overtime_rest
+                  ,tot_overtime_regholiday
+                  ,tot_overtime_spholiday
+                  ,total_undertime
+                  ,night_differential
+                  ,tot_overtime_sprestholiday from employee_profile a left join
+                  att_summary b on a.badgeno = b.badge_no
+                    WHERE tot_days_work is not null and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY employee ASC';
             $param = array(":period_from" => $dtFrom, ":period_to" => $dtTo, ":location" => $location );
             $stmt =$connL->prepare($query);
             $stmt->execute($param);
