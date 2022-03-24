@@ -80,10 +80,11 @@
 
             $('#dateFrom').change(function(){
 
+                if($('#dateFrom').val() > $('#dateTo').val()){
                     var input2 = document.getElementById('dateTo');
                     document.getElementById("dateTo").min = $('#dateFrom').val();
                     input2.value = '';
-
+                }
             });
 </script>
 

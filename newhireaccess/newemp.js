@@ -91,24 +91,80 @@ $(function(){
                 }   
     });
 
-   
+        $('#sss_no').change(function(){
+            var str = document.getElementById('sss_no').value;
+                    avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('sss_no').value = avr;
+        });
+
+        $('#phil_no').change(function(){
+            var str = document.getElementById('phil_no').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('phil_no').value = avr;
+        });
+    
+        $('#pagibig_no').change(function(){
+            var str = document.getElementById('pagibig_no').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('pagibig_no').value = avr;
+        });
+
+        $('#tin_no').change(function(){
+            var str = document.getElementById('tin_no').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('tin_no').value = avr;
+        });
+
+
+        $('#celno').change(function(){
+            var str = document.getElementById('celno').value;
+                    avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('celno').value = avr;
+        });
+
+        $('#celno1').change(function(){
+            var str = document.getElementById('celno1').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('celno1').value = avr;
+        });
+    
+        $('#telno').change(function(){
+            var str = document.getElementById('telno').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('telno').value = avr;
+        });
+
+        $('#telno1').change(function(){
+            var str = document.getElementById('telno1').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('telno1').value = avr;
+        });
+
+        $('#contactpersonno').change(function(){
+            var str = document.getElementById('contactpersonno').value;
+                avr = str.replace(/[^a-zA-Z0-9]/g, '');;
+            document.getElementById('contactpersonno').value = avr;
+        });
+        
+
+
 
     $('#birthdate').change(function(){
 
-    var dot = $('#birthdate').val();
+        var dot = $('#birthdate').val();
 
-    var currentDate = new Date(dot);
-    var day = ("0" + (currentDate.getDate())).slice(-2);
-    var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
-    var year = currentDate.getFullYear()
-    var dobb =  month + "/" + day + "/" + year;
+        var currentDate = new Date(dot);
+        var day = ("0" + (currentDate.getDate())).slice(-2);
+        var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+        var year = currentDate.getFullYear()
+        var dobb =  month + "/" + day + "/" + year;
 
-    var dob = new Date(dobb);
+        var dob = new Date(dobb);
 
-    var age = getAge(dobb);
+        var age = getAge(dobb);
 
-    var ages = document.getElementById('age');
-    ages.value = age;
+        var ages = document.getElementById('age');
+        ages.value = age;
 
     });
 

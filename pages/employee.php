@@ -184,7 +184,7 @@
 
 
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<body id="page-top" style="background-color: #f8f9fc;height:100%;">
+<body id="page-top" style="background-color: #f8f9fc;height:100%;overflow: hidden;">
 
 
     <!-- Page Wrapper -->

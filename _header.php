@@ -62,6 +62,13 @@ else
     $smt =$connL->prepare($qry);
     $smt->execute();
     $rst = $smt->fetch();
+
+    $qryf = "SELECT count(*) as pyrll_countf from (SELECT company from payroll where payroll_status = 'R'
+                group by company ) as sqlf";
+    $smtf =$connL->prepare($qryf);
+    $smtf->execute();
+    $rstf = $smtf->fetch();
+
 }
 
 ?>
@@ -219,6 +226,7 @@ else
                             $ob = (isset($esult['ob_count'])) ? $esult['ob_count'] : '0' ;
                             $wfh = (isset($resultss['wfh_count'])) ? $resultss['wfh_count'] : '0' ;
                             $pyrll = (isset($rst['pyrll_count'])) ? $rst['pyrll_count'] : '0' ;
+                            $pyrllf = (isset($rstf['pyrll_countf'])) ? $rstf['pyrll_countf'] : '0' ;
                             echo"<button id='lv_count' value='You have ".$lv." leave approval!' hidden></button>
                             <button id='ot_count' value='You have ".$ot." overtime approval!' hidden></button>
                             <button id='ob_count' value='You have ".$ob." official business approval!' hidden></button>
@@ -228,11 +236,13 @@ else
                             <button id='ot' value='".$ot."' hidden></button>
                             <button id='wfh' value='".$wfh."' hidden></button>
                             <button id='pyrll' value='".$pyrll."' hidden></button>
+                            <button id='pyrllf' value='".$pyrllf."' hidden></button>
                             <button id='ob' value='".$ob."' hidden></button>"; 
 
 
                             $approval_adm = $lv + $ot + $wfh + $ob + $pyrll;
                             $approval_tm = $lv + $ot + $wfh + $ob;
+                            $approval_f = $pyrllf;
                             if ($approval_adm > 0) {
                               $apprm = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_adm."</span>";
                              }else{
@@ -243,6 +253,12 @@ else
                               $appr = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_tm."</span>";
                              }else{
                                $appr = '';
+                             }  
+
+                             if ($approval_f > 0) {
+                              $apprf = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_f."</span>";
+                             }else{
+                               $apprf = '';
                              }                             
                             
                                 switch(trim($empUserType)){
@@ -345,6 +361,13 @@ else
                                                 </ul>
                                               </li>                                                                                              
                                   </ul>
+                               </li>";
+                                    break; 
+                           case "Finance":   
+                            echo "
+                                    <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$apprf."<i class='bi bi-chevron-down'></i></a>
+                                        <ul><li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
+                                        </ul>
                                </li>";
                                     break;                       
                                 }

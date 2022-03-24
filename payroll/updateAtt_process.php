@@ -13,12 +13,15 @@
     $tot_overtime_spholiday = $_POST["tot_overtime_spholiday"];
     $tot_overtime_sprestholiday = $_POST["tot_overtime_sprestholiday"];
     $night_differential = $_POST["night_differential"];
-    $night_differential_ot = $_POST["night_differential_ot"];    
+    $night_differential_ot = $_POST["night_differential_ot"];
+    $night_differential_ot_rest = $_POST["night_differential_ot_rest"];
+    $sick_leave = $_POST["sick_leave"];
+    $vacation_leave = $_POST["vacation_leave"];           
 
     if ($action == 1)
     {
     UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_overtime_reg,$tot_overtime_rest,$tot_overtime_regholiday,
-            $tot_overtime_spholiday,$tot_overtime_sprestholiday,$night_differential,$night_differential_ot);
+            $tot_overtime_spholiday,$tot_overtime_sprestholiday,$night_differential,$night_differential_ot,$night_differential_ot_rest,$sick_leave,$vacation_leave);
     }
 
 ?>

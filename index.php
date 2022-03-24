@@ -246,7 +246,7 @@ if (empty($_SESSION['userid'])) {
         $url = 'pages/admin.php';
         $url_2 = 'pages/employee.php';
 
-        if ($empUserType === 'Admin')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
         {
             header("Location: $url");
         }

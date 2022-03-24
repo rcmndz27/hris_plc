@@ -9,6 +9,10 @@ else
 {
     include("../_header.php");
     include("../dtr/dtr-viewing.php");
+    include('../elements/DropDown.php');
+    include('../controller/MasterFile.php');
+    $mf = new MasterFile();
+    $dd = new DropDown();
     
         if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' ||  $empUserType =='Team Manager')
         {
@@ -21,7 +25,7 @@ else
 }
 ?>
 
-<link rel="stylesheet" type="text/css" href="../pages/dtr_view.css">
+<link rel="stylesheet" type="text/css" href="../pages/dtr.css">
 <script type="text/javascript" src="../dtr/dtr-viewing.js"></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
@@ -43,7 +47,7 @@ else
         <div class="form-row pt-3">
             <label for="employee" class="col-form-label pad">EMPLOYEE:</label>
         <div class="col-md-3">
-            <input type="text" class="form-control" name="empCode" id="empCode" placeholder="Emp Code: ex. 200005901" onkeyup="this.value = this.value.toUpperCase();" required>
+            <?php $dd->GenerateSingleDropDown("empCode", $mf->GetActEmployeeNames("allempnames")); ?>            
         </div>
         <label for="from" class="col-form-label pad">FROM:</label>
         <div class="col-md-2">

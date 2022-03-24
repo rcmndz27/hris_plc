@@ -203,11 +203,11 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                          <label class="control-label" for="telno">Telephone Number:</label>
-                                        <input type="text" class="form-control" name="telno" id="telno" onkeypress="return onlyNumberKey(event)" maxlength="11" placeholder="02......">
+                                        <input type="text" class="form-control" name="telno" id="telno" onkeypress="return onlyNumberKey(event)" maxlength="20" placeholder="02......">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="cellphone">Mobile Number:<span class="req">*</span></label>
-                                        <input type="text" class="form-control" id="celno" onkeypress="return onlyNumberKey(event)" name="celno" maxlength="11"  placeholder="09..........">
+                                        <input type="text" class="form-control" id="celno" onkeypress="return onlyNumberKey(event)" name="celno" maxlength="20"  placeholder="09..........">
                                     </div> 
                                     <div class="form-group">
                                         <label class="control-label" for="emailaddress">Email Address:<span class="req">*</span></label>
@@ -217,12 +217,12 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="telno1">Other Telephone Number:</label>
-                                        <input type="text" class="form-control" id="telno1"  onkeypress="return onlyNumberKey(event)" name="telno1" maxlength="11" placeholder="02......">
+                                        <input type="text" class="form-control" id="telno1"  onkeypress="return onlyNumberKey(event)" name="telno1" maxlength="20" placeholder="02......">
 
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="celno1">Other Mobile Number:</label>
-                                        <input type="text" class="form-control" id="celno1" onkeypress="return onlyNumberKey(event)" name="celno1" maxlength="11" placeholder="09..........">
+                                        <input type="text" class="form-control" id="celno1" onkeypress="return onlyNumberKey(event)" name="celno1" maxlength="20" placeholder="09..........">
 
                                     </div>
                                     <div class="form-group">
@@ -506,8 +506,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="c">Contact Number:<span class="req">*</span></label>
-                                        <input type="number" class="form-control inputtext" name="contactpersonno"
-                                            id="contactpersonno" placeholder="09........" onkeypress="return onlyNumberKey(event)" maxlength="11">
+                                        <input type="text" class="form-control inputtext" name="contactpersonno"
+                                            id="contactpersonno" placeholder="09........" onkeypress="return onlyNumberKey(event)" maxlength="20">
                                     </div>
                                 </div>
                                  <div class="col-lg-12">

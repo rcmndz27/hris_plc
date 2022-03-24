@@ -40,7 +40,7 @@
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <body  onload="javascript:generatePayrll();">
-<div class="container">
+<div class="container-fluid">
     <div class="section-title">
           <h1>PAYROLL VIEW</h1>
         </div>
@@ -171,10 +171,29 @@
                                         <input type="number" class="form-control" name="night_differential_ot"
                                             id="night_differential_ot"> 
                                     </div>
-                                </div>                                                                                                                                           
-                                
-
-                        </div> <!-- form row closing -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="night_differential_ot_rest">Night Differential Rest Day OT:</label>
+                                        <input type="number" class="form-control" name="night_differential_ot_rest"
+                                            id="night_differential_ot_rest"> 
+                                    </div>
+                                </div> 
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="sick_leave">Sick Leave (Days):</label>
+                                        <input type="number" class="form-control" name="sick_leave"
+                                            id="sick_leave"> 
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="vacation_leave">Vacation Leave (Days):</label>
+                                        <input type="number" class="form-control" name="vacation_leave"
+                                            id="vacation_leave"> 
+                                    </div>
+                                </div>                                                                                                              
+                            </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">                                  
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
@@ -273,7 +292,7 @@ function show() {
         );
     }
 
-    function editAttModal(empname,empcd,toa,tow,regot,restot,reghot,spot,sphresot,nd,ndot){
+    function editAttModal(empname,empcd){
           
         $('#updateAtt').modal('toggle');
 
@@ -309,7 +328,16 @@ function show() {
         yuty.value =   document.getElementById('nd'+empcd).innerHTML; 
 
         var mbnmnb = document.getElementById('night_differential_ot');
-        mbnmnb.value =   document.getElementById('ndot'+empcd).innerHTML;                  
+        mbnmnb.value =   document.getElementById('ndot'+empcd).innerHTML;  
+
+        var kllkj = document.getElementById('night_differential_ot_rest');
+        kllkj.value =   document.getElementById('ndrot'+empcd).innerHTML;  
+
+        var iuyiyui = document.getElementById('sick_leave');
+        iuyiyui.value =   document.getElementById('slh'+empcd).innerHTML;  
+
+        var ppiupu = document.getElementById('vacation_leave');
+        ppiupu.value =   document.getElementById('vlh'+empcd).innerHTML;                                   
                                  
 
     }
@@ -328,7 +356,10 @@ function show() {
         var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
         var tot_overtime_sprestholiday = document.getElementById("tot_overtime_sprestholiday").value;  
         var night_differential = document.getElementById("night_differential").value;
-        var night_differential_ot = document.getElementById("night_differential_ot").value;                        
+        var night_differential_ot = document.getElementById("night_differential_ot").value;
+        var night_differential_ot_rest = document.getElementById("night_differential_ot_rest").value;
+        var sick_leave = document.getElementById("sick_leave").value;
+        var vacation_leave = document.getElementById("vacation_leave").value;                                                        
 
                         swal({
                           title: "Are you sure?",
@@ -352,7 +383,11 @@ function show() {
                                         tot_overtime_spholiday: tot_overtime_spholiday, 
                                         tot_overtime_sprestholiday: tot_overtime_sprestholiday,
                                         night_differential: night_differential, 
-                                        night_differential_ot: night_differential_ot                                        
+                                        night_differential_ot: night_differential_ot,
+                                        night_differential_ot_rest: night_differential_ot_rest,
+                                        sick_leave: sick_leave,
+                                        vacation_leave: vacation_leave
+
 
                                     },
                                     function(data) {     
@@ -374,6 +409,9 @@ function show() {
                                         document.getElementById('tospr'+badge_no).innerHTML = tot_overtime_sprestholiday;
                                         document.getElementById('nd'+badge_no).innerHTML = night_differential;
                                         document.getElementById('ndot'+badge_no).innerHTML = night_differential_ot;
+                                        document.getElementById('ndrot'+badge_no).innerHTML = night_differential_ot_rest;
+                                        document.getElementById('slh'+badge_no).innerHTML = sick_leave;
+                                        document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;                                        
                                         }); 
                                     }
                                 );

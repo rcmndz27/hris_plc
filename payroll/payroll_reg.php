@@ -38,7 +38,8 @@ class PayrollRegApplication {
                         <th colspan='55' class='paytop'>Payroll Register View</th>
                     </tr>
                     <tr>
-                        <th>Employee Code</th>
+                        <th>Code</th>
+                        <th>Name</th>
                         <th>Bank Account#</th>
                         <th>Bank</th>
                         <th>Position</th>
@@ -144,6 +145,7 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
              
                             echo "<tr>".
                                     "<td>" . $r['emp_code'] . "</td>".
+                                    "<td>" . $r['name'] . "</td>".
                                     "<td>" . $r['bank_acctno'] . "</td>".
                                     "<td>" . $r['bank'] . "</td>".
                                     "<td>" . $r['position'] . "</td>".

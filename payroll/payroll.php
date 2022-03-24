@@ -17,6 +17,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             $spr_ot = 0;
             $nd = 0;
             $nd_ot = 0;
+            $ndr_ot = 0;
+            $sl = 0;
+            $vl = 0;
 
             $qins = 'INSERT INTO dbo.payroll_period_logs (emp_code,period_from,period_to,location) 
             VALUES (:emp_code,:period_from,:period_to,:location)';
@@ -37,13 +40,17 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                   ,tot_overtime_rest
                   ,tot_overtime_regholiday
                   ,tot_overtime_spholiday
+                  ,tot_overtime_sprestholiday
                   ,total_undertime
                   ,night_differential
                   ,night_differential_ot
-                  ,tot_overtime_sprestholiday from employee_profile a left join
+                  ,night_differential_ot_rest 
+                  ,sick_leave
+                  ,vacation_leave 
+                  from employee_profile a left join
                   att_summary b on a.badgeno = b.badge_no
-                    WHERE tot_days_work is not null and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY employee ASC';
-            $param = array(":period_from" => $dtFrom, ":period_to" => $dtTo, ":location" => $location );
+                    WHERE tot_days_work is not null and a.emp_status = :status and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY employee ASC';
+            $param = array(":period_from" => $dtFrom, ":period_to" => $dtTo, ":location" => $location, ":status" => 'Active');
             $stmt =$connL->prepare($query);
             $stmt->execute($param);
             $r = $stmt->fetch();
@@ -57,7 +64,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             <table id='payrollList' class='table table-striped table-sm' cellpadding='0' cellspacing='0'> 
                 <thead>
                     <tr>
-                        <th colspan='14' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
+                        <th colspan='16' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
                     </tr>
                     <tr class='noExl'>
                         <th>Employee Name</th>
@@ -73,6 +80,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                         <th>Special Holiday Rest Day Overtime (Hrs)</th> 
                         <th>Night Differential (Hrs)</th> 
                         <th>Night Differential OT (Hrs)</th> 
+                        <th>Night Differential Rest Day OT (Hrs)</th>
+                        <th>Sick Leave (Days)</th> 
+                        <th>Vacation Leave (Days)</th>                          
                         <th>Edit/View Attendance</th>           
                     </tr>
                 </thead>
@@ -84,15 +94,18 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                         $badgeno = "'".$r['badge_no']."'"; 
                         $pfrom = "'".date('Y-m-d', strtotime($r['period_from']))."'"; 
                         $pto = "'".date('Y-m-d', strtotime($r['period_to']))."'"; 
-                        $toa = "'".round($r['tot_days_absent'],2)."'";
-                        $tow = "'".round($r['tot_days_work'],2)."'";                                               
-                        $treg = "'".round($r['tot_overtime_reg'],2)."'";
-                        $tres = "'".round($r['tot_overtime_rest'],2)."'";
-                        $tresh = "'".round($r['tot_overtime_regholiday'],2)."'";
-                        $tsp = "'".round($r['tot_overtime_spholiday'],2)."'";
-                        $tsprh = "'".round($r['tot_overtime_sprestholiday'],2)."'";
-                        $ndh = "'".round($r['night_differential'],2)."'";
-                        $ndoth = "'".round($r['night_differential_ot'],2)."'";
+                        // $toa = "'".round($r['tot_days_absent'],2)."'";
+                        // $tow = "'".round($r['tot_days_work'],2)."'";                                               
+                        // $treg = "'".round($r['tot_overtime_reg'],2)."'";
+                        // $tres = "'".round($r['tot_overtime_rest'],2)."'";
+                        // $tresh = "'".round($r['tot_overtime_regholiday'],2)."'";
+                        // $tsp = "'".round($r['tot_overtime_spholiday'],2)."'";
+                        // $tsprh = "'".round($r['tot_overtime_sprestholiday'],2)."'";
+                        // $ndh = "'".round($r['night_differential'],2)."'";
+                        // $ndoth = "'".round($r['night_differential_ot'],2)."'";
+                        // $ndotrh = "'".round($r['night_differential_ot_rest'],2)."'";
+                        // $slh = "'".round($r['sick_leave'],2)."'";
+                        // $vlh = "'".round($r['vacation_leave'],2)."'";                        
                             echo "<tr>".
                                     "<td>" . $r['employee'] . "</td>".
                                     "<td>" . $r['badge_no'] . "</td>".
@@ -106,9 +119,12 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                     "<td id='tosp".$r['badge_no']."'>" . round($r['tot_overtime_spholiday'],2) . "</td>".
                                     "<td id='tospr".$r['badge_no']."'>" . round($r['tot_overtime_sprestholiday'],2) . "</td>".
                                     "<td id='nd".$r['badge_no']."'>" . round($r['night_differential'],2) . "</td>".
-                                    "<td id='ndot".$r['badge_no']."'>" . round($r['night_differential_ot'],2) . "</td>";
+                                    "<td id='ndot".$r['badge_no']."'>" . round($r['night_differential_ot'],2) . "</td>".
+                                    "<td id='ndrot".$r['badge_no']."'>" . round($r['night_differential_ot_rest'],2) . "</td>".
+                                    "<td id='slh".$r['badge_no']."'>" . round($r['sick_leave'],2) . "</td>".
+                                    "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>"                                    ;
                         echo'<td><button type="button"class="hdeactv" 
-                        onclick="editAttModal('.$empn.','.$badgeno.','.$toa.','.$tow.','.$treg.','.$tres.','.$tresh.','.$tsp.','.$tsprh.','.$ndh.','.$ndoth.')" title="Edit Attendance">
+                        onclick="editAttModal('.$empn.','.$badgeno.')" title="Edit Attendance">
                                             <i class="fas fa-edit"></i>
                                                         </button>
                             <button type="button" class="hactv" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Logs">
@@ -123,9 +139,12 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                 $rd_ot += round($r['tot_overtime_rest'] , 2);
                                 $rh_ot += round($r['tot_overtime_regholiday'], 2);
                                 $sh_ot += round($r['tot_overtime_spholiday'] , 2);
-                                $spr_ot += round($r['tot_overtime_regholiday'], 2);
-                                $nd += round($r['tot_overtime_regholiday'], 2);
-                                $nd_ot += round($r['tot_overtime_spholiday'] , 2);                               
+                                $spr_ot += round($r['tot_overtime_sprestholiday'], 2);
+                                $nd += round($r['night_differential'], 2);
+                                $nd_ot += round($r['night_differential_ot'] , 2);
+                                $ndr_ot += round($r['night_differential_ot_rest'] , 2);
+                                $sl += round($r['night_differential_ot'] , 2);
+                                $vl += round($r['night_differential_ot_rest'] , 2);                                                                                              
                 
                                
                    } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
@@ -160,14 +179,17 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                                 "<td class='bg-success'><b>" . $sh_ot . "</b></td>".
                                                 "<td class='bg-success'><b>" . $spr_ot . "</b></td>".
                                                 "<td class='bg-success'><b>" . $nd . "</b></td>".
-                                                "<td class='bg-success' colspan='2'><b>" . $nd_ot . "</b></td>".
+                                                "<td class='bg-success'><b>" . $nd_ot . "</b></td>".
+                                                "<td class='bg-success'><b>" . $ndr_ot . "</b></td>".
+                                                "<td class='bg-success'><b>" . $sl . "</b></td>".
+                                                "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".                                                
                                                 "</tr><tr>";
                                             if($dtf_l == $dtFrom and $dtt_l == $dtTo and 
                                                 ucwords(strtolower($loc_l)) == ucwords(strtolower($location))){
-                                                echo"<td colspan='14' class='paytop'>".
+                                                echo"<td colspan='16' class='paytop'>".
                                                 "</tr></tfoot>";   
                                             }else{
-                                                echo"<td colspan='14' class='paytop'>".
+                                                echo"<td colspan='16' class='paytop'>".
                                                 "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
                                                 "</tr></tfoot>";  
                                             }
@@ -187,9 +209,12 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                             "<td class='bg-success'><b>" . $sh_ot . "</b></td>".
                                             "<td class='bg-success'><b>" . $spr_ot . "</b></td>".
                                             "<td class='bg-success'><b>" . $nd . "</b></td>".
-                                            "<td class='bg-success' colspan='2'><b>" . $nd_ot . "</b></td>".
+                                            "<td class='bg-success'><b>" . $nd_ot . "</b></td>".
+                                            "<td class='bg-success'><b>" . $ndr_ot . "</b></td>".
+                                            "<td class='bg-success'><b>" . $sl . "</b></td>".
+                                            "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".
                                             "</tr><tr>"; 
-                                            echo"<td colspan='14' class='paytop'>".
+                                            echo"<td colspan='16' class='paytop'>".
                                             "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
                                             "</tr></tfoot>";  
                                         
