@@ -1,17 +1,12 @@
-<?php
-
-include('../config/db.php');
-
-Class EmployeeAttendance{
-
-    function GetTime($dateTime){
+<?php  
+   function GetTime($dateTime){
         $formattedDateTime = new DateTime($dateTime);
         $time = $formattedDateTime->format('h:i:s A');
 
         return $time;
     }
 
-    function GetEmployeeAttendannce($empCodeParam, $dateFrom, $dateTo){
+ function GetPayAttViewLogs($emp_code, $dateFrom, $dateTo){
 
         $totalWork = 0;
         $totalLate = 0;
@@ -20,7 +15,7 @@ Class EmployeeAttendance{
 
         global $dbConnection;
 
-        if(strlen($empCodeParam) === 0){
+        if(strlen($emp_code) === 0){
 
             $whereClause = " WHERE punch_date BETWEEN :startDate AND :endDate ";
             $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
@@ -28,7 +23,7 @@ Class EmployeeAttendance{
         }else{
 
             $whereClause = " WHERE (emp_pin = :emp_pin  OR emp_ssn = :emp_ssn) AND punch_date BETWEEN :startDate AND :endDate ";
-            $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
+            $param = array(":emp_ssn" => $emp_code, ":startDate" => $dateFrom, ":endDate" => $dateTo );
         }
 
         $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
@@ -55,8 +50,8 @@ Class EmployeeAttendance{
             if($result){
                 do {
 
-                    $timeIn = (isset($result['timein']) ? $this->GetTime($result['timein']): '');
-                    $timeOut = (isset($result['timeout']) ? $this->GetTime($result['timeout']) : '');
+                    $timeIn = (isset($result['timein']) ? GetTime($result['timein']): '');
+                    $timeOut = (isset($result['timeout']) ? GetTime($result['timeout']) : '');
 
                     echo    "<tr>".
                                 "<td>" . $result['name'] . "</td>".
@@ -74,7 +69,7 @@ Class EmployeeAttendance{
                     $totalUndertime += $result['undertime'];
                     $totalOvertime += $result['overtime'];        
 
-                } while ($result = $stmt->fetch()); 	
+                } while ($result = $stmt->fetch());     
             }
 
         echo"
@@ -90,6 +85,5 @@ Class EmployeeAttendance{
             </tfoot>
         </table>";
     }
-}
 
 ?>
