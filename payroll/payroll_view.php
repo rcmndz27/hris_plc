@@ -391,7 +391,7 @@ function show() {
 
                                     },
                                     function(data) {     
-                                    console.log(data);                                        
+                                    // console.log(data);                                        
                                             swal({
                                             title: "Wow!", 
                                             text: "Successfully updated the attendance details!", 

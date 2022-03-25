@@ -155,9 +155,9 @@
                                   <input name="usrid" id="usrid" class="form-control" hidden />
                                     </div>
                                 </div> 
-                              <div class="col-12">
+<!--                               <div class="col-12">
                                 <div class="form-group">
-                                 <label class="control-label" for="users_id">User Password<span class="req">*</span>
+                                 <label class="control-label" for="password">User Password<span class="req">*</span>
                                  </label>
                                 <div class="input-group mb-3">
                                   <input name="pssword" type="password"  class="form-control inputtext" id="pssword" nameplaceholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" />
@@ -169,7 +169,7 @@
                                   </div>
                                 </div>
                                 </div>
-                              </div> 
+                              </div>  -->
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="usrtyp">User Level<span class="req">*</span></label>
@@ -250,22 +250,11 @@ function password_show_hide() {
 
    
         $('#updateUsrs').modal('toggle');
-
-        var hidful = document.getElementById('empcode');
-        hidful.value =  name;   
-
-        var bnkt = document.getElementById('usrtyp');
-        bnkt.value =  usrrtyp;  
-
-        var at = document.getElementById('stats');
-        at.value =  stts;  
-
-        var ast = document.getElementById('usrid');
-        ast.value =  empcd;  
-
-                                
-
-    }
+        document.getElementById('empcode').value =  name;   
+        document.getElementById('usrid').value =  empcd;                            
+        document.getElementById('usrtyp').value = document.getElementById('usr'+empcd).innerHTML;
+        document.getElementById('stats').value = document.getElementById('st'+empcd).innerHTML;
+    }   
 
 
      function updateUsrs()
@@ -274,9 +263,9 @@ function password_show_hide() {
         $("body").css("cursor", "progress");
         var url = "../users/updateusers_process.php";
         var emp_code = document.getElementById("usrid").value;
-        var userpassword = document.getElementById("pssword").value;
         var status = $('#stats').children("option:selected").val();
         var usertype = $('#usrtyp').children("option:selected").val();
+        // var userpassword = document.getElementById("pssword").value;
 
 
         $('#contents').html('');
@@ -295,16 +284,26 @@ function password_show_hide() {
                                     {
                                         action: 1,
                                         emp_code: emp_code ,
-                                        userpassword: userpassword,
+                                        // userpassword: userpassword,
                                         status: status,
                                         usertype: usertype
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                        swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the user account details!", 
+                                            type: "success",
+                                            icon: "success",
+                                        }).then(function() {
+                                            $('#updateUsrs').modal('hide');
+                                            document.getElementById('st'+emp_code).innerHTML = status;
+                                            document.getElementById('usr'+emp_code).innerHTML = usertype;
+                                         }); 
+                                    }
                                 );
 
-                                swal({text:"Successfully update the employee users details!",icon:"success"});
-                                location.reload();
+
                           } else {
                             swal({text:"You cancel the updating of employee users details!",icon:"error"});
                           }

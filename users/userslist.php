@@ -59,11 +59,11 @@ Class UsersList{
               
                 echo '
                 <tr>
-                <td>' . $result['userid']. '</td>
+                <td >' . $result['userid']. '</td>
                 <td>' . $result['username']. '</td>
-                <td>' . $result['usertype']. '</td>
+                <td id="usr'.$result['userid'].'">' . $result['usertype']. '</td>
                 <td>' . $result['useremail']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="st'.$result['userid'].'">' . $result['status']. '</td>';
                 echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.','. $usrtyp.','. $usrmail.','. $stts.')" title="Update User/Change Password">
                                 <i class="fas fa-edit"></i>
                             </button>

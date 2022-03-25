@@ -20,21 +20,24 @@ Class EmployeeAttendance{
 
         global $dbConnection;
 
-        if(strlen($empCodeParam) === 0){
+        if($empCodeParam == 'All')
+        {
 
-            $whereClause = " WHERE punch_date BETWEEN :startDate AND :endDate ";
-            $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
-            
+
+                $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
+                $query = 'EXEC hrissys_dev.dbo.xp_all_attendance_portal :startDate,:endDate';
+                $stmt =$dbConnection->prepare($query);
+                $stmt->execute($param);
+                $result = $stmt->fetch();
         }else{
 
-            $whereClause = " WHERE (emp_pin = :emp_pin  OR emp_ssn = :emp_ssn) AND punch_date BETWEEN :startDate AND :endDate ";
-            $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
-        }
 
-        $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
-        $stmt =$dbConnection->prepare($query);
-        $stmt->execute($param);
-        $result = $stmt->fetch();
+                $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
+                $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
+                $stmt =$dbConnection->prepare($query);
+                $stmt->execute($param);
+                $result = $stmt->fetch();
+        }                
 
         echo "
         <table id='empDtrList' class='table table-striped table-sm'>

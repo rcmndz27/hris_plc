@@ -47,7 +47,7 @@ else
         <div class="form-row pt-3">
             <label for="employee" class="col-form-label pad">EMPLOYEE:</label>
         <div class="col-md-3">
-            <?php $dd->GenerateSingleDropDown("empCode", $mf->GetActEmployeeNames("allempnames")); ?>            
+            <?php $dd->GenerateSingleAttDropDown("empCode", $mf->GetAttEmployeeNames("allempnames")); ?>            
         </div>
         <label for="from" class="col-form-label pad">FROM:</label>
         <div class="col-md-2">
@@ -85,15 +85,14 @@ else
 
             });
 
-
             $('#dateFrom').change(function(){
 
+                if($('#dateFrom').val() > $('#dateTo').val()){
                     var input2 = document.getElementById('dateTo');
                     document.getElementById("dateTo").min = $('#dateFrom').val();
                     input2.value = '';
-
+                }
             });
-
 </script>
 
 
