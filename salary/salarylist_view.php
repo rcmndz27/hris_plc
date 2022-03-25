@@ -171,7 +171,7 @@
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="bank_no">Bank Account No.<span class="req">*</span></label>
+                                        <label class="control-label" for="bankno">Bank Account No.<span class="req">*</span></label>
                                         <input type="text" class="form-control" name="bankno"
                                             id="bankno" onkeypress="return onlyNumberKey(event)" placeholder="Account No...." maxlength="15">
                                     </div>
@@ -235,36 +235,23 @@
 
 
 
-    function editSalaryModal(empcd,banktype,bankno,payrate,amnt,stts){
+    function editSalaryModal(empcd){
           
         $('#updateSal').modal('toggle');
+        document.getElementById('empcode').value =  empcd;   
+        document.getElementById('banktype').value =  document.getElementById('bt'+empcd).innerHTML;  
+        document.getElementById('bankno').value =  document.getElementById('bn'+empcd).innerHTML;  
+        document.getElementById('payrate').value =  document.getElementById('pr'+empcd).innerHTML;  
+        document.getElementById('amnt').value =  document.getElementById('am'+empcd).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+empcd).innerHTML;  
 
-        var hidful = document.getElementById('empcode');
-        hidful.value =  empcd;   
-
-        var bnkt = document.getElementById('banktype');
-        bnkt.value =  banktype;  
-
-        var bno = document.getElementById('bankno');
-        bno.value =  bankno;  
-
-        var pyrte = document.getElementById('payrate');
-        pyrte.value =  payrate;  
-
-        var at = document.getElementById('amnt');
-        at.value =  amnt;  
-
-        var ss = document.getElementById('stts');
-        ss.value =  stts;                                  
-
-
-    }
+}
 
 
      function updateSal()
     {
 
-        $("body").css("cursor", "progress");
+
         var url = "../salary/updatesalary_process.php";
         var emp_code = document.getElementById("empcode").value;
         var bank_type = document.getElementById("banktype").value;
@@ -272,9 +259,8 @@
         var pay_rate = document.getElementById("payrate").value;
         var amount = document.getElementById("amnt").value;
         var status = document.getElementById("stts").value;      
-
-        $('#contents').html('');
-
+        var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
                         swal({
                           title: "Are you sure?",
                           text: "You want to update this employee salary details?",
@@ -296,11 +282,23 @@
                                         status: status 
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                        swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the employee salary details!", 
+                                            icon: "success",
+                                        }).then(function() {
+                                            $('#updateSal').modal('hide');
+                                                document.getElementById('bt'+emp_code).innerHTML =  bank_type;
+                                                document.getElementById('bn'+emp_code).innerHTML = bank_no;
+                                                document.getElementById('pr'+emp_code).innerHTML =  pay_rate;
+                                                document.getElementById('am'+emp_code).innerHTML =  amount;
+                                                document.getElementById('amtn'+emp_code).innerHTML =  amtn;
+                                                document.getElementById('st'+emp_code).innerHTML =   status;
+                                         }); 
+                                    }
                                 );
 
-                                swal({text:"Successfully update the employee salary details!",icon:"success"});
-                                location.reload();
                           } else {
                             swal({text:"You cancel the updating of employee salary details!",icon:"error"});
                           }

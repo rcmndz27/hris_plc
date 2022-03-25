@@ -78,7 +78,7 @@
 
 <div class="modal fade" id="updateAtt" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">UPDATE EMPLOYEE ATTENDANCE <i class="fas fa-money-check fa-fw"></i></h5>
@@ -108,85 +108,91 @@
                                             id="employee" readonly> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_days_absent">Total Days Absent:</label>
                                         <input type="number" class="form-control" name="tot_days_absent"
                                             id="tot_days_absent"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_days_work">Total Days Worked:</label>
                                         <input type="number" class="form-control" name="tot_days_work"
                                             id="tot_days_work"> 
                                     </div>
                                 </div>                                
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_reg">Regular Overtime:</label>
                                         <input type="number" class="form-control" name="tot_overtime_reg"
                                             id="tot_overtime_reg"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_rest">Rest Day :</label>
+                                        <input type="number" class="form-control" name="tot_rest"
+                                            id="tot_rest"> 
+                                    </div>
+                                </div>                                
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_rest">Rest Day Overtime:</label>
                                         <input type="number" class="form-control" name="tot_overtime_rest"
                                             id="tot_overtime_rest"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_regholiday">Regular Holiday Overtime:</label>
                                         <input type="number" class="form-control" name="tot_overtime_regholiday"
                                             id="tot_overtime_regholiday"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_spholiday">Special Holiday Overtime:</label>
                                         <input type="number" class="form-control" name="tot_overtime_spholiday"
                                             id="tot_overtime_spholiday"> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_sprestholiday">Special Rest Day Holiday Overtime:</label>
                                         <input type="number" class="form-control" name="tot_overtime_sprestholiday"
                                             id="tot_overtime_sprestholiday"> 
                                     </div>
                                 </div>                                                                                      
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="night_differential">Night Differential:</label>
-                                        <br><br>
                                         <input type="number" class="form-control" name="night_differential"
                                             id="night_differential"> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="night_differential_ot">Night Differential OT:</label>
                                         <input type="number" class="form-control" name="night_differential_ot"
                                             id="night_differential_ot"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="night_differential_ot_rest">Night Differential Rest Day OT:</label>
                                         <input type="number" class="form-control" name="night_differential_ot_rest"
                                             id="night_differential_ot_rest"> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="sick_leave">Sick Leave (Days):</label>
                                         <input type="number" class="form-control" name="sick_leave"
                                             id="sick_leave"> 
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="vacation_leave">Vacation Leave (Days):</label>
                                         <input type="number" class="form-control" name="vacation_leave"
@@ -310,7 +316,10 @@ function show() {
         jhnk.value =  document.getElementById('tow'+empcd).innerHTML;               
 
         var hidful = document.getElementById('tot_overtime_reg');
-        hidful.value =  document.getElementById('tor'+empcd).innerHTML;   
+        hidful.value =  document.getElementById('tor'+empcd).innerHTML;  
+
+        var lkljkl = document.getElementById('tot_rest');
+        lkljkl.value =  document.getElementById('tos'+empcd).innerHTML; 
 
         var bnkt = document.getElementById('tot_overtime_rest');
         bnkt.value =  document.getElementById('tors'+empcd).innerHTML;
@@ -351,6 +360,7 @@ function show() {
         var tot_days_absent = document.getElementById("tot_days_absent").value;
         var tot_days_work = document.getElementById("tot_days_work").value;        
         var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
+        var tot_rest = document.getElementById("tot_rest").value;
         var tot_overtime_rest = document.getElementById("tot_overtime_rest").value;
         var tot_overtime_regholiday = document.getElementById("tot_overtime_regholiday").value;
         var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
@@ -378,6 +388,7 @@ function show() {
                                         tot_days_absent: tot_days_absent ,
                                         tot_days_work: tot_days_work ,                                        
                                         tot_overtime_reg: tot_overtime_reg ,
+                                        tot_rest: tot_rest ,
                                         tot_overtime_rest: tot_overtime_rest ,
                                         tot_overtime_regholiday: tot_overtime_regholiday, 
                                         tot_overtime_spholiday: tot_overtime_spholiday, 
@@ -387,8 +398,6 @@ function show() {
                                         night_differential_ot_rest: night_differential_ot_rest,
                                         sick_leave: sick_leave,
                                         vacation_leave: vacation_leave
-
-
                                     },
                                     function(data) {     
                                     // console.log(data);                                        
@@ -403,6 +412,7 @@ function show() {
                                         document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
                                         document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
                                         document.getElementById('tor'+badge_no).innerHTML = tot_overtime_reg;
+                                        document.getElementById('tos'+badge_no).innerHTML = tot_rest;
                                         document.getElementById('tors'+badge_no).innerHTML = tot_overtime_rest;
                                         document.getElementById('torg'+badge_no).innerHTML = tot_overtime_regholiday;
                                         document.getElementById('tosp'+badge_no).innerHTML = tot_overtime_spholiday;

@@ -48,21 +48,22 @@ Class SalaryList{
         if($result){
             do { 
                 $empcd = "'".$result['emp_code']."'";
-                $banktype = "'".$result['bank_type']."'";
-                $bankno = "'".$result['bank_no']."'";
-                $payrate = "'".$result['pay_rate']."'";
-                $amnt = "'".round($result['amount'],3)."'";
-                $stts = "'".$result['status']."'";
+                // $banktype = "'".$result['bank_type']."'";
+                // $bankno = "'".$result['bank_no']."'";
+                // $payrate = "'".$result['pay_rate']."'";
+                // $amnt = "'".round($result['amount'],3)."'";
+                // $stts = "'".$result['status']."'";
 
                 echo '
                 <tr>
                 <td>' . $result['emp_code']. '</td>
-                <td>' . $result['bank_type']. '</td>
-                <td>' . $result['bank_no']. '</td> 
-                <td>' . $result['pay_rate']. '</td> 
-                <td>' . substr(hash('sha256', $result['pay_rate']),50).'</td>
-                <td>' . $result['status'] . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.','.$banktype.','.$bankno.','.$payrate.','.$amnt.','.$stts.')">
+                <td id="bt'.$result['emp_code'].'">' . $result['bank_type']. '</td>
+                <td id="bn'.$result['emp_code'].'">' . $result['bank_no']. '</td> 
+                <td id="pr'.$result['emp_code'].'">' . $result['pay_rate']. '</td> 
+                <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
+                <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],0,'.',',').'</td>
+                <td id="st'.$result['emp_code'].'">' . $result['status'] . '</td>';
+                echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 
