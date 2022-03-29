@@ -182,8 +182,8 @@
 
 <script>
 
+            var totalVal = <?php echo json_encode($totalVal) ;?>;
             $('#descsb').change(function(){
-                var totalVal = <?php echo json_encode($totalVal) ;?>;
                 var cd = $('#descsb').val();
                 var res = cd.toUpperCase();
 
@@ -197,12 +197,15 @@
             });
 
                 $('#dscsb').change(function(){
-                var totalVal = <?php echo json_encode($totalVal) ;?>;
-                var cd = $('#dscsb').val();
-                var res = cd.toUpperCase();
-                var hidb = $('#dscsbup').val();
+                    var d = totalVal;
+                    var rd = $('#rowd').val();
+                    var cd = $('#dscsb').val();
+                    var res = cd.toUpperCase();
+                    var hidb = $('#dscsbup').val();
 
-                if(totalVal.includes(res)){
+                console.log(d);
+
+                if(d.includes(res)){
                         if(hidb === res){
 
                         }else{
@@ -215,31 +218,17 @@
 
             });
 
-    function editBankModal(id,desc,name,stts){
+    function editBankModal(id,desc){
           
         $('#updateBan').modal('toggle');
-
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('dscsb');
-        bnkt.value =  desc;  
-
-        var bno = document.getElementById('descsbname');
-        bno.value =  name; 
-
-        var sts = document.getElementById('stts');
-        sts.value =  stts;  
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;          
-                                 
-
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('dscsb').value =  document.getElementById('bc'+id).innerHTML;   
+        document.getElementById('descsbname').value =  document.getElementById('bn'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                                          
     }
 
             
-
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -263,19 +252,15 @@ for (i = 0; i < tr.length; i++) {
 
 
 
-
-
      function updateBan()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_bank/updatebank_process.php";
         var rowid = document.getElementById("rowd").value;
         var descsb = document.getElementById("dscsb").value;
         var descsb_name = document.getElementById("descsbname").value;
         var status = document.getElementById("stts").value;     
 
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -299,11 +284,14 @@ for (i = 0; i < tr.length; i++) {
                                     function(data) {                                             
                                             swal({
                                             title: "Wow!", 
-                                            text: "Successfully update the bank details!", 
+                                            text: "Successfully updated the bank details!", 
                                             type: "success",
                                             icon: "success",
                                         }).then(function() {
-                                            location.href = '../mf_bank/banklist_view.php';
+                                            $('#updateBan').modal('hide');
+                                             document.getElementById('bc'+rowid).innerHTML = descsb;
+                                             document.getElementById('bn'+rowid).innerHTML = descsb_name;
+                                             document.getElementById('st'+rowid).innerHTML = status;
                                         }); 
                                     }
                                 );

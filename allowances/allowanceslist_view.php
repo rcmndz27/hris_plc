@@ -158,7 +158,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="benefitid">Allowance Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("benefitid", $mf->GetAllEmployeeAllowances("benlist")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("benefitid", $mf->GetAllEmployeeAllowances("benlist")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -216,26 +216,15 @@
         return true;
     }
 
- function editAlwModal(empcd,benname,periodcutoff,amnt,effectivitydate){
+ function editAlwModal(empcd){
 
    
         $('#updateAlw').modal('toggle');
-
-        var hidful = document.getElementById('empcode');
-        hidful.value =  empcd;   
-
-        var bnkt = document.getElementById('benefitid');
-        bnkt.value =  benname;  
-
-        var bno = document.getElementById('periodcutoff');
-        bno.value =  periodcutoff;  
-
-        var at = document.getElementById('amnt');
-        at.value =  amnt;  
-
-        var ss = document.getElementById('effectivitydate');
-        ss.value =  effectivitydate;                                  
-
+        document.getElementById('empcode').value =  empcd;   
+        document.getElementById('benefitid').value =  document.getElementById('bnr'+empcd).innerHTML;  
+        document.getElementById('periodcutoff').value =  document.getElementById('pc'+empcd).innerHTML;   
+        document.getElementById('amnt').value =  document.getElementById('am'+empcd).innerHTML;  
+        document.getElementById('effectivitydate').value =  document.getElementById('ed'+empcd).innerHTML;        
 
     }
 
@@ -243,20 +232,19 @@
      function updateAlw()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../allowances/updateallowances_process.php";
         var emp_code = document.getElementById("empcode").value;
-        var benefitid = $('#benefitid').children("option:selected").val();
-        var benefit_id = benefitid.split(" - ");
+        var benefit_id = document.getElementById("benefitid").value;
+        var e = document.getElementById("benefitid");
+        var benefitid = e.options[e.selectedIndex].text;        
         var period_cutoff = document.getElementById("periodcutoff").value;
         var amount = document.getElementById("amnt").value;
+        var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
         var effectivity_date = document.getElementById("effectivitydate").value; 
-
-        $('#contents').html('');
-
+     
                         swal({
                           title: "Are you sure?",
-                          text: "You want to update this allowances deduction details?",
+                          text: "You want to update this employee allowances details?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
@@ -268,17 +256,30 @@
                                     {
                                         action: 1,
                                         emp_code: emp_code ,
-                                        benefit_id: benefit_id[0],
+                                        benefit_id: benefit_id,
                                         period_cutoff: period_cutoff,
                                         amount: amount ,               
                                         effectivity_date: effectivity_date 
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                        swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the employee allowances details!", 
+                                            icon: "success",
+                                        }).then(function() {
+                                            $('#updateAlw').modal('hide');
+                                            document.getElementById('bn'+emp_code).innerHTML = benefitid;
+                                            document.getElementById('bnr'+emp_code).innerHTML = benefit_id;
+                                            document.getElementById('pc'+emp_code).innerHTML = period_cutoff;
+                                            document.getElementById('am'+emp_code).innerHTML = amount;
+                                            document.getElementById('amtn'+emp_code).innerHTML = amtn;
+                                            document.getElementById('ed'+emp_code).innerHTML = effectivity_date;
+                                        }); 
+                                    }
                                 );
 
-                                swal({text:"Successfully update the employee allowances details!",icon:"success"});
-                                location.reload();
+
                           } else {
                             swal({text:"You cancel the updating of employee allowances details!",icon:"error"});
                           }

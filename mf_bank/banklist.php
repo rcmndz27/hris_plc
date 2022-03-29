@@ -29,7 +29,6 @@ Class BankList{
         <table id="allBankList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Bank ID</th>
                 <th>Bank Code</th>
                 <th>Bank Name</th>
                 <th>Status</th>
@@ -46,17 +45,14 @@ Class BankList{
         if($result){
             do { 
                 $rowd = "'".$result['rowid']."'";
-                $dscsb = "'".$result['descsb']."'";
-                $descsbname = "'".$result['descsb_name']."'";
-                $stts = "'".$result['status']."'";
+                $dscsb = "'".$result['descsb']."'";;
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $result['descsb']. '</td>
-                <td>' . $result['descsb_name']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="bc'.$result['rowid'].'">'.$result['descsb'].'</td>
+                <td id="bn'.$result['rowid'].'">'.$result['descsb_name'].'</td>
+                <td id="st'.$result['rowid'].'">'.$result['status']. '</td>';
                 echo'<td><button type="button"class="actv" 
-                onclick="editBankModal('.$rowd.','.$dscsb.','.$descsbname.','.$stts.')">
+                onclick="editBankModal('.$rowd.','.$dscsb.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

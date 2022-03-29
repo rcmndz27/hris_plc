@@ -20,7 +20,7 @@ $(function(){
 $('#search').click(function(e){
     e.preventDefault();
 
-
+    document.getElementById("myDiv").style.display="block";
     if($('#empCode').val()== '' || $('#dateTo').val()== '' ){
 
             swal({text:"Kindly fill up blank fields!",icon:"warning"});
@@ -47,9 +47,10 @@ $('#search').click(function(e){
                     $('#empDtrList').remove();
                     $('#dtrViewList').append(data);
                     XLSXExport();
-
+                    document.getElementById("myDiv").style.display="none";
                 },
                 error: function (data){
+                    document.getElementById("myDiv").style.display="none";
                     // console.log("error: "+ data);	
                 }
             });//ajax

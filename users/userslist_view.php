@@ -246,7 +246,7 @@ function password_show_hide() {
         return true;
     }
 
-      function editUsrModal(empcd,name,usrrtyp,usrmail,stts){
+      function editUsrModal(empcd,name){
 
    
         $('#updateUsrs').modal('toggle');
@@ -315,12 +315,8 @@ function password_show_hide() {
     function deleteLogsModal(empcd)
     {
 
-        $("body").css("cursor", "progress");
         var url = "../users/unblockusers_process.php";
         var emp_code = empcd;
-
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -338,11 +334,17 @@ function password_show_hide() {
                                         emp_code: emp_code 
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully unlocked the user account!.", 
+                                            icon: "success",
+                                        }).then(function() {
+                                            document.querySelector('#ub'+emp_code).remove();
+                                        });
+                                    }
                                 );
 
-                                swal({text:"Successfully unblocked the user account!",icon:"success"});
-                                location.reload();
                           } else {
                             swal({text:"You cancel the unblocking of the user account!",icon:"error"});
                           }

@@ -658,7 +658,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"],$r["rowid"]." - ".$r["deduction_name"]));
+                       array_push( $data, array($r["rowid"],$r["deduction_name"]));
                     }
                 }
 
@@ -687,7 +687,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"],$r["rowid"]." - ".$r["benefit_name"]));
+                       array_push( $data, array($r["rowid"],$r["benefit_name"]));
                     }
                 }
 

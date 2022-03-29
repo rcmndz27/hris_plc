@@ -47,20 +47,17 @@ Class DeductionList{
         if($result){
             do { 
                 $empcd = "'".$result['emp_code']."'";
-                $deductionname = $result['deduction_name'];
-                $deductionid = $result['rowid'];
-                $dedname = "'".$deductionid.' - '.$deductionname."'";
-                $periodcutoff = "'".$result['period_cutoff']."'";
-                $amnt = "'".round($result['amount'],3)."'";
-                $effectivitydate = "'".date('Y-m-d', strtotime($result['effectivity_date']))."'";                
+             
                 echo '
                 <tr>
                 <td>' . $result['emp_code']. '</td>
-                <td>' . $result['deduction_name']. '</td>
-                <td>' . $result['period_cutoff']. '</td>
-                <td>' . substr(hash('sha256', $result['amount']),50). '</td>
-                <td>' . date('m/d/Y', strtotime($result['effectivity_date'])) . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editDedModal(' . $empcd. ',' . $dedname. ',' . $periodcutoff. ',' . $amnt. ',' . $effectivitydate. ')">
+                <td id="dn'.$result['emp_code'].'">' . $result['deduction_name']. '</td>
+                <td id="dnr'.$result['emp_code'].'" hidden>' . $result['rowid']. '</td>
+                <td id="pc'.$result['emp_code'].'">' . $result['period_cutoff']. '</td>
+                <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
+                <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
+                <td id="ed'.$result['emp_code'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>';
+                echo'<td><button type="button" class="actv" onclick="editDedModal('. $empcd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

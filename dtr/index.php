@@ -30,6 +30,7 @@ else
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>ALL EMPLOYEE DAILY TIME RECORD VIEWING</h1>

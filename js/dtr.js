@@ -20,6 +20,7 @@ $(function(){
 
     $("#search").click(function(e){
 
+         e.preventDefault();
         document.getElementById("myDiv").style.display="block";
 
         if($('#dateTo').val()== '' ){

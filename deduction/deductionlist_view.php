@@ -158,7 +158,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="deductionid">Deduction Name<span class="req">*</span>
                                         </label>
-                                        <?php $dd->GenerateDropDown("deductionid", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("deductionid", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -215,26 +215,15 @@
         return true;
     }
 
-      function editDedModal(empcd,dedname,periodcutoff,amnt,effectivitydate){
+      function editDedModal(empcd){
 
    
         $('#updateDed').modal('toggle');
-
-        var hidful = document.getElementById('empcode');
-        hidful.value =  empcd;   
-
-        var bnkt = document.getElementById('deductionid');
-        bnkt.value =  dedname;  
-
-        var bno = document.getElementById('periodcutoff');
-        bno.value =  periodcutoff;  
-
-        var at = document.getElementById('amnt');
-        at.value =  amnt;  
-
-        var ss = document.getElementById('effectivitydate');
-        ss.value =  effectivitydate;                                  
-
+        document.getElementById('empcode').value =  empcd;   
+        document.getElementById('deductionid').value =  document.getElementById('dnr'+empcd).innerHTML;  
+        document.getElementById('periodcutoff').value =  document.getElementById('pc'+empcd).innerHTML;   
+        document.getElementById('amnt').value =  document.getElementById('am'+empcd).innerHTML;  
+        document.getElementById('effectivitydate').value =  document.getElementById('ed'+empcd).innerHTML;                                            
 
     }
 
@@ -242,16 +231,16 @@
      function updateDed()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../deduction/updatededuction_process.php";
         var emp_code = document.getElementById("empcode").value;
-        var deductionid = $('#deductionid').children("option:selected").val();
-        var deduction_id = deductionid.split(" - ");
+        var deduction_id = document.getElementById("deductionid").value;
+        var e = document.getElementById("deductionid");
+        var deductionid = e.options[e.selectedIndex].text;
         var period_cutoff = document.getElementById("periodcutoff").value;
         var amount = document.getElementById("amnt").value;
+        var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         var effectivity_date = document.getElementById("effectivitydate").value; 
 
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -267,17 +256,29 @@
                                     {
                                         action: 1,
                                         emp_code: emp_code ,
-                                        deduction_id: deduction_id[0],
+                                        deduction_id: deduction_id,
                                         period_cutoff: period_cutoff,
                                         amount: amount ,               
                                         effectivity_date: effectivity_date 
                                         
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) {                                         
+                                        swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the employee deduction details!", 
+                                            icon: "success",
+                                        }).then(function() {
+                                            $('#updateDed').modal('hide');
+                                            document.getElementById('dn'+emp_code).innerHTML = deductionid;
+                                            document.getElementById('dnr'+emp_code).innerHTML = deduction_id;
+                                            document.getElementById('pc'+emp_code).innerHTML = period_cutoff;
+                                            document.getElementById('am'+emp_code).innerHTML = amount;
+                                            document.getElementById('amtn'+emp_code).innerHTML = amtn;
+                                            document.getElementById('ed'+emp_code).innerHTML = effectivity_date;
+                                        }); 
+                                    }
                                 );
 
-                                swal({text:"Successfully update the employee deduction details!",icon:"success"});
-                                location.reload();
                           } else {
                             swal({text:"You cancel the updating of employee deduction details!",icon:"error"});
                           }

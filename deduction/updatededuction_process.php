@@ -15,8 +15,5 @@
     {
         UpdateDeduction($emp_code,$deduction_id,$period_cutoff,$amount,$effectivity_date);
     }
-    else {
-
-    }
 
 ?>

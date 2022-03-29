@@ -45,6 +45,10 @@ if (!empty($_POST['loginSubmit']))
     {
 
         $_SESSION['msg_blocked'] = 'YOUR ACCOUNT IS BLOCKED! PLEASE CONTACT YOUR ADMINISTRATOR!';
+
+                $ins = $connL->prepare(@"UPDATE dbo.mf_user SET locked_acnt = 1 where userid = :id");
+                $ins->bindParam(":id", $userid, PDO::PARAM_STR);
+                $ins->execute();
     }
     else
     {
@@ -89,6 +93,7 @@ if (!empty($_POST['loginSubmit']))
                 $ins->bindParam(":act", $action_f, PDO::PARAM_STR);
                 $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
                 $ins->execute();
+
                 
                $_SESSION['msg_error'] = 'Wrong Username/Password';
                 session_destroy();

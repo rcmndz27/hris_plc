@@ -41,7 +41,7 @@ Class UsersList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from mf_user";
+        $query = "SELECT * from dbo.mf_user";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -64,13 +64,21 @@ Class UsersList{
                 <td id="usr'.$result['userid'].'">' . $result['usertype']. '</td>
                 <td>' . $result['useremail']. '</td>
                 <td id="st'.$result['userid'].'">' . $result['status']. '</td>';
-                echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.','. $usrtyp.','. $usrmail.','. $stts.')" title="Update User/Change Password">
+
+                if( $result['locked_acnt'] == 1){
+                echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.')" title="Update User/Change Password">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="deleteLogsModal('. $empcd.')" title="Unblocked User">
+                            <button id="ub'.$result['userid'].'" type="button" class="hdeactv" onclick="deleteLogsModal('. $empcd.')" title="Unblocked User">
                                 <i class="fas fa-lock-open"></i>
                             </button>
                             </td>';
+                } else{
+                    echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.')" title="Update User/Change Password">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            </td>';
+                }
                 
                 
             } while ($result = $stmt->fetch());
