@@ -42,7 +42,7 @@ $(function(){
             param = JSON.stringify(param);
 
             console.log(param);
-            return false;
+            // return false;
 
                      swal({
                           title: "Are you sure you want to add this employee allowance details?",
