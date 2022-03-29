@@ -29,6 +29,7 @@ Class DeductionList{
         <thead>
             <tr>
                 <th>Employee Code</th>
+                <th>Employee Name</th>
                 <th>Deduction Name</th>
                 <th>Period Cutoff</th>
                 <th>Deduction Amount</th>
@@ -38,7 +39,7 @@ Class DeductionList{
         </thead>
         <tbody>';
 
-        $query = "SELECT a.deduction_emp_id,a.emp_code,b.deduction_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date from dbo.employee_deduction_management a left join dbo.mf_deductions b on a.deduction_id = b.rowid ORDER by a.deduction_emp_id DESC ";
+        $query = "SELECT a.deduction_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.deduction_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date from dbo.employee_deduction_management a left join dbo.mf_deductions b on a.deduction_id = b.rowid left join employee_profile c  on a.emp_code = c.emp_code ORDER by a.deduction_emp_id DESC ";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -51,6 +52,7 @@ Class DeductionList{
                 echo '
                 <tr>
                 <td>' . $result['emp_code']. '</td>
+                <td>' . $result['fullname']. '</td>
                 <td id="dn'.$result['emp_code'].'">' . $result['deduction_name']. '</td>
                 <td id="dnr'.$result['emp_code'].'" hidden>' . $result['rowid']. '</td>
                 <td id="pc'.$result['emp_code'].'">' . $result['period_cutoff']. '</td>
