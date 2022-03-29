@@ -41,7 +41,7 @@ $(function(){
     
             param = JSON.stringify(param);
 
-            console.log(param);
+            // console.log(param);
             // return false;
 
                      swal({
@@ -60,13 +60,13 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
-                                            // swal({
-                                            //     title: "Wow!", 
-                                            //     text: "Successfully added the employee allowances details!", 
-                                            //     icon: "success",
-                                            // }).then(function() {
-                                            //     window.location.reload();
-                                            // });
+                                            swal({
+                                                title: "Wow!", 
+                                                text: "Successfully added the employee allowances details!", 
+                                                icon: "success",
+                                            }).then(function() {
+                                                location.href = '../allowances/allowanceslist_view.php';
+                                            });
                                         },
                                         error: function (result) {
                                             console.log('error: ' + result);

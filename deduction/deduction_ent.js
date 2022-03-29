@@ -72,7 +72,7 @@ $(function(){
                                                 text: "Successfully added the employee deduction details!", 
                                                 icon: "success",
                                             }).then(function() {
-                                                window.location.reload();
+                                                location.href = '../deduction/deductionlist_view.php';
                                             });
                                         },
                                         error: function (result) {
