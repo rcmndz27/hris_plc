@@ -29,7 +29,6 @@ Class MfcompanyList{
         <table id="allMfcompanyList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Company ID</th>
                 <th>Company Code</th>
                 <th>Company Name</th>
                 <th>Status</th>
@@ -48,16 +47,13 @@ Class MfcompanyList{
             do { 
                 $rowd = "'".$result['rowid']."'";
                 $cde = "'".$result['code']."'";
-                $des = "'".$result['descs']."'";
-                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $result['code']. '</td>
-                <td>' . $result['descs']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="cc'.$result['rowid'].'">' . $result['code']. '</td>
+                <td id="cn'.$result['rowid'].'">' . $result['descs']. '</td>
+                <td id="st'.$result['rowid'].'">' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfcompanyModal('.$rowd.','.$cde.','.$des.','.$stts.')">
+                onclick="editMfcompanyModal('.$rowd.','.$cde.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

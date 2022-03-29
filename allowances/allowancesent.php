@@ -2,7 +2,7 @@
 
 Class AllowancesEnt{
 
-public function InseryAllowancesEnt($emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount)
+public function InsertAllowancesEnt($emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount)
     {
         global $connL;
 

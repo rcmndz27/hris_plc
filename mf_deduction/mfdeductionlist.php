@@ -29,7 +29,6 @@ Class MfdeductionList{
         <table id="allMfdeductionList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Deduction ID</th>
                 <th>Deduction Code</th>
                 <th>Deduction Name</th>
                 <th>Status</th>
@@ -48,16 +47,13 @@ Class MfdeductionList{
             do { 
                 $rowd = "'".$result['rowid']."'";
                 $deductioncode = "'".$result['deduction_code']."'";
-                $deductionname = "'".$result['deduction_name']."'";
-                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $result['deduction_code']. '</td>
-                <td>' . $result['deduction_name']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="dc'.$result['rowid'].'">' . $result['deduction_code']. '</td>
+                <td id="dn'.$result['rowid'].'">' . $result['deduction_name']. '</td>
+                <td id="st'.$result['rowid'].'">' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfdeductionModal('.$rowd.','.$deductioncode.','.$deductionname.','.$stts.')">
+                onclick="editMfdeductionModal('.$rowd.','.$deductioncode.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

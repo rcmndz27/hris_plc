@@ -238,40 +238,25 @@ for (i = 0; i < tr.length; i++) {
 
 
 
-    function editMfallowancesModal(id,desc,name,stts){
+    function editMfallowancesModal(id,desc){
           
         $('#updateMfalw').modal('toggle');
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('benefitcode');
-        bnkt.value =  desc;  
-
-        var bno = document.getElementById('benefitname');
-        bno.value =  name;  
-
-        var sts = document.getElementById('stts');
-        sts.value =  stts;    
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;                  
-                                 
-
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('benefitcode').value =  document.getElementById('ac'+id).innerHTML;   
+        document.getElementById('benefitname').value =  document.getElementById('an'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                          
+                            
     }
 
 
      function updateMfalw()
     {
-
-        $("body").css("cursor", "progress");
         var url = "../mf_allowances/updatemfallowances_process.php";
         var rowid = document.getElementById("rowd").value;
-        var benefit_code = document.getElementById("benefitcode").value;
+        var benefit_code = document.getElementById("benefitcode").value.toUpperCase();
         var benefit_name = document.getElementById("benefitname").value;  
         var status = document.getElementById("stts").value;             
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -299,7 +284,10 @@ for (i = 0; i < tr.length; i++) {
                                             type: "success",
                                             icon: "success",
                                         }).then(function() {
-                                            location.href = '../mf_allowances/mfallowanceslist_view.php';
+                                            $('#updateMfalw').modal('hide');
+                                             document.getElementById('ac'+rowid).innerHTML = benefit_code;
+                                             document.getElementById('an'+rowid).innerHTML = benefit_name;
+                                             document.getElementById('st'+rowid).innerHTML = status;
                                         }); 
                                 }
                                 );

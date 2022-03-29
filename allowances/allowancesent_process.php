@@ -8,7 +8,7 @@ $benEnt = new AllowancesEnt();
 
 $benent = json_decode($_POST["data"]);
 
-if($benent->{"Action"} == "InseryAllowancesEnt")
+if($benent->{"Action"} == "InsertAllowancesEnt")
 {
 
     $emp_code = $benent->{"emp_code"};
@@ -18,7 +18,7 @@ if($benent->{"Action"} == "InseryAllowancesEnt")
     $amount = $benent->{"amount"};
 
 
-    $benEnt->InseryAllowancesEnt($emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount);
+    $benEnt->InsertAllowancesEnt($emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount);
 
 }else{
 

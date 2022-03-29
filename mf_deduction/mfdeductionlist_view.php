@@ -234,41 +234,25 @@ for (i = 0; i < tr.length; i++) {
  }
 }
 
-    function editMfdeductionModal(id,desc,name,stts){
+    function editMfdeductionModal(id,desc){
           
         $('#updateMfded').modal('toggle');
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('deductioncode');
-        bnkt.value =  desc;  
-
-        var bno = document.getElementById('deductionname');
-        bno.value =  name;  
-
-        var sts = document.getElementById('stts');
-        sts.value =  stts;  
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;                                              
-
-                                 
-
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('deductioncode').value =  document.getElementById('dc'+id).innerHTML;   
+        document.getElementById('deductionname').value =  document.getElementById('dn'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                                                                              
     }
 
 
      function updateMfded()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_deduction/updatemfdeduction_process.php";
         var rowid = document.getElementById("rowd").value;
-        var deduction_code = document.getElementById("deductioncode").value;
+        var deduction_code = document.getElementById("deductioncode").value.toUpperCase();
         var deduction_name = document.getElementById("deductionname").value;     
         var status = document.getElementById("stts").value;  
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -296,7 +280,10 @@ for (i = 0; i < tr.length; i++) {
                                             type: "success",
                                             icon: "success",
                                             }).then(function() {
-                                                location.href = '../mf_deduction/mfdeductionlist_view.php';
+                                            $('#updateMfded').modal('hide');
+                                             document.getElementById('dc'+rowid).innerHTML = deduction_code;
+                                             document.getElementById('dn'+rowid).innerHTML = deduction_name;
+                                             document.getElementById('st'+rowid).innerHTML = status;
                                             });  
                                         }
                                 );

@@ -84,13 +84,13 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="benefit_id">Allowance Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("benefit_id", $mf->GetAllEmployeeAllowances("benlist")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("benefit_id", $mf->GetAllEmployeeAllowances("benlist")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -410,7 +410,7 @@ function getPagination(table) {
       }); // end of on click pagination list
       limitPagging();
     })
-    .val(5)
+    .val(10)
     .change();
 
   // end of on select change

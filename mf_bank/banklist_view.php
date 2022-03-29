@@ -257,7 +257,7 @@ for (i = 0; i < tr.length; i++) {
 
         var url = "../mf_bank/updatebank_process.php";
         var rowid = document.getElementById("rowd").value;
-        var descsb = document.getElementById("dscsb").value;
+        var descsb = document.getElementById("dscsb").value.toUpperCase();
         var descsb_name = document.getElementById("descsbname").value;
         var status = document.getElementById("stts").value;     
 

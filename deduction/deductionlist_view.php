@@ -82,14 +82,14 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="deduction_id">Deduction Name<span class="req">*</span>
                                         </label>
-                                        <?php $dd->GenerateDropDown("deduction_id", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("deduction_id", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">

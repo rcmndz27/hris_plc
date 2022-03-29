@@ -238,25 +238,14 @@ for (i = 0; i < tr.length; i++) {
     }
  }
 }
-    function editMfcompanyModal(id,desc,name,stts){
-
+    function editMfcompanyModal(id,desc){
       
         $('#updateMfcmp').modal('toggle');
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('cde');
-        bnkt.value =  desc;  
-
-        var bno = document.getElementById('dscs');
-        bno.value =  name;  
-
-        var sts = document.getElementById('stts');
-        sts.value =  stts;   
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;                                              
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('cde').value =  document.getElementById('cc'+id).innerHTML;   
+        document.getElementById('dscs').value =  document.getElementById('cn'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                                         
 
     }
 
@@ -264,14 +253,11 @@ for (i = 0; i < tr.length; i++) {
      function updateMfcmp()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_company/updatemfcompany_process.php";
         var rowid = document.getElementById("rowd").value;
-        var code = document.getElementById("cde").value;
+        var code = document.getElementById("cde").value.toUpperCase();
         var descs = document.getElementById("dscs").value;
-        var status = document.getElementById("stts").value;       
-
-        $('#contents').html('');
+        var status = document.getElementById("stts").value;
 
                         swal({
                           title: "Are you sure?",
@@ -299,7 +285,10 @@ for (i = 0; i < tr.length; i++) {
                                             type: "success",
                                             icon: "success",
                                         }).then(function() {
-                                            location.href = '../mf_company/mfcompanylist_view.php';
+                                            $('#updateMfcmp').modal('hide');
+                                             document.getElementById('cc'+rowid).innerHTML = code;
+                                             document.getElementById('cn'+rowid).innerHTML = descs;
+                                             document.getElementById('st'+rowid).innerHTML = status;
                                         });                                         
                                     }
                                 );
