@@ -60,13 +60,13 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
-                                            swal({
-                                                title: "Wow!", 
-                                                text: "Successfully added the employee allowances details!", 
-                                                icon: "success",
-                                            }).then(function() {
-                                                window.location.reload();
-                                            });
+                                            // swal({
+                                            //     title: "Wow!", 
+                                            //     text: "Successfully added the employee allowances details!", 
+                                            //     icon: "success",
+                                            // }).then(function() {
+                                            //     window.location.reload();
+                                            // });
                                         },
                                         error: function (result) {
                                             console.log('error: ' + result);
