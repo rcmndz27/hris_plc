@@ -200,13 +200,47 @@
                 
             } while ($resultd = $stmtd->fetch());
         }
+
+
+
+               
+
+        $sqldepartments = $connL->prepare("SELECT rowid,descs,code FROM dbo.mf_dept where status = 'Active' ORDER by rowid ASC");
+        $sqldepartments->execute();
+        $departments = [];
+        while ($r = $sqldepartments->fetch(PDO::FETCH_ASSOC))
+        {
+           array_push($departments, $r);
+        }
+    
         ?>
 
 
 <script>
 
-                var totalVal3 = <?php echo json_encode($totalVal2) ;?>;
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("allMfpositionList");
+  tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td");
+    if(td.length > 0){ // to avoid th
+       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
 
+    }
+ }
+}
+
+                var totalVal3 = <?php echo json_encode($totalVal2) ;?>;
+                var depart = <?php echo json_encode($departments) ;?>;
+                console.log(depart);
                 $('#position').change(function(){
                 var totalVal = <?php echo json_encode($totalVal) ;?>;
                 var cd = $('#position').val();
@@ -239,54 +273,23 @@
             });
 
 
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("allMfpositionList");
-  tr = table.getElementsByTagName("tr");
-for (i = 0; i < tr.length; i++) {
-   td = tr[i].getElementsByTagName("td");
-    if(td.length > 0){ // to avoid th
-       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
-         tr[i].style.display = "";
-       } else {
-         tr[i].style.display = "none";
-       }
-
-    }
- }
-}
 
 
-
-    function editMfpositionModal(id,desc,stts){
+    function editMfpositionModal(id,desc){
 
           
         $('#updateMfpos').modal('toggle');
-
         $("#depment").val([]);
-
         $.each(totalVal3, function(i){
-            if(totalVal3[i]['1'] == id)
+            if(totalVal3[i]['job_id'] == id)
             {
-                $("#depment option[value='" +totalVal3[i]['dept_id']  + "']").prop("selected", true);
+                $("#depment option[value='" +totalVal3[i]['dept_id']+ "']").prop("selected", true);
             }
-        });
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;         
-
-        var bnkt = document.getElementById('pstn');
-        bnkt.value =  desc;  
-
-        var sts = document.getElementById('stts');
-        sts.value =  stts;               
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;     
-                                 
+        });                          
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('pstn').value =  document.getElementById('pst'+id).innerHTML;   
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                                   
 
     }
 
@@ -294,18 +297,12 @@ for (i = 0; i < tr.length; i++) {
      function updateMfpos()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_position/updatemfposition_process.php";
         var rowid = document.getElementById("rowd").value;
         var position = document.getElementById("pstn").value; 
         var status = document.getElementById("stts").value; 
         var empCode = document.getElementById("empCode").value; 
         var department =  $('#depment').val();
-
-        // alert(department);
-        // exit();
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -333,8 +330,37 @@ for (i = 0; i < tr.length; i++) {
                                             type: "success",
                                             icon: "success",
                                             }).then(function(e) {
+                                                totalVal3 = totalVal3.filter(jobId => jobId.job_id != rowid);  
+                                                    $.each(department, function(i){
+                                                            var da = {};
+                                                            da.job_id = rowid;
+                                                            da.dept_id = department[i];
+                                                            totalVal3.push(da);
+                                                      });  
+                                                    var dep = ""; 
+                                                    var countDep = department.length;
+                                                    var cDept = 0;
+                                                    $.each(depart, function(i){
 
-                                                location.href = '../mf_position/mfpositionlist_view.php';
+                                                       var dddd = department.includes(depart[i].rowid);
+                                                       if(dddd == true)
+                                                       {
+                                                        cDept = cDept +1;
+                                                        if(countDep == cDept)
+                                                            {
+                                                                dep = dep + depart[i].code;
+                                                            }
+                                                            else
+                                                            {
+                                                                dep = dep + depart[i].code+',';
+                                                            }
+                                                        }
+                                                      });  
+                                                    
+                                                $('#updateMfpos').modal('hide');
+                                                    document.getElementById('pst'+rowid).innerHTML = position;
+                                                    document.getElementById('dptv'+rowid).innerHTML = dep; 
+                                                    document.getElementById('st'+rowid).innerHTML = status;
                                             });
                                     }
                                 );

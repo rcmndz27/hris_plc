@@ -375,7 +375,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"], $r["rowid"]." - ".$r["position"]));
+                       array_push( $data, array($r["rowid"],$r["position"]));
                     }
                 }
 
@@ -509,14 +509,14 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT rowid,descs FROM dbo.mf_dept where status = 'Active' ORDER by rowid ASC");
+                $sql = $connL->prepare(@"SELECT rowid,descs,code FROM dbo.mf_dept where status = 'Active' ORDER by rowid ASC");
                 $sql->execute();
 
                 if ($type == "depwid")
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"], $r["rowid"]." - ".$r["descs"]));
+                       array_push( $data, array($r["rowid"],$r["code"].' - '.$r["descs"]));
                     }
                 }
 

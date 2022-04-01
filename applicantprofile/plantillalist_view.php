@@ -99,15 +99,9 @@
                                         <?php $dd->GenerateDropDown("reporting_to", $mf->GetJobPosition("jobpos")); ?> 
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
-                                </div> 
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="status">Status</label>
-                                        <input type="text" class="form-control inputtext" name="status"
-                                            id="status" placeholder="status" value="Open" readonly>    
-                                    </div>
-                                </div>                                                                   
+                                <input type="text" class="form-control inputtext" name="status"
+                                            id="status" placeholder="status" value="Open" hidden>    
+                                                                 
                             </div>  
                         </fieldset>
                             <div class="modal-footer">
@@ -128,54 +122,54 @@
 
 <script>
 
-    function activatePlant(data)
-    {       
-     
-        $("body").css("cursor", "progress");
-        var url = "../applicantprofile/activate_plaent_process.php";
-        var status = 'Active';
-        var rowid = data;
+function activatePlant(data)
+{       
 
-        $('#contents').html('');
+var url = "../applicantprofile/activate_plaent_process.php";
+var status = 'Active';
+var rowid = data;
 
+        swal({
+          title: "Are you sure?",
+          text: "You want to activate this plantilla?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+        })
+    .then((actPlaent) => {
+      if (actPlaent) {
+            $.post (
+                url,
+                {
+                    action: 1,
+                    status: status ,
+                    rowid: rowid                
+                },
+                function(data) { 
+                    swal({
+                    title: "Wow!", 
+                    text: "Successfully activated the plantilla details!", 
+                    type: "success",
+                    icon: "success",
+                    }).then(function(e) {
+                        document.getElementById('st'+rowid).innerHTML = 'Active';
+                        document.getElementById('act'+rowid).innerHTML = '<button type="button" class="deactv" onclick="deactivatePlant('+rowid+')"><i class="fas fa-times-circle"></i> DE-ACTIVATE</button>';
+                    }); 
+                    }   
+                );
+      } else {
+        swal({text:"You cancel the activating of plantilla!",icon:"error"});
+      }
+    });
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to activate this plantilla?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((actPlaent) => {
-                          if (actPlaent) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        status: status ,
-                                        rowid: rowid                
-                                    },
-                                    function(data) { $("#contents").html(data).show(); }
-                                );
-                            swal({text:"Successfully activated the plantilla!",icon:"success"});
-                            location.reload();
-                          } else {
-                            swal({text:"You cancel the activating of plantilla!",icon:"error"});
-                          }
-                        });
-
-
-    }
+}
 
     function deactivatePlant(data)
     {
  
-        $("body").css("cursor", "progress");
         var url = "../applicantprofile/activate_plaent_process.php";
         var status = 'De-Activated';
         var rowid = data;
-
-        $('#contents').html('');
 
 
                         swal({
@@ -194,10 +188,19 @@
                                         status: status ,
                                         rowid: rowid                
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                        swal({
+                                        title: "Wow!", 
+                                        text: "Successfully de-activated the plantilla!s!", 
+                                        type: "success",
+                                        icon: "success",
+                                        }).then(function(e) {
+                                            document.getElementById('st'+rowid).innerHTML = 'De-Activated';
+                                            document.getElementById('act'+rowid).innerHTML = '<button type="button" class="actv" onclick="activatePlant('+rowid+')"><i class="fas fa-check-circle"></i>ACTIVATE</button>';
+                                        });
+
+                                     }
                                 );
-                            swal({text:"Successfully de-activated the plantilla!",icon:"success"});
-                            location.reload();
                           } else {
                             swal({text:"You cancel the de-activateing of plantilla!",icon:"error"});
                           }

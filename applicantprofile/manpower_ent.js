@@ -52,8 +52,14 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
-                                            console.log('success: ' + result);
-                                            location.reload();
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully added manpower details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function(e) {
+                                                        location.href = '../applicantprofile/manpowerlist_view.php';
+                                                    });                                     
                                         },
                                         error: function (result) {
                                             // console.log('error: ' + result);

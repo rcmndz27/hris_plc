@@ -53,15 +53,15 @@ Class PlantillaList{
                 <td>' . $result['department'] . '</td>
                 <td>' . $result['position'] . '</td>
                 <td>' . $result['reporting_to'] . '</td>
-                <td>' . $result['status'] . '</td>
+                <td id="st'.$result['rowid'].'">' . $result['status'] . '</td>
                 ';
 
                 if($result['status'] === 'Open' or $result['status'] === 'De-Activated'){
-                echo '<td><button type="button" class="actv" onclick="activatePlant('.$result['rowid'].')">
+                echo '<td id="act'.$result['rowid'].'"><button type="button" class="actv" onclick="activatePlant('.$result['rowid'].')">
                                 <i class="fas fa-check-circle"></i> ACTIVATE
                             </button></td>';
                 }else{
-                    echo '<td><button type="button" class="deactv" onclick="deactivatePlant('.$result['rowid'].');">
+                    echo '<td id="act'.$result['rowid'].'"><button type="button" class="deactv" onclick="deactivatePlant('.$result['rowid'].');">
                                <i class="fas fa-times-circle"></i> DE-ACTIVATE
                             </button></td>';
                 }

@@ -27,7 +27,6 @@ Class MfpositionList{
         <table id="allMfpositionList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Job Position ID</th>
                 <th>Job Position Name</th>
                 <th>Department</th>
                 <th>Status</th>
@@ -46,8 +45,6 @@ Class MfpositionList{
             do { 
                 $rowd = "'".$result['rowid']."'";
                 $pstn = "'".$result['position']."'";
-                $stts = "'".$result['status']."'";
-
                 $queryd = "SELECT c.code,a.job_id,b.rowid,a.dept_id from mf_jobdept a 
                 left join mf_position b on a.job_id = b.rowid
                 left join mf_dept c on a.dept_id = c.rowid
@@ -56,27 +53,35 @@ Class MfpositionList{
                 $stmtd->execute();
                 $resultd = $stmtd->fetch();
                 $data = array();
+                $data2 = array();
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $result['position']. '</td><td>';
+                <td id="pst'.$result['rowid'].'">' . $result['position']. '</td>
+                <td id="dptv'.$result['rowid'].'">';
                 if($resultd){
-                do { 
-                    array_push($data,$resultd['code']);
-                    $cdde = $resultd['code'];
-                 
-                    
-                }
-                while ($resultd = $stmtd->fetch());
+                    do { 
+                        array_push($data,$resultd['code']);
+                        $cdde = $resultd['code'];   
 
-                        $codess = implode(",", $data);
-                        echo $codess;
-
-                }
+                        array_push($data2,$resultd['dept_id']);
+                        $depid = $resultd['dept_id'];                             
+                    }
+                    while ($resultd = $stmtd->fetch());
+                            $codess = implode(",", $data);
+                            $depidss = implode(",", $data2);
+                            $depidtt = "'".$depidss."'";
+                            echo $codess;
+                    }
                 echo'
-                </td><td>' . $result['status']. '</td>';
+                </td>
+                <td id="dpt'.$result['rowid'].'" hidden>';
+                            echo $depidss;
+
+                echo'
+                </td>                
+                <td id="st'.$result['rowid'].'">'.$result['status'].'</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfpositionModal('.$rowd.','.$pstn.','.$stts.')">
+                onclick="editMfpositionModal('.$rowd.','.$pstn.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

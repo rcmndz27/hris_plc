@@ -319,13 +319,13 @@
                                     <div class="form-group">
                                         <label class="control-label" for="Relevant">Relevant</label>
                                         <input type="text" class="form-control inputtext"
-                                        onkeypress="return onlyNumberKey(event)" placeholder="0000" maxlength="4" id="relevant" name="relevant">
+                                        onkeypress="return onlyNumberKey(event)" placeholder="0000" maxlength="4" id="relevant" name="relevant" required>
                                     </div>
                                 </div> 
                                 <div class="col-lg-5">
                                     <div class="form-group">
                                         <label class="control-label" for="notRelevant">Not Relevant</label>
-                                        <input type="text" class="form-control inputtext" onkeypress="return onlyNumberKey(event)" placeholder="0000" maxlength="4" id="not_relevant" name="not_relevant">
+                                        <input type="text" class="form-control inputtext" onkeypress="return onlyNumberKey(event)" placeholder="0000" maxlength="4" id="not_relevant" name="not_relevant" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-1">
@@ -347,7 +347,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="Verifiedby">Action Taken</label>
+                                        <label class="control-label" for="action_taken">Action Taken</label>
                                         <select type="select" class="form-select" id="action_taken" name="action_taken" >
                                             <option value="Dead File">Dead File</option>
                                             <option value="Keep">Keep</option>
@@ -375,7 +375,7 @@
                                         <div class="form-group">
                                             <label class="control-label" for="referral_date">Referral Date</label>
                                             <div id="ref_date">
-                                                <input type="date" class="form-control inputtext" id="referral_date" name="referral_date" >
+                                                <input type="date" class="form-control inputtext" id="referral_date" name="referral_date"  value="<?php echo $today; ?>">
                                             </div>
                                             <div id="ref_date_dis">
                                                 <input type="date" class="form-control inputtext" id="referral_date" name="referral_date" readonly>
@@ -419,12 +419,13 @@
                                         <input type="text" class="form-control" id="applicant_names" name="applicant_names" 
                                          readonly>
                                     </div>
-                                </div>                                 
-                                <div class="col-lg-12">
+                                </div>  
+                        <input type="text" class="form-control inputtext" id="rowid" name="rowid" hidden>
+                        <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="manpow">Manpower Request</label>
                                            <div id="ref_to">
-                                                <?php $dd->GenerateDropDown("manpow", $mf->GetAllManpowerList("manpow")); ?>
+                                                <?php $dd->GenerateSingleDropDown("manpow", $mf->GetAllManpowerList("manpow")); ?>
                                             </div>
                                     </div>
                                 </div>                                                         
@@ -460,86 +461,98 @@
     function verifyEntryModal(verid,name){
 
         $('#verifyModal').modal('toggle');
-        var hidful = document.getElementById('applicant_name');
-        hidful.value = name;
-
-        var idrow = document.getElementById('rowid');
-        idrow.value = verid;
+        document.getElementById('applicant_name').value = name;
+        document.getElementById('rowid').value = verid;
 
     }
 
     function updateEntryModal(verid,name){
 
         $('#updateModal').modal('toggle');
-        var hidful = document.getElementById('applicant_names');
-        hidful.value = name;
-
-        var updrow = document.getElementById('uprowid');
-        updrow.value = verid;        
+        document.getElementById('applicant_names').value = name;
+        document.getElementById('uprowid').value = verid;        
 
     }
 
 
-     function verifyAppli()
-    {
+ function verifyAppli()
+{
 
-        $("body").css("cursor", "progress");
-        if($('#action_taken').val() === 'Referred'){
-            var appent_status = 1;
-        }else{
-            var appent_status = 0;
-        }
-        var url = "../applicantprofile/verify_appent_process.php";
-        var relevant = document.getElementById("relevant").value;
-        var not_relevant = document.getElementById("not_relevant").value;
-        var verified_by = document.getElementById("verified_by").value;
-        var verified_date = document.getElementById("verified_date").value;
-        var action_taken = document.getElementById("action_taken").value;
-        var referred_to = document.getElementById("referred_to").value;
-        var referral_date = document.getElementById("referral_date").value;        
-        var rowid = document.getElementById("rowid").value;
-
-        // swal(appent_status);
-        // exit();
-
-
-        $('#contents').html('');
-
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to verify this applicant?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((verifyApp) => {
-                          if (verifyApp) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        relevant: relevant ,
-                                        not_relevant: not_relevant ,
-                                        verified_by: verified_by ,
-                                        verified_date: verified_date ,
-                                        action_taken: action_taken ,               
-                                        referred_to: referred_to ,
-                                        referral_date: referral_date ,
-                                        appent_status: appent_status,
-                                        rowid: rowid 
-                                    },
-                                    function(data) { $("#contents").html(data).show(); }
-                                );
-
-                                swal({text:"Successfully verified the applicant!",icon:"success"});
-                                location.reload();
-                          } else {
-                            swal({text:"You cancel the verification of applicant!",icon:"error"});
-                          }
-                        });
-
-   
+    if($('#action_taken').val() === 'Referred'){
+        var appent_status = 1;
+        var status = 'Active';
+    }else{
+        var appent_status = 0;
+        var status = 'Inactive';
     }
+    var url = "../applicantprofile/verify_appent_process.php";
+    var relevant = document.getElementById("relevant").value;
+    var not_relevant = document.getElementById("not_relevant").value;
+    var verified_by = document.getElementById("verified_by").value;
+    var verified_date = document.getElementById("verified_date").value;
+    var action_taken = document.getElementById("action_taken").value;
+    var referred_to = document.getElementById("referred_to").value;
+    var referral_date = document.getElementById("referral_date").value;  
+    var rowid = document.getElementById("rowid").value;
+    var applicant_names = document.getElementById("applicant_name").value;    
+    var appname = "'"+applicant_names+"'";    
+
+    // console.log("'"+applicant_names+"'");     
+    // return false;
+
+    
+    if(relevant == '' || not_relevant == ''){
+              swal({text:"Kindly fill up the blank fields.",icon:"error"});
+    }else{
+                    swal({
+                      title: "Are you sure?",
+                      text: "You want to verify this applicant?",
+                      icon: "success",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((verifyApp) => {
+                      if (verifyApp) {
+                            $.post (
+                                url,
+                                {
+                                    action: 1,
+                                    relevant: relevant ,
+                                    not_relevant: not_relevant ,
+                                    verified_by: verified_by ,
+                                    verified_date: verified_date ,
+                                    action_taken: action_taken ,               
+                                    referred_to: referred_to ,
+                                    referral_date: referral_date ,
+                                    appent_status: appent_status,
+                                    rowid: rowid 
+                                },
+                    function(data) {
+                            swal({
+                            title: "Wow!", 
+                            text: "Successfully verified applicant details!", 
+                            type: "success",
+                            icon: "success",
+                            }).then(function(e) {
+                                $('#verifyModal').modal('hide');
+                                document.getElementById('st'+rowid).innerHTML = status;
+
+                            if(status == 'Active'){
+                                document.getElementById('upd'+rowid).innerHTML = '<button type="button" class="uptv" onclick="updateEntryModal('+rowid+','+appname+')"><i class="fas fa-edit"></i> UPDATE</button>';
+                            }else{
+                                document.getElementById('upd'+rowid).innerHTML = '<button type="button" class="actv" onclick="verifyEntryModal('+rowid+','+appname+')"><i class="fas fa-user-check"></i> VERIFY</button>'; 
+                            }
+                            });                                     
+
+                    }
+                            );
+                      } else {
+                        swal({text:"You cancel the verification of applicant!",icon:"error"});
+                      }
+            });
+     }                        
+
+}
     
 
 
@@ -547,15 +560,9 @@
     {
         
 
-        $("body").css("cursor", "progress");
         var url = "../applicantprofile/update_appent_process.php";
-        var manpow = $('#manpow').children("option:selected").val();
-        var man_pow = manpow.split(" - ");
-        var uprowid = document.getElementById("uprowid").value;   
-
-
-        $('#contents').html('');
-
+        var man_pow = document.getElementById("manpow").value;   
+        var uprowid = document.getElementById("uprowid").value; 
 
                         swal({
                           title: "Are you sure?",
@@ -570,19 +577,29 @@
                                     url,
                                     {
                                         action: 1,
-                                        man_pow: man_pow[0],
+                                        man_pow: man_pow,
                                         rowid: uprowid
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
+                                    function(data) { 
+                                        swal({
+                                        title: "Wow!", 
+                                        text: "Successfully verified applicant details!", 
+                                        type: "success",
+                                        icon: "success",
+                                        }).then(function(e) {
+                                            $('#updateModal').modal('hide');
+                                            document.getElementById('st'+uprowid).innerHTML = 'Active';
+                                            document.getElementById('upd'+uprowid).innerHTML = 'HIRED';
+                                        }); 
+                                }
                                 );
-                            swal({text:"Successfully updated the applicant!",icon:"success"});
-                            location.reload();
                           } else {
                             swal({text:"You cancel the updating of applicant!",icon:"error"});
                           }
                         });
 
     }
+
 
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

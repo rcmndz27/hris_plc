@@ -92,7 +92,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="position">Position<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("position", $mf->GetJobPlantilla("jobpla")); ?> 
+                                        <?php $dd->GenerateSingleDropDown("position", $mf->GetJobPlantilla("jobpla")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">

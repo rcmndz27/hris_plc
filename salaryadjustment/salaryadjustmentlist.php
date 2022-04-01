@@ -64,7 +64,7 @@ Class SalaryAdjList{
                 <td>' . date('m/d/Y', strtotime($result['period_from'])) . '</td>
                 <td>' . date('m/d/Y', strtotime($result['period_to'])) . '</td>
                 <td>' . $result['description']. '</td>
-                <td>' . substr(hash('sha256', $result['amount']),50). '</td>                
+                <td>' . $result['amount'].'</td>                
                 <td>' . $result['remarks']. '</td>';
                 echo'<td><button type="button" class="actv" onclick="editSalAdjModal('.$empcd.','.$percutoff.','.$descript.','.$amnt.','.$remark.','.$incdecr.')">
                                 <i class="fas fa-edit"></i> UPDATE
@@ -77,7 +77,7 @@ Class SalaryAdjList{
             echo '</tr></tbody>';
 
         }else { 
-            echo '<tfoot><tr><td colspan="6" class="text-center">No Results Found</td></tr></tfoot>'; 
+            echo '<tfoot><tr><td colspan="7" class="text-center">No Results Found</td></tr></tfoot>'; 
         }
         echo '</table>
                 <div class="pagination-container">

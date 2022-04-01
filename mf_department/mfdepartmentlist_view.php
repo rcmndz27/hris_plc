@@ -235,24 +235,14 @@ function myFunction() {
   }
 }
 
-    function editMfdepartmentModal(id,desc,name,stts){
+    function editMfdepartmentModal(id,desc){
           
         $('#updateMfdep').modal('toggle');
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('cde');
-        bnkt.value =  desc;  
-
-        var bno = document.getElementById('dscs');
-        bno.value =  name;  
-                                 
-        var sts = document.getElementById('stts');
-        sts.value =  stts;   
-
-        var ghdsa = document.getElementById('dscsbup');
-        ghdsa.value =  desc;                                              
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('cde').value =  document.getElementById('dc'+id).innerHTML;   
+        document.getElementById('dscs').value =  document.getElementById('dn'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
+        document.getElementById('dscsbup').value =  desc;                                                
 
 
     }
@@ -261,14 +251,11 @@ function myFunction() {
      function updateMfdep()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_department/updatemfdepartment_process.php";
         var rowid = document.getElementById("rowd").value;
         var code = document.getElementById("cde").value;
         var descs = document.getElementById("dscs").value;
         var status = document.getElementById("stts").value;       
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -286,8 +273,7 @@ function myFunction() {
                                         rowid: rowid ,
                                         code: code ,
                                         descs: descs ,
-                                        status: status
-                                        
+                                        status: status                                        
                                     },
                                     function(data) { 
                                             swal({
@@ -296,7 +282,10 @@ function myFunction() {
                                             type: "success",
                                             icon: "success",
                                             }).then(function() {
-                                                location.href = '../mf_department/mfdepartmentlist_view.php';
+                                                $('#updateMfdep').modal('hide');
+                                                 document.getElementById('dc'+rowid).innerHTML = code;
+                                                 document.getElementById('dn'+rowid).innerHTML = descs;
+                                                 document.getElementById('st'+rowid).innerHTML = status;
                                             });  
                                     }
                                 );

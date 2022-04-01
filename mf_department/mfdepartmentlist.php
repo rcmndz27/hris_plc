@@ -28,7 +28,6 @@ Class MfdepartmentList{
         <table id="allMfdepartmentList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Department ID</th>
                 <th>Department Code</th>
                 <th>Department Name</th>
                 <th>Status</th>
@@ -47,16 +46,13 @@ Class MfdepartmentList{
             do { 
                 $rowd = "'".$result['rowid']."'";
                 $cde = "'".$result['code']."'";
-                $des = "'".$result['descs']."'";
-                $stts = "'".$result['status']."'";
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $result['code']. '</td>
-                <td>' . $result['descs']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="dc'.$result['rowid'].'">' . $result['code']. '</td>
+                <td id="dn'.$result['rowid'].'">' . $result['descs']. '</td>
+                <td id="st'.$result['rowid'].'">' . $result['status']. '</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfdepartmentModal('.$rowd.','.$cde.','.$des.','.$stts.')">
+                onclick="editMfdepartmentModal('.$rowd.','.$cde.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

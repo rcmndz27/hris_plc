@@ -141,7 +141,7 @@
                                 <div class="col-lg-5">
                                     <div class="form-group">
                                         <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
-                                        <input type="date" id="hodate" name="hdate" class="form-control">
+                                        <input type="date" id="hdate" name="hdate" class="form-control">
                                     </div>
                                 </div> 
                                 <div class="col-lg-7">
@@ -201,32 +201,20 @@ function myFunction() {
   }
 }
 
-    function editMfholidayModal(id,hdate,htype,hdescs,stts){
+    function editMfholidayModal(id){
           
-        $('#updateMfhol').modal('toggle');
-
-        var hidful = document.getElementById('rowd');
-        hidful.value =  id;   
-
-        var bnkt = document.getElementById('hdate');
-        bnkt.value =  hdate;  
-
-        var bno = document.getElementById('htype');
-        bno.value =  htype;
-
-        var dsch = document.getElementById('hdescs');
-        dsch.value =  hdescs;          
-                                 
-        var sts = document.getElementById('stts');
-        sts.value =  stts;                                      
-
+        $('#updateMfhol').modal('toggle'); 
+        document.getElementById('rowd').value =  id;   
+        document.getElementById('hdate').value =  document.getElementById('hd'+id).innerHTML;   
+        document.getElementById('htype').value =  document.getElementById('ht'+id).innerHTML;  
+        document.getElementById('hdescs').value =  document.getElementById('hn'+id).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
     }
 
 
     function updateMfhol()
     {
 
-        $("body").css("cursor", "progress");
         var url = "../mf_holiday/updatemfholiday_process.php";
         var rowid = document.getElementById("rowd").value;
         var holidaydate = document.getElementById("hdate").value;
@@ -234,7 +222,6 @@ function myFunction() {
         var holidaydescs = document.getElementById("hdescs").value;
         var status = document.getElementById("stts").value;       
 
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",
@@ -255,10 +242,20 @@ function myFunction() {
                                         holidaydescs: holidaydescs ,
                                         status: status                                       
                                     },
-                                    function(data) { $("#contents").html(data).show(); }
-                                );
-                                swal({text:"Successfully update the holiday details!",icon:"success"});
-                                location.reload();
+                                    function(data) { 
+                                            swal({
+                                            title: "Wow!", 
+                                            text: "Successfully updated the holiday details!", 
+                                            type: "success",
+                                            icon: "success",
+                                            }).then(function() {
+                                                $('#updateMfhol').modal('hide');
+                                                 document.getElementById('hd'+rowid).innerHTML = holidaydate;
+                                                 document.getElementById('ht'+rowid).innerHTML = holidaytype;
+                                                 document.getElementById('hn'+rowid).innerHTML = holidaydescs;
+                                                 document.getElementById('st'+rowid).innerHTML = status;
+                                            });  
+                                });
                           } else {
                             swal({text:"You cancel the updating of holiday details!",icon:"error"});
                           }

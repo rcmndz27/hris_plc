@@ -54,21 +54,21 @@ Class ApplicantList{
                 $fulln = ucwords($result['familyname']).",".ucwords($result['firstname'])." ".ucwords($result['middlename']);
                 echo '
                 <tr>
-                <td>' .  $fulln .'</td>
+                <td id="apl'.$result['rowid'].'">' .  $fulln .'</td>
                 <td>' . ucwords($result['howtoapply']) . '</td>
                 <td>' . ucwords($result['jobpos1']) . '</td>
                 <td>' . ucwords($result['jobpos2']) . '</td>
-                <td>' . ucwords($result['status']) . '</td>';
+                <td id="st'.$result['rowid'].'">' . ucwords($result['status']) . '</td>';
                 if($result['status'] == 'Inactive'){
-                echo '<td><button type="button" class="actv" onclick="verifyEntryModal('.$result['rowid'].','.$fullname.')">
+                echo '<td id="upd'.$result['rowid'].'"><button type="button" class="actv" onclick="verifyEntryModal('.$result['rowid'].','.$fullname.')">
                                 <i class="fas fa-user-check"></i> VERIFY
                             </button></td>';
                 }else if($result['status'] == 'Active'){
-                    echo '<td><button type="button" class="uptv" onclick="updateEntryModal('.$result['rowid'].','.$fullname.')">
+                    echo '<td id="upd'.$result['rowid'].'"><button type="button" class="uptv" onclick="updateEntryModal('.$result['rowid'].','.$fullname.')">
                                <i class="fas fa-edit"></i> UPDATE 
                             </button></td>';                  
                 }else{
-                    echo"<td><span>HIRED</span></td>";
+                    echo'<td id="upd'.$result['rowid'].'"><span>HIRED</span></td>';
                     
                 }
     

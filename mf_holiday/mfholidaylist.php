@@ -28,7 +28,6 @@ Class MfholidayList{
         <table id="allMfholidayList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Holiday ID</th>
                 <th>Holiday Date</th>
                 <th>Holiday Type</th>
                 <th>Holiday Name</th>
@@ -46,22 +45,16 @@ Class MfholidayList{
 
         if($result){
             do { 
-                $hdate = "'".date('m-d-Y', strtotime($result['holidaydate']))."'";
-                $htype = "'".$result['holidaytype']."'";
-                $hdescs = "'".$result['holidaydescs']."'";
-                $stts = "'".$result['status']."'";
                 $rowd = "'".$result['rowid']."'";
-                $ddt = date('Y/m/d', strtotime($result['holidaydate']));
-                $newdate= date('d M, Y', strtotime($ddt));
+                $ddt = date('Y-m-d', strtotime($result['holidaydate']));
                 echo '
                 <tr>
-                <td>' . $result['rowid']. '</td>
-                <td>' . $newdate. '</td>
-                <td>' . $result['holidaytype']. '</td>
-                <td>' . $result['holidaydescs']. '</td>
-                <td>' . $result['status']. '</td>';
+                <td id="hd'.$result['rowid'].'">'.$ddt.'</td>
+                <td id="ht'.$result['rowid'].'">'.$result['holidaytype'].'</td>
+                <td id="hn'.$result['rowid'].'">'.$result['holidaydescs'].'</td>
+                <td id="st'.$result['rowid'].'">'.$result['status'].'</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfholidayModal('.$rowd.','.$hdate.','.$htype.','.$hdescs.','.$stts.')">
+                onclick="editMfholidayModal('.$rowd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 
