@@ -218,8 +218,14 @@ function chngPass(){
                                                 },
                                                 success: function (result) {
                                                     console.log('success: ' + result);
-                                                    swal({text:"You have succesfully changed your password!",icon:"success"});
-                                                    location.reload();
+                                                    swal({
+                                                    title: "Wow!", 
+                                                    text: "Successfully updated password!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.reload();
+                                                    }); 
                                                 },
                                                 error: function (result) {
                                                     console.log('error: ' + result);
@@ -230,7 +236,7 @@ function chngPass(){
                                   }
                                 });
                      }else{
-                    swal({text:"Password do not match!",icon:"error"});
+                      swal({text:"Password do not match!",icon:"error"});
                     }
     
     }

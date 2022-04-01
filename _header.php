@@ -208,6 +208,9 @@ else
                          echo'<li><a class="nav-link '.$admin.'" href="../pages/employee.php" onclick="show()"><i class="fas fa-home fa-fw" ></i> &nbsp;Home</a></li>';
                        } 
 
+                        // <li><a class='nav-link ".$payslip_view."' href='../payslip/payslip_view.php' onclick='show()'><i class='fas fa-money-bill-wave fa-fw'></i>
+                        // &nbsp;Payslip</a></li>
+
                       echo"<li><a class='nav-link ".$dtr_view."' href='../pages/dtr_view.php' onclick='show()'><i class='fas fa-calendar fa-fw'></i>&nbsp;MY Attendance</a></li>
 
                          <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>LEAVE/OT/WFH/OB</span> <i class='bi bi-chevron-down'></i></a>
@@ -218,8 +221,7 @@ else
                               <li><a href='../ob/ob_app_view.php' onclick='show()'><i class='fas fa-building'></i>Official Business</a></li>                              
                             </ul>
                         </li>
-                        <li><a class='nav-link ".$payslip_view."' href='../payslip/payslip_view.php' onclick='show()'><i class='fas fa-money-bill-wave fa-fw'></i>
-                        &nbsp;Payslip</a></li>";
+";
 
                             $lv = (isset($results['lv_count'])) ? $results['lv_count'] : '0' ;
                             $ot = (isset($result['ot_count'])) ? $result['ot_count'] : '0' ;
