@@ -160,7 +160,7 @@
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="descript">Adjustment Category<span class="req">*</span>
+                                        <label class="control-label" for="descript">Adjustment Category<span class="req">*</bspan>
                                         </label>
                                         <input class="form-control inputtext" type="text"  id="descript" name="descript">
                                     </div>

@@ -34,7 +34,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             $result = $stmt_ins->execute($params);
 
 
-            $query = 'SELECT b.badge_no,b.employee,b.location,period_from
+            $query = 'SELECT a.lastname,a.firstname,a.middlename,b.badge_no,b.employee,b.location,period_from
                   ,period_to,tot_days_absent,tot_days_work
                   ,tot_lates
                   ,tot_overtime_reg
@@ -51,7 +51,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                   ,vacation_leave 
                   from employee_profile a left join
                   att_summary b on a.badgeno = b.badge_no
-                    WHERE tot_days_work is not null and a.emp_status = :status and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY employee ASC';
+                    WHERE tot_days_work is not null and a.emp_status = :status and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY a.lastname DESC';
             $param = array(":period_from" => $dtFrom, ":period_to" => $dtTo, ":location" => $location, ":status" => 'Active');
             $stmt =$connL->prepare($query);
             $stmt->execute($param);
@@ -69,7 +69,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                         <th colspan='18' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
                     </tr>
                     <tr class='noExl'>
-                        <th>Employee Name</th>
+                        <th colspan='3'>Employee Name</th>
                         <th>Employee Code</th>
                         <th>Total Days Absent</th>
                         <th>Total Days Worked</th>
@@ -110,7 +110,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                         // $slh = "'".round($r['sick_leave'],2)."'";
                         // $vlh = "'".round($r['vacation_leave'],2)."'";                        
                             echo "<tr>".
-                                    "<td>" . $r['employee'] . "</td>".
+                                    "<td>" . $r['lastname'] . "</td>".
+                                    "<td>" . $r['firstname'] . "</td>".
+                                    "<td>" . $r['middlename'] . "</td>".
                                     "<td>" . $r['badge_no'] . "</td>".
                                     "<td id='toa".$r['badge_no']."'>" . round($r['tot_days_absent'],2) . "</td>".
                                     "<td id='tow".$r['badge_no']."'>" . round($r['tot_days_work'],2) . "</td>".
