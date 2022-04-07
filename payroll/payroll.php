@@ -66,7 +66,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             <table id='payrollList' class='table table-striped table-sm' cellpadding='0' cellspacing='0'> 
                 <thead>
                     <tr>
-                        <th colspan='18' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
+                        <th colspan='21' class='paytop'>Payroll Period of ".$location." from ".$dtFrom." to ".$dtTo."  </th>
                     </tr>
                     <tr class='noExl'>
                         <th colspan='3'>Employee Name</th>
@@ -117,7 +117,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                     "<td id='toa".$r['badge_no']."'>" . round($r['tot_days_absent'],2) . "</td>".
                                     "<td id='tow".$r['badge_no']."'>" . round($r['tot_days_work'],2) . "</td>".
                                     "<td>" . round($r['tot_lates'],2) . "</td>".
-                                    "<td>" . round($r['total_undertime'],2) . "</td>".
+                                    "<td id='tou".$r['badge_no']."'>" . round($r['total_undertime'],2) . "</td>".
                                     "<td id='tor".$r['badge_no']."'>" . round($r['tot_overtime_reg'],2) . "</td>".
                                     "<td id='tos".$r['badge_no']."'>" . round($r['tot_rest'],2) . "</td>".
                                     "<td id='tors".$r['badge_no']."'>" . round($r['tot_overtime_rest'],2) . "</td>".
@@ -175,7 +175,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                        echo"</tbody>";
                                        echo "<tfoot>
                                             <tr>".
-                                                "<td class='text-center bg-success' colspan='2'><b>Total</b></td>".
+                                                "<td class='text-center bg-success' colspan='4'><b>Total</b></td>".
                                                 "<td class='bg-success'><b>" . $totalDaysAbsent . "</b></td>".
                                                 "<td class='bg-success'><b>" . $totalDaysWorked . "</b></td>".
                                                 "<td class='bg-success'><b>" . $lates . "</b></td>".
@@ -194,10 +194,10 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                                 "</tr><tr>";
                                             if($dtf_l == $dtFrom and $dtt_l == $dtTo and 
                                                 ucwords(strtolower($loc_l)) == ucwords(strtolower($location))){
-                                                echo"<td colspan='18' class='paytop'>".
+                                                echo"<td colspan='21' class='paytop'>".
                                                 "</tr></tfoot>";   
                                             }else{
-                                                echo"<td colspan='18' class='paytop'>".
+                                                echo"<td colspan='21' class='paytop'>".
                                                 "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
                                                 "</tr></tfoot>";  
                                             }
@@ -206,7 +206,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                         echo"</tbody>";
                                         echo "<tfoot>
                                         <tr>".
-                                            "<td class='text-center bg-success' colspan='2'><b>Total</b></td>".
+                                            "<td class='text-center bg-success' colspan='4'><b>Total</b></td>".
                                             "<td class='bg-success'><b>" . $totalDaysAbsent . "</b></td>".
                                             "<td class='bg-success'><b>" . $totalDaysWorked . "</b></td>".
                                             "<td class='bg-success'><b>" . $lates . "</b></td>".
@@ -223,7 +223,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                             "<td class='bg-success'><b>" . $sl . "</b></td>".
                                             "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".
                                             "</tr><tr>"; 
-                                            echo"<td colspan='18' class='paytop'>".
+                                            echo"<td colspan='21' class='paytop'>".
                                             "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
                                             "</tr></tfoot>";  
                                         

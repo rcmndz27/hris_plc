@@ -121,7 +121,14 @@
                                         <input type="number" class="form-control" name="tot_days_work"
                                             id="tot_days_work"> 
                                     </div>
-                                </div>                                
+                                </div> 
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="total_undertime">Total Undertime:</label>
+                                        <input type="number" class="form-control" name="total_undertime"
+                                            id="total_undertime"> 
+                                    </div>
+                                </div>                               
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_reg">Regular Overtime:</label>
@@ -313,7 +320,10 @@ function show() {
         gdfg.value = document.getElementById('toa'+empcd).innerHTML;   
 
         var jhnk = document.getElementById('tot_days_work');
-        jhnk.value =  document.getElementById('tow'+empcd).innerHTML;               
+        jhnk.value =  document.getElementById('tow'+empcd).innerHTML;  
+
+        var ujgfgfg = document.getElementById('total_undertime');
+        ujgfgfg.value =  document.getElementById('tou'+empcd).innerHTML;                 
 
         var hidful = document.getElementById('tot_overtime_reg');
         hidful.value =  document.getElementById('tor'+empcd).innerHTML;  
@@ -361,6 +371,7 @@ function show() {
         var tot_days_work = document.getElementById("tot_days_work").value;        
         var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
         var tot_rest = document.getElementById("tot_rest").value;
+        var total_undertime = document.getElementById("total_undertime").value;
         var tot_overtime_rest = document.getElementById("tot_overtime_rest").value;
         var tot_overtime_regholiday = document.getElementById("tot_overtime_regholiday").value;
         var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
@@ -389,6 +400,7 @@ function show() {
                                         tot_days_work: tot_days_work ,                                        
                                         tot_overtime_reg: tot_overtime_reg ,
                                         tot_rest: tot_rest ,
+                                        total_undertime: total_undertime ,
                                         tot_overtime_rest: tot_overtime_rest ,
                                         tot_overtime_regholiday: tot_overtime_regholiday, 
                                         tot_overtime_spholiday: tot_overtime_spholiday, 
@@ -413,6 +425,7 @@ function show() {
                                         document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
                                         document.getElementById('tor'+badge_no).innerHTML = tot_overtime_reg;
                                         document.getElementById('tos'+badge_no).innerHTML = tot_rest;
+                                        document.getElementById('tou'+badge_no).innerHTML = total_undertime;
                                         document.getElementById('tors'+badge_no).innerHTML = tot_overtime_rest;
                                         document.getElementById('torg'+badge_no).innerHTML = tot_overtime_regholiday;
                                         document.getElementById('tosp'+badge_no).innerHTML = tot_overtime_spholiday;
