@@ -307,80 +307,44 @@ function show() {
 
     function editAttModal(empname,empcd){
           
-        $('#updateAtt').modal('toggle');
-
-
-        var empnamem = document.getElementById('employee');
-        empnamem.value =  empname;
-
-        var empcdm = document.getElementById('badge_no');
-        empcdm.value =  empcd; 
-
-        var gdfg = document.getElementById('tot_days_absent');
-        gdfg.value = document.getElementById('toa'+empcd).innerHTML;   
-
-        var jhnk = document.getElementById('tot_days_work');
-        jhnk.value =  document.getElementById('tow'+empcd).innerHTML;  
-
-        var ujgfgfg = document.getElementById('total_undertime');
-        ujgfgfg.value =  document.getElementById('tou'+empcd).innerHTML;                 
-
-        var hidful = document.getElementById('tot_overtime_reg');
-        hidful.value =  document.getElementById('tor'+empcd).innerHTML;  
-
-        var lkljkl = document.getElementById('tot_rest');
-        lkljkl.value =  document.getElementById('tos'+empcd).innerHTML; 
-
-        var bnkt = document.getElementById('tot_overtime_rest');
-        bnkt.value =  document.getElementById('tors'+empcd).innerHTML;
-
-        var bno = document.getElementById('tot_overtime_regholiday');
-        bno.value =  document.getElementById('torg'+empcd).innerHTML;
-
-        var sts = document.getElementById('tot_overtime_spholiday');
-        sts.value =   document.getElementById('tosp'+empcd).innerHTML;  
-
-        var ghdsa = document.getElementById('tot_overtime_sprestholiday');
-        ghdsa.value =   document.getElementById('tospr'+empcd).innerHTML; 
-
-        var yuty = document.getElementById('night_differential');
-        yuty.value =   document.getElementById('nd'+empcd).innerHTML; 
-
-        var mbnmnb = document.getElementById('night_differential_ot');
-        mbnmnb.value =   document.getElementById('ndot'+empcd).innerHTML;  
-
-        var kllkj = document.getElementById('night_differential_ot_rest');
-        kllkj.value =   document.getElementById('ndrot'+empcd).innerHTML;  
-
-        var iuyiyui = document.getElementById('sick_leave');
-        iuyiyui.value =   document.getElementById('slh'+empcd).innerHTML;  
-
-        var ppiupu = document.getElementById('vacation_leave');
-        ppiupu.value =   document.getElementById('vlh'+empcd).innerHTML;                                   
-                                 
-
-    }
+    $('#updateAtt').modal('toggle');
+    document.getElementById('employee').value =  empname;
+    document.getElementById('badge_no').value =  empcd; 
+    document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
+    document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
+    document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;                 
+    document.getElementById('tot_overtime_reg').value =  document.getElementById('tor'+empcd).innerHTML;  
+    document.getElementById('tot_rest').value =  document.getElementById('tos'+empcd).innerHTML; 
+    document.getElementById('tot_overtime_rest').value =  document.getElementById('tors'+empcd).innerHTML;
+    document.getElementById('tot_overtime_regholiday').value =  document.getElementById('torg'+empcd).innerHTML;
+    document.getElementById('tot_overtime_spholiday').value =   document.getElementById('tosp'+empcd).innerHTML;  
+    document.getElementById('tot_overtime_sprestholiday').value =   document.getElementById('tospr'+empcd).innerHTML; 
+    document.getElementById('night_differential').value =   document.getElementById('nd'+empcd).innerHTML; 
+    document.getElementById('night_differential_ot').value =   document.getElementById('ndot'+empcd).innerHTML;  
+    document.getElementById('night_differential_ot_rest').value =   document.getElementById('ndrot'+empcd).innerHTML;  
+    document.getElementById('sick_leave').value =   document.getElementById('slh'+empcd).innerHTML;  
+    document.getElementById('vacation_leave').value =   document.getElementById('vlh'+empcd).innerHTML;
+}
 
     function updateAtt()
     {
 
-
-        var url = "../payroll/updateAtt_process.php";
-        var badge_no = document.getElementById("badge_no").value;
-        var tot_days_absent = document.getElementById("tot_days_absent").value;
-        var tot_days_work = document.getElementById("tot_days_work").value;        
-        var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
-        var tot_rest = document.getElementById("tot_rest").value;
-        var total_undertime = document.getElementById("total_undertime").value;
-        var tot_overtime_rest = document.getElementById("tot_overtime_rest").value;
-        var tot_overtime_regholiday = document.getElementById("tot_overtime_regholiday").value;
-        var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
-        var tot_overtime_sprestholiday = document.getElementById("tot_overtime_sprestholiday").value;  
-        var night_differential = document.getElementById("night_differential").value;
-        var night_differential_ot = document.getElementById("night_differential_ot").value;
-        var night_differential_ot_rest = document.getElementById("night_differential_ot_rest").value;
-        var sick_leave = document.getElementById("sick_leave").value;
-        var vacation_leave = document.getElementById("vacation_leave").value;                                                        
+    var url = "../payroll/updateAtt_process.php";
+    var badge_no = document.getElementById("badge_no").value;
+    var tot_days_absent = document.getElementById("tot_days_absent").value;
+    var tot_days_work = document.getElementById("tot_days_work").value;        
+    var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
+    var tot_rest = document.getElementById("tot_rest").value;
+    var total_undertime = document.getElementById("total_undertime").value;
+    var tot_overtime_rest = document.getElementById("tot_overtime_rest").value;
+    var tot_overtime_regholiday = document.getElementById("tot_overtime_regholiday").value;
+    var tot_overtime_spholiday = document.getElementById("tot_overtime_spholiday").value;
+    var tot_overtime_sprestholiday = document.getElementById("tot_overtime_sprestholiday").value;  
+    var night_differential = document.getElementById("night_differential").value;
+    var night_differential_ot = document.getElementById("night_differential_ot").value;
+    var night_differential_ot_rest = document.getElementById("night_differential_ot_rest").value;
+    var sick_leave = document.getElementById("sick_leave").value;
+    var vacation_leave = document.getElementById("vacation_leave").value;                                                        
 
                         swal({
                           title: "Are you sure?",
@@ -419,7 +383,6 @@ function show() {
                                             type: "success",
                                             icon: "success",
                                         }).then(function() {
-                                            // location.href = '../payroll/payroll_view.php';
                                         $('#updateAtt').modal('hide');
                                         document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
                                         document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
