@@ -116,7 +116,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                     "<td>" . $r['badge_no'] . "</td>".
                                     "<td id='toa".$r['badge_no']."'>" . round($r['tot_days_absent'],2) . "</td>".
                                     "<td id='tow".$r['badge_no']."'>" . round($r['tot_days_work'],2) . "</td>".
-                                    "<td>" . round($r['tot_lates'],2) . "</td>".
+                                    "<td id='tol".$r['badge_no']."'>" . round($r['tot_lates'],2) . "</td>".
                                     "<td id='tou".$r['badge_no']."'>" . round($r['total_undertime'],2) . "</td>".
                                     "<td id='tor".$r['badge_no']."'>" . round($r['tot_overtime_reg'],2) . "</td>".
                                     "<td id='tos".$r['badge_no']."'>" . round($r['tot_rest'],2) . "</td>".

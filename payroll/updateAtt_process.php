@@ -6,7 +6,8 @@
     $action = $_POST["action"];
     $badge_no = $_POST["badge_no"];
     $tot_days_absent = $_POST["tot_days_absent"];
-    $tot_days_work = $_POST["tot_days_work"];    
+    $tot_days_work = $_POST["tot_days_work"];   
+    $tot_lates = $_POST["tot_lates"];   
     $tot_overtime_reg = $_POST["tot_overtime_reg"];
     $tot_rest = $_POST["tot_rest"];
     $total_undertime = $_POST["total_undertime"];
@@ -22,7 +23,7 @@
 
     if ($action == 1)
     {
-UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_overtime_reg,$tot_rest,$total_undertime,$tot_overtime_rest,$tot_overtime_regholiday,$tot_overtime_spholiday,$tot_overtime_sprestholiday,$night_differential,$night_differential_ot,$night_differential_ot_rest,$sick_leave,$vacation_leave);
+UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$tot_overtime_reg,$tot_rest,$total_undertime,$tot_overtime_rest,$tot_overtime_regholiday,$tot_overtime_spholiday,$tot_overtime_sprestholiday,$night_differential,$night_differential_ot,$night_differential_ot_rest,$sick_leave,$vacation_leave);
     }
 
 ?>

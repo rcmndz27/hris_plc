@@ -128,7 +128,14 @@
                                         <input type="number" class="form-control" name="total_undertime"
                                             id="total_undertime"> 
                                     </div>
-                                </div>                               
+                                </div>   
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="tot_lates">Total Lates:</label>
+                                        <input type="number" class="form-control" name="tot_lates"
+                                            id="tot_lates"> 
+                                    </div>
+                                </div>                            
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="tot_overtime_reg">Regular Overtime:</label>
@@ -312,6 +319,7 @@ function show() {
     document.getElementById('badge_no').value =  empcd; 
     document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
     document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
+    document.getElementById('tot_lates').value =  document.getElementById('tol'+empcd).innerHTML;
     document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;                 
     document.getElementById('tot_overtime_reg').value =  document.getElementById('tor'+empcd).innerHTML;  
     document.getElementById('tot_rest').value =  document.getElementById('tos'+empcd).innerHTML; 
@@ -332,7 +340,8 @@ function show() {
     var url = "../payroll/updateAtt_process.php";
     var badge_no = document.getElementById("badge_no").value;
     var tot_days_absent = document.getElementById("tot_days_absent").value;
-    var tot_days_work = document.getElementById("tot_days_work").value;        
+    var tot_days_work = document.getElementById("tot_days_work").value;  
+    var tot_lates = document.getElementById("tot_lates").value;       
     var tot_overtime_reg = document.getElementById("tot_overtime_reg").value;
     var tot_rest = document.getElementById("tot_rest").value;
     var total_undertime = document.getElementById("total_undertime").value;
@@ -361,7 +370,8 @@ function show() {
                                         action: 1,
                                         badge_no: badge_no ,
                                         tot_days_absent: tot_days_absent ,
-                                        tot_days_work: tot_days_work ,                                        
+                                        tot_days_work: tot_days_work , 
+                                        tot_lates: tot_lates ,                                         
                                         tot_overtime_reg: tot_overtime_reg ,
                                         tot_rest: tot_rest ,
                                         total_undertime: total_undertime ,
@@ -375,8 +385,7 @@ function show() {
                                         sick_leave: sick_leave,
                                         vacation_leave: vacation_leave
                                     },
-                                    function(data) {     
-                                    // console.log(data);                                        
+                                    function(data) {                                           
                                             swal({
                                             title: "Wow!", 
                                             text: "Successfully updated the attendance details!", 
@@ -386,6 +395,7 @@ function show() {
                                         $('#updateAtt').modal('hide');
                                         document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
                                         document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
+                                        document.getElementById('tol'+badge_no).innerHTML = tot_lates;
                                         document.getElementById('tor'+badge_no).innerHTML = tot_overtime_reg;
                                         document.getElementById('tos'+badge_no).innerHTML = tot_rest;
                                         document.getElementById('tou'+badge_no).innerHTML = total_undertime;
