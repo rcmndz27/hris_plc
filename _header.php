@@ -213,15 +213,14 @@ else
 
                       echo"<li><a class='nav-link ".$dtr_view."' href='../pages/dtr_view.php' onclick='show()'><i class='fas fa-calendar fa-fw'></i>&nbsp;MY Attendance</a></li>
 
-                         <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>LEAVE/OT/WFH/OB</span> <i class='bi bi-chevron-down'></i></a>
+                         <li class='dropdown'><a href='#' class='".$leaveApplication_view."'><span><i class='fas fa-suitcase fa-fw'></i>FORMS</span> <i class='bi bi-chevron-down'></i></a>
                             <ul>
                               <li><a href='../leave/leaveApplication_view.php' onclick='show()'><i class='fas fa-suitcase fa-fw'></i>Leave</a></li>
                               <li><a href='../overtime/ot_app_view.php' onclick='show()'><i class='fas fa-hourglass fa-fw'></i>Overtime</a></li>
                               <li><a href='../wfhome/wfh_app_view.php' onclick='show()'><i class='fas fa-warehouse fa-fw'></i>Work From Home</a></li>
                               <li><a href='../ob/ob_app_view.php' onclick='show()'><i class='fas fa-building'></i>Official Business</a></li>                              
                             </ul>
-                        </li>
-";
+                        </li>";
 
                             $lv = (isset($results['lv_count'])) ? $results['lv_count'] : '0' ;
                             $ot = (isset($result['ot_count'])) ? $result['ot_count'] : '0' ;
@@ -263,77 +262,78 @@ else
                                $apprf = '';
                              }                             
                             
-                                switch(trim($empUserType)){
-                                    case "Admin":
-                                    case "HR Generalist":
-                                    case "HR Manager":
-                                    case "Group Head":
-                                        echo "<li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;ADMIN TOOLS ".$apprm."<i class='bi bi-chevron-down'></i></a>
-                                            <ul>
-                                              <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
-                                                <ul>
-                                                  <li><a href='../payroll/payroll_view.php' onclick='show()'>Payroll Period View</a></li>
-                                                  <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
-                                                  <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
-                                                  <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
-                                                  <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
-                                                  <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
-                                                  <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li> 
-                                                  </ul>
-                                              </li>
-                                              <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul>
-                                                  <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
-                                                  <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
-                                                  <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
-                                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>                                                     
-                                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
-                                                </ul>
-                                              </li>
-                                             <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul> 
-                                                  <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
-                                                  <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
-                                                </ul>
-                                              </li>
-                                              <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>HR Tools</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul> 
-                                                  <li><a href='../newhireaccess/newhireaccess_view.php' onclick='show()'>201 Master File</a></li>
-                                                  <li><a href='../salary/salarylist_view.php' onclick='show()'>Salary Management</a></li>
-                                                  <li><a href='../deduction/deductionlist_view.php' onclick='show()'>Deduction Management</a></li>
-                                                  <li><a href='../allowances/allowanceslist_view.php' onclick='show()'>Allowances Management</a></li>
-                                                  <li><a href='../users/userslist_view.php' onclick='show()'>Users Management</a></li>                                                  
-                                                  <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
-                                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
-                                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
-                                                </ul>
-                                              </li>
-                                              <li class='dropdown'><a href='#'><i class='fas fa-file-archive'></i><span>Masterfile</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul> 
-                                                  <li><a href='../mf_bank/banklist_view.php' onclick='show()'>Bank Type</a></li>
-                                                  <li><a href='../mf_allowances/mfallowanceslist_view.php' onclick='show()'>Allowances</a></li>
-                                                  <li><a href='../mf_company/mfcompanylist_view.php' onclick='show()'>Company</a></li>
-                                                  <li><a href='../mf_deduction/mfdeductionlist_view.php' onclick='show()'>Deduction</a></li>
-                                                  <li><a href='../mf_department/mfdepartmentlist_view.php' onclick='show()'>Department</a></li>
-                                                <li><a href='../mf_holiday/mfholidaylist_view.php' onclick='show()'>Holiday</a></li>                                                  
-                                                  <li><a href='../mf_position/mfpositionlist_view.php' onclick='show()'>Job Position</a></li>
-                                                </ul>
-                                              </li>                                              
-                                             <li class='dropdown'><a href='#'><i class='fa fa-wrench fa-fw'></i></i><span>Recruitment Tools</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul> 
-                                                  <li><a href='../applicantprofile/applicantlist_view.php' onclick='show()'>Applicant Module</a></li>
-                                                  <li><a href='../applicantprofile/plantillalist_view.php' onclick='show()'>Plantilla Module</a></li>
-                                                  <li><a href='../applicantprofile/manpowerlist_view.php' onclick='show()'>Manpower Module</a></li>
-                                                </ul>
-                                              </li>
-                                            </ul>
-                                          </li>";  
-                                    break;
+                switch(trim($empUserType)){
+                    case "Admin":
+                    case "HR Generalist":
+                    case "HR Manager":
+                    case "Group Head":
+                        echo "<li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;ADMIN TOOLS ".$apprm."<i class='bi bi-chevron-down'></i></a>
+                            <ul>
+                              <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
+                                <ul>
+                                  <li><a href='../payroll/payroll_view.php' onclick='show()'>Payroll Period View</a></li>
+                                  <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
+                                  <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
+                                  <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
+                                  <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
+                                  <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
+                                  <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li> 
+                                  </ul>
+                              </li>
+                              <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
+                                <i class='bi bi-chevron-right'></i></a>
+                                <ul>
+                                  <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
+                                  <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
+                                  <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
+                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>                                                     
+                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
+                                </ul>
+                              </li>
+                             <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
+                                <i class='bi bi-chevron-right'></i></a>
+                                <ul> 
+                                  <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
+                                  <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
+                                </ul>
+                              </li>
+                              <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>HR Tools</span> 
+                                <i class='bi bi-chevron-right'></i></a>
+                                <ul> 
+                                  <li><a href='../newhireaccess/newhireaccess_view.php' onclick='show()'>201 Master File</a></li>
+                                  <li><a href='../salary/salarylist_view.php' onclick='show()'>Salary Management</a></li>
+                                  <li><a href='../deduction/deductionlist_view.php' onclick='show()'>Deduction Management</a></li>
+                                  <li><a href='../allowances/allowanceslist_view.php' onclick='show()'>Allowances Management</a></li>
+                                  <li><a href='../users/userslist_view.php' onclick='show()'>Users Management</a></li>                                                  
+                                  <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
+                                  <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Leave Balance</a></li>
+                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
+                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
+                                </ul>
+                              </li>
+                              <li class='dropdown'><a href='#'><i class='fas fa-file-archive'></i><span>Masterfile</span> 
+                                <i class='bi bi-chevron-right'></i></a>
+                                <ul> 
+                                  <li><a href='../mf_bank/banklist_view.php' onclick='show()'>Bank Type</a></li>
+                                  <li><a href='../mf_allowances/mfallowanceslist_view.php' onclick='show()'>Allowances</a></li>
+                                  <li><a href='../mf_company/mfcompanylist_view.php' onclick='show()'>Company</a></li>
+                                  <li><a href='../mf_deduction/mfdeductionlist_view.php' onclick='show()'>Deduction</a></li>
+                                  <li><a href='../mf_department/mfdepartmentlist_view.php' onclick='show()'>Department</a></li>
+                                <li><a href='../mf_holiday/mfholidaylist_view.php' onclick='show()'>Holiday</a></li>                                                  
+                                  <li><a href='../mf_position/mfpositionlist_view.php' onclick='show()'>Job Position</a></li>
+                                </ul>
+                              </li>                                              
+                             <li class='dropdown'><a href='#'><i class='fa fa-wrench fa-fw'></i></i><span>Recruitment Tools</span> 
+                                <i class='bi bi-chevron-right'></i></a>
+                                <ul> 
+                                  <li><a href='../applicantprofile/applicantlist_view.php' onclick='show()'>Applicant Module</a></li>
+                                  <li><a href='../applicantprofile/plantillalist_view.php' onclick='show()'>Plantilla Module</a></li>
+                                  <li><a href='../applicantprofile/manpowerlist_view.php' onclick='show()'>Manpower Module</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>";  
+                    break;
                            case "Team Manager":   
                             echo "
                                     <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;MANAGER TOOLS ".$appr."<i class='bi bi-chevron-down'></i></a>

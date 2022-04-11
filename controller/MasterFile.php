@@ -330,6 +330,35 @@
             }
         }
 
+        public function GetAllEmployeeLeaveBalance($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,(a.lastname +','+a.firstname+' '+a.middlename) as fullname from employee_profile a where a.emp_status = 'Active' and a.emp_type = 'Regular' and NOT EXISTS (SELECT * FROM dbo.employee_leave b where a.emp_code = b.emp_code) order by a.lastname asc");
+                $sql->execute();
+
+                if ($type == "leavebalc")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["emp_code"],$r["fullname"]));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
+
         public function GetEmployeeSalary($type)
         {
             global $connL;
