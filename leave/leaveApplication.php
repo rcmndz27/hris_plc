@@ -31,23 +31,22 @@ Class LeaveApplication{
         <table id="earnedLeave" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th colspan="8" class ="text-center">Earned Leaves as of '. date('F') .'</th>
+                    <th colspan="8" class ="text-center">Earned Leaves as of '. date('F Y') .'</th>
                 </tr>
                 <tr>
-                    <th colspan="4" class ="text-center ">Vacation Leave</th>
-                    <th colspan="4" class ="text-center ">Sick Leave</th>
+                    <th colspan="3" class ="text-center ">Vacation Leave</th>
+                    <th colspan="3" class ="text-center ">Sick Leave</th>
                 </tr>
                
                 <tr>
-                    <th class="text-center">Earned Leave</th>
-                    <th class="text-center">Used</th>
-                    <th class="text-center">Pending</th>
-                    <th class="text-center">Remaining</th>
 
-                    <th class="text-center">Earned Leave</th>
                     <th class="text-center">Used</th>
                     <th class="text-center">Pending</th>
-                    <th class="text-center">Remaining</th>
+                    <th class="text-center">Balance</th>
+
+                    <th class="text-center">Used</th>
+                    <th class="text-center">Pending</th>
+                    <th class="text-center">Balance</th>
         
                     
                 </tr>
@@ -55,12 +54,10 @@ Class LeaveApplication{
             </thead>
             <tbody>
                 <tr>
-                    <td class="text-center ">10.0</td>
                     <td class="text-center ">'.$used_vl.'</td>
                     <td class="text-center ">'. $pending_vl.'</td>
                     <td class="text-center ">'.$earned_vl.'</td>
                     
-                    <td class="text-center ">10.0</td>
                     <td class="text-center ">'.$used_sl.'</td>
                     <td class="text-center ">'. $pending_sl .'</td>
                     <td class="text-center ">'.$earned_sl.'</td>
@@ -102,23 +99,20 @@ Class LeaveApplication{
             <tr>
                 <th>Date Filed</th>
                 <th>Leave Type</th>
-                <th>Date From</th>
-                <th>Date To</th>
+                <th>Leave Date</th>
                 <th>Description</th>
                 <th>Leave Count</th>
-                <th>Approved (Days)</th>
-                <th>Remarks</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,
+        $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,emp_code,
                     (CASE when approved = 1 then 'PENDING'
                     when   approved = 2 then 'APPROVED'
                     when   approved = 3 then 'REJECTED'
-                    when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY datefiled DESC, leavetype";
+                    when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY date_from DESC, leavetype";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -137,24 +131,38 @@ Class LeaveApplication{
                 $appr_oved = "'".$result['approved']."'";
                 $actlcnt = "'".$result['actl_cnt']."'";
                 $leaveid = "'".$result['rowid']."'";
+                $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['datefiled'])) . '</td>
                 <td>' . $result['leavetype'] . '</td>
                 <td>' . date('m-d-Y', strtotime($result['date_from'])) . '</td>
-                <td>' . date('m-d-Y', strtotime($result['date_to'])) . '</td>
                 <td>' . $result['leave_desc'] . '</td>
                 <td>' . $result['actl_cnt'] . '</td>
-                <td>' . $result['app_days'] . '</td>
-                <td>' . $result['remarks'] . '</td>
-                <td>' . $result['approved'] . '</td>
+                <td id="st'.$result['rowid'].'">' . $result['approved'] . '</td>';
+
+                if($result['approved'] == 'PENDING'){
+                echo'
                 <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
+                            </button>                           
+                            <button type="button" id="clv" class="voidBut" onclick="cancelLeave('.$leaveid.','.$empcode.')" title="Cancel Leave">
+                                <i class="fas fa-ban"></i>
                             </button>
                             </td>';
+                }else{
+                echo'
+                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                        
+                            </td>';
+                }
 
             } while ($result = $stmt->fetch());
 
@@ -401,8 +409,7 @@ Class LeaveApplication{
         $stmt->execute($param);
     }
 
-    public function InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$dateStart, $dateEnd, 
-        $leaveDesc, $leaveCount){
+    public function InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount){
 
         global $connL;
 
@@ -421,8 +428,8 @@ Class LeaveApplication{
                     ":medicalfile"=> $medicalFile,
                     ":date_birth"=> $dateBirth,
                     ":dateStartMaternity"=> $dateStartMaternity,
-                    ":date_from"=> $dateStart,
-                    ":date_to"=> $dateEnd,
+                    ":date_from"=> $leaveDate,
+                    ":date_to"=> $leaveDate,
                     ":leave_desc"=> $leaveDesc,
                     ":actl_cnt"=> $leaveCount,
                     ":app_days"=> 0,
@@ -441,14 +448,15 @@ Class LeaveApplication{
             $stm->execute($prm);
             $rst = $stm->fetch();
 
-            $querys = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:leave_id, :emp_code, :remarks,:audituser, :auditdate) ";
+            $querys = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:leave_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":leave_id" => $rst['maxid'],
                     ":emp_code"=> $empCode,
+                    ":emp_name"=> $empName,
                     ":remarks" => 'Apply '.$leaveType,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y')
@@ -460,74 +468,9 @@ Class LeaveApplication{
 
     }
 
-    public function InsertExcessAppliedLeave($empCode, $empName, $empDept, $empReportingTo,$medicalFile,$dateBirth, $dateStart,$dateStartMaternity, $dateEnd, $leaveDesc, $excess){
-
-        global $connL;
-
-            $query = " INSERT INTO tr_leave (emp_code, employee, department, approval, datefiled, leavetype, medicalfile,date_birth,dateStartMaternity,date_from, date_to, leave_desc, actl_cnt, app_days, approved, audituser, auditdate ) 
-                VALUES(:emp_code, :employee, :department, :approval, :datefiled, :leavetype, :medicalfile,:date_birth,:date_from,:dateStartMaternity, :date_to, :leave_desc,  :actl_cnt, :app_days, :approved, :audituser, :auditdate) ";
-    
-                $stmt =$connL->prepare($query);
-    
-                $param = array(
-                    ":emp_code"=> $empCode,
-                    ":employee" => $empName,
-                    ":department" => $empDept,
-                    ":approval"=> $empReportingTo,
-                    ":datefiled"=> date('m-d-Y'),
-                    ":leavetype"=> 'Leave Without Pay',
-                    ":medicalfile"=> $medicalFile,
-                    ":dateStartMaternity"=> $dateStartMaternity,
-                    ":date_birth"=> $dateBirth,
-                    ":date_from"=> $dateStart,
-                    ":date_to"=> $dateEnd,
-                    ":leave_desc"=> $leaveDesc,
-                    ":actl_cnt"=> $excess,
-                    ":app_days"=> 0,
-                    ":approved"=> 1,
-                    ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
-                );
-
-            $result = $stmt->execute($param);
-
-            echo $result;
-
-            $qry = 'SELECT max(rowid) as maxid FROM tr_leave WHERE emp_code = :emp_code';
-            $prm = array(":emp_code" => $empCode);
-            $stm =$connL->prepare($qry);
-            $stm->execute($prm);
-            $rst = $stm->fetch();
-
-            $querys = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:leave_id, :emp_code, :remarks,:audituser, :auditdate) ";
-    
-                $stmts =$connL->prepare($querys);
-    
-                $params = array(
-                    ":leave_id" => $rst['maxid'],
-                    ":emp_code"=> $empCode,
-                    ":remarks" => 'Apply '.$leaveType,
-                    ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
-                );
-
-            $results = $stmts->execute($params);
-
-            echo $results;
-    }
-
-    public function ApplyLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$dateBirth,$dateStartMaternity,$dateFrom, $dateTo, $leaveDesc, 
-        $medicalFile, $leaveCount, $allhalfdayMark){
-
-        $leaveCount = ($dateFrom === $dateTo && $leaveCount === 0) ? 1 : $leaveCount;
+    public function ApplyLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $medicalFile, $leaveCount, $allhalfdayMark){
 
         $allowedDays = 0;
-
-        $inDates = array();
-        $inDates = $this->GetDates($dateFrom, $dateTo);
-
-        $excessDateArr = array();
 
         if($leaveType === "Vacation Leave" || $leaveType === "Bereavement Leave" || $leaveType === "Sick Leave" || $leaveType === "Emergency Leave"){
 
@@ -535,58 +478,23 @@ Class LeaveApplication{
 
             if($balanceCount >= $leaveCount){
 
-                // echo 'Count : '.$leaveCount.' : ';
-                // print_r($inDates);
-
-                $dateStart = date('Y-m-d',strtotime(reset($inDates)));
-                $dateEnd = date('Y-m-d',strtotime(end($inDates)));
-               
-
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$medicalFile,$dateBirth,$dateStartMaternity, $dateStart, $dateEnd, $leaveDesc, $leaveCount);
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$medicalFile,$dateBirth,$dateStartMaternity, $leaveDate, $leaveDesc, $leaveCount);
                 $this->UpdateLeaveCount($empCode, $leaveType, $balanceCount - $leaveCount);
 
             }elseif($balanceCount < $leaveCount){
 
-                $excess = $leaveCount - $balanceCount;
-
-                print('Day Count : '.count($inDates).' , Leave Count : '.$leaveCount.' , Excess : '.$excess.' : BalanceCount : '.$balanceCount);
-                print_r($inDates);
-
-                $balanceDatesArr = array_splice($inDates, 0, round($balanceCount) * $allhalfdayMark);
-                $dateStart = date('Y-m-d',strtotime(reset($balanceDatesArr)));
-                $dateEnd = date('Y-m-d',strtotime(end($balanceDatesArr)));
-
-                print_r($balanceDatesArr);
-
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity, $dateStart, $dateEnd, $leaveDesc, $balanceCount);
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity, $leaveDate,$leaveDesc, $balanceCount);
                 $this->UpdateLeaveCount($empCode, $leaveType, $balanceCount - $balanceCount);
-
-
-                $excessDateArr = array_splice($inDates, 0, round($excess) * $allhalfdayMark);
-                $dateStart = date('Y-m-d',strtotime(reset($excessDateArr)));
-                $dateEnd = date('Y-m-d',strtotime(end($excessDateArr)));
-
-                print_r($excessDateArr);
-
-                $this->InsertExcessAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $medicalFile,$dateBirth,$dateStartMaternity,$dateStart, $dateEnd, $leaveDesc, $excess);
-
             }
            
 
         }else if($leaveType === "Sick Leave without Pay" || $leaveType === "Vacation Leave without Pay" ){
 
-            // print_r($inDates);
 
-            $dateStart = date('Y-m-d',strtotime(reset($inDates)));
-            $dateEnd = date('Y-m-d',strtotime(end($inDates)));
 
-            // echo "LWP : ". $leaveCount;
-
-            $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$dateStart, $dateEnd, $leaveDesc, $leaveCount);
+            $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount);
 
         }else{
-
-            // echo $leaveType;
 
             switch($leaveType){
                 case 'Maternity Leave':
@@ -608,39 +516,15 @@ Class LeaveApplication{
 
             if($allowedDays >= $leaveCount){
 
-
-                $dateStart = date('Y-m-d',strtotime(reset($inDates)));
-                $dateEnd = date('Y-m-d',strtotime(end($inDates)));
     
                 $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,
-                    $dateStartMaternity,$dateFrom, $dateEnd, $leaveDesc, $leaveCount);
+                    $dateStartMaternity,$leaveDate, $leaveDesc, $leaveCount);
     
             }else{
 
-                // echo 'B';
 
-                $excess = $leaveCount - $allowedDays;
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate, $leaveDesc, $allowedDays);
 
-                $inDates = $this->GetDates($dateFrom, $dateTo);
-
-                // print('Day Count : '.count($inDates).' , Leave Count : '.$leaveCount.' , Excess : '.$excess.' ; ');
-                // print_r($inDates);
-
-                $balanceDatesArr = array_splice($inDates, 0, round($allowedDays) * $allhalfdayMark);
-                $dateStart = date('Y-m-d',strtotime(reset($balanceDatesArr)));
-                $dateEnd = date('Y-m-d',strtotime(end($balanceDatesArr)));
-
-                // print_r($balanceDatesArr);
-
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$dateStart, $dateEnd, $leaveDesc, $allowedDays);
-
-                $excessDateArr = array_splice($inDates, 0, round($excess) * $allhalfdayMark);
-                $dateStart = date('Y-m-d',strtotime(reset($excessDateArr)));
-                $dateEnd = date('Y-m-d',strtotime(end($excessDateArr)));
-
-                // print_r($excessDateArr);
-
-                $this->InsertExcessAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $medicalFile,$dateBirth,$dateStartMaternity,$dateStart, $dateEnd, $leaveDesc, $excess);
 
             }
         }

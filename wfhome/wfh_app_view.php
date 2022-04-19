@@ -20,26 +20,13 @@
     
 
         function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
-
    
         $('#viewWfhModal').modal('toggle');
-
-        var hidful = document.getElementById('wfhdates');
-        hidful.value =  wfhdate;   
-
-        var bnkt = document.getElementById('wfhtask');
-        bnkt.value =  wfhtask;  
-
-        var at = document.getElementById('wfhoutput');
-        at.value =  wfhoutput;  
-
-        var ast = document.getElementById('wfhpercentage');
-        ast.value =  wfhpercentage;  
-
-        var bnkt2 = document.getElementById('wfhstats');
-        bnkt2.value =  wfhstats;  
-
-                          
+        document.getElementById('wfhdates').value =  wfhdate;   
+        document.getElementById('wfhtask').value =  wfhtask;  
+        document.getElementById('wfhoutput').value =  wfhoutput;  
+        document.getElementById('wfhpercentage').value =  wfhpercentage;  
+        document.getElementById('wfhstats').value =  wfhstats;                          
     }
 
     function viewWfhHistoryModal(lvlogid)
@@ -58,10 +45,54 @@
         );
     }
 
+        function cancelWfh(lvid,empcd)
+        {
+
+                 var url = "../wfhome/cancelWfhProcess.php";  
+                 var wfhid = lvid;   
+                 var emp_code = empcd;   
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to cancel this work from home?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((cnclOT) => {
+                          if (cnclOT) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 1,
+                                        wfhid:wfhid,
+                                        emp_code:emp_code
+                                    },
+                                    function(data) { 
+                                        // console.log(data);
+                                            swal({
+                                            title: "Oops!", 
+                                            text: "Successfully cancelled work from home!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                document.getElementById('st'+wfhid).innerHTML = 'VOID';
+                                                document.querySelector('#clv').remove();
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You stop the cancellation of your work from home.",icon:"error"});
+                          }
+                        });
+      
+    }
+
 </script>
 <link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <script type='text/javascript' src='../wfhome/wfh_app.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
+<script src="../overtime/moment2.min.js"></script>
+<script src="../overtime/moment-range.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>WORK FROM HOME APPLICATION</h1>
@@ -131,7 +162,7 @@
                                         <label for="">WFH Date From:</label>
                                     </div>
                                     <div class="col-md-3 d-inline">
-                                        <input type="date" id="wfhdate" name="wfhdate" class="form-control"
+                                        <input type="date" id="wfhdate" name="wfhdate" class="form-control" 
                                             value="<?php echo date('Y-m-d');?>">
                                     </div>
                                     <div class="col-md-2 d-inline">
@@ -167,7 +198,7 @@
                                         <label for="">Percentage:</label>
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext">
+                                        <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10">
                                     </div>
                                     <div class="col-md-1 d-inline">
                                         <label for="">%</label>

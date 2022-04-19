@@ -26,13 +26,15 @@ $(function(){
 
     $(document).on('click','.btnApproved',function(e){
 
-        param = {"Action":"ApproveWfh",'rowid':this.id,'empId':empId,};
+        var prid = this.id;
+        var apvdWfh = 1;
+        var filwfh = $('#alertwfh').val();
+        var upfilwfh = filwfh-apvdWfh;
 
+        param = {"Action":"ApproveWfh",'rowid':this.id,'empId':empId,};
 
         param = JSON.stringify(param);
 
-        // alert(param);
-        // exit();
                    swal({
                           title: "Are you sure?",
                           text: "You want to approve this work from home?",
@@ -48,7 +50,16 @@ $(function(){
                                             data: {data:param} ,
                                             success: function (data){
                                                 console.log("success: "+ data);
-                                                location.reload();
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully approved work from home!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        document.getElementById(empId).innerHTML = upfilwfh;
+                                                        document.getElementById('alertwfh').value = upfilwfh;
+                                                        document.querySelector('#clv'+prid).remove();
+                                                    }); 
                                             },
                                             error: function (data){
                                                 // console.log("error: "+ data);    
@@ -95,12 +106,14 @@ $(function(){
     $('#submit').click(function(e){
         e.preventDefault();
 
+        var apvdWfh = 1;
+        var filwfh = $('#alertwfh').val();
+        var upfilwfh = filwfh-apvdWfh;
+
         param = {"Action":"RejectWfh",'rowid': rowid,'empId':empId, "rjctRsn": $('#rejectReason').val()};
 
         param = JSON.stringify(param);
 
-        // alert(rowid);
-        // exit();
 
                     swal({
                           title: "Are you sure?",
@@ -117,7 +130,19 @@ $(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            location.reload();
+                                                        $('#popUpModal').modal('hide');
+                                                        $('#popUpModal').on('hidden.bs.modal', function (e) {
+                                                          $(this)
+                                                            .find("input,textarea,select")
+                                                               .val('')
+                                                               .end()
+                                                            .find("input[type=checkbox], input[type=radio]")
+                                                               .prop("checked", "")
+                                                               .end();
+                                                        })
+                                                        document.getElementById(empId).innerHTML = upfilwfh;
+                                                        document.getElementById('alertwfh').value = upfilwfh;
+                                                        document.querySelector('#clv'+rowid).remove();
                                         },
                                         error: function (data){
                                             // console.log("error: "+ data);    

@@ -40,7 +40,7 @@ Class NewHireAccess{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_profile ORDER BY lastname asc";
+        $query = "SELECT * from dbo.employee_profile where emp_status = 'Active' ORDER BY lastname asc ";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -80,7 +80,6 @@ Class NewHireAccess{
 
                 $('#HireEmp').modal('toggle');
 
-             
                 for(var i=0;i<nameD.length;i++)
                 {
                     if(nameD[i][0] == result)
@@ -117,6 +116,7 @@ Class NewHireAccess{
 
                     }
                 }
+                
                         
             }
             </script>

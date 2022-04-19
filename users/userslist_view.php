@@ -260,15 +260,12 @@ function password_show_hide() {
      function updateUsrs()
     {
 
-        $("body").css("cursor", "progress");
+
         var url = "../users/updateusers_process.php";
         var emp_code = document.getElementById("usrid").value;
         var status = $('#stats').children("option:selected").val();
         var usertype = $('#usrtyp').children("option:selected").val();
         // var userpassword = document.getElementById("pssword").value;
-
-
-        $('#contents').html('');
 
                         swal({
                           title: "Are you sure?",

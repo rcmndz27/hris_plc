@@ -20,30 +20,14 @@
 <script type="text/javascript">
     
 
-        function viewObModal(obdestination,obdate,obtime,obpurpose,obpercmp,stats){
-
-   
-        $('#viewObModal').modal('toggle');
-
-        var hidful = document.getElementById('obdestination');
-        hidful.value =  obdestination;   
-
-        var bnkt = document.getElementById('obdate');
-        bnkt.value =  obdate;  
-
-        var at = document.getElementById('obtime');
-        at.value =  obtime;  
-
-        var ast = document.getElementById('obpurpose');
-        ast.value =  obpurpose;  
-
-        var bnkt2 = document.getElementById('obpercmp');
-        bnkt2.value =  obpercmp;  
-
-        var at2 = document.getElementById('stats');
-        at2.value =  stats;                 
-
-                          
+    function viewObModal(obdestination,obdate,obtime,obpurpose,obpercmp,stats){
+            $('#viewObModal').modal('toggle');
+            document.getElementById('obdestination').value =  obdestination;   
+            document.getElementById('obdate').value =  obdate;  
+            document.getElementById('obtime').value =  obtime;  
+            document.getElementById('obpurpose').value =  obpurpose;  
+            document.getElementById('obpercmp').value =  obpercmp;  
+            document.getElementById('stats').value =  stats;                                         
     }
 
     function viewObHistoryModal(lvlogid)
@@ -62,6 +46,47 @@
         );
     }
 
+     function cancelOb(lvid,empcd)
+        {
+
+                 var url = "../ob/cancelObProcess.php";  
+                 var obid = lvid;   
+                 var emp_code = empcd;   
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to cancel this work from home?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((cnclOB) => {
+                          if (cnclOB) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 1,
+                                        obid:obid,
+                                        emp_code:emp_code
+                                    },
+                                    function(data) { 
+                                        // console.log(data);
+                                            swal({
+                                            title: "Oops!", 
+                                            text: "Successfully cancelled official business!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                document.getElementById('st'+obid).innerHTML = 'VOID';
+                                                document.querySelector('#clv').remove();
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You stop the cancellation of your official business.",icon:"error"});
+                          }
+                        });
+      
+    }
 </script>
 <link rel="stylesheet" type="text/css" href="../ob/ob_view.css">
 <script type='text/javascript' src='../ob/ob_app.js'></script>

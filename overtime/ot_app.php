@@ -69,6 +69,7 @@ Class OtApp{
                 $rejectreason = "'".(isset($result['reject_reason']) ? $result['reject_reason'] : 'n/a')."'";
                 $stats = "'".$result['stats']."'";
                 $otid = "'".$result['rowid']."'";
+                $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['ot_date'])) . '</td>
@@ -78,14 +79,29 @@ Class OtApp{
                 <td>' . $result['ot_req_hrs'] . '</td>
                 <td>' . $result['ot_ren_hrs'] . '</td>
                 <td>' . $result['remarks'] . '</td>
-                <td>' . $result['stats'] . '</td>
+                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
+                if($result['stats'] == 'PENDING'){
+                echo'
                 <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
+                            </button>                           
+                            <button type="button" id="clv" class="voidBut" onclick="cancelOvertime('.$otid.','.$empcode.')" title="Cancel Overtime">
+                                <i class="fas fa-ban"></i>
                             </button>
                             </td>';
+                }else{
+                echo'
+                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                        
+                            </td>';
+                }
 
             } while ($result = $stmt->fetch());
 
@@ -136,20 +152,29 @@ Class OtApp{
 
             echo $result;
 
+
+            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empCode";
+            $sparam = array(':empCode' => $empCode);
+            $sstmt =$connL->prepare($squery);
+            $sstmt->execute($sparam);
+            $sresult = $sstmt->fetch();
+            $sname = $sresult['fullname'];
+
             $qry = 'SELECT max(rowid) as maxid FROM tr_overtime WHERE emp_code = :emp_code';
             $prm = array(":emp_code" => $empCode);
             $stm =$connL->prepare($qry);
             $stm->execute($prm);
             $rst = $stm->fetch();
 
-            $querys = "INSERT INTO logs_ot (ot_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ot_id, :emp_code, :remarks,:audituser, :auditdate) ";
+            $querys = "INSERT INTO logs_ot (ot_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ot_id,:emp_code,:emp_name,:remarks,:audituser,:auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":ot_id" => $rst['maxid'],
                     ":emp_code"=> $empCode,
+                    ":emp_name"=> $sname,
                     ":remarks" => 'Apply OT for '.$otDate,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y')

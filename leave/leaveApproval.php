@@ -38,7 +38,7 @@
     function ShowAllLeave($employee){
         global $connL;
 
-        $query = 'SELECT datefiled,date_from,date_to,leavetype,leave_desc,approved,approval,medicalfile,remarks,actl_cnt,rowid,emp_code FROM tr_leave WHERE approved = 1 AND emp_code =:empCode';
+        $query = "SELECT a.datefiled,date_from,date_to,leavetype,leave_desc,approved,approval,medicalfile,remarks,actl_cnt,a.rowid,a.emp_code,b.lastname+', '+b.firstname as [fullname] FROM tr_leave a left join employee_profile b on a.approval = b.emp_code WHERE approved = 1  AND a.emp_code =:empCode";
         $param = array(':empCode' => $employee);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -51,12 +51,11 @@
         echo '</tr>
                 <tr>
                     <th>Date Filed</th>
-                    <th>From</th>
-                    <th>To</th>
+                    <th>Leave Date</th>
                     <th>Leave Type</th>
                     <th>Reason</th>
                     <th>Approver</th>
-                    <th class="text-center">Approved Days</th>
+                    <th hidden>Approved Days</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -67,28 +66,28 @@
 			do { 
                 $mf = $result['medicalfile'];
                 echo "
-                <tr>
-                    <td>" . date('Y-m-d',strtotime($result['datefiled'])) . "</td>
-                    <td>" . date('Y-m-d',strtotime($result['date_from'])) . "</td>
-                    <td>" . date('Y-m-d',strtotime($result['date_to'])) . "</td>
-                    <td class='text-left text-info'>" . $result['leavetype'] . "</td>
-                    <td>" . $result['leave_desc'] . "</td>
-                    <td>" . $result['approval'] . "</td>
-                    <td>"."<input type='number' id='".$result['rowid']."' class='form-control text-center' value='".$result['actl_cnt']."'>"."</td>";
-                    
+        <tr id='clv".$result['rowid']."'>
+            <td>" . date('Y-m-d',strtotime($result['datefiled'])) . "</td>
+            <td>" . date('Y-m-d',strtotime($result['date_from'])) . "</td>
+            <td class='text-left text-info'>" . $result['leavetype'] . "</td>
+            <td>" . $result['leave_desc'] . "</td>
+            <td>" . $result['fullname'] . "
+            <button id='apr".$result['rowid']."' value=".$result['approval']." hidden></button></td>
+            <td hidden id='ap".$result['rowid']."'>"."<input type='text' id='apc".$result['rowid']."' class='form-control text-center' value='".$result['actl_cnt']."'>".$result['actl_cnt']."</td>";
+            
 
-                        echo "<td>";
-                        if(empty($mf)){
-                        }else {
-                            echo"<button type='button' class='btnView'><a title='Attachment' href='../uploads/".$result['medicalfile']."' style='color:#ffff;font-weight:bold;'  
-                                        target='popup' onclick='window.open('../uploads/".$result['medicalfile']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>";  
-                        }             
-                        echo'
-                            <button class="chckbt btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
-                            <button class="rejbt btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
-                            </td>';
-                    
-                echo "</tr>";
+                echo "<td>";
+                if(empty($mf)){
+                }else {
+                    echo"<button type='button' class='btnView atch'><a title='Attachment' href='../uploads/".$result['medicalfile']."' style='color:#ffff;font-weight:bold;'  
+                                target='popup' onclick='window.open('../uploads/".$result['medicalfile']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>";  
+                }             
+                echo'
+                    <button class="chckbt btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="rejbt btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    </td>';
+            
+        echo "</tr>";
             } while ($result = $stmt->fetch());
             echo "</tbody><tfoot>";
         }else{
@@ -156,7 +155,8 @@
                     <td>'.$result['employee'].'</td>'.
                     '<td class="text-center">'. round($begbal,2) .'</td>'.
                     '<td class="text-center">'. round($used,2) .'</td>'.
-                    '<td><button class="penLeave btnPending" id="'.$result['emp_code'].'" type="submit">'. $totalPending .'</button></td>'.
+                    '<td><button class="penLeave btnPending" id="'.$result['emp_code'].'" type="submit">'. $totalPending .'</button>
+                    <button id="alertleave" value="'. $totalPending .'" hidden></button></td></td>'.
                     '<td class="text-center">'. round($earned_sl,2) .'</td>'.
                     '<td class="text-center">'. round($earned_vl,2) .'</td>'.
                     '<td class="text-center"><button class="hstry btnViewing" id="'.$result['emp_code'].'" type="submit"><i class="fas fa-search"></button></td>'.
@@ -421,15 +421,24 @@
 
         global $connL;
 
-        $querys = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:leave_id, :emp_code, :remarks,:audituser, :auditdate) ";
+        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :approver";
+        $param = array(':approver' => $approver);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $apprv_name = $result['fullname'];
+
+
+        $querys = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:leave_id,:emp_code,:emp_name,:remarks,:audituser,:auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":leave_id" => $rowid,
                     ":emp_code"=> $empcode,
-                    ":remarks" => 'Approved by '.$approver,
+                    ":emp_name"=> $apprv_name,
+                    ":remarks" => 'Approved by '.$apprv_name,
                     ":audituser" => $approver,
                     ":auditdate"=>date('m-d-Y')
                 );
@@ -460,18 +469,25 @@
     function RejectLeave($employee,$curDateFrom,$curDateTo,$curLeaveType,$curRejected,$remarks,$rowid,$rejecter,$empcode){
         
 
-
         global $connL;
 
-        $query = "INSERT INTO logs_leave (leave_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:leave_id, :emp_code, :remarks,:audituser, :auditdate) ";
+        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :rejecter";
+        $param = array(':rejecter' => $rejecter);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $rjct_name = $result['fullname'];
+
+        $query = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:leave_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmt =$connL->prepare($query);
     
                 $param = array(
                     ":leave_id" => $rowid,
                     ":emp_code"=> $empcode,
-                    ":remarks" => 'Rejected by '.$rejecter,
+                    ":emp_name"=> $rjct_name,
+                    ":remarks" => 'Rejected by '.$rjct_name,
                     ":audituser" => $rejecter,
                     ":auditdate"=>date('m-d-Y')
                 );

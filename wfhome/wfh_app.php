@@ -63,20 +63,36 @@ Class WfhApp{
                 $wfhpercentage = "'".$result['wfh_percentage']."'";
                 $wfhstats = "'".$result['stats']."'";
                 $wfhid = "'".$result['rowid']."'";
+                $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['wfh_date'])) . '</td>
                 <td>' . $result['wfh_task'] . '</td>
                 <td>' . $result['wfh_output'] . '</td>
                 <td>' . $result['wfh_percentage'] . '</td>
-                <td>' . $result['stats'] . '</td>
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Overtime">
+                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
+                if($result['stats'] == 'PENDING'){
+                echo'
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
+                            </button>                           
+                            <button type="button" id="clv" class="voidBut" onclick="cancelWfh('.$wfhid.','.$empcode.')" title="Cancel Work From Home">
+                                <i class="fas fa-ban"></i>
                             </button>
                             </td>';
+                }else{
+                echo'
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                        
+                            </td>';
+                }                            
 
 
             } while ($result = $stmt->fetch());
@@ -127,20 +143,28 @@ Class WfhApp{
 
             echo $result;
 
+            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empCode";
+            $sparam = array(':empCode' => $empCode);
+            $sstmt =$connL->prepare($squery);
+            $sstmt->execute($sparam);
+            $sresult = $sstmt->fetch();
+            $sname = $sresult['fullname'];
+
             $qry = 'SELECT max(rowid) as maxid FROM tr_workfromhome WHERE emp_code = :emp_code';
             $prm = array(":emp_code" => $empCode);
             $stm =$connL->prepare($qry);
             $stm->execute($prm);
             $rst = $stm->fetch();
 
-            $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+            $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":wfh_id" => $rst['maxid'],
                     ":emp_code"=> $empCode,
+                    ":emp_name"=> $sname,
                     ":remarks" => 'Apply WFH for '.$wfhDate,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y')

@@ -65,7 +65,8 @@ Class ObApp{
                 $obpurpose = "'".$result['ob_purpose']."'";
                 $obpercmp = "'".$result['ob_percmp']."'";
                 $stats = "'".$result['stats']."'";
-                $otid = "'".$result['rowid']."'";
+                $obid = "'".$result['rowid']."'";
+                $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['date_filed'])) . '</td>
@@ -74,14 +75,29 @@ Class ObApp{
                 <td>' . date('h:i a', strtotime($result['ob_time'])) . '</td>
                 <td>' . $result['ob_purpose'] . '</td>
                 <td>' . $result['ob_percmp'] . '</td>
-                <td>' . $result['stats'] . '</td>
+                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
+                if($result['stats'] == 'PENDING'){
+                echo'
                 <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewObHistoryModal('.$otid.')" title="View Logs">
+                            <button type="button" class="hdeactv" onclick="viewObHistoryModal('.$obid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
+                            </button>                         
+                            <button type="button" id="clv" class="voidBut" onclick="cancelOb('.$obid.','.$empcode.')" title="Cancel Work From Home">
+                                <i class="fas fa-ban"></i>
                             </button>
                             </td>';
+                }else{
+                echo'
+                <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.')" title="View Overtime">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewObHistoryModal('.$obid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                      
+                            </td>';
+                }                             
 
             } while ($result = $stmt->fetch());
 
@@ -133,20 +149,28 @@ Class ObApp{
 
             echo $result;
 
+            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empCode";
+            $sparam = array(':empCode' => $empCode);
+            $sstmt =$connL->prepare($squery);
+            $sstmt->execute($sparam);
+            $sresult = $sstmt->fetch();
+            $sname = $sresult['fullname'];            
+
             $qry = 'SELECT max(rowid) as maxid FROM tr_offbusiness WHERE emp_code = :emp_code';
             $prm = array(":emp_code" => $empCode);
             $stm =$connL->prepare($qry);
             $stm->execute($prm);
             $rst = $stm->fetch();
 
-            $querys = "INSERT INTO logs_ob (ob_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ob_id, :emp_code, :remarks,:audituser, :auditdate) ";
+            $querys = "INSERT INTO logs_ob (ob_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ob_id,:emp_code,:emp_name,:remarks,:audituser,:auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":ob_id" => $rst['maxid'],
                     ":emp_code"=> $empCode,
+                    ":emp_name"=> $sname,
                     ":remarks" => 'Apply OB for '.$obDate,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y')

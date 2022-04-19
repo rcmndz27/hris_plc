@@ -278,7 +278,6 @@ color: #d64747;
         
         $("#search").one('click', function (event) 
         {
-        $("body").css("cursor", "progress");
         if($('#action_taken').val() === 'Referred'){
             var appent_status = 1;
         }else{
@@ -294,9 +293,6 @@ color: #d64747;
         var referral_date = document.getElementById("referral_date").value;        
         var rowid = document.getElementById("rowid").value;
         $(this).prop('disabled', true);
-
-        $('#contents').html('');
-
 
                         swal({
                           title: "Are you sure?",

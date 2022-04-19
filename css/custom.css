@@ -606,6 +606,19 @@ color: #d64747;
     opacity: 0.5;
 }
 
+.voidBut{
+    width: 10; 
+    background-color: #970606;
+    border-color: #970606;
+    font-weight: bolder;   
+    color: #ffff;
+    font-size: 14px;
+    border-radius:1rem;;
+}
+
+.voidBut:hover{
+    opacity: 0.5;
+}
 
 .deactv{
     width: 130px; 
@@ -677,13 +690,18 @@ caption > button:hover{
 }
 */
 
+.atch{
+    background-color: blue;
+}
+
 .btnView:hover {
-    color: #fff;
+/*    color: #fff;
     background-color: #0069d9;
     border: 1px solid #0062cc;
     border-radius: .25rem;
     width: 3.125em;
-    padding: .188em .625em;
+    padding: .188em .625em;*/
+    opacity: 0.3;
 }
 
 .btnApprove:hover {

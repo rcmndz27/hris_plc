@@ -44,6 +44,12 @@ else
     $tmt->execute($aram);
     $esult = $tmt->fetch();
 
+    $buery = "SELECT count(emp_code) as dtrc_count from tr_dtrcorrect where status = 1 and reporting_to = :empcode";
+    $btmt =$connL->prepare($buery);
+    $baram = array(":empcode" => $empCode);
+    $btmt->execute($baram);
+    $besult = $btmt->fetch();    
+
 
     $querys = "SELECT count(emp_code) as lv_count from tr_leave where approved = 1 and approval = :empcode";
     $stmts =$connL->prepare($querys);
@@ -218,7 +224,8 @@ else
                               <li><a href='../leave/leaveApplication_view.php' onclick='show()'><i class='fas fa-suitcase fa-fw'></i>Leave</a></li>
                               <li><a href='../overtime/ot_app_view.php' onclick='show()'><i class='fas fa-hourglass fa-fw'></i>Overtime</a></li>
                               <li><a href='../wfhome/wfh_app_view.php' onclick='show()'><i class='fas fa-warehouse fa-fw'></i>Work From Home</a></li>
-                              <li><a href='../ob/ob_app_view.php' onclick='show()'><i class='fas fa-building'></i>Official Business</a></li>                              
+                              <li><a href='../ob/ob_app_view.php' onclick='show()'><i class='fas fa-building'></i>Official Business</a></li>
+                              <li><a href='../dtrcorrect/dtrcorrect_app_view.php' onclick='show()'><i class='fas fa-clock'></i>DTR Correction</a></li>                                                              
                             </ul>
                         </li>";
 
@@ -226,23 +233,26 @@ else
                             $ot = (isset($result['ot_count'])) ? $result['ot_count'] : '0' ;
                             $ob = (isset($esult['ob_count'])) ? $esult['ob_count'] : '0' ;
                             $wfh = (isset($resultss['wfh_count'])) ? $resultss['wfh_count'] : '0' ;
+                            $dtrc = (isset($besult['dtrc_count'])) ? $besult['dtrc_count'] : '0' ;
                             $pyrll = (isset($rst['pyrll_count'])) ? $rst['pyrll_count'] : '0' ;
                             $pyrllf = (isset($rstf['pyrll_countf'])) ? $rstf['pyrll_countf'] : '0' ;
                             echo"<button id='lv_count' value='You have ".$lv." leave approval!' hidden></button>
                             <button id='ot_count' value='You have ".$ot." overtime approval!' hidden></button>
                             <button id='ob_count' value='You have ".$ob." official business approval!' hidden></button>
                             <button id='wfh_count' value='You have ".$wfh." work from home approval!' hidden></button>
+                            <button id='dtrc_count' value='You have ".$dtrc." dtr correction approval!' hidden></button>
                             <button id='pyrll_count' value='You have ".$pyrll." payroll approval!' hidden></button>
                             <button id='lv' value='".$lv."' hidden></button>
                             <button id='ot' value='".$ot."' hidden></button>
                             <button id='wfh' value='".$wfh."' hidden></button>
+                            <button id='dtrc' value='".$dtrc."' hidden></button>
                             <button id='pyrll' value='".$pyrll."' hidden></button>
                             <button id='pyrllf' value='".$pyrllf."' hidden></button>
                             <button id='ob' value='".$ob."' hidden></button>"; 
 
 
-                            $approval_adm = $lv + $ot + $wfh + $ob + $pyrll;
-                            $approval_tm = $lv + $ot + $wfh + $ob;
+                            $approval_adm = $lv + $ot + $wfh + $wfh + $dtrc + $ob + $pyrll;
+                            $approval_tm = $lv + $ot + $wfh + $dtrc + $ob;
                             $approval_f = $pyrllf;
                             if ($approval_adm > 0) {
                               $apprm = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_adm."</span>";
@@ -260,7 +270,9 @@ else
                               $apprf = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_f."</span>";
                              }else{
                                $apprf = '';
-                             }                             
+                             }   
+// <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
+// <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li>                           
                             
                 switch(trim($empUserType)){
                     case "Admin":
@@ -276,8 +288,6 @@ else
                                   <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
                                   <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
-                                  <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
-                                  <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li> 
                                   </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
@@ -286,7 +296,8 @@ else
                                   <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
                                   <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
                                   <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
-                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>                                                     
+                                  <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
+                                  <li><a href='../dtrcorrect/dtrcorrect-approval-view.php' onclick='show()'>DTR Correction (".$dtrc.")</a></li>
                                   <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
                                 </ul>
                               </li>
@@ -334,37 +345,38 @@ else
                             </ul>
                           </li>";  
                     break;
-                           case "Team Manager":   
-                            echo "
-                                    <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;MANAGER TOOLS ".$appr."<i class='bi bi-chevron-down'></i></a>
-                                        <ul>
-                                                <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_tm.")</span> 
-                                                  <i class='bi bi-chevron-right'></i></a>
-                                                  <ul>
-                                                    <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
-                                                    <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
-                                                    <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
-                                                     <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
-                                                  </ul>
-                                                </li>
-                                               <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
-                                                  <i class='bi bi-chevron-right'></i></a>
-                                                  <ul> 
-                                                    <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
-                                                    <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
-                                                  </ul>
-                                                </li>
-                                              <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>View Tools</span> 
-                                                <i class='bi bi-chevron-right'></i></a>
-                                                <ul>                                                
-                                                  <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
-                                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
-                                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
-                                                </ul>
-                                              </li>                                                                                              
+             case "Team Manager":   
+              echo "
+                      <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;MANAGER TOOLS ".$appr."<i class='bi bi-chevron-down'></i></a>
+                          <ul>
+                                  <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_tm.")</span> 
+                                    <i class='bi bi-chevron-right'></i></a>
+                                    <ul>
+                                      <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
+                                      <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
+                                      <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
+                                       <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
+                                    <li><a href='../dtrcorrect/dtrcorrect-approval-view.php' onclick='show()'>DTR Correction (".$dtrc.")</a></li>                                                     
+                                    </ul>
+                                  </li>
+                                 <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
+                                    <i class='bi bi-chevron-right'></i></a>
+                                    <ul> 
+                                      <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
+                                      <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
+                                    </ul>
+                                  </li>
+                                <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>View Tools</span> 
+                                  <i class='bi bi-chevron-right'></i></a>
+                                  <ul>                                                
+                                    <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
+                                    <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
+                                    <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
                                   </ul>
-                               </li>";
-                                    break; 
+                                </li>                                                                                              
+                    </ul>
+                 </li>";
+                      break; 
                            case "Finance":   
                             echo "
                                     <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$apprf."<i class='bi bi-chevron-down'></i></a>

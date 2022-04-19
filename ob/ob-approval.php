@@ -30,7 +30,7 @@
                         <tr>
                             <td>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</td>
                             <td>"."<button style='width: 9.375rem;' class='penLeave btnPending' id='".$result['emp_code']."' type='submit'>".$obFiled."</button>
-                            <button id='alertot' value='".$obFiled."' hidden></button></td>
+                            <button id='alertob' value='".$obFiled."' hidden></button></td>
                         </tr>";
                 } while($result = $stmt->fetch());
 
@@ -64,7 +64,7 @@
                             <th>Time</th>
                             <th>Purpose</th>
                             <th>Person/Company to See</th>
-                            <th>OB Days</th>
+                            <th hidden>OB Days</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -76,13 +76,13 @@
                     $actualOB = (isset($result['obcnt']) ? $result['obcnt'] : 0);
 
                     echo"
-                        <tr>
+                        <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['ob_date']))."</td>
                             <td>".$result['ob_destination']."</td>
                             <td>".date('h:i a', strtotime($result['ob_time']))."</td>
                             <td>".$result['ob_purpose']."</td>
                             <td>".$result['ob_percmp']."</td>
-                            <td>"."<input type='number' class='form-control' value='".round($actualOB,2)."'  max='".round($actualOB,2)."' onkeydown='return false' min='0'>"."</td>
+                            <td hidden>"."<input type='number' class='form-control' value='".round($actualOB,2)."'  max='".round($actualOB,2)."' onkeydown='return false' min='0'>"."</td>
                             <td>".
                                 "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
                                 "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>"."</td>
@@ -100,15 +100,23 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_ob (ob_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ob_id, :emp_code, :remarks,:audituser, :auditdate) ";
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];                
+
+                $querys = "INSERT INTO logs_ob (ob_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ob_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":ob_id" => $rowid,
                     ":emp_code"=> $empId,
-                    ":remarks" => 'Approved '.$apvdob.' day/s by '.$empReportingTo,
+                    ":emp_name"=> $sname,
+                    ":remarks" => 'Approved '.$apvdob.' day/s by '.$sname,
                     ":audituser" => $empReportingTo,
                     ":auditdate"=>date('m-d-Y')
                 );
@@ -117,7 +125,6 @@
 
             echo $results;
 
-            // exit();
 
             $query = " UPDATE tr_offbusiness SET status = :apvd_stat, audituser = :audituser, auditdate = :auditdate 
             WHERE ob_reporting = :reporting_to AND emp_code = :emp_code AND rowid = :rowid";
@@ -144,15 +151,23 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_ob (ob_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ob_id, :emp_code, :remarks,:audituser, :auditdate) ";
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];                  
+
+                $querys = "INSERT INTO logs_ob (ob_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ob_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
             $params = array(
                 ":ob_id" => $rowid,
                 ":emp_code"=> $empId,
-                ":remarks" => 'Rejected by '.$empReportingTo.' because of '.$rjctRsn,
+                ":emp_name"=> $sname,
+                ":remarks" => 'Rejected by '.$sname.'. Reason:'.$rjctRsn,
                 ":audituser" => $empReportingTo,
                 ":auditdate"=>date('m-d-Y')
             );
@@ -161,7 +176,6 @@
 
             echo $results;
 
-            // exit();
 
             $query = " UPDATE tr_offbusiness 
             SET status = :apvd_stat, audituser = :audituser, auditdate = :auditdate, reject_reason = :reject_reason

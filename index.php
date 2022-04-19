@@ -159,7 +159,7 @@ if (empty($_SESSION['userid'])) {
 
           <form action="" method="post" name="login" onsubmit="show()">
             <div class="input-group mb-3">
-              <input type="text" name="userid" id="userid" class="form-control" placeholder="Email" autocomplete="off" required/>
+              <input type="text" name="userid" id="userid" class="form-control" placeholder="Email" autocomplete="on" required/>
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fa fa-user"></span>

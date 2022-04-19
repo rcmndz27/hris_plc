@@ -56,7 +56,7 @@
 
                 <div class="form-row">
                     <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD/LOCATION:</label>
-                <div class='col-md-4'>
+                <div class='col-md-2'>
                     <select class="form-control" id="empCode" name="empCode" value="" hidden>
                         <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>
                     </select>
@@ -212,7 +212,14 @@
                                         <input type="number" class="form-control" name="vacation_leave"
                                             id="vacation_leave"> 
                                     </div>
-                                </div>                                                                                                              
+                                </div> 
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="remarks">Remarks:</label>
+                                        <input type="text" class="form-control" name="remarks"
+                                            id="remarks" placeholder="Comments/Reasons..."> 
+                                    </div>
+                                </div>                                                                                                                                                
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">                                  
@@ -226,44 +233,82 @@
         </div><!-- modal fade closing -->
 
 <div class="modal fade" id="viewAllAttendanceEmp" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW ATTENDANCE LOGS   <i class="fas fa-suitcase"></i></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times; </span>
-                    </button>
-                </div>
-        <div class="modal-body">
-            <div class="main-body">
-                <fieldset class="fieldset-border">
-                            <div class="d-flex justify-content-center">
-                                <legend class="fieldset-border pad">
-                                </legend>
-                             </div>
-                        <div class="form-row">
-                            <div class="row pt-3">
-                                <div class="col-md-12">
-                                    <div class="panel-body">
-                                        <div id="contents2" class="table-responsive-sm table-body">
-                                            <button type="button" id="search" hidden>GENERATE</button>
-                                        </div>
-                                    </div>
+aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title bb" id="popUpModalTitle">VIEW ATTENDANCE LOGS   <i class="fas fa-suitcase"></i></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times; </span>
+            </button>
+        </div>
+<div class="modal-body">
+    <div class="main-body">
+        <fieldset class="fieldset-border">
+                    <div class="d-flex justify-content-center">
+                        <legend class="fieldset-border pad">
+                        </legend>
+                     </div>
+                <div class="form-row">
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div id="contents2" class="table-responsive-sm table-body">
+                                    <button type="button" id="search" hidden>GENERATE</button>
                                 </div>
-                            </div>                                               
-                        </div> <!-- form row closing -->
-                    </fieldset> 
+                            </div>
+                        </div>
+                    </div>                                               
+                </div> <!-- form row closing -->
+            </fieldset> 
 
-                                <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
-                                </div> 
-                        </div> <!-- main body closing -->
-                    </div> <!-- modal body closing -->
-                </div> <!-- modal content closing -->
-            </div> <!-- modal dialog closing -->
-        </div><!-- modal fade closing -->   
+                        <div class="modal-footer">
+                            <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                        </div> 
+                </div> <!-- main body closing -->
+            </div> <!-- modal body closing -->
+        </div> <!-- modal content closing -->
+    </div> <!-- modal dialog closing -->
+</div><!-- modal fade closing -->   
 
+<div class="modal fade" id="viewPayrollLogs" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title bb" id="popUpModalTitle">VIEW ATTENDANCE PAYROLL LOGS  <i class="fas fa-money-bill"></i></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times; </span>
+            </button>
+        </div>
+<div class="modal-body">
+    <div class="main-body">
+        <fieldset class="fieldset-border">
+                    <div class="d-flex justify-content-center">
+                        <legend class="fieldset-border pad">
+                        </legend>
+                     </div>
+                <div class="form-row">
+                    <div class="row pt-3">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <div id="contents3" class="table-responsive-sm table-body">
+                                    <button type="button" id="search" hidden>GENERATE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                               
+                </div> <!-- form row closing -->
+            </fieldset> 
+
+                        <div class="modal-footer">
+                            <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                        </div> 
+                </div> <!-- main body closing -->
+            </div> <!-- modal body closing -->
+        </div> <!-- modal content closing -->
+    </div> <!-- modal dialog closing -->
+</div><!-- modal fade closing -->   
 
     </div>
 </div>
@@ -275,10 +320,48 @@ function show() {
     document.getElementById("myDiv").style.display="block";
 }
 
-    function viewAllAttendanceEmp(bdno,pfrom,pto)
+function viewAllAttendanceEmp(bdno,pfrom,pto)
+{
+   $('#viewAllAttendanceEmp').modal('toggle');
+    var url = "../payroll/payatt_viewlogs.php";
+    var emp_code = bdno;
+    var dateFrom = pfrom;
+    var dateTo = pto;
+
+    $.post (
+        url,
+        {
+            _action: 1,
+            emp_code: emp_code,
+            dateFrom: dateFrom,
+            dateTo: dateTo             
+        },
+        function(data) { 
+            $("#contents2").html(data).show(); 
+            $("#empDtrList").tableExport({
+                headers: true,
+                footers: true,
+                formats: ['xlsx'],
+                filename: 'id',
+                bootstrap: false,
+                exportButtons: true,
+                position: 'top',
+                ignoreRows: null,
+                ignoreCols: null,
+                trimWhitespace: true,
+                RTL: false,
+                sheetname: 'Attendace_Logs'
+            });
+                $(".fa-file-export").remove();
+                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+        }
+    );
+}
+
+function viewPayrollLogs(bdno,pfrom,pto)
     {
-       $('#viewAllAttendanceEmp').modal('toggle');
-        var url = "../payroll/payatt_viewlogs.php";
+       $('#viewPayrollLogs').modal('toggle');
+        var url = "../payroll/audit_payattviewlogs_process.php";
         var emp_code = bdno;
         var dateFrom = pfrom;
         var dateTo = pto;
@@ -292,8 +375,8 @@ function show() {
                 dateTo: dateTo             
             },
             function(data) { 
-                $("#contents2").html(data).show(); 
-                $("#empDtrList").tableExport({
+                $("#contents3").html(data).show(); 
+                $("#AuditPayAttViewLogs").tableExport({
                     headers: true,
                     footers: true,
                     formats: ['xlsx'],
@@ -305,39 +388,58 @@ function show() {
                     ignoreCols: null,
                     trimWhitespace: true,
                     RTL: false,
-                    sheetname: 'Payroll Register View'
+                    sheetname: 'Attendace_Audit_Logs'
                 });
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');                
+                $(".fa-file-export").remove();
+                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
             }
         );
     }
 
-    function editAttModal(empname,empcd){
-          
-    $('#updateAtt').modal('toggle');
-    document.getElementById('employee').value =  empname;
-    document.getElementById('badge_no').value =  empcd; 
-    document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
-    document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
-    document.getElementById('tot_lates').value =  document.getElementById('tol'+empcd).innerHTML;
-    document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;                 
-    document.getElementById('tot_overtime_reg').value =  document.getElementById('tor'+empcd).innerHTML;  
-    document.getElementById('tot_rest').value =  document.getElementById('tos'+empcd).innerHTML; 
-    document.getElementById('tot_overtime_rest').value =  document.getElementById('tors'+empcd).innerHTML;
-    document.getElementById('tot_overtime_regholiday').value =  document.getElementById('torg'+empcd).innerHTML;
-    document.getElementById('tot_overtime_spholiday').value =   document.getElementById('tosp'+empcd).innerHTML;  
-    document.getElementById('tot_overtime_sprestholiday').value =   document.getElementById('tospr'+empcd).innerHTML; 
-    document.getElementById('night_differential').value =   document.getElementById('nd'+empcd).innerHTML; 
-    document.getElementById('night_differential_ot').value =   document.getElementById('ndot'+empcd).innerHTML;  
-    document.getElementById('night_differential_ot_rest').value =   document.getElementById('ndrot'+empcd).innerHTML;  
-    document.getElementById('sick_leave').value =   document.getElementById('slh'+empcd).innerHTML;  
-    document.getElementById('vacation_leave').value =   document.getElementById('vlh'+empcd).innerHTML;
+function editAttModal(empname,empcd){
+      
+$('#updateAtt').modal('toggle');
+document.getElementById('employee').value =  empname;
+document.getElementById('badge_no').value =  empcd; 
+document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
+document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
+document.getElementById('tot_lates').value =  document.getElementById('tol'+empcd).innerHTML;
+document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;                 
+document.getElementById('tot_overtime_reg').value =  document.getElementById('tor'+empcd).innerHTML;  
+document.getElementById('tot_rest').value =  document.getElementById('tos'+empcd).innerHTML; 
+document.getElementById('tot_overtime_rest').value =  document.getElementById('tors'+empcd).innerHTML;
+document.getElementById('tot_overtime_regholiday').value =  document.getElementById('torg'+empcd).innerHTML;
+document.getElementById('tot_overtime_spholiday').value =   document.getElementById('tosp'+empcd).innerHTML;  
+document.getElementById('tot_overtime_sprestholiday').value =   document.getElementById('tospr'+empcd).innerHTML; 
+document.getElementById('night_differential').value =   document.getElementById('nd'+empcd).innerHTML; 
+document.getElementById('night_differential_ot').value =   document.getElementById('ndot'+empcd).innerHTML;  
+document.getElementById('night_differential_ot_rest').value =   document.getElementById('ndrot'+empcd).innerHTML;  
+document.getElementById('sick_leave').value =   document.getElementById('slh'+empcd).innerHTML;  
+document.getElementById('vacation_leave').value =   document.getElementById('vlh'+empcd).innerHTML;
+}
+
+function insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname) {
+
+            $.post (url2,
+            {
+                action:action,
+                badge_no: badge_no,
+                column_name: column_name,
+                pay_from: pay_from,
+                pay_to: pay_to,
+                new_data: new_data,
+                old_data: old_data,
+                remarks: remarks,
+                emp_code: empcd, 
+                emp_name: lname+','+fname 
+            });
 }
 
     function updateAtt()
     {
 
     var url = "../payroll/updateAtt_process.php";
+    var url2 = "../payroll/logspayroll_process.php";
     var badge_no = document.getElementById("badge_no").value;
     var tot_days_absent = document.getElementById("tot_days_absent").value;
     var tot_days_work = document.getElementById("tot_days_work").value;  
@@ -353,71 +455,190 @@ function show() {
     var night_differential_ot = document.getElementById("night_differential_ot").value;
     var night_differential_ot_rest = document.getElementById("night_differential_ot_rest").value;
     var sick_leave = document.getElementById("sick_leave").value;
-    var vacation_leave = document.getElementById("vacation_leave").value;                                                        
+    var vacation_leave = document.getElementById("vacation_leave").value;
+    var remarks = document.getElementById("remarks").value;
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to update this employee attendance details?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((updateAtt) => {
-                          if (updateAtt) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        badge_no: badge_no ,
-                                        tot_days_absent: tot_days_absent ,
-                                        tot_days_work: tot_days_work , 
-                                        tot_lates: tot_lates ,                                         
-                                        tot_overtime_reg: tot_overtime_reg ,
-                                        tot_rest: tot_rest ,
-                                        total_undertime: total_undertime ,
-                                        tot_overtime_rest: tot_overtime_rest ,
-                                        tot_overtime_regholiday: tot_overtime_regholiday, 
-                                        tot_overtime_spholiday: tot_overtime_spholiday, 
-                                        tot_overtime_sprestholiday: tot_overtime_sprestholiday,
-                                        night_differential: night_differential, 
-                                        night_differential_ot: night_differential_ot,
-                                        night_differential_ot_rest: night_differential_ot_rest,
-                                        sick_leave: sick_leave,
-                                        vacation_leave: vacation_leave
-                                    },
-                                    function(data) {                                           
-                                            swal({
-                                            title: "Wow!", 
-                                            text: "Successfully updated the attendance details!", 
-                                            type: "success",
-                                            icon: "success",
-                                        }).then(function() {
-                                        $('#updateAtt').modal('hide');
-                                        document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
-                                        document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
-                                        document.getElementById('tol'+badge_no).innerHTML = tot_lates;
-                                        document.getElementById('tor'+badge_no).innerHTML = tot_overtime_reg;
-                                        document.getElementById('tos'+badge_no).innerHTML = tot_rest;
-                                        document.getElementById('tou'+badge_no).innerHTML = total_undertime;
-                                        document.getElementById('tors'+badge_no).innerHTML = tot_overtime_rest;
-                                        document.getElementById('torg'+badge_no).innerHTML = tot_overtime_regholiday;
-                                        document.getElementById('tosp'+badge_no).innerHTML = tot_overtime_spholiday;
-                                        document.getElementById('tospr'+badge_no).innerHTML = tot_overtime_sprestholiday;
-                                        document.getElementById('nd'+badge_no).innerHTML = night_differential;
-                                        document.getElementById('ndot'+badge_no).innerHTML = night_differential_ot;
-                                        document.getElementById('ndrot'+badge_no).innerHTML = night_differential_ot_rest;
-                                        document.getElementById('slh'+badge_no).innerHTML = sick_leave;
-                                        document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;                                        
-                                        }); 
-                                    }
-                                );
+    var lname = document.getElementById('ln'+badge_no).innerHTML ;
+    var fname = document.getElementById('fn'+badge_no).innerHTML ;
+    var pay_from = document.getElementById('pf'+badge_no).innerHTML ;
+    var pay_to = document.getElementById('pt'+badge_no).innerHTML ;
+    var empcd = document.getElementById('empc'+badge_no).innerHTML ;
+    var old_tot_days_absent = document.getElementById('toa'+badge_no).innerHTML ;
+    var old_tot_days_work = document.getElementById('tow'+badge_no).innerHTML ;
+    var old_tot_lates = document.getElementById('tol'+badge_no).innerHTML ;
+    var old_tot_overtime_reg = document.getElementById('tor'+badge_no).innerHTML;
+    var old_tot_rest = document.getElementById('tos'+badge_no).innerHTML;
+    var old_total_undertime = document.getElementById('tou'+badge_no).innerHTML ;
+    var old_tot_overtime_rest = document.getElementById('tors'+badge_no).innerHTML ;
+    var old_tot_overtime_regholiday = document.getElementById('torg'+badge_no).innerHTML ;
+    var old_tot_overtime_spholiday = document.getElementById('tosp'+badge_no).innerHTML;
+    var old_tot_overtime_sprestholiday = document.getElementById('tospr'+badge_no).innerHTML ;
+    var old_night_differential = document.getElementById('nd'+badge_no).innerHTML ;
+    var old_night_differential_ot = document.getElementById('ndot'+badge_no).innerHTML ;
+    var old_night_differential_ot_rest = document.getElementById('ndrot'+badge_no).innerHTML ;
+    var old_sick_leave = document.getElementById('slh'+badge_no).innerHTML ;
+    var old_vacation_leave = document.getElementById('vlh'+badge_no).innerHTML;
 
-                          } else {
-                            swal({text:"You cancel the updating of employee details!",icon:"error"});
-                          }
-                        });
-   
+    // return false;
+    
+    swal({
+          title: "Are you sure?",
+          text: "You want to update this employee attendance details?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((updateAtt) => {
+          if (updateAtt) {
+                $.post (
+                    url,
+                    {
+                        action: 1,
+                        badge_no: badge_no ,
+                        tot_days_absent: tot_days_absent ,
+                        tot_days_work: tot_days_work , 
+                        tot_lates: tot_lates ,                                         
+                        tot_overtime_reg: tot_overtime_reg ,
+                        tot_rest: tot_rest ,
+                        total_undertime: total_undertime ,
+                        tot_overtime_rest: tot_overtime_rest ,
+                        tot_overtime_regholiday: tot_overtime_regholiday, 
+                        tot_overtime_spholiday: tot_overtime_spholiday, 
+                        tot_overtime_sprestholiday: tot_overtime_sprestholiday,
+                        night_differential: night_differential, 
+                        night_differential_ot: night_differential_ot,
+                        night_differential_ot_rest: night_differential_ot_rest,
+                        sick_leave: sick_leave,
+                        vacation_leave: vacation_leave
+                    },
+                    function(data) {                                           
+                            swal({
+                            title: "Wow!", 
+                            text: "Successfully updated the attendance details!", 
+                            type: "success",
+                            icon: "success",
+                        }).then(function() {
+                        $('#updateAtt').modal('hide');
+                        document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
+                        document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
+                        document.getElementById('tol'+badge_no).innerHTML = tot_lates;
+                        document.getElementById('tor'+badge_no).innerHTML = tot_overtime_reg;
+                        document.getElementById('tos'+badge_no).innerHTML = tot_rest;
+                        document.getElementById('tou'+badge_no).innerHTML = total_undertime;
+                        document.getElementById('tors'+badge_no).innerHTML = tot_overtime_rest;
+                        document.getElementById('torg'+badge_no).innerHTML = tot_overtime_regholiday;
+                        document.getElementById('tosp'+badge_no).innerHTML = tot_overtime_spholiday;
+                        document.getElementById('tospr'+badge_no).innerHTML = tot_overtime_sprestholiday;
+                        document.getElementById('nd'+badge_no).innerHTML = night_differential;
+                        document.getElementById('ndot'+badge_no).innerHTML = night_differential_ot;
+                        document.getElementById('ndrot'+badge_no).innerHTML = night_differential_ot_rest;
+                        document.getElementById('slh'+badge_no).innerHTML = sick_leave;
+                        document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
+
+                        if(tot_days_absent !== old_tot_days_absent){
+                                action = 'Change';
+                                new_data = tot_days_absent;
+                                old_data =  old_tot_days_absent;
+                                column_name =  'Days Absent';
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_days_work !== old_tot_days_work){
+                                action = 'Change';
+                                new_data = tot_days_work;
+                                old_data =  old_tot_days_work;
+                                column_name =  'Days Worked';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_lates !== old_tot_lates){
+                                action = 'Change';
+                                new_data = tot_lates;
+                                old_data =  old_tot_lates;
+                                column_name =  'Days Late';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_overtime_reg !== old_tot_overtime_reg){
+                                action = 'Change';
+                                new_data = tot_overtime_reg;
+                                old_data =  old_tot_overtime_reg;
+                                column_name =  'Regular Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_rest !== old_tot_rest){
+                                action = 'Change';
+                                new_data = tot_rest;
+                                old_data =  old_tot_rest;
+                                column_name =  'Rest Day Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(total_undertime !== old_total_undertime){
+                                action = 'Change';
+                                new_data = total_undertime;
+                                old_data =  old_total_undertime;
+                                column_name =  'Undertime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_overtime_rest !== old_tot_overtime_rest){
+                                action = 'Change';
+                                new_data = tot_overtime_rest;
+                                old_data =  old_tot_overtime_rest;
+                                column_name =  'Rest Day Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_overtime_regholiday !== old_tot_overtime_regholiday){
+                                action = 'Change';
+                                new_data = tot_overtime_regholiday;
+                                old_data =  old_tot_overtime_regholiday;
+                                column_name =  'Regulay Holiday Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_overtime_spholiday !== old_tot_overtime_spholiday){
+                                action = 'Change';
+                                new_data = tot_overtime_spholiday;
+                                old_data =  old_tot_overtime_spholiday;
+                                column_name =  'Special Holiday Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(tot_overtime_sprestholiday !== old_tot_overtime_sprestholiday){
+                                action = 'Change';
+                                new_data = tot_overtime_sprestholiday;
+                                old_data =  old_tot_overtime_sprestholiday;
+                                column_name =  'Special Rest Day Holiday Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(night_differential !== old_night_differential){
+                                action = 'Change';
+                                new_data = night_differential;
+                                old_data =  old_night_differential;
+                                column_name =  'Night Differential Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(night_differential_ot !== old_night_differential_ot){
+                                action = 'Change';
+                                new_data = night_differential_ot;
+                                old_data =  old_night_differential_ot;
+                                column_name =  'Night Differential Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(night_differential_ot_rest !== old_night_differential_ot_rest){
+                                action = 'Change';
+                                new_data = night_differential_ot_rest;
+                                old_data =  old_night_differential_ot_rest;
+                                column_name =  'Night Differential Rest Day Overtime Hrs';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(sick_leave !== old_sick_leave){
+                                action = 'Change';
+                                new_data = sick_leave;
+                                old_data =  old_sick_leave;
+                                column_name =  'Sick Leave Days';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }if(vacation_leave !== old_vacation_leave){
+                                action = 'Change';
+                                new_data = vacation_leave;
+                                old_data =  old_vacation_leave;
+                                column_name =  'Vacation Leave Days';         
+                                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+                        }else{
+                                action = 'NoChange';
+                                value = 0;
+                                old_value =  0;
+                        }
+                   });  //  end of swal
                 }
+            );
+      } else {
+        swal({text:"You cancel the updating of employee details!",icon:"error"});
+      }
+    });
+
+}
 
 
 

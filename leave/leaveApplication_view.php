@@ -42,38 +42,17 @@
 
     function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
 
-   
         $('#viewLeaveModal').modal('toggle');
-
-        var hidful = document.getElementById('datefl');
-        hidful.value =  datefl;   
-
-        var bnkt = document.getElementById('leavedesc');
-        bnkt.value =  leavedesc;  
-
-        var at = document.getElementById('leavetyp');
-        at.value =  leavetyp;  
-
-        var ast = document.getElementById('datefr');
-        ast.value =  datefr;  
-
-        var hidful2 = document.getElementById('dateto');
-        hidful2.value =  dateto;   
-
-        var bnkt2 = document.getElementById('remark');
-        bnkt2.value =  remark;  
-
-        var at2 = document.getElementById('appdays');
-        at2.value =  appdays;  
-
-        var ast2 = document.getElementById('appr_oved');
-        ast2.value =  appr_oved;  
-
-        var ast3 = document.getElementById('actlcnt');
-        ast3.value =  actlcnt;        
-
-                          
-    }
+        document.getElementById('datefl').value =  datefl;   
+        document.getElementById('leavedesc').value =  leavedesc;  
+        document.getElementById('leavetyp').value =  leavetyp;  
+        document.getElementById('datefr').value =  datefr;  
+        document.getElementById('dateto').value =  dateto;   
+        document.getElementById('remark').value =  remark;  
+        document.getElementById('appdays').value =  appdays;  
+        document.getElementById('appr_oved').value =  appr_oved;  
+        document.getElementById('actlcnt').value =  actlcnt;        
+}
 
     function viewLeaveHistoryModal(lvlogid)
     {
@@ -91,31 +70,74 @@
         );
     }
 
-    function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("leaveList");
-  tr = table.getElementsByTagName("tr");
-for (i = 0; i < tr.length; i++) {
-   td = tr[i].getElementsByTagName("td");
-    if(td.length > 0){ // to avoid th
-       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("leaveList");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        if(td.length > 0){ // to avoid th
+        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
-         tr[i].style.display = "";
-       } else {
-         tr[i].style.display = "none";
-       }
-
+        tr[i].style.display = "";
+        } else {
+        tr[i].style.display = "none";
+            }
+        }
+        }
     }
- }
-}
+
+        function cancelLeave(lvid,empcd)
+        {
+
+                 var url = "../leave/cancelLeaveProcess.php";  
+                 var leaveid = lvid;   
+                 var emp_code = empcd;   
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to cancel this leave?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((cnclLv) => {
+                          if (cnclLv) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 1,
+                                        leaveid:leaveid,
+                                        emp_code:emp_code
+
+                                    },
+                                    function(data) { 
+                                            swal({
+                                            title: "Oops!", 
+                                            text: "Successfully cancelled leave!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                document.getElementById('st'+leaveid).innerHTML = 'VOID';
+                                                document.querySelector('#clv').remove();
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You stop the cancellation of your leave.",icon:"error"});
+                          }
+                        });
+      
+    }
 
 </script>
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
+<script src="../overtime/moment2.min.js"></script>
+<script src="../overtime/moment-range.js"></script>
 
 <div class="container">
     <div class="section-title">
@@ -433,13 +455,13 @@ for (i = 0; i < tr.length; i++) {
                                         <input type="text" id="leavetyp" name="leavetyp" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="datefr">Date From</label>
                                         <input type="text" id="datefr" name="datefr" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="dateto">Date To</label>
                                         <input type="text" id="dateto" name="dateto" class="form-control" readonly>                                        
@@ -451,9 +473,9 @@ for (i = 0; i < tr.length; i++) {
                                         <input type="text" id="actlcnt" name="actlcnt" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="control-label" for="appdays">Approved/Rejected</label>
+                                        <label class="control-label" for="appdays">Approved/Rejected (Days)</label>
                                         <input type="text" id="appdays" name="appdays" class="form-control" readonly>
                                     </div>
                                 </div>

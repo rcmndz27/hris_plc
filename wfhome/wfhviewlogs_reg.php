@@ -12,7 +12,8 @@
             </tr>
             <tr>
                 <th>Remarks</th>
-                <th>Logs User</th>
+                <th>User Name</th>
+                <th>User Code</th>
                 <th>Logs Date</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 echo '
                 <tr>
                 <td>' . $result['remarks'] . '</td>
+                <td>' . $result['emp_name'] . '</td>
                 <td>' . $result['audituser'] . '</td>
                 <td>' . date('m-d-Y', strtotime($result['auditdate'])) . '</td>';
 

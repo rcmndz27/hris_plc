@@ -65,7 +65,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 pt-3">
+        <div class="col-md-12">
             <?php $overtimeApproval->GetOTSummary($empCode);?>
         </div>
     </div>

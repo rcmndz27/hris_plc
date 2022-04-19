@@ -33,7 +33,8 @@
                         <tr>
                             <td>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</td>
                             <td>"."<button style='width: 9.375rem;' class='penLeave btnPending' id='".$result['emp_code']."' 
-                            type='submit'>".$wfhFiled."</button></td>
+                            type='submit'>".$wfhFiled."</button>
+                            <button id='alertwfh' value='".$wfhFiled."' hidden></button></td>
                         </tr>";
                 } while($result = $stmt->fetch());
 
@@ -75,7 +76,7 @@
             if($result){
                 do{
                     echo"
-                        <tr>
+                        <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
                             <td>".date('m-d-Y', strtotime($result['wfh_date']))."</td>
                             <td>".$result['wfh_task']."</td>
@@ -98,15 +99,23 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];
+
+                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":wfh_id" => $rowId,
                     ":emp_code"=> $empId,
-                    ":remarks" => 'Approved by '.$empReportingTo,
+                    ":emp_name"=> $sname,
+                    ":remarks" => 'Approved by '.$sname,
                     ":audituser" => $empReportingTo,
                     ":auditdate"=>date('m-d-Y')
                 );
@@ -138,15 +147,24 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:wfh_id, :emp_code, :remarks,:audituser, :auditdate) ";
+
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];
+
+                $querys = "INSERT INTO logs_wfh (wfh_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:wfh_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":wfh_id" => $rowId,
                     ":emp_code"=> $empId,
-                    ":remarks" => 'Rejected by '.$empReportingTo.' because of '.$rjctRsn,
+                    ":emp_name"=> $sname,
+                    ":remarks" => 'Rejected by '.$sname.'. Reason:'.$rjctRsn,
                     ":audituser" => $empReportingTo,
                     ":auditdate"=>date('m-d-Y')
                 );

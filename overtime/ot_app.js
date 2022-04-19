@@ -26,8 +26,6 @@
                     var input2 = document.getElementById('otdateto');
                     input2.value = '';               
 
-                }else{
-                    // alert('Error');
                 }   
 
             });
@@ -44,11 +42,8 @@
 
             $('#otstartdtime').change(function(){
                 $('#planot').show();
-                var styme = document.getElementById('otenddtime');
-                styme.value = ''; 
-
-                var styme = document.getElementById('otreqhrs');
-                styme.value = 0; 
+                document.getElementById('otenddtime').value = ''; 
+                document.getElementById('otreqhrs').value = 0; 
             });
 
 
@@ -121,7 +116,7 @@ $('#Submit').click(function(){
                                     });//ajax
 
                               } else {
-                                swal("Your cancel your overtime!");
+                                swal({text:"Your cancel your overtime!",icon:"error"});
                               }
                             });
                         }else{

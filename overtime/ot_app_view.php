@@ -19,40 +19,17 @@
 
 <script type="text/javascript">
     
-
-        function viewOtModal(otdate,ottype,otstartdtime,otenddtime,remark,otreqhrs,otrenhrs,rejectreason,stats){
-
-   
+    function viewOtModal(otdate,ottype,otstartdtime,otenddtime,remark,otreqhrs,otrenhrs,rejectreason,stats){
         $('#viewOtModal').modal('toggle');
-
-        var hidful = document.getElementById('otdatev');
-        hidful.value =  otdate;   
-
-        var bnkt = document.getElementById('ottypev');
-        bnkt.value =  ottype;  
-
-        var at = document.getElementById('otstartdtimev');
-        at.value =  otstartdtime;  
-
-        var ast = document.getElementById('otenddtimev');
-        ast.value =  otenddtime;  
-
-        var bnkt2 = document.getElementById('remarkv');
-        bnkt2.value =  remark;  
-
-        var at2 = document.getElementById('otreqhrsv');
-        at2.value =  otreqhrs;  
-
-        var ast2 = document.getElementById('otrenhrsv');
-        ast2.value =  otrenhrs;  
-
-        var ast3 = document.getElementById('rejectreasonv');
-        ast3.value =  rejectreason;    
-
-        var ast4 = document.getElementById('statsv');
-        ast4.value =  stats;                 
-
-                          
+        document.getElementById('otdatev').value =  otdate;   
+        document.getElementById('ottypev').value =  ottype;  
+        document.getElementById('otstartdtimev').value =  otstartdtime;  
+        document.getElementById('otenddtimev').value =  otenddtime;  
+        document.getElementById('remarkv').value =  remark;  
+        document.getElementById('otreqhrsv').value =  otreqhrs;  
+        document.getElementById('otrenhrsv').value =  otrenhrs;  
+        document.getElementById('rejectreasonv').value =  rejectreason;    
+        document.getElementById('statsv').value =  stats;                                     
     }
 
     function viewOtHistoryModal(lvlogid)
@@ -69,6 +46,47 @@
             },
             function(data) { $("#contents2").html(data).show(); }
         );
+    }
+
+     function cancelOvertime(lvid,empcd)
+        {
+         var url = "../overtime/cancelOvertimeProcess.php";  
+         var otid = lvid;   
+         var emp_code = empcd;   
+            swal({
+                  title: "Are you sure?",
+                  text: "You want to cancel this overtime?",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((cnclOT) => {
+                  if (cnclOT) {
+                    $.post (
+                            url,
+                            {
+                                choice: 1,
+                                otid:otid,
+                                emp_code:emp_code
+                            },
+                            function(data) { 
+                                // console.log(data);
+                                    swal({
+                                    title: "Oops!", 
+                                    text: "Successfully cancelled overtime!", 
+                                    type: "info",
+                                    icon: "info",
+                                    }).then(function() {
+                                        document.getElementById('st'+otid).innerHTML = 'VOID';
+                                        document.querySelector('#clv').remove();
+                                    });  
+                            }
+                        );
+                  } else {
+                    swal({text:"You stop the cancellation of your overtime.",icon:"error"});
+                  }
+                });
+      
     }
 
 </script>

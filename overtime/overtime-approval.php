@@ -75,12 +75,12 @@
                     $actualOT = (isset($result['ot_req_hrs']) ? $result['ot_req_hrs'] : 0);
 
                     echo"
-                        <tr>
+                        <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['ot_date']))."</td>
                             <td>".$result['remarks']."</td>
                             <td>".$result['ot_req_hrs']."</td>
                             <td>".$result['ot_ren_hrs']."</td>
-                            <td>"."<input type='number' class='form-control' value='".round($actualOT,2)."' max='".round($actualOT,2)."' onkeydown='return false' min='0'>"."</td>
+                            <td>"."<input type='number' id='ac".$result['rowid']."' class='form-control' value='".round($actualOT,2)."' max='".round($actualOT,2)."' onkeydown='return false' min='0.5' step='0.5'>"."</td>
                             <td>".
                                 "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
                                 "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>"."</td>
@@ -98,15 +98,23 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_ot (ot_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ot_id, :emp_code, :remarks,:audituser, :auditdate) ";
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];
+
+                $querys = "INSERT INTO logs_ot (ot_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ot_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
                 $params = array(
                     ":ot_id" => $rowid,
                     ":emp_code"=> $empId,
-                    ":remarks" => 'Approved '.$apvdot.' hr/s by '.$empReportingTo,
+                    ":emp_name"=> $sname,
+                    ":remarks" => 'Approved '.$apvdot.' hr/s by '.$sname,
                     ":audituser" => $empReportingTo,
                     ":auditdate"=>date('m-d-Y')
                 );
@@ -144,15 +152,23 @@
 
             global $connL;
 
-                $querys = "INSERT INTO logs_ot (ot_id,emp_code,remarks,audituser,auditdate) 
-                VALUES(:ot_id, :emp_code, :remarks,:audituser, :auditdate) ";
+                $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
+                $sparam = array(':empReportingTo' => $empReportingTo);
+                $sstmt =$connL->prepare($squery);
+                $sstmt->execute($sparam);
+                $sresult = $sstmt->fetch();
+                $sname = $sresult['fullname'];
+
+                $querys = "INSERT INTO logs_ot (ot_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ot_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
     
                 $stmts =$connL->prepare($querys);
     
             $params = array(
                 ":ot_id" => $rowid,
                 ":emp_code"=> $empId,
-                ":remarks" => 'Rejected by '.$empReportingTo.' because of '.$rjctRsn,
+                ":emp_name"=> $sname,
+                ":remarks" => 'Rejected by '.$sname.'. Reason: '.$rjctRsn,
                 ":audituser" => $empReportingTo,
                 ":auditdate"=>date('m-d-Y')
             );

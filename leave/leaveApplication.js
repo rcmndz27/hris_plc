@@ -152,19 +152,29 @@ $(function(){
         rowid = $('.btnApproved').val() ;
         empcode = $('#empcode').val() ;
         dateFrom = $(this).closest('tr').find('td:eq(1)').text();
-        dateTo = $(this).closest('tr').find('td:eq(2)').text();
-        leaveType = $(this).closest('tr').find('td:eq(3)').text();
-        approver = $(this).closest('tr').find('td:eq(5)').text();
+        // dateTo = $(this).closest('tr').find('td:eq(2)').text();
+        leaveType = $(this).closest('tr').find('td:eq(2)').text();
+        // approver = $(this).closest('tr').find('td:eq(5)').text();
         approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
 
+        var approver =  $('#apr'+rowid).val();
+        var apvL =  $('#apc'+rowid).val();
+        var fillv = $('#alertleave').val();
+        var upfillv = fillv-apvL;
+
+        // console.log(approver);
+        // console.log(apvL);
+        // console.log(fillv);
+        // console.log(upfillv);
+        // return false;
 
         param = {
             "Action":"ApproveLeave",
             'employee': empId,
             'curLeaveType': leaveType,
-            "curApproved": approvedDays,
+            "curApproved": apvL,
             "curDateFrom": dateFrom,
-            "curDateTo": dateTo,
+            "curDateTo": dateFrom,
             "approver": approver,
             "empcode": empcode,
             "rowid": rowid
@@ -172,9 +182,6 @@ $(function(){
 
   
         param = JSON.stringify(param);
-
-        // alert(param);
-        // exit();
 
 
                         swal({
@@ -192,10 +199,19 @@ $(function(){
                                             data: {data:param} ,
                                             success: function (data){
                                                 console.log("success: "+ data);
-                                                location.reload();
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully approved leave!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        document.getElementById(empcode).innerHTML = upfillv;
+                                                        document.getElementById('alertleave').value = upfillv;
+                                                        document.querySelector('#clv'+rowid).remove();
+                                                    });
                                             },
                                             error: function (data){
-                                                // console.log("error: "+ data);    
+                                                console.log("error: "+ data);    
                                             }
                                         });
                           } else {
@@ -290,9 +306,9 @@ $(function(){
         rowid = $('.btnRejectd').val();
         empcode = $('#empcode').val();
         dateFrom = $(this).closest('tr').find('td:eq(1)').text();
-        dateTo = $(this).closest('tr').find('td:eq(2)').text();
-        leaveType = $(this).closest('tr').find('td:eq(3)').text();
-        rejecter = $(this).closest('tr').find('td:eq(5)').text();
+        dateTo = $(this).closest('tr').find('td:eq(1)').text();
+        leaveType = $(this).closest('tr').find('td:eq(2)').text();
+        // rejecter = $(this).closest('tr').find('td:eq(5)').text();
         rejecteddDays = $(this).closest('tr').find("td:eq(6) input").val();
 
         $('#remarksModal').modal('toggle');
@@ -308,12 +324,17 @@ $(function(){
 
         $('#remarksModal').modal('toggle');
 
+        var rejecter =  $('#apr'+rowid).val();
+        var apvL =  $('#apc'+rowid).val();
+        var fillv = $('#alertleave').val();
+        var upfillv = fillv-apvL;
+
         if(btnAccessed === "Reject"){
 
             param = {
                 "Action":"RejectLeave",
                 'curLeaveType': leaveType,
-                "curRejected": rejecteddDays,
+                "curRejected": apvL,
                 "curDateFrom": dateFrom,
                 "curDateTo": dateTo,
                 "employee": empId,
@@ -336,9 +357,6 @@ $(function(){
         }
 
         param = JSON.stringify(param);
-        
-        // alert(param);
-        // exit();
 
                           swal({
                           title: "Are you sure?",
@@ -355,8 +373,27 @@ $(function(){
                                             url: "../leave/leaveApprovalProcess.php",
                                             data: {data:param} ,
                                             success: function (data){
-                                                console.log("success: "+ data);
-                                                location.reload();
+                                                 console.log("success: "+ data); 
+                                                    swal({
+                                                    title: "Rejected!", 
+                                                    text: "Successfully rejected leave!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        $('#remarksModal').modal('hide');
+                                                        $('#remarksModal').on('hidden.bs.modal', function (e) {
+                                                          $(this)
+                                                            .find("input,textarea,select")
+                                                               .val('')
+                                                               .end()
+                                                            .find("input[type=checkbox], input[type=radio]")
+                                                               .prop("checked", "")
+                                                               .end();
+                                                        })                     
+                                                        document.getElementById(empcode).innerHTML = upfillv;
+                                                        document.getElementById('alertleave').value = upfillv;
+                                                        document.querySelector('#clv'+rowid).remove();
+                                                    });
                                             },
                                             error: function (data){
                                                 // console.log("error: "+ data);    
@@ -432,7 +469,32 @@ $(function(){
                     // alert(leave_pay);
                 }   
 
-                // exit();
+                  var checkBox = document.getElementById("halfDay");
+                  if (checkBox.checked == true){
+                    leaveCount = 0.5;
+                  } else {
+                     leaveCount = 1.0;
+                  }
+                  
+                var dte = $('#dateFrom').val();
+                var dte_to = $('#dateTo').val();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                dateArr = []; //Array where rest of the dates will be stored
+
+                //creating JS date objects
+                var start = new Date(dte);
+                var date = new Date(dte_to);
+                var end = date.setDate(date.getDate() + 1);
+
+                //Logic for getting rest of the dates between two dates("FromDate" to "EndDate")
+                while(start < end){
+                   dateArr.push(moment(start).format('MM-DD-YYYY'));
+                   var newDate = start.setDate(start.getDate() + 1);
+                   start = new Date(newDate);  
+                }
+
+                const ite_date = dateArr.length === 0  ? dte : dateArr ;
+
 
             if (CheckInput() === true) {
 
@@ -441,8 +503,7 @@ $(function(){
                     "leavetype": leave_pay,
                     "datebirth": $('#dateBirth').val(),
                     "datestartmaternity": $('#dateStartMaternity').val(),
-                    "datefrom": $('#dateFrom').val(),
-                    "dateto": $('#dateTo').val(),
+                    "leaveDate": ite_date,
                     "leavedesc" : $('#leaveDesc').val(),
                     "medicalfile": pdfFile,
                     "leaveCount": leaveCount,
@@ -486,7 +547,7 @@ $(function(){
                                         }
                                     });//ajax
                           } else {
-                            swal("Your cancel your leave!");
+                            swal({text:"Your cancel your leave!",icon:"error"});
                           }
                         });
                     
@@ -712,76 +773,10 @@ $(function(){
 
 
 
-        if($('#dateFrom').val() !== $('#dateTo').val()){
-            $('#halfdayset').show();
-            $('#singleHalf').hide();
-        }else{
-            $('#singleHalf').show();
-            $('#halfdayset').hide();
-        }
-        $("#halfDay").prop("checked", false);
-        
-        param = {
-            "Action":"GetNumberOfDays",
-            "datefrom": $('#dateFrom').val(),
-            "dateto": $('#dateTo').val()
-        };
-        
-        param = JSON.stringify(param);
-        
-        $.ajax({
-            type: "POST",
-            url: "../leave/leaveApplicationProcess.php",
-            data: {data:param} ,
-            success: function (data){
-                // console.log("success: "+ data);
-                leaveCount = data;
-            },
-            error: function (data){
-                console.log("error: "+ data);	
-            }
-        });//ajax
+
         
     });
 
-    $('#halfDay').change(function(){
-
-        if(this.checked){
-            leaveCount = 0.5;
-        }else{
-            leaveCount = 1;
-        }
-
-        console.log(this.checked);
-    });
-
-    $('#lastDayHalfDay').change(function(){
-
-        if(this.checked){
-            $('#multiHalfDay').attr("disabled", true);
-            leaveCount = leaveCount - 0.5;
-        }else{
-            $('#multiHalfDay').removeAttr("disabled");
-            leaveCount = leaveCount + 0.5;
-        }
-
-        // console.log(leaveCount);
-    });
-
-    $('#multiHalfDay').change(function(){
-
-        if(this.checked){
-            $('#lastDayHalfDay').attr("disabled", true);
-            leaveCount = leaveCount / 2;
-            allhaftday = 2;
-        }else{
-            $('#lastDayHalfDay').removeAttr("disabled");
-            leaveCount = leaveCount * 2;
-        }
-
-        // console.log(leaveCount);
-
-    });
 
     $('#search').click(function(e){
         e.preventDefault();

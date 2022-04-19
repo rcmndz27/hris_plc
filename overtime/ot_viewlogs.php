@@ -9,7 +9,6 @@
     if ($action == 1)
     {
         GetOtLogs($lvlogid);
-    }else{
     }
 
 ?>

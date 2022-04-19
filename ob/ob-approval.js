@@ -26,7 +26,10 @@ $(function(){
 
     $(document).on('click','.btnApproved',function(e){
 
-        var apvdOb = $(this).closest('tr').find("td:eq(5) input").val();
+        var prid = this.id;
+        var apvdOb = 1;
+        var filob = $('#alertob').val();
+        var upfilob = filob-apvdOb;
 
         param = {"Action":"ApproveOB",'rowid': this.id,'approvedob': apvdOb,'empId':empId};
 
@@ -47,7 +50,16 @@ $(function(){
                                                 data: {data:param} ,
                                                 success: function (data){
                                                     console.log("success: "+ data);
-                                                    location.reload();
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully approved official business!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                            document.getElementById(empId).innerHTML = upfilob;
+                                                            document.getElementById('alertob').value = upfilob;
+                                                            document.querySelector('#clv'+prid).remove();
+                                                    }); 
                                                 },
                                                 error: function (data){
                                                     // console.log("error: "+ data);    
@@ -99,13 +111,15 @@ $(function(){
     $('#submit').click(function(e){
         e.preventDefault();
 
+
+        var apvdOb = 1;
+        var filob = $('#alertob').val();
+        var upfilob = filob-apvdOb;
+
         param = {"Action":"RejectOB",'rowid': rowid,'empId':empId, "rjctRsn": $('#rejectReason').val()};
 
         param = JSON.stringify(param);
 
-       
-        // swal(param);
-        // exit();
                         swal({
                           title: "Are you sure?",
                           text: "You want to reject this official business?",
@@ -113,15 +127,27 @@ $(function(){
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((rejPayroll) => {
-                          if (rejPayroll) {
+                        .then((rejOb) => {
+                          if (rejOb) {
                                     $.ajax({
                                         type: "POST",
                                         url: "../ob/ob-approval-process.php",
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                            location.reload();
+                                            $('#popUpModal').modal('hide');
+                                            $('#popUpModal').on('hidden.bs.modal', function (e) {
+                                              $(this)
+                                                .find("input,textarea,select")
+                                                   .val('')
+                                                   .end()
+                                                .find("input[type=checkbox], input[type=radio]")
+                                                   .prop("checked", "")
+                                                   .end();
+                                            })
+                                            document.getElementById(empId).innerHTML = upfilob;
+                                            document.getElementById('alertob').value = upfilob;
+                                            document.querySelector('#clv'+rowid).remove();
                                         },
                                         error: function (data){
                                             // console.log("error: "+ data);    

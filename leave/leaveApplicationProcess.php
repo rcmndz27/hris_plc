@@ -25,26 +25,22 @@
         $leaveType = $leaveApplication->{"leavetype"};
         $dateBirth = $leaveApplication->{"datebirth"};
         $dateStartMaternity = $leaveApplication->{"datestartmaternity"};
-        $dateFrom = $leaveApplication->{"datefrom"};
-        $dateTo = $leaveApplication->{"dateto"};
+        // $dateFrom = $leaveApplication->{"datefrom"};
+        // $dateTo = $leaveApplication->{"dateto"};
         $leaveDesc = $leaveApplication->{"leavedesc"};
         $medicalFile = (isset($leaveApplication->{"medicalfile"}) ? $leaveApplication->{"medicalfile"} : '' );
         $leaveCount = $leaveApplication->{"leaveCount"};
         $allhalfdayMark = $leaveApplication->{"allhalfdayMark"};
-        
-        $leaveApp->ApplyLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$dateBirth,$dateStartMaternity,$dateFrom, $dateTo, $leaveDesc, 
-            $medicalFile, $leaveCount, $allhalfdayMark);
+        $arr = $leaveApplication->{"leaveDate"} ;
 
-    }elseif($leaveApplication->{"Action"} == "GetNumberOfDays"){
+        foreach($arr as $value){
+            $leaveDate = $value;
         
-        $dateFrom = $leaveApplication->{"datefrom"};
-        $dateTo = $leaveApplication->{"dateto"};
-
-        $leaveApp->Countdays($dateFrom,$dateTo);
+        $leaveApp->ApplyLeave($empCode,$empName,$empDept,$empReportingTo,$leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc,$medicalFile, $leaveCount, $allhalfdayMark);
+         }
 
     }
     
 
-    
 
 ?>

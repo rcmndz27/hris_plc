@@ -8,11 +8,12 @@
         <table id="LeaveLogsList" class="table table-striped">
         <thead>
             <tr>
-                <th colspan="3" class ="text-center">Leave Logs</th>
+                <th colspan="4" class ="text-center">Leave Logs</th>
             </tr>
             <tr>
                 <th>Remarks</th>
-                <th>Logs User</th>
+                <th>User Code</th>
+                <th>User Name</th>
                 <th>Logs Date</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                 <tr>
                 <td>' . $result['remarks'] . '</td>
                 <td>' . $result['audituser'] . '</td>
+                <td>' . $result['emp_name'] . '</td>
                 <td>' . date('m-d-Y', strtotime($result['auditdate'])) . '</td>';
 
             } while ($result = $stmt->fetch());
