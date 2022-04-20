@@ -35,11 +35,11 @@ class PayrollRegApplication {
             <table id='payrollRegList' class='table table-striped table-sm'>
                 <thead>
                     <tr>
-                        <th colspan='57' class='paytop'>Payroll Register View</th>
+                        <th colspan='58' class='paytop'>Payroll Register View</th>
                     </tr>
                     <tr>
-                        <th>Code</th>
                         <th>Name</th>
+                        <th>Code</th>
                         <th>Bank Account#</th>
                         <th>Bank</th>
                         <th>Position</th>
@@ -146,84 +146,84 @@ $sss_mpf_er = ($r['sss_mpf_er'] <> '0') ?  '&#8369;'.number_format($r['sss_mpf_e
 $sss_ec = ($r['sss_ec'] <> '0') ?  '&#8369;'.number_format($r['sss_ec'],2,'.',',') : 0 ;
 $phic_er = ($r['phic_er'] <> '0') ?  '&#8369;'.number_format($r['phic_er'],2,'.',',') : 0 ;
 $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.',',') : 0 ;
-             
-                            echo "<tr>".
-                                    "<td>" . $r['emp_code'] . "</td>".
-                                    "<td>" . $r['name'] . "</td>".
-                                    "<td>" . $r['bank_acctno'] . "</td>".
-                                    "<td>" . $r['bank'] . "</td>".
-                                    "<td>" . $r['position'] . "</td>".
-                                    "<td>" . $r['emp_status'] . "</td>".
-                                    "<td>" . $r['company'] . "</td>".
-                                    "<td>" . $r['department'] . "</td>".
-                                    "<td>" . $r['location'] . "</td>".
-                                    "<td>" . date('m/d/y', strtotime($r['date_hired'])) . "</td>".
-                                    "<td>" . date('m/d/y', strtotime($r['date_from'])) . "</td>".
-                                    "<td>" . date('m/d/y', strtotime($r['date_to'])) . "</td>".
-                                    "<td>" . '&#8369;'.number_format($r['month_pay'],2,'.',','). "</td>".
-                                    "<td>" . '&#8369;'.number_format($r['daily_pay'],2,'.',','). "</td>".
-                                    "<td>" . '&#8369;'.number_format($r['semi_month_pay'],2,'.',','). "</td>".
-                                    "<td>" . $absences. "</td>".
-                                    "<td>" . $late. "</td>".
-                                    "<td>" . $undertime. "</td>".
-                                    "<td>" . $salary_adjustment. "</td>".
-                                    "<td>" . $overtime. "</td>".
-                                    "<td>" . $meal_allowance. "</td>".
-                                    "<td>" . $salary_allowance. "</td>".
-                                    "<td>" . $oot_allowance. "</td>".
-                                    "<td>" . $inc_allowance. "</td>".
-                                    "<td>" . $rel_allowance. "</td>"                                   .
-                                    "<td>" . $disc_allowance. "</td>".
-                                    "<td>" . $trans_allowance. "</td>".
-                                    "<td>" . $load_allowance. "</td>".
-                                    "<td>" . $sick_leave. "</td>".
-                                    "<td>" . $vacation_leave. "</td>".                                    
-                                    "<td>" . $gross_pay. "</td>".
-                                    "<td>" . $total_taxable. "</td>".
-                                    "<td>" . $witholding_tax. "</td>".
-                                    "<td>" . $sss_regee. "</td>".
-                                    "<td>" . $sss_mpfee. "</td>".
-                                    "<td>" . $phic_ee. "</td>".
-                                    "<td>" . $hdmf_ee. "</td>".
-                                    "<td>" . $hdmf_sal_loan. "</td>".
-                                    "<td>" . $hdmf_cal_loan. "</td>".
-                                    "<td>" . $sss_sal_loan. "</td>".
-                                    "<td>" . $sss_cal_loan. "</td>".
-                                    "<td>" . $sal_ded_tax. "</td>".
-                                    "<td>" . $sal_ded_nontax. "</td>".
-                                    "<td>" . $sal_loan. "</td>".
-                                    "<td>" . $com_loan. "</td>".
-                                    "<td>" . $omhas. "</td>".
-                                    "<td>" . $coop_cbu. "</td>".
-                                    "<td>" . $coop_reg_loan. "</td>".
-                                    "<td>" . $coop_messco. "</td>".
-                                    "<td>" . $uploan. "</td>".
-                                    "<td>" . $others. "</td>".
-                                    "<td>" . $total_deduction. "</td>".
-                                    "<td>" . $netpay. "</td>".
-                                    "<td>" . $sss_reg_er. "</td>".
-                                    "<td>" . $sss_mpf_er. "</td>".
-                                    "<td>" . $sss_ec. "</td>".
-                                    "<td>" . $phic_er. "</td>".
-                                    "<td>" . $hdmf_er. "</td>".
-                                    "</tr>";
-                   } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
-                              echo"</tbody><tfoot>".
-                                    "</tr><tr>".
-                                    "<td colspan='57' class='paytop'>".
-                                    "<button class='conPyrll' onclick='ConfirmPayRegView()'><i class='fas fa-check-square'></i> CONFIRM PAYROLL REGISTER</button></td>".
-                                    "</tr></tfoot>";    
-           
-                }else { 
-                    echo '<tfoot><tr><td colspan="57" class="paytop">No Results Found</td></tr></tfoot>'; 
-                }
-    
-            echo"</table>"; 
-  
-}
 
-    
-}
+    echo "<tr>".
+    "<td>" . $r['name'] . "</td>".
+    "<td>" . $r['emp_code'] . "</td>".
+    "<td>" . $r['bank_acctno'] . "</td>".
+    "<td>" . $r['bank'] . "</td>".
+    "<td>" . $r['position'] . "</td>".
+    "<td>" . $r['emp_status'] . "</td>".
+    "<td>" . $r['company'] . "</td>".
+    "<td>" . $r['department'] . "</td>".
+    "<td>" . $r['location'] . "</td>".
+    "<td>" . date('m/d/y', strtotime($r['date_hired'])) . "</td>".
+    "<td>" . date('m/d/y', strtotime($r['date_from'])) . "</td>".
+    "<td>" . date('m/d/y', strtotime($r['date_to'])) . "</td>".
+    "<td>" . '&#8369;'.number_format($r['month_pay'],2,'.',','). "</td>".
+    "<td>" . '&#8369;'.number_format($r['daily_pay'],2,'.',','). "</td>".
+    "<td>" . '&#8369;'.number_format($r['semi_month_pay'],2,'.',','). "</td>".
+    "<td>" . $absences. "</td>".
+    "<td>" . $late. "</td>".
+    "<td>" . $undertime. "</td>".
+    "<td>" . $salary_adjustment. "</td>".
+    "<td>" . $overtime. "</td>".
+    "<td>" . $meal_allowance. "</td>".
+    "<td>" . $salary_allowance. "</td>".
+    "<td>" . $oot_allowance. "</td>".
+    "<td>" . $inc_allowance. "</td>".
+    "<td>" . $rel_allowance. "</td>"                                   .
+    "<td>" . $disc_allowance. "</td>".
+    "<td>" . $trans_allowance. "</td>".
+    "<td>" . $load_allowance. "</td>".
+    "<td>" . $sick_leave. "</td>".
+    "<td>" . $vacation_leave. "</td>".                                    
+    "<td>" . $gross_pay. "</td>".
+    "<td>" . $total_taxable. "</td>".
+    "<td>" . $witholding_tax. "</td>".
+    "<td>" . $sss_regee. "</td>".
+    "<td>" . $sss_mpfee. "</td>".
+    "<td>" . $phic_ee. "</td>".
+    "<td>" . $hdmf_ee. "</td>".
+    "<td>" . $hdmf_sal_loan. "</td>".
+    "<td>" . $hdmf_cal_loan. "</td>".
+    "<td>" . $sss_sal_loan. "</td>".
+    "<td>" . $sss_cal_loan. "</td>".
+    "<td>" . $sal_ded_tax. "</td>".
+    "<td>" . $sal_ded_nontax. "</td>".
+    "<td>" . $sal_loan. "</td>".
+    "<td>" . $com_loan. "</td>".
+    "<td>" . $omhas. "</td>".
+    "<td>" . $coop_cbu. "</td>".
+    "<td>" . $coop_reg_loan. "</td>".
+    "<td>" . $coop_messco. "</td>".
+    "<td>" . $uploan. "</td>".
+    "<td>" . $others. "</td>".
+    "<td>" . $total_deduction. "</td>".
+    "<td>" . $netpay. "</td>".
+    "<td>" . $sss_reg_er. "</td>".
+    "<td>" . $sss_mpf_er. "</td>".
+    "<td>" . $sss_ec. "</td>".
+    "<td>" . $phic_er. "</td>".
+    "<td>" . $hdmf_er. "</td>".
+    "</tr>";
+    } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
+    echo"</tbody><tfoot>".
+    "</tr><tr>".
+    "<td colspan='58' class='paytop'>".
+    "<button class='conPyrll' onclick='ConfirmPayRegView()'><i class='fas fa-check-square'></i> CONFIRM PAYROLL REGISTER</button></td>".
+    "</tr></tfoot>";    
+
+    }else { 
+        echo '<tfoot><tr><td colspan="58" class="paytop">No Results Found</td></tr></tfoot>'; 
+    }
+
+    echo"</table>"; 
+
+    }
+
+
+    }
 
 
 

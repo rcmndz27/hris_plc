@@ -9,21 +9,33 @@
     $tot_days_work = $_POST["tot_days_work"];   
     $tot_lates = $_POST["tot_lates"];   
     $tot_overtime_reg = $_POST["tot_overtime_reg"];
-    $tot_rest = $_POST["tot_rest"];
-    $total_undertime = $_POST["total_undertime"];
-    $tot_overtime_rest = $_POST["tot_overtime_rest"];
-    $tot_overtime_regholiday = $_POST["tot_overtime_regholiday"];
-    $tot_overtime_spholiday = $_POST["tot_overtime_spholiday"];
-    $tot_overtime_sprestholiday = $_POST["tot_overtime_sprestholiday"];
     $night_differential = $_POST["night_differential"];
     $night_differential_ot = $_POST["night_differential_ot"];
+    $tot_regholiday = $_POST["tot_regholiday"];
+    $tot_overtime_regholiday = $_POST["tot_overtime_regholiday"];
+    $tot_regholiday_nightdiff = $_POST["tot_regholiday_nightdiff"];
+    $tot_overtime_regholiday_nightdiff = $_POST["tot_overtime_regholiday_nightdiff"];
+    $tot_spholiday = $_POST["tot_spholiday"];
+    $tot_overtime_spholiday = $_POST["tot_overtime_spholiday"];
+    $tot_spholiday_nightdiff = $_POST["tot_spholiday_nightdiff"];
+    $tot_overtime_spholiday_nightdiff = $_POST["tot_overtime_spholiday_nightdiff"];
+    $tot_rest = $_POST["tot_rest"];
+    $tot_overtime_rest = $_POST["tot_overtime_rest"];
+    $night_differential_rest = $_POST["night_differential_rest"];
     $night_differential_ot_rest = $_POST["night_differential_ot_rest"];
+    $tot_overtime_rest_regholiday = $_POST["tot_overtime_rest_regholiday"];
+    $night_differential_rest_regholiday = $_POST["night_differential_rest_regholiday"];
+    $tot_overtime_night_diff_rest_regholiday = $_POST["tot_overtime_night_diff_rest_regholiday"];
+    $tot_overtime_sprestholiday = $_POST["tot_overtime_sprestholiday"];
+    $tot_sprestholiday_nightdiff = $_POST["tot_sprestholiday_nightdiff"];
+    $tot_overtime_sprestholiday_nightdiff = $_POST["tot_overtime_sprestholiday_nightdiff"];
     $sick_leave = $_POST["sick_leave"];
     $vacation_leave = $_POST["vacation_leave"];           
 
     if ($action == 1)
     {
-UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$tot_overtime_reg,$tot_rest,$total_undertime,$tot_overtime_rest,$tot_overtime_regholiday,$tot_overtime_spholiday,$tot_overtime_sprestholiday,$night_differential,$night_differential_ot,$night_differential_ot_rest,$sick_leave,$vacation_leave);
+
+UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$tot_overtime_reg,$night_differential,$night_differential_ot,$tot_regholiday,$tot_overtime_regholiday,$tot_regholiday_nightdiff,$tot_overtime_regholiday_nightdiff,$tot_spholiday,$tot_overtime_spholiday,$tot_spholiday_nightdiff,$tot_overtime_spholiday_nightdiff,$tot_rest,$tot_overtime_rest,$night_differential_rest,$night_differential_ot_rest,$tot_overtime_rest_regholiday,$night_differential_rest_regholiday,$tot_overtime_night_diff_rest_regholiday,$tot_overtime_sprestholiday,$tot_sprestholiday_nightdiff,$tot_overtime_sprestholiday_nightdiff,$sick_leave,$vacation_leave);
     }
 
 ?>

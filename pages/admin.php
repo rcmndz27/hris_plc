@@ -24,7 +24,7 @@
     $empcntpct = (isset($resul['empcntpct'])) ? $resul['empcntpct'] : '0' ;
 
     // GET INACTIVE EMPLOYEES
-    $qrys = "SELECT count(emp_code) as empcnti,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntipct from employee_profile where emp_status = 'Inactive'" ;
+    $qrys = "SELECT count(emp_code) as empcnti,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntipct from employee_profile where emp_status <> 'Active'" ;
     $stms =$connL->prepare($qrys);
     $stms->execute();
     $resuls = $stms->fetch();

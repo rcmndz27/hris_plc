@@ -27,6 +27,12 @@ table {
         display: block;
         overflow-y:auto;
 }
+
+thead th {
+  min-width: 120px;
+
+}
+
 .paytop{
 text-align: left;
 }

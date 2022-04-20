@@ -44,11 +44,11 @@ $(function(){
             // $('#telno'),            
             // $('#reason_position'),
             // $('#expected_salary'),
-            $('#preffieldwork'),
-            $('#preffieldwork1'),
+            // $('#preffieldwork'),
+            // $('#preffieldwork1'),
             $('#positiontitle'),
-            $('#positiontitle1'),
-            $('#howtoapply'),
+            // $('#positiontitle1'),
+            // $('#howtoapply'),
             $('#firstname'),
             $('#lastname'),
             $('#emp_address'),
@@ -60,9 +60,9 @@ $(function(){
             $('#age'),
             $('#nationality'),
             $('#sex'),
-            $('#marital_status'),
-            $('#contactpersonname'),
-            $('#contactpersonno')
+            $('#marital_status')
+            // $('#contactpersonname'),
+            // $('#contactpersonno')
         ];
 
         var result = (CheckInputValue(inputValues) === '0') ? true : false;

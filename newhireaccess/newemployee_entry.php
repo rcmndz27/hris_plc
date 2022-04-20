@@ -78,34 +78,14 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="prefwork">Preferred field of work:<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="preffieldwork"
-                                            id="preffieldwork" placeholder="1." required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="positionList">Position Title:<span class="req">*</span></label>
-                                        <label class="note">(Please confirm vacancy you wish to be evaluated for by printing its position title below:)</label>
                                         <input type="text" class="form-control inputtext" name="positiontitle"
-                                            id="positiontitle" placeholder="1." required>
+                                            id="positiontitle" placeholder="Job Title" required>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control inputtext" name="preffieldwork1"
-                                            id="preffieldwork1" placeholder="2." required>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control inputtext" name="positiontitle1"
-                                            id="positiontitle1" placeholder="2." required>
-                                    </div>
-                                </div>                                                                
+                                </div>                                                               
                             </div> 
 <!--                         <div class="form-row mb-2">
                             <div class="col-lg-6">
@@ -123,7 +103,7 @@
                           <div class="form-row">
                                 <div class="col-lg-8">
                                     <div class="form-group">
-                                        <label class="control-label" for="How you come to apply">Source of Application<span class="req">*</span></label>
+                                        <label class="control-label" for="How you come to apply">Source of Application:</label>
                                         <select type="select" class="form-select" id="howtoapply" name="howtoapply" >
                                             <option value="Walk-in">Walk-in</option>
                                             <option value="Ads">Ads</option>
@@ -498,14 +478,14 @@
                                   </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="contactpersonname">Name:<span class="req">*</span></label>
+                                        <label class="control-label" for="contactpersonname">Name:</label>
                                         <input type="text" class="form-control inputtext" name="contactpersonname"
                                             id="contactpersonname" placeholder="Name....">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="c">Contact Number:<span class="req">*</span></label>
+                                        <label class="control-label" for="c">Contact Number:</label>
                                         <input type="text" class="form-control inputtext" name="contactpersonno"
                                             id="contactpersonno" placeholder="09........" onkeypress="return onlyNumberKey(event)" maxlength="20">
                                     </div>

@@ -33,7 +33,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
 
                  
                         $subtotal = $r['absences']+$r['late']+$r['undertime']+$r['sss_regee']+$r['phic_ee']
-                                                    +$r['hmdf_ee']+$r['sss_sal_loan']+$r['hmdf_sal_loan']+$r['com_loan']
+                                                    +$r['hdmf_ee']+$r['sss_sal_loan']+$r['hdmf_sal_loan']+$r['com_loan']
                                                     +$r['total_deduction']+$r['witholding_tax'];
                         $gross_income = $r['semi_month_pay']+$r['reg_ot']+$r['res_ot']+$r['reg_hol']+$r['spe_hol']
                                                     +$r['nyt_diff']+$r['salary_adjustment'];
@@ -108,8 +108,8 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                                         "<th>Other Income:</th>".
                                         "<td>0.00</td>". 
                                         "<td> </td>".
-                                        "<td>hmdf Contribution:</td>".
-                                        "<td>" .number_format($r['hmdf_ee'],2,".", ","). "</td>".  
+                                        "<td>hdmf Contribution:</td>".
+                                        "<td>" .number_format($r['hdmf_ee'],2,".", ","). "</td>".  
                                     "</tr>";
                                 echo "<tr>".
                                         "<th>Regular OT:</th>".
@@ -122,8 +122,8 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                                         "<th>Rest Day OT:</th>".
                                         "<td>" .number_format($r['res_ot'],2,".", ","). "</td>". 
                                         "<td> </td>".
-                                        "<td>hmdf Loan:</td>".
-                                        "<td>" .number_format($r['hmdf_sal_loan'],2,".", ","). "</td>". 
+                                        "<td>hdmf Loan:</td>".
+                                        "<td>" .number_format($r['hdmf_sal_loan'],2,".", ","). "</td>". 
                                     "</tr>";
     
                                 echo "<tr>".
