@@ -1,32 +1,36 @@
     
- table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    /*padding: 3px 3px 3px 3px;*/
+    border-color: black;
+    background-color: #ffff;
+    font-size: 12px;
+    brode
+}
 
-            th,
-            td {
-                border: 1px solid black;
-                border-collapse: collapse;
-                padding: 3px 3px 3px 3px;
-                border-color: black;
-                background-color: #ffff;
-                /*font-style: italic;*/
-                font-size: 15px;
+table {
+    width: 800px;
+    /*display: block;*/
+    overflow-y:auto;
+    overflow-x:auto;
+    padding: 20px 20px 20px 20px;
+    color: black;
+    border: 1px solid black;
+}
 
-            }
-  
-            table {
-                /*width: 600px;*/
-                display: block;
-                overflow-y:auto;
-                overflow-x:auto;
-                padding: 20px 20px 20px 20px;
-                color: black;
-                /*background-image: url('../img/payroll4.png');*/
-            }
 .btn-save{
-background-color: #b52020;
-border-color: #b52020;
-color: #ffff;
+    background-color: #b52020;
+    border-color: #b52020;
+    color: #ffff;
 
+}
+
+.erdc{
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
 }
 .paybg{
 background-color: #D9E1F2;
@@ -51,8 +55,13 @@ background-color: #FFF2CC;
     background-color: #b71e1e;
 }
 .mbot{
-    font-weight: bolder;
+    font-weight: 500;
     font-size: 17px;
+    margin-bottom: 50px;
+}
+
+.f5{
+    font-weight: 500;
 }
 .pdfimg:hover{
     opacity: 0.5;
@@ -76,4 +85,18 @@ background-color: #FFF2CC;
     font-size: 20px;
     padding: 20px;
     border-radius: 0.25rem;
+}
+
+.cnto{
+    text-align: center;
+}
+
+.camt{
+    text-align: right;
+}
+
+.ecl{
+    text-align: left;
+    font-style: italic;
+    font-weight: bold;
 }

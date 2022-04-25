@@ -3,8 +3,8 @@
 
     if (empty($_SESSION['userid']))
     {
-        echo '<script type="text/javascript">alert("Please login first!!");</script>';
-        header( "refresh:1;url=../index.php" );
+        include_once('../loginfirst.php');
+        exit();
     }
     else
     {
@@ -112,7 +112,7 @@
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/sb-admin-2.css" rel="stylesheet"> -->
 </head>
-<body id="page-top" style="background-color: #f8f9fc;height:100%;overflow:hidden;">
+<body id="page-top" style="background-color: #f8f9fc;height:100%;overflow-y:auto;overflow-x: hidden;">
 
     <!-- Page Wrapper -->
     <div id="wrapper">

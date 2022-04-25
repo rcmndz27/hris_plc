@@ -225,8 +225,7 @@ else
                   <li><a href='../dtrcorrect/dtrcorrect_app_view.php' onclick='show()'><i class='fas fa-clock'></i>DTR Correction</a></li>                                                              
                 </ul>
             </li>
-            <li><a class='nav-link ".$payslip_view."' href='../payslip/payslip_view.php' onclick='show()'><i class='fas fa-money-bill-wave fa-fw'></i>
-             &nbsp;Payslip</a></li>";
+           ";
 
                 $lv = (isset($results['lv_count'])) ? $results['lv_count'] : '0' ;
                 $ot = (isset($result['ot_count'])) ? $result['ot_count'] : '0' ;
@@ -278,7 +277,10 @@ else
                     case "HR Generalist":
                     case "HR Manager":
                     case "Group Head":
-                        echo "<li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;ADMIN TOOLS ".$apprm."<i class='bi bi-chevron-down'></i></a>
+                        echo "
+ <li><a class='nav-link ".$payslip_view."' href='../payslip/payslip_view.php' onclick='show()'><i class='fas fa-money-bill-wave fa-fw'></i>
+             &nbsp;Payslip</a></li>                        
+                        <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;ADMIN TOOLS ".$apprm."<i class='bi bi-chevron-down'></i></a>
                             <ul>
                               <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
                                 <ul>

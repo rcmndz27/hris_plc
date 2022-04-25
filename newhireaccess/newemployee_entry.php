@@ -73,7 +73,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="dateField">Date Filed:</label>
-                                        <input type="text" class="form-control" name="dateFiled" id="dateFiled" value="<?php echo date("Y/m/d"); ?>" readonly>  
+                                        <input type="text" class="form-control" name="dateFiled" id="dateFiled" value="<?php echo date("F d , Y"); ?>" readonly>  
                                     </div>
                                 </div>
                             </div>
@@ -87,19 +87,20 @@
                                     </div>
                                 </div>                                                               
                             </div> 
-<!--                         <div class="form-row mb-2">
-                            <div class="col-lg-6">
-                                <label class="control-label" for="reasonsfor">Reason for wishing to be considered for the position at hand:<span class="req">*</span></label>
-                                  <textarea class="form-control" id="reason_position" name="reason_position" rows="1"
-                                    cols="90" placeholder="Reason....."></textarea>
-                            </div>
-                            <div class="col-lg-6">
-                                        <label class="control-label" for="expect_salary">Expected Minimum Salary:<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" onkeypress="return onlyNumberKey(event)"name="expected_salary"
-                                            id="expected_salary" placeholder="P 00,000.00">
-                            </div>                            
-                        </div>   -->
-
+<!--                         
+<div class="form-row mb-2">
+<div class="col-lg-6">
+<label class="control-label" for="reasonsfor">Reason for wishing to be considered for the position at hand:<span class="req">*</span></label>
+<textarea class="form-control" id="reason_position" name="reason_position" rows="1"
+cols="90" placeholder="Reason....."></textarea>
+</div>
+<div class="col-lg-6">
+<label class="control-label" for="expect_salary">Expected Minimum Salary:<span class="req">*</span></label>
+<input type="text" class="form-control inputtext" onkeypress="return onlyNumberKey(event)"name="expected_salary"
+id="expected_salary" placeholder="P 00,000.00">
+</div>                            
+</div>   
+-->
                           <div class="form-row">
                                 <div class="col-lg-8">
                                     <div class="form-group">
@@ -247,7 +248,7 @@
                                 </div>
                             
                             </div>
-
+<!-- 
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <label class="control-label" for="residence_certno">Residence Certificate No. :</label>
@@ -261,7 +262,7 @@
                                     <label class="control-label" for="residence_certplace">Place Issued:</label>
                                     <input type="text" class="form-control" name="residence_certplace" id="residence_certplace" placeholder="Place Issued....">
                                 </div>                                                               
-                            </div><br>
+                            </div><br> -->
                             <div class="form-row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
@@ -385,9 +386,9 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="fatherbirthdate">Father's Birthdate:</label>
-                                        <input type="date" class="form-control inputtext" name="fatherbirthdate"
-                                            id="fatherbirthdate" max="<?php echo date('Y-m-d',$date); ?>">
+                                        <label class="control-label" for="fatherbirthdate">Father's Age:</label>
+                                        <input type="text" class="form-control inputtext" name="fatherbirthdate"
+                                            id="fatherbirthdate" onkeypress="return onlyNumberKey(event)" maxlength="">
                                     </div>
                                 </div>  
                                 <div class="col-lg-6">
@@ -405,8 +406,8 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="motherbirthdate">Mother's Birthdate:</label>
-                                        <input type="date" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate" max="<?php echo date('Y-m-d',$date); ?>"> 
+                                        <label class="control-label" for="motherbirthdate">Mother's Age:</label>
+                                        <input type="text" class="form-control inputtext" name="motherbirthdate" id="motherbirthdate" onkeypress="return onlyNumberKey(event)" maxlength="3"> 
                                     </div>
                                 </div>                                                           
                                 <div class="col-lg-6">
@@ -463,41 +464,41 @@
                                          </div>
                                     </div> 
                             </div> 
-            <div id="sib_dynamic_field"></div>   
+                            <div id="sib_dynamic_field"></div>   
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="companyrelatives">Have you any near relatives working in another company like Obanana ?</label>
                                         <label class="note">If so, give name, relationship, and organization.</label>
-                                  <textarea class="form-control" id="companyrelatives" name="companyrelatives" rows="4"
-                                    cols="90" placeholder="Have you any near relatives working in another company like Obanana ?"></textarea>
+                                        <textarea class="form-control" id="companyrelatives" name="companyrelatives" rows="4"
+                                        cols="90" placeholder="Have you any near relatives working in another company like Obanana ?"></textarea>
                                     </div>
                                 </div> 
                                 <div class="col-lg-12">
                                     <label class="control-label" for="contactperson">Contact person in case of emergency:</label>
-                                  </div> 
+                                </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="contactpersonname">Name:</label>
                                         <input type="text" class="form-control inputtext" name="contactpersonname"
-                                            id="contactpersonname" placeholder="Name....">
+                                        id="contactpersonname" placeholder="Name....">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="c">Contact Number:</label>
                                         <input type="text" class="form-control inputtext" name="contactpersonno"
-                                            id="contactpersonno" placeholder="09........" onkeypress="return onlyNumberKey(event)" maxlength="20">
+                                        id="contactpersonno" placeholder="09........" onkeypress="return onlyNumberKey(event)" maxlength="20">
                                     </div>
                                 </div>
-                                 <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="contactpersonaddress">Address:</label>
-                                  <textarea class="form-control" id="contactpersonaddress" name="contactpersonaddress" rows="4"
-                                    cols="90" placeholder="Address...."></textarea>
+                                        <textarea class="form-control" id="contactpersonaddress" name="contactpersonaddress" rows="4"
+                                        cols="90" placeholder="Address...."></textarea>
                                     </div>
                                 </div>   
-                                <div class="col-lg-12">
+<!--                                 <div class="col-lg-12">
                                     <label class="control-label" for="presentAddress">Legal Convictions:</label>
                                     <label class="note">Have you ever been charged or found guilty of the violation of any law (other than minor traffic violations), give details/particulars.</label>
                                   </div>  
@@ -537,17 +538,17 @@
                                         <input type="text" class="form-control inputtext" name="civilcase"
                                             id="civilcase" placeholder="Have you been involved in any administrative or civil cases?">
                                     </div>
-                                </div>  
-              </div> 
+                                </div>   -->
+                            </div> 
                              
                
-                                <div class="col-lg-12">
+<!--                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="note" for="philhealth">May we seek references from your present/most recent employer and your former employers and supervisors? If not, specify exclusions. You  may also add more references here including name, occupation, relationship to you, address, telephone and fax numbers. We would also ask you to be responsible in notifying the people you have submitted as your references.</label>
                                     </div>
-                                </div>
+                                </div> -->
                                    <!-- legal conviction contact -->
-             <div class="form-row">
+<!--              <div class="form-row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label class="control-label" for="conname">Name:</label>
@@ -579,9 +580,9 @@
                                                 </button> 
                                         </div>
                                     </div>
-            </div>
+            </div> -->
        
-            <div id="con_dynamic_field"></div>            
+<!--             <div id="con_dynamic_field"></div>            
              <div class="form-row">
                 <div class="col-lg-12">
                             <div class="form-group">
@@ -591,7 +592,7 @@
                             </div>
                     </div>
                 </div> 
-
+ -->
                             <div class="d-flex justify-content-center">
                                     <!-- -- Next, Go to Education Tab -- -->
                                     <button type="button" class="btn btn-success adddep" onclick='nextPTabAct();'>  NEXT >>
@@ -707,16 +708,16 @@
                                         <input type="date" class="form-control inputtext" name="jobto[]">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+<!--                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label class="control-label" for="startingposition">Starting:</label>
                                         <input type="text" class="form-control inputtext" 
                                             name="startingposition[]" placeholder="Starting...">
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
+                                </div> -->
+                                <div class="col-lg-8">
                                     <div class="form-group">
-                                        <label class="control-label" for="mostrecentposition">Most Recent:</label>
+                                        <label class="control-label" for="mostrecentposition">Most Recent Position:</label>
                                         <input type="text" class="form-control inputtext" 
                                             name="mostrecentposition[]" placeholder="Most Recent...">
                                     </div>
@@ -742,7 +743,7 @@
                                             name="employeraddress[]" placeholder="Employer's Address...">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+<!--                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="supervisorname">Name  of Supervisor:</label>
                                         <input type="text" class="form-control inputtext" 
@@ -771,7 +772,7 @@
                                         <input type="text" class="form-control inputnumber" 
                                             name="reasonforleaving[]" placeholder="Reason for leaving...">
                                     </div>
-                                </div>
+                                </div> -->
 
                 <div id="job_dynamic_field"></div> 
                                  <div class="col-lg-4">

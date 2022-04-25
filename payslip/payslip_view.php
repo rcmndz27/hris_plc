@@ -6,8 +6,8 @@
     if (empty($_SESSION['userid']))
     {
 
-        echo '<script type="text/javascript">alert("Please login first!!");</script>';
-        header( "refresh:1;url=../index.php" );
+        include_once('../loginfirst.php');
+        exit();
     }
     else
     {
@@ -51,7 +51,7 @@
                     <select class="form-control" id="empName" name="empName" value="" hidden>
                         <option value="<?php echo $empName ?>"><?php echo $empName ?></option>
                     </select>
-                  <label for="payroll_period" class="col-form-label mbot pad">PAYROLL PERIOD:</label>
+                  <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
 
                 <div class='col-md-3'>
                     <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
