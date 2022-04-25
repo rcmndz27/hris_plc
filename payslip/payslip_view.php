@@ -63,7 +63,7 @@
                         <a href='javascript:generatePDF()'><img src="../img/expdf.png" height="40" class="pdfimg" id='expdf'></a>
                 </div>
         </div>
-      <div class="row pt-2">
+      <div class="row pt-4">
         <div class="col-md-12 mbot d-flex justify-content-center">
             <div id='contents'></div>
         </div>

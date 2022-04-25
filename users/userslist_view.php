@@ -83,7 +83,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="empcode name">Employee Code/Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("emp_code", $mf->GetUserAccntNames("allusracnt")); ?> 
+                                        <?php $dd->GenerateSingleGenDropDown("emp_code", $mf->GetUserAccntNames("allusracnt")); ?> 
                                     </div>
                                 </div> 
                               <div class="col-12">

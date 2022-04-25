@@ -22,7 +22,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         <button id='showpay' value='ok' hidden></button>
                     </tr>
                     <tr>
-                        <th colspan='3'>NAME: EMPLOYEE TESTING </th>
+                        <th colspan='3'>NAME: ".$r['name']." </th>
                         <th colspan='3' class='camt'>PAYROLL PERIOD: ".$dtFrom." to ".$dtTo."</th>
                     </tr>
                 </thead>
@@ -145,37 +145,42 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         "<td>Special Holiday OT:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_overtime_spholiday'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_overtime_spholiday'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='3' class='erdc'>Leave Balances</td>".  
                     "</tr>
                     <tr>".
                         "<td>Special Holiday Night Differential:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_spholiday_nightdiff'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_spholiday_nightdiff'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Sick Leave Days</td>". 
+                        "<td colspan='1' class='cnto'>".number_format($r['earned_sl'],2,".", ",")."</td>".  
                     "</tr>
                     <tr>".
                         "<td>Special Holiday Night Differential OT:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_overtime_regholiday_nightdiff'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_overtime_spholiday_nightdiff'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Vacation Leave Days</td>". 
+                        "<td colspan='1' class='cnto'>".number_format($r['earned_vl'],2,".", ",")."</td>".   
                     "</tr>                      
                     <tr>".
                         "<td>Worked on Rest Day:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_rest'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_rest'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Emergency Leave Days</td>". 
+                        "<td colspan='1' class='cnto'>0.00</td>". 
                     "</tr> 
                     <tr>".
                         "<td>Rest Day OT:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_overtime_rest'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_overtime_rest'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Paternity Leave Days</td>". 
+                        "<td colspan='1' class='cnto'>0.00</td>".
                     "</tr>
                     <tr>".
                         "<td>Rest Day Night Differential:</td>".
                         "<td class='cnto'>".number_format($r['att_night_differential_rest'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['night_differential_rest'],2,".", ",")."</td>".
-                        // "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Maternity Leave Days</td>". 
+                        "<td colspan='1' class='cnto'>0.00</td>". 
                     "</tr>
                     <tr>".
                         "<td>Rest Day Night Differential OT:</td>".

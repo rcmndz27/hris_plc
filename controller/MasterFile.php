@@ -650,14 +650,14 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_code not in (SELECT emp_code from employee_profile a right join mf_user b on a.emp_code = b.userid where emp_code is not null)");
+                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_code not in (SELECT emp_code from employee_profile a right join mf_user b on a.emp_code = b.userid where emp_code is not null) and emp_status = 'Active'");
                 $sql->execute();
 
                 if ($type == "allusracnt")
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"], $r["emp_code"]." - ".$r["fullname"]));
+                       array_push( $data, array($r["emp_code"],$r["fullname"]));
                     }
                 }
 
@@ -737,14 +737,14 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT rowid,emp_code,name,date_from,date_to FROM dbo.payroll ORDER by name ASC");
+                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,date_from,date_to,lastname+','+firstname as [name] FROM dbo.payroll a left join employee_profile b on a.emp_code = b.emp_code ORDER by lastname ASC");
                 $sql->execute();
 
                 if ($type == "emppay")
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                       array_push( $data, array($r["rowid"], $r["emp_code"]." - ".$r["name"]. " - " . 
+                       array_push( $data, array($r["emp_code"],$r["name"]. " - " . 
                    date("m/d/Y", strtotime($r["date_from"])) . " - " . date("m/d/Y", strtotime($r["date_to"]))));
                     }
                 }
@@ -767,7 +767,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT level_id,level_code,level_description FROM dbo.employee_user_level ORDER by level_id ASC");
+                $sql = $connL->prepare(@"SELECT level_id,level_code,level_description FROM dbo.employee_user_level ORDER by level_description ASC");
                 $sql->execute();
 
                 if ($type == "emp_levelwrds")

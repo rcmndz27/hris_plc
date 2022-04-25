@@ -34,7 +34,8 @@
         
 ?>
 
-<link rel="stylesheet" type="text/css" href="../payslip/payslip_viewall.css">
+<link rel="stylesheet" type="text/css" href="../payslip/payslip.css">
+<!-- <link rel="stylesheet" type="text/css" href="../payslip/payslip_viewall.css"> -->
 <script src="../js/pdf.js" ></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
@@ -51,8 +52,8 @@
 
       <div class="form-row pt-3">
                 <label for="employeepaylist" class="col-form-label pad">EMPLOYEE:</label>
-                <div class="col-md-6">      
-                        <?php $dd->GenerateDropDown("emppay", $mf->GetAllEmployeePay("emppay")); ?>
+                <div class="col-md-4">      
+                        <?php $dd->GenerateSingleGenDropDown("emppay", $mf->GetAllEmployeePay("emppay")); ?>
                 </div>
 
                 <div class="col-md-3 d-flex">
@@ -64,7 +65,7 @@
 
         </div>
 
-    <div class="row pt-5">
+    <div class="row pt-4">
         <div class="col-md-12 mbot">
             <div class="d-flex justify-content-center">
                 <div id='contents'></div>     
@@ -82,21 +83,19 @@
         
         $('#expdf').show();
         document.getElementById("myDiv").style.display="block";
-        $("body").css("cursor", "progress");
         var url = "../payslip/payslips_process.php";
-        var cutoffe = $('#emppay').children("option:selected").val();
-        var data = cutoffe.split(" - ");
+        var dt = $('#emppay').val();
+        var cfta = document.getElementById(dt).innerHTML;
+        var data = cfta.split(" - ");
         $('#expdf').show();
-
-        $('#contents').html('')
 
         $.post (
             url,
             {
                 _action: 1,
-                _empCode: data[0],
-                _from: data[2],
-                _to: data[3]
+                _empCode: dt,
+                _from: data[1],
+                _to: data[2]
                 
             },
             function(data) { $("#contents").html(data).show(); 
