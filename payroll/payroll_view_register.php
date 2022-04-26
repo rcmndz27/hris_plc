@@ -68,66 +68,67 @@ jQuery(function(){
 
 
 function ConfirmPayRegView()
-    {
-       
-                var empCode = $('#empCode').children("option:selected").val();
-                var url = "../payroll/payrollRegViewProcess.php";
+{
 
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to confirm this payroll for approval?",
-                          icon: "info",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((savePayroll) => {
-                          if (savePayroll) {
-                                    
-                                    $.post (
-                                        url,
-                                        {
-                                            choice: 1,
-                                            emp_code: empCode
-                                        },
-                                        function(data) {
-                                            swal({
-                                            title: "Wow!", 
-                                            text: "Successfully confirmed payroll register details!", 
-                                            type: "success",
-                                            icon: "success",
-                                            }).then(function() {
-                                                location.href = '../payroll/payroll_view_register.php';
-                                            });                                             
+  var empCode = $('#empCode').children("option:selected").val();
+  var url = "../payroll/payrollRegViewProcess.php";
 
-                                    }
-                                    );
-                          } else {
-            
-                            swal({text:"You cancel the confirmation of payroll register!",icon:"error"});
-                          }
-            });         
+  swal({
+    title: "Are you sure?",
+    text: "You want to confirm this payroll for approval?",
+    icon: "info",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((savePayroll) => {
+    if (savePayroll) {
+
+      $.post (
+        url,
+        {
+          choice: 1,
+          emp_code: empCode
+        },
+        function(data) {
+          console.log(data);
+          // swal({
+          //   title: "Wow!", 
+          //   text: "Successfully confirmed payroll register details!", 
+          //   type: "success",
+          //   icon: "success",
+          // }).then(function() {
+          //   location.href = '../payroll/payroll_view_register.php';
+          // });                                             
+
+        }
+        );
+    } else {
+
+      swal({text:"You cancel the confirmation of payroll register!",icon:"error"});
     }
+  });         
+}
 
-    function myFunction() {
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
-input = document.getElementById("myInput");
-filter = input.value.toUpperCase();
-table = document.getElementById("payrollRegList");
-tr = table.getElementsByTagName("tr");
-for (i = 0; i < tr.length; i++) {
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("payrollRegList");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
     if(td.length > 0){ // to avoid th
-       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
-        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1  || td[7].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
-         tr[i].style.display = "";
-       } else {
-         tr[i].style.display = "none";
-       }
+     if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+      || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
+      || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
+      || td[6].innerHTML.toUpperCase().indexOf(filter) > -1  || td[7].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+       tr[i].style.display = "";
+   } else {
+     tr[i].style.display = "none";
+   }
 
-    }
  }
+}
 }
     
 getPagination('#payrollRegList');

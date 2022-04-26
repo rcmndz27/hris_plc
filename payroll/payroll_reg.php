@@ -56,7 +56,8 @@ class PayrollRegApplication {
                         <th>Absences</th>
                         <th> Lates </th>
                         <th> Undertime </th>
-                        <th> Salary Adjustment </th>
+                        <th> Salary Adjustment (Hrs)</th>
+                        <th> Salary Adjustment (Days)</th>
                         <th> Overtime </th>
                         <th> Meal Allowance </th>
                         <th> Salary Allowance </th>
@@ -106,6 +107,7 @@ class PayrollRegApplication {
 $absences = ($r['absences'] <> '0') ?  '&#8369;'.number_format($r['absences'],2,'.',',') : 0 ;
 $late = ($r['late'] <> '0') ?  '&#8369;'.number_format($r['late'],2,'.',',') : 0 ;
 $undertime = ($r['undertime'] <> '0') ?  '&#8369;'.number_format($r['undertime'],2,'.',',') : 0 ;
+$total_adjstmenthrs = ($r['total_adjstmenthrs'] <> '0') ?  '&#8369;'.number_format($r['total_adjstmenthrs'],2,'.',',') : 0 ;
 $salary_adjustment = ($r['salary_adjustment'] <> '0') ?  '&#8369;'.number_format($r['salary_adjustment'],2,'.',',') : 0 ;
 $overtime = ($r['overtime'] <> '0') ?  '&#8369;'.number_format($r['overtime'],2,'.',',') : 0 ;
 $meal_allowance = ($r['meal_allowance'] <> '0') ?  '&#8369;'.number_format($r['meal_allowance'],2,'.',',') : 0 ;
@@ -166,6 +168,7 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
     "<td>" . $absences. "</td>".
     "<td>" . $late. "</td>".
     "<td>" . $undertime. "</td>".
+    "<td>" . $total_adjstmenthrs. "</td>".
     "<td>" . $salary_adjustment. "</td>".
     "<td>" . $overtime. "</td>".
     "<td>" . $meal_allowance. "</td>".
