@@ -113,6 +113,13 @@ else
                                     id="employee" readonly> 
                                 </div>
                             </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="remarks">Remarks:</label>
+                                    <input type="text" class="form-control" name="remarks"
+                                    id="remarks" placeholder="Comments/Reasons..."> 
+                                </div>
+                            </div>   
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="control-label" for="tot_days_absent">Total Days Absent:</label>
@@ -281,13 +288,7 @@ else
                                     id="vacation_leave"> 
                                 </div>
                             </div> 
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label class="control-label" for="remarks">Remarks:</label>
-                                    <input type="text" class="form-control" name="remarks"
-                                    id="remarks" placeholder="Comments/Reasons..."> 
-                                </div>
-                            </div>                                                                                                                                                
+                                                                                                                                             
                         </div> <!-- form row closing -->
                     </fieldset> 
                     <div class="modal-footer">                                  
