@@ -391,7 +391,6 @@ aria-hidden="true">
 
     function generatePayrll()
     {
-
         document.getElementById("myDiv").style.display="block";
         var url = "../payroll/payrollrep_process.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
@@ -511,6 +510,7 @@ aria-hidden="true">
  function editAttModal(empname,empcd){
 
     $('#updateAtt').modal('toggle');
+    document.getElementById('remarks').value = '';
     document.getElementById('employee').value =  empname;
     document.getElementById('badge_no').value =  empcd; 
     document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
@@ -710,176 +710,176 @@ function updateAtt()
                         document.getElementById('slh'+badge_no).innerHTML = sick_leave;
                         document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
 
-                        if(tot_days_absent !== old_tot_days_absent){
-                            action = 'Change';
-                            new_data = tot_days_absent;
-                            old_data =  old_tot_days_absent;
-                            column_name =  'Days Absent';
-                            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
-                        }if(tot_days_work !== old_tot_days_work){
-                            action = 'Change';
-                            new_data = tot_days_work;
-                            old_data =  old_tot_days_work;
-                            column_name =  'Days Worked';         
-                            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
-                        }if(tot_lates !== old_tot_lates){
-                            action = 'Change';
-                            new_data = tot_lates;
-                            old_data =  old_tot_lates;
-                            column_name =  'Days Late';         
-                            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
-                        }if(total_undertime !== old_total_undertime){
-                            action = 'Change';
-                            new_data = total_undertime;
-                            old_data =  old_total_undertime;
-                            column_name =  'Undertime (Hrs)';         
-                            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
-                        }if(tot_overtime_reg  !== old_tot_overtime_reg ){
-action = 'Change';
-new_data = tot_overtime_reg ;
-old_data = old_tot_overtime_reg ;
-column_name =  'Regular Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(night_differential !== old_night_differential){
-action = 'Change';
-new_data = night_differential;
-old_data = old_night_differential;
-column_name =  'Regular Night Differential (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(night_differential_ot !== old_night_differential_ot){
-action = 'Change';
-new_data = night_differential_ot;
-old_data = old_night_differential_ot;
-column_name =  'Regular Night Differential OT (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_regholiday !== old_tot_regholiday){
-action = 'Change';
-new_data = tot_regholiday;
-old_data = old_tot_regholiday;
-column_name =  'Regular Holiday (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_regholiday !== old_tot_overtime_regholiday){
-action = 'Change';
-new_data = tot_overtime_regholiday;
-old_data = old_tot_overtime_regholiday;
-column_name =  'Regular Holiday Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_regholiday_nightdiff !== old_tot_regholiday_nightdiff){
-action = 'Change';
-new_data = tot_regholiday_nightdiff;
-old_data = old_tot_regholiday_nightdiff;
-column_name =  'Regular Holiday Night Differential (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_regholiday_nightdiff !== old_tot_overtime_regholiday_nightdiff){
-action = 'Change';
-new_data = tot_overtime_regholiday_nightdiff;
-old_data = old_tot_overtime_regholiday_nightdiff;
-column_name =  'Regular Holiday Night Differential Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_spholiday !== old_tot_spholiday){
-action = 'Change';
-new_data = tot_spholiday;
-old_data = old_tot_spholiday;
-column_name =  'Special Holiday (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_spholiday !== old_tot_overtime_spholiday){
-action = 'Change';
-new_data = tot_overtime_spholiday;
-old_data = old_tot_overtime_spholiday;
-column_name =  'Special Holiday Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_spholiday_nightdiff !== old_tot_spholiday_nightdiff){
-action = 'Change';
-new_data = tot_spholiday_nightdiff;
-old_data = old_tot_spholiday_nightdiff;
-column_name =  'Special Holiday Night Differential (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_spholiday_nightdiff !== old_tot_overtime_spholiday_nightdiff){
-action = 'Change';
-new_data = tot_overtime_spholiday_nightdiff;
-old_data = old_tot_overtime_spholiday_nightdiff;
-column_name =  'Special Holiday Night Differential Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_rest !== old_tot_rest){
-action = 'Change';
-new_data = tot_rest;
-old_data = old_tot_rest;
-column_name =  'Rest Day (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_rest !== old_tot_overtime_rest){
-action = 'Change';
-new_data = tot_overtime_rest;
-old_data = old_tot_overtime_rest;
-column_name =  'Rest Day Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(night_differential_rest !== old_night_differential_rest){
-action = 'Change';
-new_data = night_differential_rest;
-old_data = old_night_differential_rest;
-column_name =  'Rest Day Night Differential (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(night_differential_ot_rest       !== old_night_differential_ot_rest      ){
-action = 'Change';
-new_data = night_differential_ot_rest      ;
-old_data = old_night_differential_ot_rest      ;
-column_name =  'Rest Day Night Differential Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_rest_regholiday !== old_tot_overtime_rest_regholiday){
-action = 'Change';
-new_data = tot_overtime_rest_regholiday;
-old_data = old_tot_overtime_rest_regholiday;
-column_name =  'Rest Day Regular Holiday Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(night_differential_rest_regholiday !== old_night_differential_rest_regholiday){
-action = 'Change';
-new_data = night_differential_rest_regholiday;
-old_data = old_night_differential_rest_regholiday;
-column_name =  'Rest Day Regular Holiday Night Differential (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_night_diff_rest_regholiday !== old_tot_overtime_night_diff_rest_regholiday){
-action = 'Change';
-new_data = tot_overtime_night_diff_rest_regholiday;
-old_data = old_tot_overtime_night_diff_rest_regholiday;
-column_name =  'Rest Day Regular Holiday Night Differential Overtime (Hrs)';
-insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-if(tot_overtime_sprestholiday !== old_tot_overtime_sprestholiday){
-    action = 'Change';
-    new_data = tot_overtime_sprestholiday;
-    old_data = old_tot_overtime_sprestholiday;
-    column_name =  'Rest Day Special Holiday Overtime (Hrs)';
-    insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-    if(tot_sprestholiday_nightdiff !== old_tot_sprestholiday_nightdiff){
-        action = 'Change';
-        new_data = tot_sprestholiday_nightdiff;
-        old_data = old_tot_sprestholiday_nightdiff;
-        column_name =  'Rest Day Special Holiday Night Differential (Hrs)';
-        insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
-        if(tot_overtime_sprestholiday_nightdiff !== old_tot_overtime_sprestholiday_nightdiff){
+            if(tot_days_absent !== old_tot_days_absent){
+            action = 'Change';
+            new_data = tot_days_absent;
+            old_data =  old_tot_days_absent;
+            column_name =  'Days Absent';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(tot_days_work !== old_tot_days_work){
+            action = 'Change';
+            new_data = tot_days_work;
+            old_data =  old_tot_days_work;
+            column_name =  'Days Worked';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(tot_lates !== old_tot_lates){
+            action = 'Change';
+            new_data = tot_lates;
+            old_data =  old_tot_lates;
+            column_name =  'Days Late';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(total_undertime !== old_total_undertime){
+            action = 'Change';
+            new_data = total_undertime;
+            old_data =  old_total_undertime;
+            column_name =  'Undertime (Hrs)';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(tot_overtime_reg  !== old_tot_overtime_reg ){
+            action = 'Change';
+            new_data = tot_overtime_reg ;
+            old_data = old_tot_overtime_reg ;
+            column_name =  'Regular Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(night_differential !== old_night_differential){
+            action = 'Change';
+            new_data = night_differential;
+            old_data = old_night_differential;
+            column_name =  'Regular Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(night_differential_ot !== old_night_differential_ot){
+            action = 'Change';
+            new_data = night_differential_ot;
+            old_data = old_night_differential_ot;
+            column_name =  'Regular Night Differential OT (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_regholiday !== old_tot_regholiday){
+            action = 'Change';
+            new_data = tot_regholiday;
+            old_data = old_tot_regholiday;
+            column_name =  'Regular Holiday (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_regholiday !== old_tot_overtime_regholiday){
+            action = 'Change';
+            new_data = tot_overtime_regholiday;
+            old_data = old_tot_overtime_regholiday;
+            column_name =  'Regular Holiday Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_regholiday_nightdiff !== old_tot_regholiday_nightdiff){
+            action = 'Change';
+            new_data = tot_regholiday_nightdiff;
+            old_data = old_tot_regholiday_nightdiff;
+            column_name =  'Regular Holiday Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_regholiday_nightdiff !== old_tot_overtime_regholiday_nightdiff){
+            action = 'Change';
+            new_data = tot_overtime_regholiday_nightdiff;
+            old_data = old_tot_overtime_regholiday_nightdiff;
+            column_name =  'Regular Holiday Night Differential Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_spholiday !== old_tot_spholiday){
+            action = 'Change';
+            new_data = tot_spholiday;
+            old_data = old_tot_spholiday;
+            column_name =  'Special Holiday (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_spholiday !== old_tot_overtime_spholiday){
+            action = 'Change';
+            new_data = tot_overtime_spholiday;
+            old_data = old_tot_overtime_spholiday;
+            column_name =  'Special Holiday Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_spholiday_nightdiff !== old_tot_spholiday_nightdiff){
+            action = 'Change';
+            new_data = tot_spholiday_nightdiff;
+            old_data = old_tot_spholiday_nightdiff;
+            column_name =  'Special Holiday Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_spholiday_nightdiff !== old_tot_overtime_spholiday_nightdiff){
+            action = 'Change';
+            new_data = tot_overtime_spholiday_nightdiff;
+            old_data = old_tot_overtime_spholiday_nightdiff;
+            column_name =  'Special Holiday Night Differential Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_rest !== old_tot_rest){
+            action = 'Change';
+            new_data = tot_rest;
+            old_data = old_tot_rest;
+            column_name =  'Rest Day (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_rest !== old_tot_overtime_rest){
+            action = 'Change';
+            new_data = tot_overtime_rest;
+            old_data = old_tot_overtime_rest;
+            column_name =  'Rest Day Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(night_differential_rest !== old_night_differential_rest){
+            action = 'Change';
+            new_data = night_differential_rest;
+            old_data = old_night_differential_rest;
+            column_name =  'Rest Day Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(night_differential_ot_rest       !== old_night_differential_ot_rest      ){
+            action = 'Change';
+            new_data = night_differential_ot_rest      ;
+            old_data = old_night_differential_ot_rest      ;
+            column_name =  'Rest Day Night Differential Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_rest_regholiday !== old_tot_overtime_rest_regholiday){
+            action = 'Change';
+            new_data = tot_overtime_rest_regholiday;
+            old_data = old_tot_overtime_rest_regholiday;
+            column_name =  'Rest Day Regular Holiday Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(night_differential_rest_regholiday !== old_night_differential_rest_regholiday){
+            action = 'Change';
+            new_data = night_differential_rest_regholiday;
+            old_data = old_night_differential_rest_regholiday;
+            column_name =  'Rest Day Regular Holiday Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_night_diff_rest_regholiday !== old_tot_overtime_night_diff_rest_regholiday){
+            action = 'Change';
+            new_data = tot_overtime_night_diff_rest_regholiday;
+            old_data = old_tot_overtime_night_diff_rest_regholiday;
+            column_name =  'Rest Day Regular Holiday Night Differential Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_sprestholiday !== old_tot_overtime_sprestholiday){
+            action = 'Change';
+            new_data = tot_overtime_sprestholiday;
+            old_data = old_tot_overtime_sprestholiday;
+            column_name =  'Rest Day Special Holiday Overtime (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_sprestholiday_nightdiff !== old_tot_sprestholiday_nightdiff){
+            action = 'Change';
+            new_data = tot_sprestholiday_nightdiff;
+            old_data = old_tot_sprestholiday_nightdiff;
+            column_name =  'Rest Day Special Holiday Night Differential (Hrs)';
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
+            if(tot_overtime_sprestholiday_nightdiff !== old_tot_overtime_sprestholiday_nightdiff){
             action = 'Change';
             new_data = tot_overtime_sprestholiday_nightdiff;
             old_data = old_tot_overtime_sprestholiday_nightdiff;
             column_name =  'Rest Day Special Holiday Night Differential Overtime (Hrs)';
             insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);}
             if(vacation_leave !== old_vacation_leave){
-                action = 'Change';
-                new_data = vacation_leave;
-                old_data =  old_vacation_leave;
-                column_name =  'Vacation Leave Days';         
-                insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            action = 'Change';
+            new_data = vacation_leave;
+            old_data =  old_vacation_leave;
+            column_name =  'Vacation Leave Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
             }else{
-                action = 'NoChange';
-                value = 0;
-                old_value =  0;
+            action = 'NoChange';
+            value = 0;
+            old_value =  0;
             }
-});  //  end of swal
-}
-);
-} else {
-swal({text:"You cancel the updating of employee details!",icon:"error"});
-}
-});
+            });  //  end of swal
+            }
+            );
+            } else {
+            swal({text:"You cancel the updating of employee details!",icon:"error"});
+            }
+            });
 
-}
+            }
 
 
 

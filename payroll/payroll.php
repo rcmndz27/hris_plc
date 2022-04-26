@@ -68,6 +68,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                     <th>First Name</th>
                     <th>Middle Name</th>
                     <th>Employee Code</th>
+                    <th hidden>Badge Code</th>
+                    <th hidden>Date From</th>
+                    <th hidden>Date To</th>
                     <th>Total Days Absent</th>
                     <th>Total Days Worked</th>
                     <th>Lates (Hrs)</th>
