@@ -69,7 +69,7 @@ jQuery(function(){
 
 function ConfirmPayRegView()
 {
-
+ 
   var empCode = $('#empCode').children("option:selected").val();
   var url = "../payroll/payrollRegViewProcess.php";
 
@@ -82,7 +82,7 @@ function ConfirmPayRegView()
   })
   .then((savePayroll) => {
     if (savePayroll) {
-
+      
       $.post (
         url,
         {
@@ -90,20 +90,19 @@ function ConfirmPayRegView()
           emp_code: empCode
         },
         function(data) {
-          console.log(data);
-          // swal({
-          //   title: "Wow!", 
-          //   text: "Successfully confirmed payroll register details!", 
-          //   type: "success",
-          //   icon: "success",
-          // }).then(function() {
-          //   location.href = '../payroll/payroll_view_register.php';
-          // });                                             
+          swal({
+            title: "Wow!", 
+            text: "Successfully confirmed payroll register details!", 
+            type: "success",
+            icon: "success",
+          }).then(function() {
+            location.href = '../payroll/payroll_view_register.php';
+          });                                             
 
         }
         );
     } else {
-
+      
       swal({text:"You cancel the confirmation of payroll register!",icon:"error"});
     }
   });         
