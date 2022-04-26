@@ -288,6 +288,13 @@ else
                                     id="vacation_leave"> 
                                 </div>
                             </div> 
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="total_adjstmenthrs">Adjustment (Hrs):</label><br><br>
+                                    <input type="number" class="form-control" name="total_adjstmenthrs"
+                                    id="total_adjstmenthrs"> 
+                                </div>
+                            </div>                             
                                                                                                                                              
                         </div> <!-- form row closing -->
                     </fieldset> 
@@ -517,7 +524,8 @@ aria-hidden="true">
     document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
     document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
     document.getElementById('tot_lates').value =  document.getElementById('tol'+empcd).innerHTML;
-    document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;                 
+    document.getElementById('total_undertime').value =  document.getElementById('tou'+empcd).innerHTML;  
+    document.getElementById('total_adjstmenthrs').value =  document.getElementById('toad'+empcd).innerHTML;                 
     document.getElementById('tot_overtime_reg').value = document.getElementById('reg_ot'+empcd).innerHTML;
     document.getElementById('night_differential').value = document.getElementById('reg_ns'+empcd).innerHTML;
     document.getElementById('night_differential_ot').value = document.getElementById('reg_ns_ot'+empcd).innerHTML;
@@ -571,6 +579,7 @@ function updateAtt()
     var tot_days_work = document.getElementById("tot_days_work").value;  
     var tot_lates = document.getElementById("tot_lates").value;       
     var total_undertime = document.getElementById("total_undertime").value;       
+    var total_adjstmenthrs = document.getElementById("total_adjstmenthrs").value;  
     var tot_overtime_reg  = document.getElementById("tot_overtime_reg").value;
     var night_differential = document.getElementById("night_differential").value;
     var night_differential_ot = document.getElementById("night_differential_ot").value;
@@ -605,7 +614,8 @@ function updateAtt()
     var old_tot_days_absent = document.getElementById('toa'+badge_no).innerHTML ;
     var old_tot_days_work = document.getElementById('tow'+badge_no).innerHTML ;
     var old_tot_lates = document.getElementById('tol'+badge_no).innerHTML ;
-    var old_total_undertime = document.getElementById('tou'+badge_no).innerHTML ;
+    var old_total_undertime = document.getElementById('toad'+badge_no).innerHTML ;
+    var old_total_adjstmenthrs = document.getElementById('toad'+badge_no).innerHTML ;
     var old_tot_overtime_reg  = document.getElementById('reg_ot'+badge_no).innerHTML;
     var old_night_differential  = document.getElementById('reg_ns'+badge_no).innerHTML;
     var old_night_differential_ot  = document.getElementById('reg_ns_ot'+badge_no).innerHTML;
@@ -649,7 +659,8 @@ function updateAtt()
                     tot_days_absent: tot_days_absent ,
                     tot_days_work: tot_days_work , 
                     tot_lates: tot_lates ,   
-                    total_undertime: total_undertime ,                                         
+                    total_undertime: total_undertime ,  
+                    total_adjstmenthrs: total_adjstmenthrs ,                                         
                     tot_overtime_reg  : tot_overtime_reg ,
                     night_differential : night_differential,
                     night_differential_ot : night_differential_ot,
@@ -687,6 +698,7 @@ function updateAtt()
                         document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
                         document.getElementById('tol'+badge_no).innerHTML = tot_lates;
                         document.getElementById('tou'+badge_no).innerHTML = total_undertime;
+                        document.getElementById('toad'+badge_no).innerHTML = total_adjstmenthrs;
                         document.getElementById('reg_ot'+badge_no).innerHTML = tot_overtime_reg ;
                         document.getElementById('reg_ns'+badge_no).innerHTML = night_differential;
                         document.getElementById('reg_ns_ot'+badge_no).innerHTML = night_differential_ot;
@@ -734,6 +746,12 @@ function updateAtt()
             new_data = total_undertime;
             old_data =  old_total_undertime;
             column_name =  'Undertime (Hrs)';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(total_adjstmenthrs !== old_total_adjstmenthrs){
+            action = 'Change';
+            new_data = total_adjstmenthrs;
+            old_data =  old_total_adjstmenthrs;
+            column_name =  'Adjustment (Hrs)';         
             insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
             }if(tot_overtime_reg  !== old_tot_overtime_reg ){
             action = 'Change';

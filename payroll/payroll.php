@@ -10,6 +10,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
         $totalDaysWorked = 0;
         $lates = 0;
         $undertime = 0;
+        $adj = 0;
         $reg_ot = 0;
         $reg_ns = 0;
         $reg_ns_ot = 0;
@@ -46,7 +47,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
         $result = $stmt_ins->execute($params);
 
 
-        $query = 'SELECT a.emp_code,a.lastname,a.firstname,a.middlename,period_from,period_to,tot_days_absent,tot_days_work,tot_lates,total_undertime,tot_overtime_reg,tot_rest,tot_overtime_rest,tot_overtime_regholiday,tot_overtime_spholiday,tot_overtime_sprestholiday,total_undertime,night_differential,night_differential_ot,night_differential_ot_rest ,sick_leave,vacation_leave,tot_regholiday,tot_regholiday_nightdiff,tot_overtime_regholiday_nightdiff,tot_spholiday,tot_spholiday_nightdiff,tot_overtime_spholiday_nightdiff,night_differential_rest,tot_overtime_rest_regholiday,night_differential_rest_regholiday,tot_overtime_night_diff_rest_regholiday,tot_sprestholiday,tot_sprestholiday_nightdiff,tot_overtime_sprestholiday_nightdiff,b.rowid,b.badge_no,b.employee,b.location
+        $query = 'SELECT a.emp_code,a.lastname,a.firstname,a.middlename,period_from,period_to,tot_days_absent,tot_days_work,tot_lates,total_undertime,total_adjstmenthrs,tot_overtime_reg,tot_rest,tot_overtime_rest,tot_overtime_regholiday,tot_overtime_spholiday,tot_overtime_sprestholiday,total_undertime,night_differential,night_differential_ot,night_differential_ot_rest ,sick_leave,vacation_leave,tot_regholiday,tot_regholiday_nightdiff,tot_overtime_regholiday_nightdiff,tot_spholiday,tot_spholiday_nightdiff,tot_overtime_spholiday_nightdiff,night_differential_rest,tot_overtime_rest_regholiday,night_differential_rest_regholiday,tot_overtime_night_diff_rest_regholiday,tot_sprestholiday,tot_sprestholiday_nightdiff,tot_overtime_sprestholiday_nightdiff,b.rowid,b.badge_no,b.employee,b.location
               from employee_profile a left join
               att_summary b on a.badgeno = b.badge_no
                 WHERE tot_days_work is not null and a.emp_status = :status and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY a.lastname DESC';
@@ -96,6 +97,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                     <th>Rest Day Special Holiday Overtime (Hrs)</th>
                     <th>Rest Day Special Holiday Night Differential (Hrs)</th>
                     <th>Rest Day Special Holiday Night Differential Overtime (Hrs)</th>
+                    <th>Adjustment (Hrs)</th>
                     <th>Sick Leave (Days)</th> 
                     <th>Vacation Leave (Days)</th>                          
                     <th class='evac'>Edit/View Attendance</th>           
@@ -144,6 +146,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='rd_sh_ot".$r['badge_no']."'>" . round($r['tot_overtime_sprestholiday'],2) . "</td>".
             "<td id='rd_sh_ns".$r['badge_no']."'>" . round($r['tot_sprestholiday_nightdiff'],2) . "</td>".
             "<td id='rd_sh_ns_ot".$r['badge_no']."'>" . round($r['tot_overtime_sprestholiday_nightdiff'],2) . "</td>".
+            "<td id='toad".$r['badge_no']."'>" . round($r['total_adjstmenthrs'],2) . "</td>".
             "<td id='slh".$r['badge_no']."'>" . round($r['sick_leave'],2) . "</td>".
             "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>";
             echo'<td><button type="button"class="hdeactv" 
@@ -183,6 +186,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                             $rd_sh_ot += round($r['tot_overtime_sprestholiday'],2);
                             $rd_sh_ns += round($r['tot_sprestholiday_nightdiff'],2);
                             $rd_sh_ns_ot += round($r['tot_overtime_sprestholiday_nightdiff'],2);
+                            $adj += round($r['total_adjstmenthrs'] , 2);
                             $sl += round($r['sick_leave'] , 2);
                             $vl += round($r['vacation_leave'] , 2);                                                                                              
             
@@ -234,6 +238,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                             "<td class='bg-success'><b>" . $rd_sh_ot . "</b></td>".
                                             "<td class='bg-success'><b>" . $rd_sh_ns . "</b></td>".
                                             "<td class='bg-success'><b>" . $rd_sh_ns_ot . "</b></td>".
+                                            "<td class='bg-success'><b>" . $adj . "</b></td>".
                                             "<td class='bg-success'><b>" . $sl . "</b></td>".
                                             "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".                                                
                                             "</tr><tr>";
@@ -277,6 +282,8 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
                                         "<td class='bg-success'><b>" . $rd_sh_ot . "</b></td>".
                                         "<td class='bg-success'><b>" . $rd_sh_ns . "</b></td>".
                                         "<td class='bg-success'><b>" . $rd_sh_ns_ot . "</b></td>".
+                                        "<td class='bg-success'><b>" . $rd_sh_ns_ot . "</b></td>".
+                                        "<td class='bg-success'><b>" . $adj . "</b></td>".
                                         "<td class='bg-success'><b>" . $sl . "</b></td>".
                                         "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".
                                         "</tr><tr>"; 
@@ -288,7 +295,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
 
         
             }else { 
-                echo '<tfoot><tr><td colspan="10" class="paytop">No Results Found</td></tr></tfoot>'; 
+                echo '<tfoot><tr><td colspan="15" class="paytop">No Results Found</td></tr></tfoot>'; 
             }
 
         echo"</table>"; 
