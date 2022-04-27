@@ -28,15 +28,12 @@ $(function(){
 
 
         if (CheckInput() === true) {
-
-
    
             param = {
                 'Action': 'InsertMfpyrollcoEnt',
-                'pyrollcodate': $('#pyrollcodate').val(),
-                'pyrollcotype': $('#pyrollcotype').children("option:selected").val(),
-                'pyrollcodescs': $('#pyrollcodescs').val(),
-                'status': $('#status').children("option:selected").val()                   
+                'pyrollco_from': $('#pyrollco_from').val(),
+                'pyrollco_to': $('#pyrollco_to').val(),
+                'co_type': $('#co_type').val()                
             }
     
             param = JSON.stringify(param);

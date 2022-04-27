@@ -1,8 +1,8 @@
 <?php
 
-Class MfholidayList{
+Class MfpyrollcoList{
 
-    public function GetAllMfholidayList(){
+    public function GetAllMfpyrollcoList(){
         global $connL;
 
         echo '<div class="form-row">  
@@ -21,23 +21,23 @@ Class MfholidayList{
                 <div class="col-lg-8">
                 </div>                               
                 <div class="col-lg-3">        
-                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Holiday Name.." title="Type in holiday name"> 
+                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Payroll Period" title="Type in payroll cutoff details"> 
                         </div>                     
                 </div>  
                                      
-        <table id="allMfholidayList" class="table table-striped table-sm">
+        <table id="allMfpyrollcoList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Holiday Date</th>
-                <th>Holiday Type</th>
-                <th>Holiday Name</th>
+                <th>Payroll From</th>
+                <th>Payroll To</th>
+                <th>Payroll Type</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.mf_holiday ORDER BY rowid asc";
+        $query = "SELECT (CASE WHEN co_type = 0 then 'Payroll 15th' else 'Payroll 30th' END) AS cotype,* from dbo.mf_pyrollco ORDER BY rowid asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -46,15 +46,15 @@ Class MfholidayList{
         if($result){
             do { 
                 $rowd = "'".$result['rowid']."'";
-                $ddt = date('Y-m-d', strtotime($result['holidaydate']));
                 echo '
                 <tr>
-                <td id="hd'.$result['rowid'].'">'.$ddt.'</td>
-                <td id="ht'.$result['rowid'].'">'.$result['holidaytype'].'</td>
-                <td id="hn'.$result['rowid'].'">'.$result['holidaydescs'].'</td>
+                <td id="pcf'.$result['rowid'].'">'.date('Y-m-d',strtotime($result['pyrollco_from'])).'</td>
+                <td id="pct'.$result['rowid'].'">'.date('Y-m-d',strtotime($result['pyrollco_to'])).'</td>
+                <td id="cot'.$result['rowid'].'">'.$result['cotype'].'</td>
+                <td id="cor'.$result['rowid'].'" hidden>'.$result['co_type'].'</td>
                 <td id="st'.$result['rowid'].'">'.$result['status'].'</td>';
                 echo'<td><button type="button" class="actv" 
-                onclick="editMfholidayModal('.$rowd.')">
+                onclick="editMfpyrollcoModal('.$rowd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

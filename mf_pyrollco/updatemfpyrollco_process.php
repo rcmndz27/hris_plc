@@ -1,19 +1,17 @@
 <?php
 
-    include('../mf_department/updatemfdepartment.php');
+    include('../mf_pyrollco/updatemfpyrollco.php');
     include('../config/db.php');
 
     $action = $_POST["action"];
     $rowid = $_POST["rowid"];
-    $code = $_POST["code"];
-    $descs = $_POST["descs"];
+    $pyrollco_from = $_POST["pyrollco_from"];
+    $pyrollco_to = $_POST["pyrollco_to"];
+    $co_type = $_POST["co_type"];
+    $status = $_POST["status"];    
 
     if ($action == 1)
     {
-        UpdateMfdepartment($rowid,$code,$descs);
+        UpdateMfpyrollco($rowid,$pyrollco_from,$pyrollco_to,$co_type,$status);
     }
-    else {
-
-    }
-
 ?>

@@ -1,19 +1,24 @@
 <?php
 
-Class MfdepartmentEnt{
+Class MfpyrollcoEnt{
 
-public function InsertMfdepartmentEnt($code,$descs)
+public function InsertMfpyrollcoEnt($pyrollco_from,$pyrollco_to,$co_type)
     {
         global $connL;
 
-            $query = "INSERT INTO mf_dept (code,descs,status) VALUES(:code,:descs,:status)";
+            $query = "INSERT INTO 
+            mf_pyrollco (pyrollco_from,pyrollco_to,co_type,status,audituser,auditdate) 
+            VALUES (:pyrollco_from,:pyrollco_to,:co_type,:status,:audituser,:auditdate)";
     
                 $stmt =$connL->prepare($query);
 
                 $param = array(
-                    ":code"=> $code,
-                    ":descs" => $descs,
-                    ":status" => 'Active'                                       
+                    ":pyrollco_from"=> $pyrollco_from,
+                    ":pyrollco_to" => $pyrollco_to,
+                    ":co_type" => $co_type,
+                    ":status" => 'Active',
+                    ":audituser" => 'system',
+                    ":auditdate" => date('Y-m-d')                                      
                 );
 
             $result = $stmt->execute($param);

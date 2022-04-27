@@ -1,24 +1,21 @@
 <?php
 
 
-    include('../mf_department/mfdepartmentent.php');
+    include('../mf_pyrollco/mfpyrollcoent.php');
     include('../config/db.php');
 
-$mfDep = new MfdepartmentEnt();
+$mfPyco = new MfpyrollcoEnt();
 
-$mfdep = json_decode($_POST["data"]);
+$mfpyco = json_decode($_POST["data"]);
 
-if($mfdep->{"Action"} == "InsertMfdepartmentEnt")
+if($mfpyco->{"Action"} == "InsertMfpyrollcoEnt")
 {
 
-    $code = $mfdep->{"code"};
-    $descs = $mfdep->{"descs"};
-    $status = $mfdep->{"status"};
+    $pyrollco_from = $mfpyco->{"pyrollco_from"};
+    $pyrollco_to = $mfpyco->{"pyrollco_to"};
+    $co_type = $mfpyco->{"co_type"};
 
-    $mfDep->InsertMfdepartmentEnt($code,$descs,$status);
-
-}else{
-
+    $mfPyco->InsertMfpyrollcoEnt($pyrollco_from,$pyrollco_to,$co_type);
 }
     
 

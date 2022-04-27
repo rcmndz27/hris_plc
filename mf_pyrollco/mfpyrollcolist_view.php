@@ -9,10 +9,10 @@
     else
     {
             include('../_header.php');
-            include("../mf_holiday/mfholidaylist.php");
+            include("../mf_pyrollco/mfpyrollcolist.php");
             include('../elements/DropDown.php');
             include('../controller/MasterFile.php');
-            $allMfholidayList = new MfholidayList(); 
+            $allMfpyrollcoList = new MfpyrollcoList(); 
             $mf = new MasterFile();
             $dd = new DropDown();
 
@@ -27,32 +27,32 @@
 
     }    
 ?>
-<link rel="stylesheet" href="../mf_holiday/mfholiday.css">
-<script type="text/javascript" src="../mf_holiday/mfholiday_ent.js"></script>
+<link rel="stylesheet" href="../mf_pyrollco/mfpyrollco.css">
+<script type="text/javascript" src="../mf_pyrollco/mfpyrollco_ent.js"></script>
 <script type='text/javascript' src='../js/validator.js'></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL HOLIDAY LIST</h1>
+          <h1>ALL PAYROLL CUTOFF LIST</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active bb" aria-current="page"><b><i class='fas fa-calendar-alt'>
-                        </i>&nbsp;HOLIDAY LIST</b></li>
+                        </i>&nbsp;PAYROLL CUTOFF LIST</b></li>
             </ol>
           </nav>
     <div class="pt-3">
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="bb addNewAppBut" id="mfholidayEntry"><i class="fas fa-calendar-alt"></i> ADD NEW HOLIDAY </button>
+                <button type="button" class="bb addNewAppBut" id="mfpyrollcoEntry"><i class="fas fa-calendar-alt"></i> ADD NEW PAYROLL CUTOFF </button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allMfholidayList->GetAllMfholidayList(); ?>
+                        <?php $allMfpyrollcoList->GetAllMfpyrollcoList(); ?>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">HOLIDAY ENTRY <i class="fas fa-calendar-alt"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">PAYROLL CUTOFF ENTRY <i class="fas fa-calendar-alt"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -78,25 +78,26 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-7">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="holidaydescs"
-                                            id="holidaydescs" placeholder="Holiday Name....." > 
+                                        <label class="control-label" for="pyrollco_from">Payroll From<span class="req">*</span></label>
+                                        <input type="date" class="form-control inputtext" name="pyrollco_from"
+                                            id="pyrollco_from" onkeydown="return false"> 
                                     </div>
                                 </div>                            
-                                <div class="col-lg-5">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
-                                        <input type="date" id="holidaydate" name="holidaydate" class="form-control">
+                                        <label class="control-label" for="pyrollco_to">Payroll To<span class="req">*</span></label>
+                                        <input type="date" class="form-control inputtext" name="pyrollco_to"
+                                            id="pyrollco_to" onkeydown="return false"> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-7">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
-                                        <select type="select" class="form-select inputtext" id="holidaytype" name="holidaytype" >
-                                            <option value="Regular Holiday">Regular Holiday</option>
-                                            <option value="Special Holiday">Special Holiday</option>
+                                        <label class="control-label" for="co_type">Payroll Type<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="co_type" name="co_type" >
+                                            <option value="0">Payroll 15th</option>
+                                            <option value="1">Payroll 30th</option>
                                         </select>    
                                     </div>
                                 </div>
@@ -113,12 +114,12 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-    <div class="modal fade" id="updateMfhol" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+    <div class="modal fade" id="updateMfPyco" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE HOLIDAY <i class="fas fa-calendar-alt"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE PAYROLL CUTOFF <i class="fas fa-calendar-alt"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -131,31 +132,32 @@
                                 </legend>
                              </div>
                         <div class="form-row">
-                                <div class="col-lg-7">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="descs">Holiday Name<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="hdescs"
-                                            id="hdescs" placeholder="Holiday Name....." > 
+                                        <label class="control-label" for="pyrollcofrom">Payroll From<span class="req">*</span></label>
+                                        <input type="date" class="form-control inputtext" name="pyrollcofrom"
+                                            id="pyrollcofrom" onkeydown="return false"> 
                                     </div>
                                 </div>                            
-                                <div class="col-lg-5">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="code">Holiday Date<span class="req">*</span></label>
-                                        <input type="date" id="hdate" name="hdate" class="form-control">
+                                        <label class="control-label" for="pyrollco_to">Payroll To<span class="req">*</span></label>
+                                        <input type="date" class="form-control inputtext" name="pyrollcoto"
+                                            id="pyrollcoto" onkeydown="return false"> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-7">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="status">Holiday Type<span class="req">*</span></label>
-                                        <select type="select" class="form-select inputtext" id="htype" name="htype" >
-                                            <option value="Regular Holiday">Regular Holiday</option>
-                                            <option value="Special Holiday">Special Holiday</option>
+                                        <label class="control-label" for="cotype">Payroll Type<span class="req">*</span></label>
+                                        <select type="select" class="form-select inputtext" id="cotype" name="cotype" >
+                                            <option value="0">Payroll 15th</option>
+                                            <option value="1">Payroll 30th</option>
                                         </select>    
                                     </div>
-                                </div>                                                            
-                                <div class="col-lg-5">
+                                </div>                                                          
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="status">Status<span class="req">*</span></label>
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select inputtext" id="stts" name="stts" >
                                             <option value="Active">Active</option>
                                             <option value="Inactive">Inactive</option>
@@ -168,7 +170,7 @@
 
                                 <div class="modal-footer">
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateMfhol()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="subbut" onclick="updateMfPyco()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -178,15 +180,33 @@
 
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
+<script type="text/javascript">
+
+           $('#pyrollco_to').change(function(){
+
+                if($('#pyrollco_to').val() < $('#pyrollco_from').val()){
+
+                    swal({text:"Date to must be greater than date from!",icon:"error"});
+                    document.getElementById('pyrollco_to').value = '';               
+                }
+            });
 
 
-<script>
+            $('#pyrollco_from').change(function(){
+
+                if($('#pyrollco_from').val() > $('#pyrollco_to').val()){
+                    var input2 = document.getElementById('pyrollco_to');
+                    document.getElementById("pyrollco_to").min = $('#pyrollco_from').val();
+                    input2.value = '';
+                }
+            });
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allMfholidayList");
+  table = document.getElementById("allMfpyrollcoList");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[3];
@@ -201,70 +221,82 @@ function myFunction() {
   }
 }
 
-    function editMfholidayModal(id){
+    function editMfpyrollcoModal(id){
           
-        $('#updateMfhol').modal('toggle'); 
+        $('#updateMfPyco').modal('toggle'); 
         document.getElementById('rowd').value =  id;   
-        document.getElementById('hdate').value =  document.getElementById('hd'+id).innerHTML;   
-        document.getElementById('htype').value =  document.getElementById('ht'+id).innerHTML;  
-        document.getElementById('hdescs').value =  document.getElementById('hn'+id).innerHTML;  
+        document.getElementById('pyrollcofrom').value =  document.getElementById('pcf'+id).innerHTML;   
+        document.getElementById('pyrollcoto').value =  document.getElementById('pct'+id).innerHTML;  
+        document.getElementById('cotype').value =  document.getElementById('cor'+id).innerHTML;  
         document.getElementById('stts').value =  document.getElementById('st'+id).innerHTML;  
     }
 
 
-    function updateMfhol()
+    function updateMfPyco()
     {
 
-        var url = "../mf_holiday/updatemfholiday_process.php";
+        var url = "../mf_pyrollco/updatemfpyrollco_process.php";
         var rowid = document.getElementById("rowd").value;
-        var holidaydate = document.getElementById("hdate").value;
-        var holidaytype = document.getElementById("htype").value;
-        var holidaydescs = document.getElementById("hdescs").value;
-        var status = document.getElementById("stts").value;       
+        var pyrollco_from = document.getElementById("pyrollcofrom").value;
+        var pyrollco_to = document.getElementById("pyrollcoto").value;
+        var co_type = document.getElementById("cotype").value;
+        if(co_type == 1){
+            var ctype =  'Payroll 30th';
+        }else{
+            var ctype =  'Payroll 15th';
+        }
+        var status = document.getElementById("stts").value;
+
+        // console.log(pyrollco_from);
+        // console.log(pyrollco_to);       
+        // console.log(co_type);
+        // console.log(status);
+        // console.log(ctype);
+        // return false;
 
 
                         swal({
                           title: "Are you sure?",
-                          text: "You want to update this holiday type?",
+                          text: "You want to update this pyrollco type?",
                           icon: "success",
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((updateMfhol) => {
-                          if (updateMfhol) {
+                        .then((updateMfPyco) => {
+                          if (updateMfPyco) {
                                 $.post (
                                     url,
                                     {
                                         action: 1,
                                         rowid: rowid ,
-                                        holidaydate: holidaydate ,
-                                        holidaytype: holidaytype ,
-                                        holidaydescs: holidaydescs ,
+                                        pyrollco_from: pyrollco_from,
+                                        pyrollco_to: pyrollco_to,
+                                        co_type: co_type,
                                         status: status                                       
                                     },
                                     function(data) { 
                                             swal({
                                             title: "Wow!", 
-                                            text: "Successfully updated the holiday details!", 
+                                            text: "Successfully updated the payroll cut-off details!", 
                                             type: "success",
                                             icon: "success",
                                             }).then(function() {
-                                                $('#updateMfhol').modal('hide');
-                                                 document.getElementById('hd'+rowid).innerHTML = holidaydate;
-                                                 document.getElementById('ht'+rowid).innerHTML = holidaytype;
-                                                 document.getElementById('hn'+rowid).innerHTML = holidaydescs;
+                                                $('#updateMfPyco').modal('hide');
+                                                 document.getElementById('pcf'+rowid).innerHTML = pyrollco_from;
+                                                 document.getElementById('pct'+rowid).innerHTML = pyrollco_to;
+                                                 document.getElementById('cot'+rowid).innerHTML = ctype;
                                                  document.getElementById('st'+rowid).innerHTML = status;
                                             });  
                                 });
                           } else {
-                            swal({text:"You cancel the updating of holiday details!",icon:"error"});
+                            swal({text:"You cancel the updating of payroll cut-off details!",icon:"error"});
                           }
                         });
 
                 }
     
 
-getPagination('#allMfholidayList');
+getPagination('#allMfpyrollcoList');
 
 function getPagination(table) {
   var lastPage = 1;
