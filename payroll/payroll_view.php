@@ -37,7 +37,7 @@ else
 <link rel="stylesheet" href="../payroll/payroll.css">
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
-<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
+<!-- <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script> -->
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <body  onload="javascript:generatePayrll();">
     <div class="container-fluid">

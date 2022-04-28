@@ -1,23 +1,23 @@
 <?php
 
 
-    include('../mf_department/mfdepartmentent.php');
+    include('../mf_holiday/mfholidayent.php');
     include('../config/db.php');
 
-$mfDep = new MfdepartmentEnt();
+$mfHol = new MfholidayEnt();
 
-$mfdep = json_decode($_POST["data"]);
+$mfhol = json_decode($_POST["data"]);
 
-if($mfdep->{"Action"} == "InsertMfdepartmentEnt")
+if($mfhol->{"Action"} == "InsertMfholidayEnt")
 {
 
-    $code = $mfdep->{"code"};
-    $descs = $mfdep->{"descs"};
-    $status = $mfdep->{"status"};
+    $holidaydate = $mfhol->{"holidaydate"};
+    $holidaytype = $mfhol->{"holidaytype"};
+    $holidaydescs = $mfhol->{"holidaydescs"};
+    $status = $mfhol->{"status"};
 
-    $mfDep->InsertMfdepartmentEnt($code,$descs,$status);
 
-}else{
+    $mfHol->InsertMfholidayEnt($holidaydate,$holidaytype,$holidaydescs,$status);
 
 }
     

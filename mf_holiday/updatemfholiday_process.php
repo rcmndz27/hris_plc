@@ -1,19 +1,18 @@
 <?php
 
-    include('../mf_department/updatemfdepartment.php');
+    include('../mf_holiday/updatemfholiday.php');
     include('../config/db.php');
 
     $action = $_POST["action"];
     $rowid = $_POST["rowid"];
-    $code = $_POST["code"];
-    $descs = $_POST["descs"];
+    $holidaydate = $_POST["holidaydate"];
+    $holidaytype = $_POST["holidaytype"];
+    $holidaydescs = $_POST["holidaydescs"];
+    $status = $_POST["status"];
 
     if ($action == 1)
     {
-        UpdateMfdepartment($rowid,$code,$descs);
-    }
-    else {
-
+        UpdateMfholiday($rowid,$holidaydate,$holidaytype,$holidaydescs,$status);
     }
 
 ?>

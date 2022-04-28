@@ -34,7 +34,7 @@
 <script type='text/javascript' src='../payroll/payroll_reg.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
-<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
+<!-- <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script> -->
 <div class="container">
     <div class="section-title">
           <h1>PAYROLL REGISTER VIEW</h1>

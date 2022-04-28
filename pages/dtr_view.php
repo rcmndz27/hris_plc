@@ -18,19 +18,18 @@
 <script type='text/javascript' src='../js/dtr.js'></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
-<script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
+<!-- <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script> -->
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>MY ATTENDANCE</h1>
         </div>
     <div class="main-body mbt">
-
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-calendar fa-fw'>
-                        </i>&nbsp;MY ATTENDANCE</b></li>
+                </i>&nbsp;MY ATTENDANCE</b></li>
             </ol>
           </nav>
     <div class="form-row pt-3">
