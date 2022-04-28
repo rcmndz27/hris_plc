@@ -19,7 +19,6 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                 echo"<table id='payslipsList'><thead>
                     <tr>
                         <th colspan='6' style='text-align:center;'><img src='../img/obanana.png' style='height:50px;'></th>
-                        <button id='showpay' value='ok' hidden></button>
                     </tr>
                     <tr>
                         <th colspan='3'>NAME: ".$r['name']." </th>
