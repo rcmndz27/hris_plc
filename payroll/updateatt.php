@@ -1,7 +1,8 @@
 <?php 
 
 
-function UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$total_undertime,$total_adjstmenthrs,$tot_overtime_reg,$night_differential,$night_differential_ot,$tot_regholiday,$tot_overtime_regholiday,$tot_regholiday_nightdiff,$tot_overtime_regholiday_nightdiff,$tot_spholiday,$tot_overtime_spholiday,$tot_spholiday_nightdiff,$tot_overtime_spholiday_nightdiff,$tot_rest,$tot_overtime_rest,$night_differential_rest,$night_differential_ot_rest,$tot_overtime_rest_regholiday,$night_differential_rest_regholiday,$tot_overtime_night_diff_rest_regholiday,$tot_overtime_sprestholiday,$tot_sprestholiday_nightdiff,$tot_overtime_sprestholiday_nightdiff,$sick_leave,$vacation_leave)
+function UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$total_undertime,$total_adjstmenthrs,$tot_overtime_reg,$night_differential,$night_differential_ot,$tot_regholiday,$tot_overtime_regholiday,$tot_regholiday_nightdiff,$tot_overtime_regholiday_nightdiff,$tot_spholiday,$tot_overtime_spholiday,$tot_spholiday_nightdiff,$tot_overtime_spholiday_nightdiff,$tot_rest,$tot_overtime_rest,$night_differential_rest,$night_differential_ot_rest,$tot_overtime_rest_regholiday,$night_differential_rest_regholiday,$tot_overtime_night_diff_rest_regholiday,$tot_overtime_sprestholiday,$tot_sprestholiday_nightdiff,$tot_overtime_sprestholiday_nightdiff,$workfromhome,$offbusiness,
+    $sick_leave,$vacation_leave)
     {
             global $connL;
 
@@ -32,6 +33,8 @@ function UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$total_u
                 tot_overtime_sprestholiday = :tot_overtime_sprestholiday,
                 tot_sprestholiday_nightdiff = :tot_sprestholiday_nightdiff,
                 tot_overtime_sprestholiday_nightdiff = :tot_overtime_sprestholiday_nightdiff,
+                workfromhome = :workfromhome,
+                offbusiness = :offbusiness,
                 sick_leave = :sick_leave,
                 vacation_leave = :vacation_leave                                
                 where badge_no = :badge_no");
@@ -62,6 +65,8 @@ function UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$total_u
                 $cmd->bindValue('tot_overtime_sprestholiday',$tot_overtime_sprestholiday);
                 $cmd->bindValue('tot_sprestholiday_nightdiff',$tot_sprestholiday_nightdiff);
                 $cmd->bindValue('tot_overtime_sprestholiday_nightdiff',$tot_overtime_sprestholiday_nightdiff);
+                $cmd->bindValue('workfromhome',$workfromhome);
+                $cmd->bindValue('offbusiness',$offbusiness);
                 $cmd->bindValue('sick_leave',$sick_leave);            
                 $cmd->bindValue('vacation_leave',$vacation_leave);                           
                 $cmd->execute();

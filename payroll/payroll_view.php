@@ -276,6 +276,20 @@ else
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
+                                    <label class="control-label" for="workfromhome">Work From Home (Days):</label><br><br>
+                                    <input type="number" class="form-control" name="workfromhome"
+                                    id="workfromhome"> 
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="offbusiness">Official Business (Days):</label><br><br>
+                                    <input type="number" class="form-control" name="offbusiness"
+                                    id="offbusiness"> 
+                                </div>
+                            </div>                             
+                            <div class="col-lg-4">
+                                <div class="form-group">
                                     <label class="control-label" for="sick_leave">Sick Leave (Days):</label><br><br>
                                     <input type="number" class="form-control" name="sick_leave"
                                     id="sick_leave"> 
@@ -547,6 +561,8 @@ aria-hidden="true">
     document.getElementById('tot_overtime_sprestholiday').value = document.getElementById('rd_sh_ot'+empcd).innerHTML;
     document.getElementById('tot_sprestholiday_nightdiff').value = document.getElementById('rd_sh_ns'+empcd).innerHTML;
     document.getElementById('tot_overtime_sprestholiday_nightdiff').value = document.getElementById('rd_sh_ns_ot'+empcd).innerHTML; 
+    document.getElementById('workfromhome').value =   document.getElementById('wfh'+empcd).innerHTML;  
+    document.getElementById('offbusiness').value =   document.getElementById('ob'+empcd).innerHTML;  
     document.getElementById('sick_leave').value =   document.getElementById('slh'+empcd).innerHTML;  
     document.getElementById('vacation_leave').value =   document.getElementById('vlh'+empcd).innerHTML;
 }
@@ -601,6 +617,8 @@ function updateAtt()
     var tot_overtime_sprestholiday = document.getElementById("tot_overtime_sprestholiday").value;
     var tot_sprestholiday_nightdiff = document.getElementById("tot_sprestholiday_nightdiff").value;
     var tot_overtime_sprestholiday_nightdiff = document.getElementById("tot_overtime_sprestholiday_nightdiff").value;
+    var workfromhome = document.getElementById("workfromhome").value;
+    var offbusiness = document.getElementById("offbusiness").value;
     var sick_leave = document.getElementById("sick_leave").value;
     var vacation_leave = document.getElementById("vacation_leave").value;
     var remarks = document.getElementById("remarks").value;
@@ -637,6 +655,8 @@ function updateAtt()
     var old_tot_overtime_sprestholiday  = document.getElementById('rd_sh_ot'+badge_no).innerHTML;
     var old_tot_sprestholiday_nightdiff  = document.getElementById('rd_sh_ns'+badge_no).innerHTML;
     var old_tot_overtime_sprestholiday_nightdiff  = document.getElementById('rd_sh_ns_ot'+badge_no).innerHTML; 
+    var old_workfromhome = document.getElementById('wfh'+badge_no).innerHTML ;
+    var old_offbusiness = document.getElementById('ob'+badge_no).innerHTML ;
     var old_sick_leave = document.getElementById('slh'+badge_no).innerHTML ;
     var old_vacation_leave = document.getElementById('vlh'+badge_no).innerHTML;
 
@@ -682,6 +702,8 @@ function updateAtt()
                     tot_overtime_sprestholiday : tot_overtime_sprestholiday,
                     tot_sprestholiday_nightdiff : tot_sprestholiday_nightdiff,
                     tot_overtime_sprestholiday_nightdiff : tot_overtime_sprestholiday_nightdiff,
+                    workfromhome: workfromhome,
+                    offbusiness: offbusiness,
                     sick_leave: sick_leave,
                     vacation_leave: vacation_leave
                 },
@@ -720,6 +742,8 @@ function updateAtt()
                         document.getElementById('rd_sh_ot'+badge_no).innerHTML = tot_overtime_sprestholiday;
                         document.getElementById('rd_sh_ns'+badge_no).innerHTML = tot_sprestholiday_nightdiff;
                         document.getElementById('rd_sh_ns_ot'+badge_no).innerHTML = tot_overtime_sprestholiday_nightdiff;
+                        document.getElementById('wfh'+badge_no).innerHTML = workfromhome;
+                        document.getElementById('ob'+badge_no).innerHTML = offbusiness;
                         document.getElementById('slh'+badge_no).innerHTML = sick_leave;
                         document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
 
@@ -884,6 +908,24 @@ function updateAtt()
             new_data = vacation_leave;
             old_data =  old_vacation_leave;
             column_name =  'Vacation Leave Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(sick_leave !== old_sick_leave){
+            action = 'Change';
+            new_data = sick_leave;
+            old_data =  old_sick_leave;
+            column_name =  'Sick Leave Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(workfromhome !== old_workfromhome){
+            action = 'Change';
+            new_data = workfromhome;
+            old_data =  old_workfromhome;
+            column_name =  'Work From Home Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(offbusiness !== old_offbusiness){
+            action = 'Change';
+            new_data = offbusiness;
+            old_data =  old_offbusiness;
+            column_name =  'Official Business Days';         
             insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
             }else{
             action = 'NoChange';
