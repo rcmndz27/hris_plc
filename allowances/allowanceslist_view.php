@@ -117,8 +117,9 @@
                                         <label class="control-label" for="amount">Allowance Amount<span class="req">*</span></label>
                                         <input class="form-control" type="number"  id="amount" name="amount" step=".01">
                                     </div>
-                                </div>                                                   
-                        </div> <!-- form row closing -->
+                                </div>
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
+                            </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">

@@ -121,7 +121,8 @@
                                         <label class="control-label" for="remarks">Remarks<span class="req">*</span></label>
                                         <input class="form-control" type="text"  id="remarks" name="remarks" placeholder="Remarks....">
                                     </div>
-                                </div>                                                                                  
+                                </div> 
+                            <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
                         </div> <!-- form row closing -->
                     </fieldset> 
 

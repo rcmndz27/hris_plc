@@ -1,11 +1,10 @@
 <?php
 
 
-    include('../leavebalance/leavebalanceent.php');
-    include('../config/db.php');
+include('../leavebalance/leavebalanceent.php');
+include('../config/db.php');
 
 $lvBalEnt = new LeaveBalanceEnt();
-
 $lvbalent = json_decode($_POST["data"]);
 
 if($lvbalent->{"Action"} == "InsertLeaveBalanceEnt")
@@ -15,8 +14,9 @@ if($lvbalent->{"Action"} == "InsertLeaveBalanceEnt")
     $earned_sl = $lvbalent->{"earned_sl"};
     $earned_vl = $lvbalent->{"earned_vl"};
     $earned_sl = $lvbalent->{"earned_sl_bank"};
+    $eMplogName = $lvbalent->{"eMplogName"};
 
-    $lvBalEnt->InsertLeaveBalanceEnt($emp_code,$earned_sl,$earned_vl,$earned_sl);
+    $lvBalEnt->InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_vl,$earned_sl);
 }   
 
 ?>

@@ -104,6 +104,7 @@
                                         <input class="form-control" type="number"  id="earned_sl_bank" name="earned_sl_bank" placeholder="0">
                                     </div>
                                 </div>
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
                             </div> <!-- form row closing -->
                     </fieldset> 
 

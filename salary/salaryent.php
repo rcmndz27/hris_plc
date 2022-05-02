@@ -2,7 +2,7 @@
 
 Class SalaryEnt{
 
-public function InserySalaryEnt($emp_code,$bank_type,$bank_no,$pay_rate,$amount,$status)
+public function InsertSalaryEnt($eMplogName,$emp_code,$bank_type,$bank_no,$pay_rate,$amount,$status)
     {
         global $connL;
 
@@ -19,7 +19,7 @@ public function InserySalaryEnt($emp_code,$bank_type,$bank_no,$pay_rate,$amount,
                     ":pay_rate"=> $pay_rate,
                     ":amount"=> $amount,
                     ":status"=> $status,
-                    ":audituser" => 'user',
+                    ":audituser" => $eMplogName,
                     ":auditdate"=>date('m-d-Y')                                          
                 );
 

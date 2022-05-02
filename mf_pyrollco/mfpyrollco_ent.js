@@ -33,13 +33,14 @@ $(function(){
                 'Action': 'InsertMfpyrollcoEnt',
                 'pyrollco_from': $('#pyrollco_from').val(),
                 'pyrollco_to': $('#pyrollco_to').val(),
-                'co_type': $('#co_type').val()                
+                'co_type': $('#co_type').val(),
+                'eMplogName': $('#eMplogName').val()                             
             }
     
             param = JSON.stringify(param);
 
-            // swal(param);
-            // exit();
+            // console.log(param);
+            // return false;
 
                      swal({
                           title: "Are you sure ?",

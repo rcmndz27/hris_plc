@@ -2,7 +2,7 @@
 
 Class DeductionEnt{
 
-public function InseryDeductionEnt($emp_code,$deduction_id,$period_cutoff,$effectivity_date,$amount)
+public function InsertDeductionEnt($eMplogName,$emp_code,$deduction_id,$period_cutoff,$effectivity_date,$amount)
     {
         global $connL;
 
@@ -18,7 +18,7 @@ public function InseryDeductionEnt($emp_code,$deduction_id,$period_cutoff,$effec
                     ":period_cutoff" => $period_cutoff,
                     ":effectivity_date"=> $effectivity_date,
                     ":amount"=> $amount,
-                    ":audituser" => 'user',
+                    ":audituser" => $eMplogName,
                     ":auditdate"=>date('m-d-Y')                                          
                 );
 

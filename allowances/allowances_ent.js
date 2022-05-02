@@ -36,6 +36,7 @@ $(function(){
                 'benefit_id': $('#benefit_id').val() ,
                 'period_cutoff': $( "#period_cutoff option:selected" ).text(),
                 'effectivity_date': $('#effectivity_date').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'amount': $('#amount').val()                   
             }
     

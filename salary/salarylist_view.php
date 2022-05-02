@@ -117,16 +117,16 @@
                                             id="amount" onkeypress="return onlyNumberKey(event)" placeholder="000000.00" maxlength="15">
                                     </div>
                                 </div> 
-                                 <div class="col-lg-6">
-                                 </div> 
-                                <div class="col-lg-6">
+
+                                <div class="col-lg-6" hidden>
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="status"
                                             id="status" value="Active" readonly>                                        
                                     </div>
-                                </div>                                                   
-                        </div> <!-- form row closing -->
+                                </div> 
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
+                            </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">

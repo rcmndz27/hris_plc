@@ -2,7 +2,7 @@
 
 Class MfpyrollcoEnt{
 
-public function InsertMfpyrollcoEnt($pyrollco_from,$pyrollco_to,$co_type)
+public function InsertMfpyrollcoEnt($eMplogName,$pyrollco_from,$pyrollco_to,$co_type)
     {
         global $connL;
 
@@ -17,7 +17,7 @@ public function InsertMfpyrollcoEnt($pyrollco_from,$pyrollco_to,$co_type)
                     ":pyrollco_to" => $pyrollco_to,
                     ":co_type" => $co_type,
                     ":status" => 'Active',
-                    ":audituser" => 'system',
+                    ":audituser" => $eMplogName,
                     ":auditdate" => date('Y-m-d')                                      
                 );
 

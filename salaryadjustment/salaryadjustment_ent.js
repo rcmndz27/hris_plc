@@ -46,13 +46,14 @@ $(function(){
                 'period_to': ddcutoff[1],
                 'inc_decr': $('#inc_decr').val(),
                 'amount': $('#amount').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'remarks': $('#remarks').val()              
             }
     
             param = JSON.stringify(param);
 
             // console.log(param);
-            // exit();
+            // return false;
 
                      swal({
                           title: "Are you sure you want to add this employee salary adjustment details?",

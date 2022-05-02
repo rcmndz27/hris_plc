@@ -758,6 +758,36 @@
         }
 
 
+        public function  GetUnGenPayrollCutoff($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT pyrollco_from,pyrollco_to,rowid from mf_pyrollco where pyrollco_from not in (select period_from from att_summary) and pyrollco_from not in (select period_to from att_summary)");
+                $sql->execute();
+
+                if ($type == "ungenpco")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["rowid"],date("m/d/Y", strtotime($r["pyrollco_from"])) . " - " . date("m/d/Y", strtotime($r["pyrollco_to"]))));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
+
+
         public function GetAllEmployeeLevelWrds($type)
         {
             global $connL;

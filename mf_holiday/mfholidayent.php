@@ -2,7 +2,7 @@
 
 Class MfholidayEnt{
 
-public function InsertMfholidayEnt($holidaydate,$holidaytype,$holidaydescs,$status)
+public function InsertMfholidayEnt($eMplogName,$holidaydate,$holidaytype,$holidaydescs,$status)
     {
         global $connL;
 
@@ -15,7 +15,7 @@ public function InsertMfholidayEnt($holidaydate,$holidaytype,$holidaydescs,$stat
                     ":holidaytype" => $holidaytype,
                     ":holidaydescs" => $holidaydescs,
                     ":status" => 'Active',
-                    ":audituser" => 'system',
+                    ":audituser" => $eMplogName,
                     ":auditdate" => date('Y-m-d'),                                       
                 );
 

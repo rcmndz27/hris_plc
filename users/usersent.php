@@ -2,7 +2,7 @@
 
 Class UsersEnt{
 
-public function InsertUsersEnt($username,$userid,$userpassword,$usertype,$status)
+public function InsertUsersEnt($eMplogName,$username,$userid,$userpassword,$usertype,$status)
     {
         global $connL;
 
@@ -28,7 +28,7 @@ public function InsertUsersEnt($username,$userid,$userpassword,$usertype,$status
                     ":usertype"=> $usertype,
                     ":useremail"=> $useremail,
                     ":status"=> $status,
-                    ":audituser" => 'user',
+                    ":audituser" => $eMplogName,
                     ":auditdate"=>date('m-d-Y')                                          
                 );
 

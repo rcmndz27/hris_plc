@@ -108,15 +108,14 @@
                                         <input class="form-control inputtext" type="date" name="date_needed" id="date_needed" /> 
                                     </div>
                                 </div>                                
-                                <div class="col-lg-8">
-                                </div> 
-                                <div class="col-lg-4">
+                                <div class="col-lg-4" hidden>
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status</label>
                                         <input type="text" class="form-control inputtext" name="status"
                                             id="status" placeholder="status" value="Open" readonly>    
                                     </div>
-                                </div>                                                                   
+                                </div>
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
                             </div>       
                     </div>
                         </fieldset>

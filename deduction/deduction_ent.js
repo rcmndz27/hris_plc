@@ -43,6 +43,7 @@ $(function(){
                 'deduction_id': $('#deduction_id').val(),
                 'period_cutoff': $( "#period_cutoff option:selected" ).text(),
                 'effectivity_date': $('#effectivity_date').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'amount': $('#amount').val()                   
             }
     

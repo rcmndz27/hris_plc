@@ -2,7 +2,7 @@
 
 Class LeaveBalanceEnt{
 
-public function InsertLeaveBalanceEnt($emp_code,$earned_sl,$earned_vl,$earned_sl_bank)
+public function InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_vl,$earned_sl_bank)
     {
         global $connL;
 
@@ -18,7 +18,7 @@ public function InsertLeaveBalanceEnt($emp_code,$earned_sl,$earned_vl,$earned_sl
                     ":earned_vl" => $earned_vl,
                     ":earned_sl_bank"=> $earned_sl_bank,
                     ":status"=> 'Active',
-                    ":audituser" => 'user',
+                    ":audituser" => $eMplogName,
                     ":auditdate"=>date('m-d-Y')                                          
                 );
 

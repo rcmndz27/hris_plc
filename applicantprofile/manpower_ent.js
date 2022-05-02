@@ -28,13 +28,14 @@ $(function(){
                 'position': $( "#position option:selected" ).text(),
                 'req_ment': $('#req_ment').val(),
                 'date_needed': $('#date_needed').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'status': $('#status').val()                     
             }
     
             param = JSON.stringify(param);
 
-            // swal(param);
-            // exit();
+            // console.log(param);
+            // return false;
 
                      swal({
                           title: "Are you sure you want to submit this?",

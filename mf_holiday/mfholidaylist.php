@@ -37,7 +37,7 @@ Class MfholidayList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.mf_holiday ORDER BY rowid asc";
+        $query = "SELECT * from dbo.mf_holiday ORDER BY rowid desc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();

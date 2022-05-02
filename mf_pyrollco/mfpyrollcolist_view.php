@@ -101,6 +101,7 @@
                                         </select>    
                                     </div>
                                 </div>
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>                                 
                             </div> <!-- form row closing -->
                     </fieldset> 
 

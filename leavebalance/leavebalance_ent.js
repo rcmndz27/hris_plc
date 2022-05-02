@@ -33,6 +33,7 @@ $(function(){
                 'emp_code': $('#emp_code').val(), 
                 'earned_sl': $('#earned_sl').val(),
                 'earned_vl': $('#earned_vl').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'earned_sl_bank': $('#earned_sl_bank').val()                  
             }
     

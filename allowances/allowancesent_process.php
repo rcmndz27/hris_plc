@@ -16,9 +16,10 @@ if($benent->{"Action"} == "InsertAllowancesEnt")
     $period_cutoff = $benent->{"period_cutoff"};
     $effectivity_date = $benent->{"effectivity_date"};
     $amount = $benent->{"amount"};
+    $eMplogName = $benent->{"eMplogName"};
 
 
-    $benEnt->InsertAllowancesEnt($emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount);
+    $benEnt->InsertAllowancesEnt($eMplogName,$emp_code,$benefit_id,$period_cutoff,$effectivity_date,$amount);
 
 }else{
 

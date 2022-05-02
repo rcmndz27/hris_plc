@@ -2,7 +2,7 @@
 
 Class SalaryAdjEnt{
 
-public function InsertSalaryAdjEnt($emp_code,$description,$period_from,$period_to,$inc_decr,$amount,$remarks)
+public function InsertSalaryAdjEnt($eMplogName,$emp_code,$description,$period_from,$period_to,$inc_decr,$amount,$remarks)
     {
         global $connL;
 
@@ -20,7 +20,7 @@ public function InsertSalaryAdjEnt($emp_code,$description,$period_from,$period_t
                     ":inc_decr"=> $inc_decr,
                     ":amount"=> $amount,
                     ":remarks"=> $remarks,
-                    ":audituser" => 'user',
+                    ":audituser" => $eMplogName,
                     ":auditdate"=>date('m-d-Y')                                          
                 );
 

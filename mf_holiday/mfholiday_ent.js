@@ -37,6 +37,7 @@ $(function(){
                 'holidaydate': $('#holidaydate').val(),
                 'holidaytype': $('#holidaytype').children("option:selected").val(),
                 'holidaydescs': $('#holidaydescs').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'status': $('#status').children("option:selected").val()                   
             }
     

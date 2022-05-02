@@ -89,36 +89,36 @@ else
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link type='image/x-png' rel='icon' href='../img/ob_icon.png'>
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link href="../css/bootstrap-icons.css" rel="stylesheet" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+<!-- Favicons -->
+<link type='image/x-png' rel='icon' href='../img/ob_icon.png'>
+<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="../css/bootstrap-icons.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
 
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="../assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link type='text/css' rel='stylesheet' href="<?= constant('FONTAWESOME_CSS'); ?>">
-  <link rel="stylesheet" href="../css/header.css">
-  <link rel="stylesheet" href="../css/custom.css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-  <link href="../css/styles.css" rel="stylesheet" />
-  <script type='text/javascript' src='../js/jquery.min.js'></script>
-  <script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
-  <script src="../js/sweetalert.min.js"></script>
-  <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
+<!-- Template Main CSS File -->
+<link href="../assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link type='text/css' rel='stylesheet' href="<?= constant('FONTAWESOME_CSS'); ?>">
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/custom.css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+rel="stylesheet">
+<link href="../css/styles.css" rel="stylesheet" />
+<script type='text/javascript' src='../js/jquery.min.js'></script>
+<script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
+<script src="../js/sweetalert.min.js"></script>
+<script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
   <!-- <script type="text/javascript" src='../js/script.js'></script> -->
@@ -318,6 +318,7 @@ else
                                   <li><a href='../allowances/allowanceslist_view.php' onclick='show()'>Allowances Management</a></li>
                                   <li><a href='../users/userslist_view.php' onclick='show()'>Users Management</a></li>                                                  
                                   <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
+                                  <li><a href='../payroll_att/gen_att_view.php' onclick='show()'>Generate Attendance</a></li>
                                   <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Leave Balance</a></li>
                                   <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
                                   <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>

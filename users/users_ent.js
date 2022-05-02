@@ -37,6 +37,7 @@ $(function(){
                 'username': username,
                 'userpassword': $('#password').val(),
                 'usertype': $('#emp_level').val(),
+                'eMplogName': $('#eMplogName').val(),
                 'status': $( "#status option:selected" ).text()
               
 
