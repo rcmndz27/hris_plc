@@ -285,7 +285,7 @@ rel="stylesheet">
                               <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
                                 <ul>
                                   <li><a href='../payroll/payroll_view.php' onclick='show()'>Payroll Period View</a></li>
-                                  <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
+                                  <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View ".$apprf."</a></li>
                                   <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
                                   <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 

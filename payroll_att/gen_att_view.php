@@ -86,7 +86,7 @@ else
           dangerMode: true,
       })
         .then((updateMfhol) => {
-            document.getElementById("myDiv").style.display="block";
+          document.getElementById("myDiv").style.display="block";
           if (updateMfhol) {
             $.post (
                 url,
@@ -96,8 +96,7 @@ else
                     pyrollco_to: dates[1] ,
                     eMplogName: eMplogName                           
                 },
-                function(data) { 
-                    
+                function(data) {                   
                     swal({
                         title: "Wow!", 
                         text: "Successfully generated attendance!", 
@@ -108,6 +107,7 @@ else
                     });  
                 });
         } else {
+            document.getElementById("myDiv").style.display="none";
             swal({text:"You cancel the generation of attendance!",icon:"error"});
         }
     });
