@@ -48,6 +48,22 @@ else
       </ol>
   </nav>
 
+                  <ul class="nav nav-tabs tabrec" id="myTab" name="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="attendance-tab" name="attendance-tab" data-toggle="tab"
+                            href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Attendance</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="education-tab" name="leave-tab" data-toggle="tab" href="#leave"
+                            role="tab" aria-controls="leave" aria-selected="false">Leave</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="overtimee-tab" name="job-tab" data-toggle="tab" href="#overtimee" role="tab"
+                            aria-controls="overtimee" aria-selected="false">Overtime</a>
+                    </li>
+
+                </ul>
+
   <div class="form-row pt-3">
     <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>
     <div class="col-md-3">      

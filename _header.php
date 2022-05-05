@@ -249,7 +249,7 @@ rel="stylesheet">
                 <button id='ob' value='".$ob."' hidden></button>"; 
 
 
-                $approval_adm = $lv + $ot + $wfh + $wfh + $dtrc + $ob + $pyrll;
+                $approval_adm = $lv + $ot + $wfh + $wfh + $dtrc + $ob;
                 $approval_tm = $lv + $ot + $wfh + $dtrc + $ob;
                 $approval_f = $pyrllf;
                 if ($approval_adm > 0) {
@@ -299,7 +299,7 @@ rel="stylesheet">
                                   <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
                                   <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
                                   <li><a href='../dtrcorrect/dtrcorrect-approval-view.php' onclick='show()'>DTR Correction (".$dtrc.")</a></li>
-                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll (".$pyrll.")</a></li>                                               
+                                  <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll</a></li>                                               
                                 </ul>
                               </li>
                              <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
