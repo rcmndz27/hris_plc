@@ -1,6 +1,6 @@
 <?php
 
-    include('../payroll_att/gen_leave.php');
+    include('../payroll_att/gen_ot.php');
     include('../config/db.php');
 
     $action = $_POST["action"];
@@ -10,7 +10,7 @@
 
     if ($action == 1)
     {
-        GenLeave($eMplogName,$pyrollco_from,$pyrollco_to);
+        GenOt($eMplogName,$pyrollco_from,$pyrollco_to);
     }
 
 ?>

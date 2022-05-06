@@ -26,7 +26,7 @@
         </thead>
         <tbody>';
 
-        $query = "SELECT a.emp_code,a.emp_name,a.pay_from,a.pay_to,a.column_name,a.old_data,a.new_data,a.action,a.remarks,b.lastname+','+b.firstname as [auditname],a.auditdate FROM dbo.logs_payroll a 
+        $query = "SELECT a.emp_code,a.emp_name,a.pay_from,a.pay_to,a.column_name,a.old_data,a.new_data,a.action,a.remarks,a.audituser,a.auditdate FROM dbo.logs_payroll a 
         left join employee_profile b on a.audituser = b.emp_code 
         where badge_no = :emp_code  and  pay_from = :pay_from and pay_to = :pay_to
         ORDER BY auditdate ASC";
@@ -49,7 +49,7 @@
                 <td>' . $result['new_data'] . '</td>
                 <td>' . $result['action'] . '</td>
                 <td>' . $result['remarks'] . '</td>
-                <td>' . $result['auditname'] . '</td>
+                <td>' . $result['audituser'] . '</td>
                 <td>' . date('m-d-Y', strtotime($result['auditdate'])) . '</td>';
 
             } while ($result = $stmt->fetch());

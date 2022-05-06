@@ -219,7 +219,7 @@ else
         var dates = date.split(" - ");
         var eMplogName = $('#eMplogName').val();
 
-        //         console.log(dates[0]);  
+        // console.log(dates[0]);  
         // console.log(dates[1]);  
         // console.log(eMplogName);
         // return false;
@@ -242,7 +242,8 @@ else
                     pyrollco_to: dates[1] ,
                     eMplogName: eMplogName                           
                 },
-                function(data) {                   
+                function(data) {    
+                console.log(data);               
                     swal({
                         title: "Wow!", 
                         text: "Successfully generated attendance!", 

@@ -1,12 +1,12 @@
 <?php 
               
 
-function GenLeave($eMplogName,$pyrollco_from,$pyrollco_to){
+function GenWfh($eMplogName,$pyrollco_from,$pyrollco_to){
 
            
     global $connL;
 
-    $cmd = $connL->prepare('EXEC hrissys_test.dbo.GenerateLeaveToAttendance :pay_from,:pay_to');
+    $cmd = $connL->prepare('EXEC hrissys_test.dbo.GenerateWfhToAttendance :pay_from,:pay_to');
     $cmd->bindValue(':pay_from',$pyrollco_from);
     $cmd->bindValue(':pay_to',$pyrollco_to);
     $cmd->execute();
@@ -19,9 +19,9 @@ function GenLeave($eMplogName,$pyrollco_from,$pyrollco_to){
         $param = array(
             ":pay_from"=> $pyrollco_from,
             ":pay_to"=> $pyrollco_to,
-            ":remarks"=> 'Leave',
+            ":remarks"=> 'Work From Home',
             ":audituser" => $eMplogName,
-            ":auditdate"=>date('m-d-Y')                                          
+            ":auditdate"=>date('Y-m-d')                                          
         );
 
     $result = $stmt->execute($param);
