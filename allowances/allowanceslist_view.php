@@ -153,7 +153,9 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code<span class="req">*</span></label>
-                                        <input type="text" class="form-control" name="empcode" id="empcode" readonly>
+                                        <input type="text" class="form-control" name="benfid" id="benfid" hidden>                                        
+                                        <input type="text" class="form-control" name="empcode" id="empcode" hidden>
+                                        <input type="text" class="form-control" name="empname" id="empname" readonly>  
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -186,8 +188,17 @@
                                         <label class="control-label" for="amnt">Allowance Amount<span class="req">*</span></label>
                                         <input class="form-control" type="number"  id="amnt" name="amnt" step=".01">
                                     </div>
-                                </div>                                                   
-                        </div> <!-- form row closing -->
+                                </div>  
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>
+                            </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">
@@ -217,15 +228,18 @@
         return true;
     }
 
- function editAlwModal(empcd){
+ function editAlwModal(empcd,benfid,fname){
 
    
         $('#updateAlw').modal('toggle');
-        document.getElementById('empcode').value =  empcd;   
-        document.getElementById('benefitid').value =  document.getElementById('bnr'+empcd).innerHTML;  
-        document.getElementById('periodcutoff').value =  document.getElementById('pc'+empcd).innerHTML;   
-        document.getElementById('amnt').value =  document.getElementById('am'+empcd).innerHTML;  
-        document.getElementById('effectivitydate').value =  document.getElementById('ed'+empcd).innerHTML;        
+        document.getElementById('empcode').value =  empcd;  
+        document.getElementById('empname').value =  fname;  
+        document.getElementById('benfid').value =  benfid;           
+        document.getElementById('benefitid').value =  document.getElementById('bnr'+benfid).innerHTML;  
+        document.getElementById('periodcutoff').value =  document.getElementById('pc'+benfid).innerHTML;   
+        document.getElementById('amnt').value =  document.getElementById('am'+benfid).innerHTML;  
+        document.getElementById('effectivitydate').value =  document.getElementById('ed'+benfid).innerHTML;  
+        document.getElementById('stts').value =  document.getElementById('st'+benfid).innerHTML;      
 
     }
 
@@ -236,12 +250,14 @@
         var url = "../allowances/updateallowances_process.php";
         var emp_code = document.getElementById("empcode").value;
         var benefit_id = document.getElementById("benefitid").value;
+        var benfid = document.getElementById("benfid").value;
         var e = document.getElementById("benefitid");
         var benefitid = e.options[e.selectedIndex].text;        
         var period_cutoff = document.getElementById("periodcutoff").value;
         var amount = document.getElementById("amnt").value;
         var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
         var effectivity_date = document.getElementById("effectivitydate").value; 
+        var status = document.getElementById("stts").value; 
      
                         swal({
                           title: "Are you sure?",
@@ -260,7 +276,8 @@
                                         benefit_id: benefit_id,
                                         period_cutoff: period_cutoff,
                                         amount: amount ,               
-                                        effectivity_date: effectivity_date 
+                                        effectivity_date: effectivity_date,
+                                        status: status 
                                         
                                     },
                                     function(data) { 
@@ -270,12 +287,13 @@
                                             icon: "success",
                                         }).then(function() {
                                             $('#updateAlw').modal('hide');
-                                            document.getElementById('bn'+emp_code).innerHTML = benefitid;
-                                            document.getElementById('bnr'+emp_code).innerHTML = benefit_id;
-                                            document.getElementById('pc'+emp_code).innerHTML = period_cutoff;
-                                            document.getElementById('am'+emp_code).innerHTML = amount;
-                                            document.getElementById('amtn'+emp_code).innerHTML = amtn;
-                                            document.getElementById('ed'+emp_code).innerHTML = effectivity_date;
+                                            document.getElementById('bn'+benfid).innerHTML = benefitid;
+                                            document.getElementById('bnr'+benfid).innerHTML = benefit_id;
+                                            document.getElementById('pc'+benfid).innerHTML = period_cutoff;
+                                            document.getElementById('am'+benfid).innerHTML = amount;
+                                            document.getElementById('amtn'+benfid).innerHTML = amtn;
+                                            document.getElementById('ed'+benfid).innerHTML = effectivity_date;
+                                            document.getElementById('st'+benfid).innerHTML = status;                                            
                                         }); 
                                     }
                                 );

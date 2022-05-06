@@ -36,12 +36,13 @@ Class AllowancesList{
                 <th>Period Cutoff</th>
                 <th>Allowances Amount</th>
                 <th>Effectivity Date</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = "SELECT a.benefits_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.benefit_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date from dbo.employee_allowances_management a left join dbo.mf_benefits b on a.benefit_id = b.rowid left join employee_obnprofile c  on a.emp_code = c.emp_code ORDER by a.benefits_emp_id DESC";
+        $query = "SELECT a.benefits_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.benefit_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date,a.status from dbo.employee_allowances_management a left join dbo.mf_benefits b on a.benefit_id = b.rowid left join employee_obnprofile c  on a.emp_code = c.emp_code ORDER by a.benefits_emp_id DESC";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -50,20 +51,23 @@ Class AllowancesList{
         if($result){
             do { 
                 $empcd = "'".$result['emp_code']."'";
+                $benfid = "'".$result['benefits_emp_id']."'";
+                $flname = "'".$result['fullname']."'";                
                  
-                echo '
-                <tr>
-                <td>' . $result['emp_code']. '</td>
-                <td>' . $result['fullname']. '</td>
-                <td id="bn'.$result['emp_code'].'">' . $result['benefit_name']. '</td>
-                <td id="bnr'.$result['emp_code'].'" hidden>' . $result['rowid']. '</td>                
-                <td id="pc'.$result['emp_code'].'">' . $result['period_cutoff']. '</td>
-                <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
-                <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
-                <td id="ed'.$result['emp_code'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editAlwModal('.$empcd.')">
-                                <i class="fas fa-edit"></i> UPDATE
-                            </button></td>';                
+    echo '
+    <tr>
+    <td>' . $result['emp_code']. '</td>
+    <td>' . $result['fullname']. '</td>
+    <td id="bn'.$result['benefits_emp_id'].'">' . $result['benefit_name']. '</td>
+    <td id="bnr'.$result['benefits_emp_id'].'" hidden>' . $result['rowid']. '</td>                
+    <td id="pc'.$result['benefits_emp_id'].'">' . $result['period_cutoff']. '</td>
+    <td id="am'.$result['benefits_emp_id'].'" hidden>'.round($result['amount'],3).'</td>
+    <td id="amtn'.$result['benefits_emp_id'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
+    <td id="ed'.$result['benefits_emp_id'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>
+    <td id="st'.$result['benefits_emp_id'].'">' . $result['status']. '</td>';
+    echo'<td><button type="button" class="actv" onclick="editAlwModal('.$empcd.','.$benfid.','.$flname.')">
+                    <i class="fas fa-edit"></i> UPDATE
+                </button></td>';                
                 
             } while ($result = $stmt->fetch());
 

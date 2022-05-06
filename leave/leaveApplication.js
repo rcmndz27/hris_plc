@@ -756,9 +756,7 @@ $(function(){
                     var input2 = document.getElementById('dateTo');
                     input2.value = '';               
 
-                }else{
-                    // alert('Error');
-                }   
+                }
 
             });
 

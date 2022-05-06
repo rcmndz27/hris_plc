@@ -318,7 +318,7 @@ rel="stylesheet">
                                   <li><a href='../allowances/allowanceslist_view.php' onclick='show()'>Allowances Management</a></li>
                                   <li><a href='../users/userslist_view.php' onclick='show()'>Users Management</a></li>                                                  
                                   <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
-                                  <li><a href='../payroll_att/gen_att_view.php' onclick='show()'>Generate Attendance</a></li>
+                                  <li><a href='../payroll_att/gen_att_view.php' onclick='show()'>Generate Scripts</a></li>
                                   <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Leave Balance</a></li>
                                   <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
                                   <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>

@@ -136,8 +136,7 @@
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script src="../leave/moment2.min.js"></script>
-<script src="../leave/moment-range.js"></script>
+
 
 <div class="container">
     <div class="section-title">

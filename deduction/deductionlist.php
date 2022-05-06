@@ -34,12 +34,13 @@ Class DeductionList{
                 <th>Period Cutoff</th>
                 <th>Deduction Amount</th>
                 <th>Effectivity Date</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>';
 
-        $query = "SELECT a.deduction_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.deduction_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date from dbo.employee_deduction_management a left join dbo.mf_deductions b on a.deduction_id = b.rowid left join employee_profile c  on a.emp_code = c.emp_code ORDER by a.deduction_emp_id DESC ";
+        $query = "SELECT a.deduction_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.deduction_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date,a.status from dbo.employee_deduction_management a left join dbo.mf_deductions b on a.deduction_id = b.rowid left join employee_profile c  on a.emp_code = c.emp_code ORDER by a.deduction_emp_id DESC ";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -48,18 +49,21 @@ Class DeductionList{
         if($result){
             do { 
                 $empcd = "'".$result['emp_code']."'";
+                $dedcid = "'".$result['deduction_emp_id']."'";
+                $flname = "'".$result['fullname']."'";
              
                 echo '
                 <tr>
                 <td>' . $result['emp_code']. '</td>
                 <td>' . $result['fullname']. '</td>
-                <td id="dn'.$result['emp_code'].'">' . $result['deduction_name']. '</td>
-                <td id="dnr'.$result['emp_code'].'" hidden>' . $result['rowid']. '</td>
-                <td id="pc'.$result['emp_code'].'">' . $result['period_cutoff']. '</td>
-                <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
-                <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
-                <td id="ed'.$result['emp_code'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editDedModal('. $empcd.')">
+                <td id="dn'.$result['deduction_emp_id'].'">' . $result['deduction_name']. '</td>
+                <td id="dnr'.$result['deduction_emp_id'].'" hidden>' . $result['rowid']. '</td>
+                <td id="pc'.$result['deduction_emp_id'].'">' . $result['period_cutoff']. '</td>
+                <td id="am'.$result['deduction_emp_id'].'" hidden>'.round($result['amount'],3).'</td>
+                <td id="amtn'.$result['deduction_emp_id'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
+                <td id="ed'.$result['deduction_emp_id'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>
+                <td id="st'.$result['deduction_emp_id'].'">' . $result['status']. '</td>';
+                echo'<td><button type="button" class="actv" onclick="editDedModal('.$empcd.','.$dedcid.','.$flname.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

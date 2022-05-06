@@ -152,7 +152,9 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="empcode">Employee Code<span class="req">*</span></label>
-                                        <input type="text" class="form-control" name="empcode" id="empcode" readonly>
+                                        <input type="text" class="form-control" name="dedcid" id="dedcid" hidden>                                        
+                                        <input type="text" class="form-control" name="empcode" id="empcode" hidden>
+                                        <input type="text" class="form-control" name="empname" id="empname" readonly>                                        
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -187,8 +189,17 @@
                                         <label class="control-label" for="amnt">Deduction Amount<span class="req">*</span></label>
                                         <input class="form-control" type="number"  id="amnt" name="amnt" min="0" step=".01">
                                     </div>
-                                </div>                                                   
-                        </div> <!-- form row closing -->
+                                </div>  
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="stts">Status<span class="req">*</span></label>
+                                        <select type="select" class="form-select" id="stts" name="stts" >
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>                                    
+                                    </div>
+                                </div>
+                             </div> <!-- form row closing -->
                     </fieldset> 
 
                                 <div class="modal-footer">
@@ -216,15 +227,17 @@
         return true;
     }
 
-      function editDedModal(empcd){
+      function editDedModal(empcd,dedcid,fname){
 
-   
         $('#updateDed').modal('toggle');
         document.getElementById('empcode').value =  empcd;   
-        document.getElementById('deductionid').value =  document.getElementById('dnr'+empcd).innerHTML;  
-        document.getElementById('periodcutoff').value =  document.getElementById('pc'+empcd).innerHTML;   
-        document.getElementById('amnt').value =  document.getElementById('am'+empcd).innerHTML;  
-        document.getElementById('effectivitydate').value =  document.getElementById('ed'+empcd).innerHTML;                                            
+        document.getElementById('empname').value =  fname;  
+        document.getElementById('dedcid').value =  dedcid;   
+        document.getElementById('deductionid').value =  document.getElementById('dnr'+dedcid).innerHTML;  
+        document.getElementById('periodcutoff').value =  document.getElementById('pc'+dedcid).innerHTML;   
+        document.getElementById('amnt').value =  document.getElementById('am'+dedcid).innerHTML;  
+        document.getElementById('effectivitydate').value =  document.getElementById('ed'+dedcid).innerHTML;
+        document.getElementById('stts').value =  document.getElementById('st'+dedcid).innerHTML;                                            
 
     }
 
@@ -235,12 +248,14 @@
         var url = "../deduction/updatededuction_process.php";
         var emp_code = document.getElementById("empcode").value;
         var deduction_id = document.getElementById("deductionid").value;
+        var dedcid = document.getElementById("dedcid").value;
         var e = document.getElementById("deductionid");
         var deductionid = e.options[e.selectedIndex].text;
         var period_cutoff = document.getElementById("periodcutoff").value;
         var amount = document.getElementById("amnt").value;
         var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         var effectivity_date = document.getElementById("effectivitydate").value; 
+        var status = document.getElementById("stts").value; 
 
 
                         swal({
@@ -260,7 +275,9 @@
                                         deduction_id: deduction_id,
                                         period_cutoff: period_cutoff,
                                         amount: amount ,               
-                                        effectivity_date: effectivity_date 
+                                        effectivity_date: effectivity_date ,
+                                        status: status 
+
                                         
                                     },
                                     function(data) {                                         
@@ -270,12 +287,13 @@
                                             icon: "success",
                                         }).then(function() {
                                             $('#updateDed').modal('hide');
-                                            document.getElementById('dn'+emp_code).innerHTML = deductionid;
-                                            document.getElementById('dnr'+emp_code).innerHTML = deduction_id;
-                                            document.getElementById('pc'+emp_code).innerHTML = period_cutoff;
-                                            document.getElementById('am'+emp_code).innerHTML = amount;
-                                            document.getElementById('amtn'+emp_code).innerHTML = amtn;
-                                            document.getElementById('ed'+emp_code).innerHTML = effectivity_date;
+                                            document.getElementById('dn'+dedcid).innerHTML = deductionid;
+                                            document.getElementById('dnr'+dedcid).innerHTML = deduction_id;
+                                            document.getElementById('pc'+dedcid).innerHTML = period_cutoff;
+                                            document.getElementById('am'+dedcid).innerHTML = amount;
+                                            document.getElementById('amtn'+dedcid).innerHTML = amtn;
+                                            document.getElementById('ed'+dedcid).innerHTML = effectivity_date;
+                                            document.getElementById('st'+dedcid).innerHTML = status;
                                         }); 
                                     }
                                 );
