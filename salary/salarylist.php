@@ -28,7 +28,7 @@ Class SalaryList{
         <table id="allSalaryList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Employee Code</th>
+                <th>Employee Name</th>
                 <th>Bank</th>
                 <th>Account No.</th>
                 <th>Pay Type</th>
@@ -39,7 +39,7 @@ Class SalaryList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_salary_management ORDER BY salary_id desc";
+        $query = "SELECT s.emp_code,s.bank_type,s.bank_no,s.bank_no,s.pay_rate,s.amount,s.status,lastname+', '+firstname as fullname from employee_salary_management s left join employee_profile e on s.emp_code = e.emp_code order by lastname asc";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -48,6 +48,7 @@ Class SalaryList{
         if($result){
             do { 
                 $empcd = "'".$result['emp_code']."'";
+                $fname = "'".$result['fullname']."'";
                 // $banktype = "'".$result['bank_type']."'";
                 // $bankno = "'".$result['bank_no']."'";
                 // $payrate = "'".$result['pay_rate']."'";
@@ -56,14 +57,14 @@ Class SalaryList{
 
                 echo '
                 <tr>
-                <td>' . $result['emp_code']. '</td>
+                <td>' . $result['fullname']. '</td>
                 <td id="bt'.$result['emp_code'].'">' . $result['bank_type']. '</td>
                 <td id="bn'.$result['emp_code'].'">' . $result['bank_no']. '</td> 
                 <td id="pr'.$result['emp_code'].'">' . $result['pay_rate']. '</td> 
                 <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
                 <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],0,'.',',').'</td>
                 <td id="st'.$result['emp_code'].'">' . $result['status'] . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.')">
+                echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.','.$fname.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
                 

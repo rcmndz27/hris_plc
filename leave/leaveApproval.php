@@ -38,7 +38,7 @@
     function ShowAllLeave($employee){
         global $connL;
 
-        $query = "SELECT a.datefiled,date_from,date_to,leavetype,leave_desc,approved,approval,medicalfile,remarks,actl_cnt,a.rowid,a.emp_code,b.lastname+', '+b.firstname as [fullname] FROM tr_leave a left join employee_profile b on a.approval = b.emp_code WHERE approved = 1  AND a.emp_code =:empCode";
+        $query = "SELECT a.datefiled,date_from,date_to,leavetype,leave_desc,approved,approval,medicalfile,remarks,actl_cnt,a.rowid,a.emp_code,b.lastname+', '+b.firstname as [fullname] FROM tr_leave a left join employee_profile b on a.emp_code = b.emp_code WHERE approved = 1  AND a.emp_code =:empCode";
         $param = array(':empCode' => $employee);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -54,7 +54,7 @@
                     <th>Leave Date</th>
                     <th>Leave Type</th>
                     <th>Reason</th>
-                    <th>Approver</th>
+                    <th>Requester</th>
                     <th hidden>Approved Days</th>
                     <th>Action</th>
                 </tr>
@@ -85,7 +85,10 @@
                 echo'
                     <button class="chckbt btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     <button class="rejbt btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="chckbt btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     </td>';
+
+                
             
         echo "</tr>";
             } while ($result = $stmt->fetch());
@@ -112,7 +115,8 @@
         pending_sum
         FROM view_employee
         INNER JOIN LeaveCount leavecount ON leavecount.emp_code = view_employee.emp_code  
-        WHERE reporting_to = :reporting_to ORDER BY view_employee.employee';
+        INNER JOIN tr_leave ON view_employee.emp_code = tr_leave.emp_code  
+        WHERE approval = :reporting_to ORDER BY view_employee.employee';
 
         $param = array(':reporting_to' => $employee);
         $stmt =$connL->prepare($query);
@@ -508,6 +512,44 @@
 
 
 
+    }
+
+        function FwdLeave($rowid,$approver,$empcode){
+        
+
+        global $connL;
+
+        $cmd = $connL->prepare("UPDATE dbo.tr_leave SET approval = :approval  where rowid = :rowid");
+        $cmd->bindValue('approval','OBN20000205');         
+        $cmd->bindValue('rowid',$rowid);                           
+        $cmd->execute();
+    
+
+        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empcode";
+        $param = array(':empcode' => $approver);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $aprvname = $result['fullname'];
+
+        $query = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:leave_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
+    
+                $stmt =$connL->prepare($query);
+    
+                $param = array(
+                    ":leave_id" => $rowid,
+                    ":emp_code"=> $approver,
+                    ":emp_name"=> $aprvname,
+                    ":remarks" => 'Forwarded to Sir.Francis Calumba',
+                    ":audituser" => $approver,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $result = $stmt->execute($param);
+
+            echo $result;
+ 
     }
 
     function GetEmployeeList($employee){

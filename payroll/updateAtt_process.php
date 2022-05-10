@@ -5,6 +5,7 @@
 
     $action = $_POST["action"];
     $badge_no = $_POST["badge_no"];
+    $rowid = $_POST["rowid"];
     $tot_days_absent = $_POST["tot_days_absent"];
     $tot_days_work = $_POST["tot_days_work"];   
     $tot_lates = $_POST["tot_lates"];  
@@ -39,7 +40,7 @@
     if ($action == 1)
     {
 
-UpdateAtt($badge_no,$tot_days_absent,$tot_days_work,$tot_lates,$total_undertime,$total_adjstmenthrs,$tot_overtime_reg,$night_differential,$night_differential_ot,$tot_regholiday,$tot_overtime_regholiday,$tot_regholiday_nightdiff,$tot_overtime_regholiday_nightdiff,$tot_spholiday,$tot_overtime_spholiday,$tot_spholiday_nightdiff,$tot_overtime_spholiday_nightdiff,$tot_rest,$tot_overtime_rest,$night_differential_rest,$night_differential_ot_rest,$tot_overtime_rest_regholiday,$night_differential_rest_regholiday,$tot_overtime_night_diff_rest_regholiday,$tot_overtime_sprestholiday,$tot_sprestholiday_nightdiff,$tot_overtime_sprestholiday_nightdiff,$workfromhome,$offbusiness,
+UpdateAtt($badge_no,$rowid,$tot_days_absent,$tot_days_work,$tot_lates,$total_undertime,$total_adjstmenthrs,$tot_overtime_reg,$night_differential,$night_differential_ot,$tot_regholiday,$tot_overtime_regholiday,$tot_regholiday_nightdiff,$tot_overtime_regholiday_nightdiff,$tot_spholiday,$tot_overtime_spholiday,$tot_spholiday_nightdiff,$tot_overtime_spholiday_nightdiff,$tot_rest,$tot_overtime_rest,$night_differential_rest,$night_differential_ot_rest,$tot_overtime_rest_regholiday,$night_differential_rest_regholiday,$tot_overtime_night_diff_rest_regholiday,$tot_overtime_sprestholiday,$tot_sprestholiday_nightdiff,$tot_overtime_sprestholiday_nightdiff,$workfromhome,$offbusiness,
     $sick_leave,$vacation_leave);
     }
 

@@ -103,7 +103,9 @@ else
                                 <div class="form-group">
                                     <label class="control-label" for="dscsb">Code:</label>
                                     <input type="text" class="form-control" name="badge_no"
-                                    id="badge_no" readonly> 
+                                    id="badge_no" readonly>
+                                    <input type="text" class="form-control" name="rowid"
+                                    id="rowid" hidden>                                      
                                 </div>
                             </div>
                             <div class="col-lg-9">
@@ -529,12 +531,13 @@ aria-hidden="true">
         );
  }
 
- function editAttModal(empname,empcd){
+ function editAttModal(empname,empcd,rwd){
 
     $('#updateAtt').modal('toggle');
     document.getElementById('remarks').value = '';
     document.getElementById('employee').value =  empname;
     document.getElementById('badge_no').value =  empcd; 
+    document.getElementById('rowid').value =  rwd; 
     document.getElementById('tot_days_absent').value = document.getElementById('toa'+empcd).innerHTML;
     document.getElementById('tot_days_work').value =  document.getElementById('tow'+empcd).innerHTML;
     document.getElementById('tot_lates').value =  document.getElementById('tol'+empcd).innerHTML;
@@ -591,6 +594,7 @@ function updateAtt()
     var url = "../payroll/updateAtt_process.php";
     var url2 = "../payroll/logspayroll_process.php";
     var badge_no = document.getElementById("badge_no").value;
+    var rowid = document.getElementById("rowid").value;
     var tot_days_absent = document.getElementById("tot_days_absent").value;
     var tot_days_work = document.getElementById("tot_days_work").value;  
     var tot_lates = document.getElementById("tot_lates").value;       
@@ -622,6 +626,7 @@ function updateAtt()
     var sick_leave = document.getElementById("sick_leave").value;
     var vacation_leave = document.getElementById("vacation_leave").value;
     var remarks = document.getElementById("remarks").value;
+
 
     // old data
     var lname = document.getElementById('ln'+badge_no).innerHTML ;
@@ -676,6 +681,7 @@ function updateAtt()
                 {
                     action: 1,
                     badge_no: badge_no ,
+                    rowid: rowid ,
                     tot_days_absent: tot_days_absent ,
                     tot_days_work: tot_days_work , 
                     tot_lates: tot_lates ,   

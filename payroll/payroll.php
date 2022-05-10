@@ -111,6 +111,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
         do {
             $empn = "'".$r['employee']."'";
             $badgeno = "'".$r['badge_no']."'"; 
+            $rwd = "'".$r['rowid']."'"; 
             $pfrom = "'".date('Y-m-d', strtotime($r['period_from']))."'"; 
             $pto = "'".date('Y-m-d', strtotime($r['period_to']))."'"; 
 
@@ -154,7 +155,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='slh".$r['badge_no']."'>" . round($r['sick_leave'],2) . "</td>".
             "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>";
             echo'<td><button type="button"class="hdeactv" 
-            onclick="editAttModal('.$empn.','.$badgeno.')" title="Edit Attendance"><i class="fas fa-edit"></i>
+            onclick="editAttModal('.$empn.','.$badgeno.','.$rwd.')" title="Edit Attendance"><i class="fas fa-edit"></i>
             </button>
             <button type="button" class="hactv" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Logs">
             <i class="fas fa-clock"></i>

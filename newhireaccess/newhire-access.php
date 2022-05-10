@@ -75,7 +75,7 @@ Class NewHireAccess{
             <script type=\"text/javascript\">
                 var name='$name';
                 var nameD = JSON.parse(name);
-                console.log(nameD);
+          
                 function updateEmpModal(result){
 
                 $('#HireEmp').modal('toggle');
@@ -110,8 +110,14 @@ Class NewHireAccess{
                         document.getElementById('birthdate').value = nameD[i][32];
                         document.getElementById('birthplace').value = nameD[i][33];
                         document.getElementById('sex').value = nameD[i][28];
-                        document.getElementById('marital_status').value = nameD[i][29];                        
-                        console.log(nameD[i]);
+                        document.getElementById('marital_status').value = nameD[i][29];  
+                        console.log(nameD[i][89]) ;
+                        if(nameD[i][89] == 4){
+                            document.getElementById('reporting_to').disabled = true;
+                        }else{
+                            document.getElementById('reporting_to').disabled = false;
+                        }
+                       
                         break;
 
                     }
@@ -121,8 +127,9 @@ Class NewHireAccess{
             }
             </script>
         ";
-           //console.log(nameD.length);
+        //console.log(nameD.length);
          // console.log(nameD[i]);
+              // console.log(nameD);
         }else { 
             echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
         }

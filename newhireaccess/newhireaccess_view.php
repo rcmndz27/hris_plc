@@ -385,6 +385,8 @@
 
 <script type="text/javascript">
 
+
+
       $('#perma').click(function(){
     
         var input2 = document.getElementById('emp_address2');
@@ -474,8 +476,13 @@ for (i = 0; i < tr.length; i++) {
         var minimum_wage = $( "#minimum_wage option:selected" ).val();
         var pay_type = $( "#pay_type option:selected" ).val();
         var emp_status = $( "#emp_status option:selected" ).val();
-        var reporting_to = $('#reporting_to').children("option:selected").val();
-        var reportingto = reporting_to.split(" - ");
+        if(emplevel[0] == 4){
+             var rt =  'none';
+        }else{
+            var reporting_to = $('#reporting_to').children("option:selected").val();
+             var reportingto = reporting_to.split(" - ");
+             var rt = reportingto[0];
+        }
 
                         swal({
                           title:"Are you sure?",
@@ -515,7 +522,7 @@ for (i = 0; i < tr.length; i++) {
                                             minimum_wage: minimum_wage,
                                             pay_type: pay_type,
                                             emp_status : emp_status,
-                                            reporting_to: reportingto[0],
+                                            reporting_to: rt,
                                             rowid: rowid                
                                         },
                                         function(data) {

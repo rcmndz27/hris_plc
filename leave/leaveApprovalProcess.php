@@ -66,6 +66,14 @@
 
         RejectLeave($employee,$curDateFrom,$curDateTo,$curLeaveType,$curRejected,$remarks,$rowid,$rejecter,$empcode);
 
+    }else if ($leaveApproval->{"Action"} == "FwdLeave") {
+
+        $rowid = $leaveApproval->{"rowid"};
+        $approver = $leaveApproval->{"approver"};
+        $empcode = $leaveApproval->{"empcode"};
+
+        FwdLeave($rowid,$approver,$empcode);
+
     }else if($leaveApproval->{"Action"} == "GetPendingList"){
 
         $employee = $leaveApproval->{"employee"};

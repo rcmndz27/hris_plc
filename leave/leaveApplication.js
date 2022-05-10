@@ -223,6 +223,74 @@ $(function(){
 
     });
 
+    $(document).on('click','.btnFwd',function(e){
+
+        empId = this.id;
+        rowid = $('.btnApproved').val() ;
+        empcode = $('#empcode').val() ;
+        dateFrom = $(this).closest('tr').find('td:eq(1)').text();
+        leaveType = $(this).closest('tr').find('td:eq(2)').text();
+        approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
+
+        var approver =  $('#apr'+rowid).val();
+        var apvL =  $('#apc'+rowid).val();
+        var fillv = $('#alertleave').val();
+        var upfillv = fillv-apvL;
+
+
+        param = {
+            "Action":"FwdLeave",
+            "rowid": rowid,
+            "approver": approver,
+            "empcode": empcode
+        };
+
+
+        // console.log(param);
+        // return false;
+  
+        param = JSON.stringify(param);
+
+
+                        swal({
+                          title: "Are you sure?",
+                          text: "You want to forward this leave to Sir.Francis Calumba?",
+                          icon: "warning",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((fwdLeave) => {
+                          if (fwdLeave) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "../leave/leaveApprovalProcess.php",
+                                            data: {data:param} ,
+                                            success: function (data){
+                                                console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully forwarded leave!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        document.getElementById(empcode).innerHTML = upfillv;
+                                                        document.getElementById('alertleave').value = upfillv;
+                                                        document.querySelector('#clv'+rowid).remove();
+                                                    });
+                                            },
+                                            error: function (data){
+                                                console.log("error: "+ data);    
+                                            }
+                                        });
+                          } else {
+                            swal({text:"Your cancel the forwarding of leave!",icon:"error"});
+                          }
+                        });
+        
+
+
+    });
+
     $(document).on('click','.btnView',function(e){
 
         var curID = $(this).attr('id').split("-");

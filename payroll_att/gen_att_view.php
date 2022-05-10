@@ -34,15 +34,14 @@ else
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="../payslip/payslip.css">
+<!-- <link rel="stylesheet" type="text/css" href="../payslip/payslip.css"> -->
 <link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
-          <h1>GENERATE SCRIPTS MODULE</h1>
+          <h2></h2>
         </div>
     <div class="main-body mbt">
-
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
@@ -50,7 +49,7 @@ else
                         </i>&nbsp; GENERATE SCRIPTS MODULE</b></li>
             </ol>
           </nav>
-          <form id="applicantform" method="post">
+
                 <ul class="nav nav-tabs tabrec" id="myTab" name="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="attendance-tab" name="attendance-tab" data-toggle="tab"
@@ -65,7 +64,7 @@ else
                             aria-controls="overtime" aria-selected="false">Overtime</a>
                     </li>
                 </ul>
-                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
+               
                 <!-- ATTENDANCE -->
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade active show" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
@@ -156,11 +155,7 @@ else
                             </div>
                         </div>      
                     </fieldset>
-
-                    </div>
-
-            </form>
-
+            </div>
     </div>
 </div>
 
@@ -242,8 +237,7 @@ else
                     pyrollco_to: dates[1] ,
                     eMplogName: eMplogName                           
                 },
-                function(data) {    
-                console.log(data);               
+                function(data) {                 
                     swal({
                         title: "Wow!", 
                         text: "Successfully generated attendance!", 

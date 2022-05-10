@@ -680,7 +680,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_code not in (SELECT emp_code from employee_profile a right join mf_user b on a.emp_code = b.userid where emp_code is not null) and emp_status = 'Active'");
+                $sql = $connL->prepare(@"SELECT rowid,emp_code,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_code not in (SELECT emp_code from employee_profile a right join mf_user b on a.emp_code = b.userid where emp_code is not null) and emp_status = 'Active' ORDER BY lastname asc");
                 $sql->execute();
 
                 if ($type == "allusracnt")

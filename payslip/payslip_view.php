@@ -20,9 +20,7 @@ else
     $mf = new MasterFile();
     $dd = new DropDown();
     $empCode = $_SESSION['userid'];
-
     $empInfo = new EmployeeInformation();
-
     $empInfo->SetEmployeeInformation($_SESSION['userid']);
 }
 
@@ -73,6 +71,17 @@ else
 </div>
 
 <script type="text/javascript">
+
+    var a = document.getElementById("ddcutoff").value;
+    var b = document.getElementById("search");
+    console.log(a);
+    if (a == null || a == "") {
+      document.getElementById('ddcutoff').disabled = true
+      document.getElementById("search").disabled = true;
+      b.style.display = 'none';
+    }else{
+
+    }
 
     $('#expdf').hide();
 

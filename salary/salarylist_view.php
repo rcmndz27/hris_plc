@@ -160,7 +160,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="empcode">Employee Code<span class="req">*</span></label>
-                                        <input type="text" class="form-control" name="empcode" id="empcode" readonly>
+                                    <input type="text" class="form-control" name="empcode" id="empcode" hidden>
+                                    <input type="text" class="form-control" name="empname" id="empname" readonly>                                        
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -189,8 +190,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="amnt">Payment Rate<span class="req">*</span></label>
-                                        <input type="text" class="form-control inputtext" name="amnt"
-                                            id="amnt" onkeypress="return onlyNumberKey(event)" placeholder="000000.00" maxlength="15">
+                                        <input type="number" class="form-control inputtext" name="amnt"
+                                            id="amnt" >
                                     </div>
                                 </div> 
                                  <div class="col-lg-6">
@@ -235,10 +236,11 @@
 
 
 
-    function editSalaryModal(empcd){
+    function editSalaryModal(empcd,fname){
           
         $('#updateSal').modal('toggle');
         document.getElementById('empcode').value =  empcd;   
+        document.getElementById('empname').value =  fname;   
         document.getElementById('banktype').value =  document.getElementById('bt'+empcd).innerHTML;  
         document.getElementById('bankno').value =  document.getElementById('bn'+empcd).innerHTML;  
         document.getElementById('payrate').value =  document.getElementById('pr'+empcd).innerHTML;  
