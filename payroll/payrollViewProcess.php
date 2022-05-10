@@ -10,8 +10,5 @@
     {
         ApprovePayView($empCode);
     }
-    else {
-
-    }
 
 ?>

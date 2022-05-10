@@ -42,7 +42,9 @@ Class SalaryAdjList{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_salaryadj_management ORDER by salaryadj_id DESC ";
+        $query = "SELECT a.emp_code,lastname+', '+firstname as fullname,period_to,period_from,description,remarks,amount,
+        inc_decr from dbo.employee_salaryadj_management a left join employee_profile b
+        on a.emp_code = b.emp_code ORDER by lastname DESC ";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
@@ -60,7 +62,7 @@ Class SalaryAdjList{
                 $incdecr = "'".$result['inc_decr']."'";               
                 echo '
                 <tr>
-                <td>' . $result['emp_code']. '</td>
+                <td>' . $result['fullname']. '</td>
                 <td>' . date('m/d/Y', strtotime($result['period_from'])) . '</td>
                 <td>' . date('m/d/Y', strtotime($result['period_to'])) . '</td>
                 <td>' . $result['description']. '</td>

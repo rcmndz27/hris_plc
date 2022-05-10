@@ -42,7 +42,7 @@ Class AllowancesList{
         </thead>
         <tbody>';
 
-        $query = "SELECT a.benefits_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.benefit_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date,a.status from dbo.employee_allowances_management a left join dbo.mf_benefits b on a.benefit_id = b.rowid left join employee_obnprofile c  on a.emp_code = c.emp_code ORDER by a.benefits_emp_id DESC";
+        $query = "SELECT a.benefits_emp_id,c.firstname+' '+c.lastname as [fullname],a.emp_code,b.benefit_name,b.rowid,a.period_cutoff,a.amount,a.effectivity_date,a.status from dbo.employee_allowances_management a left join dbo.mf_benefits b on a.benefit_id = b.rowid left join employee_profile c  on a.emp_code = c.emp_code ORDER by a.benefits_emp_id DESC";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();

@@ -414,9 +414,7 @@ rel="stylesheet">
         }
 
     var urpath = window.location.pathname;
-    // swal($('#lv').val() + $('#ot').val() + $('#wfh').val());
-    // exit();
-    
+
     if(($('#lv').val() ==! 0 || $('#ot').val() ==! 0 || $('#wfh').val() ==! 0) && (urpath === '/webportal-beta/pages/admin.php')){
 
     const el = document.createElement('div')

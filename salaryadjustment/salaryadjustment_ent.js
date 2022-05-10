@@ -30,8 +30,8 @@ $(function(){
 
     $('#Submit').click(function(){
 
-        var empcode = $('#emp_code').children("option:selected").val();
-        var emp_code = empcode.split(" - ");
+        var empcode = $('#emp_code').val();
+        // var emp_code = empcode.split(" - ");
         var ddcut_off = $('#ddcutoff').children("option:selected").val();
         var ddcutoff = ddcut_off.split(" - ");
 
@@ -40,7 +40,7 @@ $(function(){
    
             param = {
                 'Action': 'InsertSalaryAdjEnt',
-                'emp_code': emp_code[0],
+                'emp_code': empcode,
                 'description': $('#description').val(),
                 'period_from': ddcutoff[0],
                 'period_to': ddcutoff[1],
@@ -52,8 +52,8 @@ $(function(){
     
             param = JSON.stringify(param);
 
-            // console.log(param);
-            // return false;
+            console.log(param);
+            return false;
 
                      swal({
                           title: "Are you sure you want to add this employee salary adjustment details?",

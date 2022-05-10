@@ -146,150 +146,139 @@ $(function(){
 
     LoadLeaveList();
 
-    $(document).on('click','.btnApproved',function(e){
+$(document).on('click','.btnApproved',function(e){
 
-        empId = this.id;
-        rowid = $('.btnApproved').val() ;
-        empcode = $('#empcode').val() ;
-        dateFrom = $(this).closest('tr').find('td:eq(1)').text();
-        // dateTo = $(this).closest('tr').find('td:eq(2)').text();
-        leaveType = $(this).closest('tr').find('td:eq(2)').text();
-        // approver = $(this).closest('tr').find('td:eq(5)').text();
-        approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
+empId = this.id;
+rowid = $('.btnApproved').val() ;
+empcode = $('#empcode').val() ;
+dateFrom = $(this).closest('tr').find('td:eq(1)').text();
+leaveType = $(this).closest('tr').find('td:eq(2)').text();
+approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
 
-        var approver =  $('#apr'+rowid).val();
-        var apvL =  $('#apc'+rowid).val();
-        var fillv = $('#alertleave').val();
-        var upfillv = fillv-apvL;
-
-        // console.log(approver);
-        // console.log(apvL);
-        // console.log(fillv);
-        // console.log(upfillv);
-        // return false;
-
-        param = {
-            "Action":"ApproveLeave",
-            'employee': empId,
-            'curLeaveType': leaveType,
-            "curApproved": apvL,
-            "curDateFrom": dateFrom,
-            "curDateTo": dateFrom,
-            "approver": approver,
-            "empcode": empcode,
-            "rowid": rowid
-        };
-
-  
-        param = JSON.stringify(param);
+var approver =  $('#apr'+rowid).val();
+var apvL =  $('#apc'+rowid).val();
+var fillv = $('#alertleave').val();
+var upfillv = fillv-apvL;
 
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to approve this leave?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((approveLeave) => {
-                          if (approveLeave) {
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "../leave/leaveApprovalProcess.php",
-                                            data: {data:param} ,
-                                            success: function (data){
-                                                console.log("success: "+ data);
-                                                    swal({
-                                                    title: "Approved!", 
-                                                    text: "Successfully approved leave!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        document.getElementById(empcode).innerHTML = upfillv;
-                                                        document.getElementById('alertleave').value = upfillv;
-                                                        document.querySelector('#clv'+rowid).remove();
-                                                    });
-                                            },
-                                            error: function (data){
-                                                console.log("error: "+ data);    
-                                            }
-                                        });
-                          } else {
-                            swal({text:"Your cancel the approval of leave!",icon:"error"});
-                          }
-                        });
-        
+param = {
+    "Action":"ApproveLeave",
+    'employee': empId,
+    'curLeaveType': leaveType,
+    "curApproved": apvL,
+    "curDateFrom": dateFrom,
+    "curDateTo": dateFrom,
+    "approver": approver,
+    "empcode": empcode,
+    "rowid": rowid
+};
 
 
+param = JSON.stringify(param);
+
+
+swal({
+  title: "Are you sure?",
+  text: "You want to approve this leave?",
+  icon: "success",
+  buttons: true,
+  dangerMode: true,
+})
+.then((approveLeave) => {
+  if (approveLeave) {
+    $.ajax({
+        type: "POST",
+        url: "../leave/leaveApprovalProcess.php",
+        data: {data:param} ,
+        success: function (data){
+            console.log("success: "+ data);
+            swal({
+                title: "Approved!", 
+                text: "Successfully approved leave!", 
+                type: "success",
+                icon: "success",
+            }).then(function() {
+                document.getElementById(empcode).innerHTML = upfillv;
+                document.getElementById('alertleave').value = upfillv;
+                document.querySelector('#clv'+rowid).remove();
+            });
+        },
+        error: function (data){
+            console.log("error: "+ data);    
+        }
     });
+} else {
+    swal({text:"Your cancel the approval of leave!",icon:"error"});
+}
+});
 
-    $(document).on('click','.btnFwd',function(e){
+});
 
-        empId = this.id;
-        rowid = $('.btnApproved').val() ;
-        empcode = $('#empcode').val() ;
-        dateFrom = $(this).closest('tr').find('td:eq(1)').text();
-        leaveType = $(this).closest('tr').find('td:eq(2)').text();
-        approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
+$(document).on('click','.btnFwd',function(e){
 
-        var approver =  $('#apr'+rowid).val();
-        var apvL =  $('#apc'+rowid).val();
-        var fillv = $('#alertleave').val();
-        var upfillv = fillv-apvL;
+    empId = this.id;
+    rowid = $('.btnApproved').val() ;
+    empcode = $('#empcode').val() ;
+    dateFrom = $(this).closest('tr').find('td:eq(1)').text();
+    leaveType = $(this).closest('tr').find('td:eq(2)').text();
+    approvedDays = $(this).closest('tr').find("td:eq(6) input").val();
 
-
-        param = {
-            "Action":"FwdLeave",
-            "rowid": rowid,
-            "approver": approver,
-            "empcode": empcode
-        };
+    var approver =  $('#apr'+rowid).val();
+    var apvL =  $('#apc'+rowid).val();
+    var fillv = $('#alertleave').val();
+    var upfillv = fillv-apvL;
 
 
-        // console.log(param);
-        // return false;
-  
-        param = JSON.stringify(param);
+    param = {
+        "Action":"FwdLeave",
+        "rowid": rowid,
+        "approver": approver,
+        "empcode": empcode
+    };
 
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to forward this leave to Sir.Francis Calumba?",
-                          icon: "warning",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((fwdLeave) => {
-                          if (fwdLeave) {
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "../leave/leaveApprovalProcess.php",
-                                            data: {data:param} ,
-                                            success: function (data){
-                                                console.log("success: "+ data);
-                                                    swal({
-                                                    title: "Approved!", 
-                                                    text: "Successfully forwarded leave!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        document.getElementById(empcode).innerHTML = upfillv;
-                                                        document.getElementById('alertleave').value = upfillv;
-                                                        document.querySelector('#clv'+rowid).remove();
-                                                    });
-                                            },
-                                            error: function (data){
-                                                console.log("error: "+ data);    
-                                            }
-                                        });
-                          } else {
-                            swal({text:"Your cancel the forwarding of leave!",icon:"error"});
-                          }
-                        });
-        
+// console.log(param);
+// return false;
+
+param = JSON.stringify(param);
 
 
+swal({
+  title: "Are you sure?",
+  text: "You want to forward this leave to Sir.Francis Calumba?",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((fwdLeave) => {
+  if (fwdLeave) {
+    $.ajax({
+        type: "POST",
+        url: "../leave/leaveApprovalProcess.php",
+        data: {data:param} ,
+        success: function (data){
+            console.log("success: "+ data);
+            swal({
+                title: "Approved!", 
+                text: "Successfully forwarded leave!", 
+                type: "success",
+                icon: "success",
+            }).then(function() {
+                document.getElementById(empcode).innerHTML = upfillv;
+                document.getElementById('alertleave').value = upfillv;
+                document.querySelector('#clv'+rowid).remove();
+            });
+        },
+        error: function (data){
+            console.log("error: "+ data);    
+        }
     });
+} else {
+    swal({text:"Your cancel the forwarding of leave!",icon:"error"});
+}
+});
+
+});
 
     $(document).on('click','.btnView',function(e){
 

@@ -49,11 +49,6 @@ Class SalaryList{
             do { 
                 $empcd = "'".$result['emp_code']."'";
                 $fname = "'".$result['fullname']."'";
-                // $banktype = "'".$result['bank_type']."'";
-                // $bankno = "'".$result['bank_no']."'";
-                // $payrate = "'".$result['pay_rate']."'";
-                // $amnt = "'".round($result['amount'],3)."'";
-                // $stts = "'".$result['status']."'";
 
                 echo '
                 <tr>
