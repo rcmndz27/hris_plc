@@ -189,6 +189,34 @@
             }
         }
 
+        public function GetAllPayCutoffReg($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+        
+                $sql = $connL->prepare(@"SELECT rowid,date_from,date_to FROM dbo.payroll where payroll_status = 'R' and rowid = (select max(rowid) from dbo.payroll)");
+                $sql->execute();
+
+                if ($type == "paycutreg")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                        array_push( $data, array($r["rowid"], 
+                            date("m/d/Y", strtotime($r["date_from"])) . " - " . date("m/d/Y", strtotime($r["date_to"]))) );
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
 
         public function GetAllPayLocCutoff($type)
         {

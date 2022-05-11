@@ -1,7 +1,7 @@
 <?php 
 
 
-function UpdateAllowances($emp_code,$benefit_id,$period_cutoff,$amount,$effectivity_date,$status)
+function UpdateAllowances($rowid,$emp_code,$benefit_id,$period_cutoff,$amount,$effectivity_date,$status)
     {
             global $connL;
 
@@ -11,8 +11,9 @@ function UpdateAllowances($emp_code,$benefit_id,$period_cutoff,$amount,$effectiv
                 amount = :amount,
                 effectivity_date = :effectivity_date,
                 status = :status
-             where emp_code = :emp_code");
+             where emp_code = :emp_code and benefits_emp_id = :rowid ");
             $cmd->bindValue('emp_code',$emp_code);
+            $cmd->bindValue('rowid',$rowid);
             $cmd->bindValue('benefit_id',$benefit_id);
             $cmd->bindValue('period_cutoff',$period_cutoff);
             $cmd->bindValue('amount',$amount);

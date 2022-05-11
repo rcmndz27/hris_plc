@@ -244,67 +244,69 @@
     }
 
 
-     function updateAlw()
-    {
+function updateAlw()
+{
 
-        var url = "../allowances/updateallowances_process.php";
-        var emp_code = document.getElementById("empcode").value;
-        var benefit_id = document.getElementById("benefitid").value;
-        var benfid = document.getElementById("benfid").value;
-        var e = document.getElementById("benefitid");
-        var benefitid = e.options[e.selectedIndex].text;        
-        var period_cutoff = document.getElementById("periodcutoff").value;
-        var amount = document.getElementById("amnt").value;
-        var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
-        var effectivity_date = document.getElementById("effectivitydate").value; 
-        var status = document.getElementById("stts").value; 
-     
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to update this employee allowances details?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((updateAlw) => {
-                          if (updateAlw) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        emp_code: emp_code ,
-                                        benefit_id: benefit_id,
-                                        period_cutoff: period_cutoff,
-                                        amount: amount ,               
-                                        effectivity_date: effectivity_date,
-                                        status: status 
-                                        
-                                    },
-                                    function(data) { 
-                                        swal({
-                                            title: "Wow!", 
-                                            text: "Successfully updated the employee allowances details!", 
-                                            icon: "success",
-                                        }).then(function() {
-                                            $('#updateAlw').modal('hide');
-                                            document.getElementById('bn'+benfid).innerHTML = benefitid;
-                                            document.getElementById('bnr'+benfid).innerHTML = benefit_id;
-                                            document.getElementById('pc'+benfid).innerHTML = period_cutoff;
-                                            document.getElementById('am'+benfid).innerHTML = amount;
-                                            document.getElementById('amtn'+benfid).innerHTML = amtn;
-                                            document.getElementById('ed'+benfid).innerHTML = effectivity_date;
-                                            document.getElementById('st'+benfid).innerHTML = status;                                            
-                                        }); 
-                                    }
-                                );
+var url = "../allowances/updateallowances_process.php";
+var emp_code = document.getElementById("empcode").value;
+var benefit_id = document.getElementById("benefitid").value;
+var benfid = document.getElementById("benfid").value;
+var e = document.getElementById("benefitid");
+var benefitid = e.options[e.selectedIndex].text;        
+var period_cutoff = document.getElementById("periodcutoff").value;
+var amount = document.getElementById("amnt").value;
+var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");        
+var effectivity_date = document.getElementById("effectivitydate").value; 
+var status = document.getElementById("stts").value; 
 
 
-                          } else {
-                            swal({text:"You cancel the updating of employee allowances details!",icon:"error"});
-                          }
-                        });
-   
-                }
+                swal({
+                  title: "Are you sure?",
+                  text: "You want to update this employee allowances details?",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((updateAlw) => {
+                  if (updateAlw) {
+                        $.post (
+                            url,
+                            {
+                                action: 1,
+                                emp_code: emp_code ,
+                                rowid : benfid,
+                                benefit_id: benefit_id,
+                                period_cutoff: period_cutoff,
+                                amount: amount ,               
+                                effectivity_date: effectivity_date,
+                                status: status 
+                                
+                            },
+                            function(data) { 
+                                swal({
+                                    title: "Wow!", 
+                                    text: "Successfully updated the employee allowances details!", 
+                                    icon: "success",
+                                }).then(function() {
+                                    $('#updateAlw').modal('hide');
+                                    document.getElementById('bn'+benfid).innerHTML = benefitid;
+                                    document.getElementById('bnr'+benfid).innerHTML = benefit_id;
+                                    document.getElementById('pc'+benfid).innerHTML = period_cutoff;
+                                    document.getElementById('am'+benfid).innerHTML = amount;
+                                    document.getElementById('amtn'+benfid).innerHTML = amtn;
+                                    document.getElementById('ed'+benfid).innerHTML = effectivity_date;
+                                    document.getElementById('st'+benfid).innerHTML = status;                                            
+                                }); 
+                            }
+                        );
+
+
+                  } else {
+                    swal({text:"You cancel the updating of employee allowances details!",icon:"error"});
+                  }
+                });
+
+        }
     
 
 function myFunction() {

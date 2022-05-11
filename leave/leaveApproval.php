@@ -116,7 +116,7 @@
         FROM view_employee
         INNER JOIN LeaveCount leavecount ON leavecount.emp_code = view_employee.emp_code  
         INNER JOIN tr_leave ON view_employee.emp_code = tr_leave.emp_code  
-        WHERE approval = :reporting_to ORDER BY view_employee.employee';
+        WHERE tr_leave.approval = :reporting_to ORDER BY view_employee.employee';
 
         $param = array(':reporting_to' => $employee);
         $stmt =$connL->prepare($query);

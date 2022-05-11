@@ -55,7 +55,7 @@
             <select class="form-control" id="empCode" name="empCode" value="" hidden>
                 <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>
             </select>
-           <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
+           <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoffReg("paycutreg")); ?>
         </div>           
         <button type="button" id="search" class="delGenPay" onmousedown="javascript:deletePayReg()">
             <i class="fas fa-backspace"></i> DELETE                      

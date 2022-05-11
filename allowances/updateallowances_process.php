@@ -5,6 +5,7 @@
 
     $action = $_POST["action"];
     $emp_code = $_POST["emp_code"];
+    $rowid = $_POST["rowid"];
     $benefit_id = $_POST["benefit_id"];
     $period_cutoff = $_POST["period_cutoff"];
     $amount = $_POST["amount"];
@@ -13,7 +14,7 @@
 
     if ($action == 1)
     {
-        UpdateAllowances($emp_code,$benefit_id,$period_cutoff,$amount,$effectivity_date,$status);
+        UpdateAllowances($rowid,$emp_code,$benefit_id,$period_cutoff,$amount,$effectivity_date,$status);
     }
 
 ?>
