@@ -22,4 +22,16 @@ function ConfirmPayRegView($empCode)
 
     }
 
+
+function DeletePayReg($date_from,$date_to)
+    {
+            global $connL;
+        
+            $cmd = $connL->prepare("DELETE from dbo.payroll where date_from = :date_from and date_to = :date_to");
+            $cmd->bindValue('date_from',$date_from);
+            $cmd->bindValue('date_to', $date_to);
+            $cmd->execute();
+
+    }    
+
  ?>

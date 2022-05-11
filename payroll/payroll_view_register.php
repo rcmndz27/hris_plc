@@ -49,6 +49,18 @@
             </ol>
           </nav>
 
+      <div class="form-row">
+        <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD/LOCATION:</label>
+        <div class='col-md-3'>
+            <select class="form-control" id="empCode" name="empCode" value="" hidden>
+                <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>
+            </select>
+           <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
+        </div>           
+        <button type="button" id="search" class="delGenPay" onmousedown="javascript:deletePayReg()">
+            <i class="fas fa-backspace"></i> DELETE                      
+        </button>                                      
+        </div>
             <div class="row">
                 <div class="col-md-12">
                     <select class="form-control" id="empCode" name="empCode" value="" hidden>
@@ -61,10 +73,73 @@
     </div>
 </div>
 <script>
+
+    var a = document.getElementById("ddcutoff").value;
+    var b = document.getElementById("search");
+    if (a == null || a == "") {
+      document.getElementById('ddcutoff').disabled = true
+      document.getElementById("search").disabled = true;
+      b.style.display = 'none';
+    }else{
+
+    }
+
+
 jQuery(function(){
    jQuery('#search').click();
    $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
 });
+
+function deletePayReg()
+{
+ 
+  $(".fa-file-export").remove();
+  $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
+  var empCode = $('#empCode').children("option:selected").val();
+  var url = "../payroll/payrollRegViewProcess.php";
+  var cutoff = $('#ddcutoff').children("option:selected").val();
+  var dates = cutoff.split(" - ");  
+
+  // console.log(dates[0]);
+  // console.log(dates[1]);
+  // return false;
+
+  swal({
+    title: "Are you sure?",
+    text: "You want to delete this generated payroll?",
+    icon: "info",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((delPayGen) => {
+    if (delPayGen) {
+      
+      $.post (
+        url,
+        {
+          choice: 2,
+          date_from: dates[0],
+          date_to: dates[1]
+        },
+        function(data) {
+          // console.log(data);
+          swal({
+            title: "Wow!", 
+            text: "Successfully deleted generated payroll!", 
+            type: "success",
+            icon: "success",
+          }).then(function() {
+            location.href = '../payroll/payroll_view_register.php';
+          });                                             
+
+        }
+        );
+    } else {
+      
+      swal({text:"You cancel the deletion of generated payroll!",icon:"error"});
+    }
+  });         
+}
 
 
 function ConfirmPayRegView()

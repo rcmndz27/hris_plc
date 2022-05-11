@@ -469,6 +469,21 @@ color: #d64747;
     opacity: 0.5;
 }
 
+.delGenPay {
+    height: 40px;
+    width: 120PX;
+    background-color: #ffaa00;
+    border-color: #ffaa00;
+    font-weight: bolder;
+    color: #970606;
+    font-size: 18px;
+    border-radius: 1rem;
+}
+.delGenPay:hover {
+    opacity: 0.5;
+}
+
+
 
 .serchtv {
     width: 130px;
