@@ -274,7 +274,7 @@ swal({
         }
     });
 } else {
-    swal({text:"Your cancel the forwarding of leave!",icon:"error"});
+    swal({text:"You cancel the forwarding of leave!",icon:"error"});
 }
 });
 

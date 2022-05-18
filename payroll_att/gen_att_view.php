@@ -21,7 +21,7 @@ else
     $dd = new DropDown();
     $empCode = $_SESSION['userid'];
 
-    if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
+    if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
     {
 
     }else{

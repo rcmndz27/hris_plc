@@ -207,7 +207,7 @@ rel="stylesheet">
                   $admintools = 'active';
                 }
 
-          if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head'){
+          if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President'){
              echo'<li><a class="nav-link '.$admin.'" href="../pages/admin.php" onclick="show()"><i class="fas fa-home fa-fw"></i>  &nbsp; Home</a></li>';
             }else{
              echo'<li><a class="nav-link '.$admin.'" href="../pages/employee.php" onclick="show()"><i class="fas fa-home fa-fw" ></i> &nbsp;Home</a></li>';
@@ -249,7 +249,7 @@ rel="stylesheet">
                 <button id='ob' value='".$ob."' hidden></button>"; 
 
 
-                $approval_adm = $lv + $ot + $wfh + $wfh + $dtrc + $ob;
+                $approval_adm = $lv + $ot + $wfh + $dtrc + $ob;
                 $approval_tm = $lv + $ot + $wfh + $dtrc + $ob;
                 $approval_f = $pyrllf;
                 if ($approval_adm > 0) {
@@ -270,10 +270,12 @@ rel="stylesheet">
                    $apprf = '';
                  }   
 // <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
-// <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li>                           
+// <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li>  
+// <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>                         
                             
                 switch(trim($empUserType)){
                     case "Admin":
+                    case "President":
                     case "HR Generalist":
                     case "HR Manager":
                     case "Group Head":
@@ -286,7 +288,6 @@ rel="stylesheet">
                                 <ul>
                                   <li><a href='../payroll/payroll_view.php' onclick='show()'>Payroll Period View</a></li>
                                   <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View ".$apprf."</a></li>
-                                  <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
                                   <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
                                   </ul>

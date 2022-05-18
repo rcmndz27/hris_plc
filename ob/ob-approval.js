@@ -77,6 +77,63 @@ $(function(){
 
     });
 
+    $(document).on('click','.fwdAppr',function(e){
+
+        var prid = this.id;
+        var apvdOb = 1;
+        var filob = $('#alertob').val();
+        var upfilob = filob-apvdOb;
+        var approver = $(this).closest('tr').find("td:eq(6) input").val();
+
+        param = {"Action":"FwdOb",'rowid': this.id,'approvedob': apvdOb,'empId':empId,'approver':approver};
+
+        param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
+
+                        swal({
+                          title: "Are you sure?",
+                          text: "You want to approve this official business?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((savePayroll) => {
+                          if (savePayroll) {
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "../ob/ob-approval-process.php",
+                                                data: {data:param} ,
+                                                success: function (data){
+                                                    console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully approved official business!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                            document.getElementById(empId).innerHTML = upfilob;
+                                                            document.getElementById('alertob').value = upfilob;
+                                                            document.querySelector('#clv'+prid).remove();
+                                                    }); 
+                                                },
+                                                error: function (data){
+                                                    // console.log("error: "+ data);    
+                                                }
+                                            });//ajax
+
+                          } else {
+                             swal({text:"You cancel the approval of official business!",icon:"error"});
+
+                          }
+                        });
+
+
+      
+
+    });
+
     $(document).on('click','.btnRejectd',function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');

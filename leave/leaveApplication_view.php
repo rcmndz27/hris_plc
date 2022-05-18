@@ -178,6 +178,7 @@
         </div>
     </div>
 
+    <!-- ADD LEAVE  -->
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -211,8 +212,7 @@
                             </div>
                         </div> 
                         <input type='text' id='emptype' name='emptype' class='form-control'
-                                            value=<?php echo $r['emp_type']; ?> hidden>                            
-                        
+                                            value=<?php echo $r['emp_type']; ?> hidden>                                               
                         
                                 <?php 
                                 $emp_type = $r['emp_type'];
@@ -424,6 +424,47 @@
         </div> <!-- modal content closing -->
     </div> <!-- modal dialog closing -->
 
+<!-- edit leave  -->
+<div class="modal fade" id="updateLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">UPDATE LEAVE <i class="fas fa-suitcase"></i> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+         <div class="modal-body">
+                        <?php $leaveApp->EditLeaveType(); ?>
+                        <div id="eleavepay">
+                            <div class="row">
+                                <div class=col-md-2>
+                                    <label for="">Leave Pay:</label>
+                                </div>
+                                <div class="col-md-10">                                
+                                        <div class="form-check form-check-inline" id="wpay" id="wpay">
+                                            <input class="form-check-input" type="radio" name="leavepay"
+                                                id="lpay1" value="WithPay" checked>
+                                            <label class="form-check-label" for="withpay">With Pay</label>
+                                        </div>
+                                       <div class="form-check form-check-inline" id="woutpay">
+                                        <input class="form-check-input" type="radio" name="leavepay"
+                                            id="lpay2" value="WithoutPay" >
+                                        <label class="form-check-label" for="withoutpay">Without Pay</label>
+                                        </div>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <!-- edit leave -->
+
+                </div> <!-- main body closing -->
+            </div> <!-- modal body closing -->
+
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->        
 
     <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -551,6 +592,43 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+
+     function updateLeaveModal(leaveid){
+
+   
+        $('#updateLeaveModal').modal('toggle');   
+        var ltype = document.getElementById('lt'+leaveid).innerHTML;
+
+        if(ltype == 'Vacation Leave without Pay') {
+            document.getElementById('eleaveType').value =  'Vacation Leave';
+            $("#lpay2").prop("checked", true);
+            document.getElementById("eleavepay").style.display = "block";
+        }else if(ltype == 'Sick Leave without Pay'){
+            document.getElementById('eleaveType').value =  'Sick Leave';
+            $("#lpay2").prop("checked", true);
+            document.getElementById("eleavepay").style.display = "block";
+        }else if(ltype == 'Sick Leave'){
+            document.getElementById('eleaveType').value =  'Sick Leave';
+            $("#lpay1").prop("checked", true);
+            document.getElementById("eleavepay").style.display = "block";
+        }else if(ltype == 'Vacation Leave'){
+            document.getElementById('eleaveType').value =  'Vacation Leave';
+            $("#lpay1").prop("checked", true);
+            document.getElementById("eleavepay").style.display = "block";
+        }else{
+            document.getElementById('eleaveType').value  = ltype;
+            document.getElementById("eleavepay").style.display = "none";
+        }
+    
+        // document.getElementById('benefitid').value =  document.getElementById('bnr'+benfid).innerHTML;  
+        // document.getElementById('periodcutoff').value =  document.getElementById('pc'+benfid).innerHTML;   
+        // document.getElementById('amnt').value =  document.getElementById('am'+benfid).innerHTML;  
+        // document.getElementById('effectivitydate').value =  document.getElementById('ed'+benfid).innerHTML;  
+        // document.getElementById('stts').value =  document.getElementById('st'+benfid).innerHTML;      
+
+    }
+
     
 
 getPagination('#leaveList');

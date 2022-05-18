@@ -72,6 +72,58 @@ $(function(){
 
                 });
 
+    $(document).on('click','.btnFwd',function(e){
+
+        var prid = this.id;
+        var apvdWfh = 1;
+        var filwfh = $('#alertwfh').val();
+        var upfilwfh = filwfh-apvdWfh;
+        var approver = $(this).closest('tr').find("td:eq(5) input").val();
+
+        param = {"Action":"FwdWfh",'rowid':this.id,'empId':empId,'approver':approver};
+
+        param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
+
+                   swal({
+                          title: "Are you sure?",
+                          text: "You want to forward this work from home to Sir. Francis Calumba?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((fwdWfh) => {
+                          if (fwdWfh) {
+                                      $.ajax({
+                                            type: "POST",
+                                            url: "../wfhome/wfh-approval-process.php",
+                                            data: {data:param} ,
+                                            success: function (data){
+                                                console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Forwarded!", 
+                                                    text: "Successfully forwarded work from home!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        document.getElementById(empId).innerHTML = upfilwfh;
+                                                        document.getElementById('alertwfh').value = upfilwfh;
+                                                        document.querySelector('#clv'+prid).remove();
+                                                    }); 
+                                            },
+                                            error: function (data){
+                                                // console.log("error: "+ data);    
+                                            }
+                                        });//ajax
+                          } else {
+                            swal({text:"You cancel the forwarding of work from home!",icon:"error"});
+                          }
+                        });
+
+                });    
+
     $(document).on('click','.btnRejectd',function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');

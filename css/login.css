@@ -16,6 +16,7 @@ body {
   background-size: cover;
   background-color: #ffff;
   font-family: 'Dosis', sans-serif;
+  background-image:  url('../img/loginbg.jpg');
 }
 
 .deactv {
@@ -175,6 +176,12 @@ body {
   border: 1px solid #ffaa00;
   color: #333;
 } */
+
+.newoblogo{
+
+    height: 120px;
+    margin-top: 20px;
+}
 
 .forgetlink {
   color: #000;

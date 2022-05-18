@@ -13,15 +13,15 @@ Class LeaveApplication{
     public function GetLeaveSummary(){
         global $connL;
 
-        $query = "SELECT * FROM LeaveCount WHERE emp_code = :empCode";
+        $query = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
         
                 $stmt =$connL->prepare($query);
                 $param = array(":empCode" => $this->employeeCode);
                 $stmt->execute($param);
                 $result = $stmt->fetch();
 
-                $used_vl = (isset($result['used_vl']) ? round(10.00,1) - $result['earned_vl']: 0);
-                $used_sl = (isset($result['used_sl']) ? round(10.00,1) - round($result['earned_sl'],1): 0);
+                $used_vl = round(10.00,1) - round($result['earned_vl'],1);
+                $used_sl = round(10.00,1) - round($result['earned_sl'],1);
                 $pending_vl = (isset($result['pending_vl']) ? $result['pending_vl'] : 0);
                 $pending_sl = (isset($result['pending_sl']) ? $result['pending_sl'] : 0);
                 $earned_vl = (isset($result['earned_vl']) ? round($result['earned_vl'],2) : 0);
@@ -135,12 +135,14 @@ Class LeaveApplication{
                 echo '
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['datefiled'])) . '</td>
-                <td>' . $result['leavetype'] . '</td>
-                <td>' . date('m-d-Y', strtotime($result['date_from'])) . '</td>
-                <td>' . $result['leave_desc'] . '</td>
-                <td>' . $result['actl_cnt'] . '</td>
+                <td id="lt'.$result['rowid'].'">' . $result['leavetype'] . '</td>
+                <td id="ld'.$result['rowid'].'">' . date('m-d-Y', strtotime($result['date_from'])) . '</td>
+                <td id="ds'.$result['rowid'].'">' . $result['leave_desc'] . '</td>
+                <td id="lc'.$result['rowid'].'">' . $result['actl_cnt'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['approved'] . '</td>';
 
+                // <button type="button" class="editL" onclick="updateLeaveModal('.$leaveid.')" title="View Leave"><i class="fas fa-edit"></i></button>
+    
                 if($result['approved'] == 'PENDING'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
@@ -258,6 +260,97 @@ Class LeaveApplication{
         return $count;
     }
 
+    public function EditLeaveType(){
+
+        global $connL;
+
+        $query = 'SELECT earned_vl, earned_sl FROM employee_leave WHERE emp_code = :emp_code';
+        $param = array(":emp_code" => $this->employeeCode);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+
+        $earned_vl = (isset($result['earned_vl']) ? (float)$result['earned_vl'] : 0);
+        $earned_sl = (isset($result['earned_sl']) ? (float)$result['earned_sl'] : 0);
+
+        
+
+        echo '
+        <div class="form-row mb-2">    
+            <div class="col-md-2">
+                <label for="leaveType">Leave Type:</label>
+            </div>
+            <div class="col-md-5">
+                <select class="form-select" name="eleaveType" id="eleaveType" >';
+
+                if($this->employeeType === 'Probationary'){
+                    echo '
+                        <option value="Vacation Leave">Vacation Leave</option>
+                        <option value="Sick Leave">Sick Leave</option>
+                        <option value="Maternity Leave">Maternity Leave</option>
+                        <option value="Paternity Leave">Paternity Leave</option>
+                        <option value="Solo Parent Leave">Solo Parent Leave</option>
+                        <option value="Magna Carta Leave">Magna Carta Leave</option>
+                        <option value="Special Leave for Women">Special Leave for Women</option>
+                        <option value="Military Service Leave">Military Service Leave</option>
+                        <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+
+                    ';    
+                }else if($this->employeeType === 'Project Based'){
+                        echo '<option value="Incentive Leave">Incentive Leave</option>';
+                }else{
+
+                    if(($earned_vl === 0) && ($earned_sl === 0)){
+                        echo '
+                            <option value="Maternity Leave">Maternity Leave</option>
+                            <option value="Paternity Leave">Paternity Leave</option>
+                            <option value="Solo Parent Leave">Solo Parent Leave</option>
+                            <option value="Magna Carta Leave">Magna Carta Leave</option>
+                            <option value="Special Leave for Women">Special Leave for Women</option>
+                            <option value="Military Service Leave">Military Service Leave</option>
+                            <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                        ';  
+                    }elseif(($earned_vl !== 0) && ($earned_sl === 0)){
+                        echo '
+                            <option value="Maternity Leave">Maternity Leave</option>
+                            <option value="Paternity Leave">Paternity Leave</option>
+                            <option value="Solo Parent Leave">Solo Parent Leave</option>
+                            <option value="Magna Carta Leave">Magna Carta Leave</option>
+                            <option value="Vacation Leave">Vacation Leave</option>
+                            <option value="Bereavement Leave">Bereavement Leave</option>
+                            <option value="Special Leave for Women">Special Leave for Women</option>
+                            <option value="Military Service Leave">Military Service Leave</option>
+                            <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                        ';
+                    }elseif(($earned_vl === 0) && ($earned_sl !== 0)){
+                        echo '
+                            <option value="Maternity Leave">Maternity Leave</option>
+                            <option value="Paternity Leave">Paternity Leave</option>
+                            <option value="Solo Parent Leave">Solo Parent Leave</option>
+                            <option value="Magna Carta Leave">Magna Carta Leave</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Emergency Leave">Emergency Leave</option>
+                            <option value="Special Leave for Women">Special Leave for Women</option>
+                            <option value="Military Service Leave">Military Service Leave</option>
+                            <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                        ';   
+                    }else{
+
+                        $cmd = $connL->prepare(@'SELECT leavetype FROM dbo.mf_leavetype');
+                        $cmd->execute();
+
+                        while ($r = $cmd->fetch(PDO::FETCH_ASSOC))
+                        {
+                            echo '<option value="'.$r['leavetype'].'">'.$r['leavetype'].'</option>';
+                        }
+                    }
+
+                }
+        echo '
+                </select>
+            </div>
+        </div>';
+    }
     public function GetLeaveType(){
 
         global $connL;

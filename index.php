@@ -151,7 +151,7 @@ if (empty($_SESSION['userid'])) {
         <div class="card-header text-center">
             
             <a href="#" class="h5">
-            <img class="mb-4 img-fluid mx-auto d-block" src="img/obanana.png" alt="">    
+            <img class="mb-2 img-fluid mx-auto d-block newoblogo" src="img/obfinallogo.png" alt="">    
             <b>Human Resource Information System</b> </a>
         </div>
         <div class="card-body">
@@ -251,7 +251,7 @@ if (empty($_SESSION['userid'])) {
         $url = 'pages/admin.php';
         $url_2 = 'pages/employee.php';
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' ||$empUserType == 'President' )
         {
             header("Location: $url");
         }

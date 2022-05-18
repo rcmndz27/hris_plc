@@ -34,7 +34,7 @@ Class LeaveBalanceList{
                 <th>Employee Name</th>
                 <th>Sick Leave</th>
                 <th>Vacation Leave</th>
-                <th>Sick Leave Balance</th>
+                <th>Sick Leave Bank</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>

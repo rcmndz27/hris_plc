@@ -51,6 +51,60 @@ $(function(){
 
                 });
 
+
+
+    $(document).on('click','.fwdAppr',function(e){
+
+        var prid = this.id;
+        var apvdDtrc = 1;
+        var fildtrc = $('#alertdtrc').val();
+        var upfildtrc = fildtrc-apvdDtrc;
+        var approver = $(this).closest('tr').find("td:eq(5) input").val();
+            
+        param = {"Action":"FwdDtrCorrect",'rowid':this.id,'empId':empId,'approver':approver};
+
+        param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
+
+                   swal({
+                          title: "Are you sure?",
+                          text: "You want to forwarded this dtr correction to Sir.Francis Calumba?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((approveDtrc) => {
+                          if (approveDtrc) {
+                                      $.ajax({
+                                            type: "POST",
+                                            url: "../dtrcorrect/dtrcorrect-approval-process.php",
+                                            data: {data:param} ,
+                                            success: function (data){
+                                                console.log("success: "+ data);
+                                                    swal({
+                                                    title: "Approved!", 
+                                                    text: "Successfully forwarded dtr correction!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        document.getElementById(empId).innerHTML = upfildtrc;
+                                                        document.getElementById('alertdtrc').value = upfildtrc;
+                                                        document.querySelector('#clv'+prid).remove();
+                                                    }); 
+                                            },
+                                            error: function (data){
+                                                // console.log("error: "+ data);    
+                                            }
+                                        });//ajax
+                          } else {
+                            swal({text:"You cancel the forwarding of dtr correction!",icon:"error"});
+                          }
+                        });
+
+                });
+
     $(document).on('click','.btnRejectd',function(e){
         e.preventDefault();
         $('#popUpModal').modal('toggle');

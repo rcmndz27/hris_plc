@@ -24,7 +24,7 @@
 
         $empUserType = $empInfo->GetEmployeeUserType();
 
-            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
+            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President') {
 
             }else{
                         echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';

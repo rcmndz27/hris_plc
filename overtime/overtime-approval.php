@@ -6,7 +6,7 @@
 
             global $connL;
             
-            $query = "SELECT SUM(a.ot_req_hrs) as ot_req_hrs,b.firstname,b.middlename,b.lastname,a.emp_code from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code  WHERE b.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code";
+            $query = "SELECT SUM(a.ot_req_hrs) as ot_req_hrs,b.firstname,b.middlename,b.lastname,a.emp_code from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empCode);
             $stmt->execute($param);
@@ -46,7 +46,7 @@
 
             global $connL;
 
-            $query = "SELECT a.ot_req_hrs,a.ot_date,a.ot_ren_hrs,b.firstname,b.middlename,b.lastname,a.emp_code,a.remarks,a.rowid from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
+            $query = "SELECT a.ot_req_hrs,a.ot_date,a.ot_ren_hrs,b.firstname,b.middlename,b.lastname,a.emp_code,a.remarks,a.rowid,a.reporting_to from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empReportingTo , ":emp_code" => $empId );
             $stmt->execute($param);
@@ -81,10 +81,18 @@
                             <td>".$result['ot_req_hrs']."</td>
                             <td>".$result['ot_ren_hrs']."</td>
                             <td>"."<input type='number' id='ac".$result['rowid']."' class='form-control' value='".round($actualOT,2)."' max='".round($actualOT,2)."' onkeydown='return false' min='0.5' step='0.5'>"."</td>
+                            <td hidden>"."<input type='text' class='form-control' value='".$result['reporting_to']."' >"."</td>
                             <td>".
-                                "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
-                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>"."</td>
-                        </tr>";
+                                "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp;".
+                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button> &nbsp;";
+
+                           if($result['reporting_to'] == 'OBN20000205') {
+
+                           }else{
+                            echo '<button class="fwdAppr btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>';
+                           }    
+                        
+                        echo"</td></tr>";
                 } while($result = $stmt->fetch());
                 echo "</tbody>";
             }else{
@@ -200,6 +208,45 @@
             echo $result;
             
         }
+
+
+        function FwdOT($empReportingTo,$empId,$approver,$rowid){
+        
+
+        global $connL;
+
+        $cmd = $connL->prepare("UPDATE dbo.tr_overtime SET reporting_to = :approval where rowid = :rowid");
+        $cmd->bindValue('approval','OBN20000205');         
+        $cmd->bindValue('rowid',$rowid);                           
+        $cmd->execute();
+    
+
+        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empcode";
+        $param = array(':empcode' => $approver);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $aprvname = $result['fullname'];
+
+        $query = "INSERT INTO logs_ot (ot_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:ot_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
+    
+                $stmt =$connL->prepare($query);
+    
+                $param = array(
+                    ":ot_id" => $rowid,
+                    ":emp_code"=> $approver,
+                    ":emp_name"=> $aprvname,
+                    ":remarks" => 'Forwarded to Sir.Francis Calumba',
+                    ":audituser" => $approver,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $result = $stmt->execute($param);
+
+            echo $result;
+ 
+    }
 
         function GetEmployeeList($employee){
 

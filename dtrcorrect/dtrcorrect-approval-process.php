@@ -39,6 +39,15 @@ if($dtrc->{"Action"} == "GetDtrCorrectDetails"){
 
     $dtrcApproval->RejectDtrCorrect($empReportingTo, $empId,$rjctRsn,$rowId);
     
+}else if($dtrc->{"Action"} == "FwdDtrCorrect"){
+
+    $empId = $dtrc->{"empId"};
+    $approver = $dtrc->{"approver"};
+    $rowId = $dtrc->{"rowid"};
+
+
+    $dtrcApproval->FwdDtrCorrect($empReportingTo, $empId,$approver,$rowId);
+    
 }else if($dtrc->{"Action"} == "GetEmployeeList"){
         
     $employee = $dtrc->{"employee"};

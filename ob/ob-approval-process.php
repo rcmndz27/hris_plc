@@ -40,6 +40,14 @@ if($ob->{"Action"} == "GetOBDetails"){
 
     $obApproval->RejectOB($empReportingTo, $empId,$rjctRsn,$rowid);
     
+}elseif($ob->{"Action"} == "FwdOb"){
+
+    $empId = $ob->{"empId"};
+    $approver = $ob->{"approver"};
+    $rowid = $ob->{"rowid"};
+
+    $obApproval->FwdOb($empReportingTo, $empId,$approver,$rowid);
+    
 }elseif($ob->{"Action"} == "GetEmployeeList"){
         
     $employee = $ob->{"employee"};

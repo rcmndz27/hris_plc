@@ -15,7 +15,7 @@
         include('../payroll/payrollApproval.php');
         include('../payroll/payrollapp_reg.php');
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
         {
   
         }else{

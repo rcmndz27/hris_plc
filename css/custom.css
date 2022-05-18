@@ -536,6 +536,13 @@ color: #d64747;
     opacity: 0.5;
 }
 
+.fwdAppr{
+    background-color: #ffc107;
+}
+
+.fwdAppr:hover{
+    opacity: 0.5;
+}
 .rejbt{
     background-color: #f60f0f;
 }
@@ -573,6 +580,19 @@ color: #d64747;
 }
 
 .editcv:hover{
+    opacity: 0.5;
+}
+
+.editL{
+    background-color: #198754;
+    border-color: #198754;
+    font-weight: bolder;
+    color: #eee;
+    font-size: 14px;
+    border-radius: 1rem;
+}
+
+.editL:hover{
     opacity: 0.5;
 }
 

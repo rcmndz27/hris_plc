@@ -68,9 +68,55 @@ $(function(){
                           }
                         });
 
+    });
 
-      
+    $(document).on('click','.btnFwd',function(e){
 
+        var prid = this.id;
+        var apvdOt = $(this).closest('tr').find("td:eq(4) input").val();
+        var filot = $('#alertot').val();
+        var upfilot = filot-apvdOt;
+        var approver = $(this).closest('tr').find("td:eq(5) input").val();
+        param = {"Action":"FwdOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId ,'approver':approver};
+        param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
+
+            swal({
+              title: "Are you sure?",
+              text: "You want to forward this overtime to Sir.Francis Calumba?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((fwdOt) => {
+              if (fwdOt) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "../overtime/overtime-approval-process.php",
+                                    data: {data:param} ,
+                                    success: function (data){
+                                        swal({
+                                        title: "Forwarded!", 
+                                        text: "Successfully forwarded overtime!", 
+                                        type: "success",
+                                        icon: "success",
+                                        }).then(function() {
+                                            document.getElementById(empId).innerHTML = upfilot;
+                                            document.getElementById('alertot').value = upfilot;
+                                            document.querySelector('#clv'+prid).remove();
+                                        });  
+                                    },
+                                    error: function (data){
+                                        console.log("error: "+ data);    
+                                    }
+                                });//ajax
+
+              } else {
+                swal({text:"You cancel the forwarding of overtime!",icon:"error"});
+              }
+            });
     });
 
     $(document).on('click','.btnRejectd',function(e){

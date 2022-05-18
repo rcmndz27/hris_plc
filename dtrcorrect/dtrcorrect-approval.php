@@ -6,7 +6,7 @@
 
             global $connL;
             
-            $query = "SELECT count(dtrc_date) as [dtrc],b.firstname,b.middlename,b.lastname,a.emp_code from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code  WHERE b.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code";
+            $query = "SELECT count(dtrc_date) as [dtrc],b.firstname,b.middlename,b.lastname,a.emp_code from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code  WHERE a.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empCode);
             $stmt->execute($param);
@@ -48,7 +48,7 @@
 
             global $connL;
 
-            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.dtrc_date,a.time_in,a.time_out,a.remarks,a.date_filed,a.status from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
+            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.dtrc_date,a.time_in,a.time_out,a.remarks,a.date_filed,a.status,a.reporting_to from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empReportingTo , ":emp_code" => $empId );
             $stmt->execute($param);
@@ -80,10 +80,21 @@
                             <td>".date('h:i a', strtotime($result['time_in']))."</td>
                             <td>".date('h:i a', strtotime($result['time_out']))."</td>
                             <td>".$result['remarks']."</td>
+                            <td hidden>"."<input type='text' class='form-control' 
+                            value='".$result['reporting_to']."' >"."</td>
+
                             <td>".
                                 "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
-                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>"."</td>
-                        </tr>";                                
+                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>&nbsp;";
+
+                        if($result['reporting_to'] == 'OBN20000205') {
+
+                           }else{
+                            echo '<button class="fwdAppr btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>';
+                         }
+
+
+                                echo "</td></tr>";                                
                 } while($result = $stmt->fetch());
                 echo "</tbody>";
             }else{
@@ -190,6 +201,46 @@
             echo $result;
             
         }
+
+
+function FwdDtrCorrect($empReportingTo,$empId,$approver,$rowid){
+        
+
+        global $connL;
+
+        $cmd = $connL->prepare("UPDATE dbo.tr_dtrcorrect SET reporting_to = :approval where rowid = :rowid");
+        $cmd->bindValue('approval','OBN20000205');         
+        $cmd->bindValue('rowid',$rowid);                           
+        $cmd->execute();
+    
+
+        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empcode";
+        $param = array(':empcode' => $approver);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $aprvname = $result['fullname'];
+
+        $query = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
+                VALUES(:dtrc_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
+    
+                $stmt =$connL->prepare($query);
+    
+                $param = array(
+                    ":dtrc_id" => $rowid,
+                    ":emp_code"=> $approver,
+                    ":emp_name"=> $aprvname,
+                    ":remarks" => 'Forwarded to Sir.Francis Calumba',
+                    ":audituser" => $approver,
+                    ":auditdate"=>date('m-d-Y')
+                );
+
+            $result = $stmt->execute($param);
+
+            echo $result;
+ 
+    }
+
 
         function GetEmployeeList($employee){
 
