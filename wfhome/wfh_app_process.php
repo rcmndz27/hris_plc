@@ -21,13 +21,17 @@
 
         $wfh_task = $wfhApplication->{"wfh_task"};
         $wfh_output = $wfhApplication->{"wfh_output"};
-        $wfh_percentage = $wfhApplication->{"wfh_percentage"};      
+        $wfh_percentage = $wfhApplication->{"wfh_percentage"};
+        $e_req = $wfhApplication->{"e_req"};
+        $n_req = $wfhApplication->{"n_req"};
+        $e_appr = $wfhApplication->{"e_appr"};
+        $n_appr = $wfhApplication->{"n_appr"};
         $arr = $wfhApplication->{"wfhdate"} ;
 
         foreach($arr as $value){
             $wfhDate = $value;
 
-        $wfhApp->InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$wfh_task,$wfh_output,$wfh_percentage);
+        $wfhApp->InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$wfh_task,$wfh_output,$wfh_percentage,$e_req,$n_req,$e_appr,$n_appr);
 
         }
 

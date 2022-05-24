@@ -43,6 +43,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((approveWfh) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (approveWfh) {
                                       $.ajax({
                                             type: "POST",
@@ -56,6 +57,7 @@ $(function(){
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                         document.getElementById(empId).innerHTML = upfilwfh;
                                                         document.getElementById('alertwfh').value = upfilwfh;
                                                         document.querySelector('#clv'+prid).remove();
@@ -66,6 +68,7 @@ $(function(){
                                             }
                                         });//ajax
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel the approval of work from home!",icon:"error"});
                           }
                         });
@@ -95,6 +98,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((fwdWfh) => {
+                        document.getElementById("myDiv").style.display="block";
                           if (fwdWfh) {
                                       $.ajax({
                                             type: "POST",
@@ -102,12 +106,14 @@ $(function(){
                                             data: {data:param} ,
                                             success: function (data){
                                                 console.log("success: "+ data);
+                                                document.getElementById("myDiv").style.display="none";
                                                     swal({
                                                     title: "Forwarded!", 
                                                     text: "Successfully forwarded work from home!", 
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                         document.getElementById(empId).innerHTML = upfilwfh;
                                                         document.getElementById('alertwfh').value = upfilwfh;
                                                         document.querySelector('#clv'+prid).remove();
@@ -118,6 +124,7 @@ $(function(){
                                             }
                                         });//ajax
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel the forwarding of work from home!",icon:"error"});
                           }
                         });
@@ -175,6 +182,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((approveWfh) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (approveWfh) {
                                     $.ajax({
                                         type: "POST",
@@ -182,6 +190,7 @@ $(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
+                                            document.getElementById("myDiv").style.display="none";
                                                         $('#popUpModal').modal('hide');
                                                         $('#popUpModal').on('hidden.bs.modal', function (e) {
                                                           $(this)
@@ -202,6 +211,7 @@ $(function(){
                                     });//ajax
 
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel the approval of work from home!",icon:"error"});
                           }
                 });

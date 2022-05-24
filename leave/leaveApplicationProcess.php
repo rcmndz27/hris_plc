@@ -25,8 +25,10 @@
         $leaveType = $leaveApplication->{"leavetype"};
         $dateBirth = $leaveApplication->{"datebirth"};
         $dateStartMaternity = $leaveApplication->{"datestartmaternity"};
-        // $dateFrom = $leaveApplication->{"datefrom"};
-        // $dateTo = $leaveApplication->{"dateto"};
+        $e_req = $leaveApplication->{"e_req"};
+        $n_req = $leaveApplication->{"n_req"};
+        $e_appr = $leaveApplication->{"e_appr"};
+        $n_appr = $leaveApplication->{"n_appr"};        
         $leaveDesc = $leaveApplication->{"leavedesc"};
         $medicalFile = (isset($leaveApplication->{"medicalfile"}) ? $leaveApplication->{"medicalfile"} : '' );
         $leaveCount = $leaveApplication->{"leaveCount"};
@@ -36,7 +38,7 @@
         foreach($arr as $value){
             $leaveDate = $value;
         
-        $leaveApp->ApplyLeave($empCode,$empName,$empDept,$empReportingTo,$leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc,$medicalFile, $leaveCount, $allhalfdayMark);
+        $leaveApp->ApplyLeave($empCode,$empName,$empDept,$empReportingTo,$leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc,$medicalFile, $leaveCount, $allhalfdayMark,$e_req,$n_req,$e_appr,$n_appr);
          }
 
     }

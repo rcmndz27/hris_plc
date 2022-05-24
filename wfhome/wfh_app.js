@@ -117,6 +117,12 @@ $('#Submit').click(function(){
 
             const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
+            var e_req = $('#e_req').val();
+            var n_req = $('#n_req').val();
+            var e_appr = $('#e_appr').val();
+            var n_appr = $('#n_appr').val();            
+
+
 
             if (CheckInput() === true) {
 
@@ -125,7 +131,11 @@ $('#Submit').click(function(){
                     "wfhdate": ite_date,
                     "wfh_task": $('#wfh_task').val(),
                     "wfh_output": $('#wfh_output').val(),
-                    "wfh_percentage": $('#wfh_percentage').val()
+                    "wfh_percentage": $('#wfh_percentage').val(),
+                    "e_req": e_req,
+                    "n_req": n_req,
+                    "e_appr": e_appr,
+                    "n_appr": n_appr                    
                     
                };
                 
@@ -144,6 +154,7 @@ $('#Submit').click(function(){
                           dangerMode: true,
                         })
                         .then((applyWfh) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (applyWfh) {
                                     $.ajax({
                                         type: "POST",
@@ -165,6 +176,7 @@ $('#Submit').click(function(){
                                         }
                                     });
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel your work from home!!",icon:"error"});
                           }
                         });

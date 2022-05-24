@@ -77,7 +77,8 @@
     }else if($leaveApproval->{"Action"} == "GetPendingList"){
 
         $employee = $leaveApproval->{"employee"};
-        ShowAllLeave($employee);
+        $logEmpCode = $leaveApproval->{"logEmpCode"};
+        ShowAllLeave($employee,$logEmpCode);
 
     }else if($leaveApproval->{"Action"} == "GetLeaveListBlank"){
     

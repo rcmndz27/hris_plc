@@ -14,6 +14,23 @@
         $otApp = new OtApp(); 
         $otApp->SetOtAppParams($empCode);
 
+        $query = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
+        $param = array(":empcode" => $_SESSION['userid']);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $r = $stmt->fetch();
+        $e_req = $r['emailaddress'];
+        $n_req = $r['firstname'].' '.$r['lastname'];
+
+
+        $aquery = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
+        $aparam = array(":empcode" => $r['reporting_to']);
+        $astmt =$connL->prepare($aquery);
+        $astmt->execute($aparam);
+        $ar = $astmt->fetch();
+        $e_appr = $ar['emailaddress'];
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];             
+
     }    
 ?>
 
@@ -140,8 +157,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <input type="text" name="e_req" id="e_req" value="<?php echo $e_req; ?>" hidden>  
+                <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
+                <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>
+                <input type="text" name="n_appr" id="n_appr" value="<?php  echo $n_appr; ?>" hidden>
                     <div>
-                      
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
                                         <label for="">OT Date From:</label>

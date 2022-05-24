@@ -40,19 +40,22 @@ $(function(){
                           buttons: true,
                           dangerMode: true,
                         })
-                        .then((savePayroll) => {
-                          if (savePayroll) {
+                        .then((aprOt) => {
+                            document.getElementById("myDiv").style.display="block";
+                          if (aprOt) {
                                             $.ajax({
                                                 type: "POST",
                                                 url: "../overtime/overtime-approval-process.php",
                                                 data: {data:param} ,
                                                 success: function (data){
+                                                    console.log("success: "+ data);
                                                     swal({
                                                     title: "Approved!", 
                                                     text: "Successfully approved overtime!", 
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                         document.getElementById(empId).innerHTML = upfilot;
                                                         document.getElementById('alertot').value = upfilot;
                                                         document.querySelector('#clv'+prid).remove();
@@ -64,7 +67,8 @@ $(function(){
                                             });//ajax
 
                           } else {
-                            swal("Your cancel the approval of overtime!");
+                            document.getElementById("myDiv").style.display="none";
+                             swal({text:"You cancel the approval of overtime!",icon:"error"});
                           }
                         });
 
@@ -91,6 +95,7 @@ $(function(){
               dangerMode: true,
             })
             .then((fwdOt) => {
+                document.getElementById("myDiv").style.display="block";
               if (fwdOt) {
                                 $.ajax({
                                     type: "POST",
@@ -103,6 +108,7 @@ $(function(){
                                         type: "success",
                                         icon: "success",
                                         }).then(function() {
+                                            document.getElementById("myDiv").style.display="none";
                                             document.getElementById(empId).innerHTML = upfilot;
                                             document.getElementById('alertot').value = upfilot;
                                             document.querySelector('#clv'+prid).remove();
@@ -114,6 +120,7 @@ $(function(){
                                 });//ajax
 
               } else {
+                document.getElementById("myDiv").style.display="none";
                 swal({text:"You cancel the forwarding of overtime!",icon:"error"});
               }
             });
@@ -168,6 +175,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((rejPayroll) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (rejPayroll) {
                                     $.ajax({
                                         type: "POST",
@@ -180,6 +188,7 @@ $(function(){
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                         $('#popUpModal').modal('hide');
                                                         $('#popUpModal').on('hidden.bs.modal', function (e) {
                                                           $(this)
@@ -201,7 +210,8 @@ $(function(){
                                     });//ajax
 
                           } else {
-                            swal("Your cancel the rejection of overtime!");
+                            document.getElementById("myDiv").style.display="none";
+                            swal({text:"You cancel the rejection of overtime!",icon:"error"});
                           }
                         });
 

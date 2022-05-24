@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../vendor/autoload.php';
+
 Class ObApp{
 
     private $employeeCode;
@@ -123,7 +130,7 @@ Class ObApp{
     }
 
     public function InsertAppliedObApp($empCode,$empReportingTo,$ob_time,$ob_destination,$ob_purpose,$ob_percmp, 
-            $obDate){
+            $obDate,$e_req,$n_req,$e_appr,$n_appr){
 
         global $connL;
 
@@ -179,6 +186,47 @@ Class ObApp{
             $results = $stmts->execute($params);
 
             echo $results;
+
+
+
+        $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($eapprover,'Approver');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Official Business Request Sent to Approver: ';
+        $mail->Body    = '<h1>Hi '.$napprover.' </b>,</h1>An employee has requested official business(#'.$rst['maxid'].').<br><br>
+                        <h2>From: '.$nrequester.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/ob/ob-approval-view.php">Official Business Approval List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "Official Business Approval List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/ob/ob-approval-view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }                                 
 
 
     }

@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../vendor/autoload.php';
+
 Class LeaveApplication{
 
     private $employeeCode;
@@ -502,9 +509,10 @@ Class LeaveApplication{
         $stmt->execute($param);
     }
 
-    public function InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount){
+    public function InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount,$e_req,$n_req,$e_appr,$n_appr){
 
         global $connL;
+
 
             $query = "INSERT INTO tr_leave (emp_code, employee, department, approval, datefiled, leavetype, medicalfile,date_birth,dateStartMaternity,date_from, date_to, leave_desc, actl_cnt, app_days, approved, audituser, auditdate ) 
                 VALUES(:emp_code, :employee, :department, :approval, :datefiled, :leavetype, :medicalfile,:date_birth,:dateStartMaternity,:date_from, :date_to, :leave_desc,  :actl_cnt, :app_days, :approved, :audituser, :auditdate) ";
@@ -557,11 +565,51 @@ Class LeaveApplication{
 
             $results = $stmts->execute($params);
 
-            echo $results;
+        echo $results;
+
+        $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($eapprover,'Approver');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Leave Request Sent to Approver: ';
+        $mail->Body    = '<h1>Hi '.$napprover.' </b>,</h1>An employee has requested a leave.<br><br>
+                        <h2>From: '.$nrequester.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/leave/leaveApproval_view.php">Leave Approval List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "Leave Approval List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/leave/leaveApproval_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
 
     }
 
-    public function ApplyLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $medicalFile, $leaveCount, $allhalfdayMark){
+    public function ApplyLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $medicalFile, $leaveCount, $allhalfdayMark,$e_req,$n_req,$e_appr,$n_appr){
 
         $allowedDays = 0;
 
@@ -571,12 +619,12 @@ Class LeaveApplication{
 
             if($balanceCount >= $leaveCount){
 
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$medicalFile,$dateBirth,$dateStartMaternity, $leaveDate, $leaveDesc, $leaveCount);
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType,$medicalFile,$dateBirth,$dateStartMaternity, $leaveDate, $leaveDesc, $leaveCount,$e_req,$n_req,$e_appr,$n_appr);
                 $this->UpdateLeaveCount($empCode, $leaveType, $balanceCount - $leaveCount);
 
             }elseif($balanceCount < $leaveCount){
 
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity, $leaveDate,$leaveDesc, $balanceCount);
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity, $leaveDate,$leaveDesc, $balanceCount,$e_req,$n_req,$e_appr,$n_appr);
                 $this->UpdateLeaveCount($empCode, $leaveType, $balanceCount - $balanceCount);
             }
            
@@ -585,7 +633,7 @@ Class LeaveApplication{
 
 
 
-            $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount);
+            $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount,$e_req,$n_req,$e_appr,$n_appr);
 
         }else{
 
@@ -611,12 +659,12 @@ Class LeaveApplication{
 
     
                 $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,
-                    $dateStartMaternity,$leaveDate, $leaveDesc, $leaveCount);
+                    $dateStartMaternity,$leaveDate, $leaveDesc, $leaveCount,$e_req,$n_req,$e_appr,$n_appr);
     
             }else{
 
 
-                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate, $leaveDesc, $allowedDays);
+                $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate, $leaveDesc, $allowedDays,$e_req,$n_req,$e_appr,$n_appr);
 
 
             }

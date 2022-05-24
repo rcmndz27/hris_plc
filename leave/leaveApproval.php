@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../vendor/autoload.php';
+
     function EmployeeList($empID){
 
         global $connL;
@@ -35,7 +42,7 @@
         echo "</select>";
     }
     
-    function ShowAllLeave($employee){
+    function ShowAllLeave($employee,$logEmpCode){
         global $connL;
 
         $query = "SELECT a.datefiled,date_from,date_to,leavetype,leave_desc,approved,approval,medicalfile,remarks,actl_cnt,a.rowid,a.emp_code,b.lastname+', '+b.firstname as [fullname] FROM tr_leave a left join employee_profile b on a.emp_code = b.emp_code WHERE approved = 1  AND a.emp_code =:empCode";
@@ -82,17 +89,19 @@
                     echo"<button type='button' class='btnView atch'><a title='Attachment' href='../uploads/".$result['medicalfile']."' style='color:#ffff;font-weight:bold;'  
                                 target='popup' onclick='window.open('../uploads/".$result['medicalfile']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>";  
                 }  
-                if($result['approval'] == 'OBN20000205')  {         
+                if($result['approval'] == 'OBN20000205' and $logEmpCode == 'OBN20000205')  {         
                 echo'
                     <button class="chckbt btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     <button class="rejbt btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     </td>';
-                }else{
+                }else if($result['approval'] == $logEmpCode and $logEmpCode <> 'OBN20000205' ){
                     echo'
                     <button class="chckbt btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     <button class="rejbt btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     <button class="fwdAppr btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     </td>';
+                }else {
+                    echo 'Waiting for other approver.';
                 }
 
                 
@@ -123,7 +132,16 @@
         FROM view_employee
         INNER JOIN LeaveCount leavecount ON leavecount.emp_code = view_employee.emp_code  
         INNER JOIN tr_leave ON view_employee.emp_code = tr_leave.emp_code  
-        WHERE tr_leave.approval = :reporting_to ORDER BY view_employee.employee';
+        WHERE tr_leave.approval = :reporting_to
+        GROUP BY view_employee.emp_code, 
+        view_employee.employee,  
+        used, 
+        pending, 
+        earned_sl, 
+        earned_vl,
+        pending_sum
+        ORDER BY view_employee.emp_code
+        ';
 
         $param = array(':reporting_to' => $employee);
         $stmt =$connL->prepare($query);
@@ -205,7 +223,6 @@
                 <th>Approved (Days)</th>
                 <th>Status</th>
                 <th>Remarks</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>';
@@ -247,23 +264,23 @@
 
                 echo "<td>".$result['remarks']."</td>";
 
-                switch((int)$result['approved'])
-                {
-                    case 1:
-                        echo "<td colspan ='1'></td>";
-                        break;
-                    case 2:
-                        echo '<td><button class="voidHstry btnVoid" id="'.$result['emp_code'].' '.$result['rowid'].'" type="submit"><i class="fas fa-ban"></i></button></td>';
-                        break;
-                    case 3:
-                        echo "<td colspan ='1'></td>";
-                        break;
-                    case 4:
-                        echo "<td colspan ='1'></td>";
-                        break;    
-                    default:
-                        break;
-                }
+                // switch((int)$result['approved'])
+                // {
+                //     case 1:
+                //         echo "<td colspan ='1'></td>";
+                //         break;
+                //     case 2:
+                //         echo '<td><button class="voidHstry btnVoid" id="'.$result['emp_code'].' '.$result['rowid'].'" type="submit"><i class="fas fa-ban"></i></button></td>';
+                //         break;
+                //     case 3:
+                //         echo "<td colspan ='1'></td>";
+                //         break;
+                //     case 4:
+                //         echo "<td colspan ='1'></td>";
+                //         break;    
+                //     default:
+                //         break;
+                // }
                 
             } while ($result = $stmt->fetch());
             echo '</tr></tbody>';
@@ -343,9 +360,9 @@
 
         global $connL;
 
-        if($leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
+        if($leavetype === 'Vacation Leave without Pay' || $leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $column = 'earned_vl = ';
-        }elseif($leavetype === 'Sick Leave' ){
+        }elseif(leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
             $column = 'earned_sl = ';
         }
 
@@ -405,9 +422,9 @@
         $earned_vl = (isset($result['earned_vl']) ? (float)$result['earned_vl'] : 0);
         $earned_sl = (isset($result['earned_sl']) ? (float)$result['earned_sl'] : 0);
 
-        if($leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
+        if($leavetype === 'Vacation Leave without Pay' || $leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $balanceCount = $earned_vl;
-        }elseif($leavetype === 'Sick Leave' ){
+        }elseif($leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
             $balanceCount = $earned_sl;
         }
 
@@ -432,11 +449,22 @@
 
         global $connL;
 
-        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :approver";
+        $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+        WHERE emp_code = :empcode";
+        $rparam = array(':empcode' => $empcode);
+        $rstmt =$connL->prepare($rquery);
+        $rstmt->execute($rparam);
+        $rresult = $rstmt->fetch();
+        $e_req = $rresult['emailaddress'];
+        $n_req = $rresult['fullname'];
+
+        $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :approver";
         $param = array(':approver' => $approver);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();
+        $e_appr = $result['emailaddress'];
+        $n_appr = $result['fullname'];
         $apprv_name = $result['fullname'];
 
 
@@ -473,6 +501,45 @@
             UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $excess);
         }
 
+        $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'Requester');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Approved Leave Request  ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your leave request #'.$rowid.' has been approved.<br><br>
+                        <h2>From: '.$napprover.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/leave/leaveApplication_view.php">Leave Request List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "Leave Request List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/leave/leaveApplication_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
 
       
     }
@@ -482,12 +549,24 @@
 
         global $connL;
 
-        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :rejecter";
+        $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+        WHERE emp_code = :empcode";
+        $rparam = array(':empcode' => $empcode);
+        $rstmt =$connL->prepare($rquery);
+        $rstmt->execute($rparam);
+        $rresult = $rstmt->fetch();
+        $e_req = $rresult['emailaddress'];
+        $n_req = $rresult['fullname'];
+
+        $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :rejecter";
         $param = array(':rejecter' => $rejecter);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();
-        $rjct_name = $result['fullname'];
+        $e_appr = $result['emailaddress'];
+        $n_appr = $result['fullname'];
+        $rjct_name = $result['fullname'];     
+
 
         $query = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
                 VALUES(:leave_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
@@ -507,17 +586,50 @@
 
             echo $result;
 
-            // exit();
-
         $employee = explode(" ",$employee);
-
         $balanceCount = GetBalanceCount($employee[0],$curLeaveType);
-
         UpdateLeaves($employee[1], $curRejected, $curDateFrom, $curDateTo, 3,$remarks);
-
         UpdateLeaveCount($curLeaveType, $employee[0], $balanceCount + $curRejected);
 
+        $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
 
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'Requester');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Rejected Leave Request ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your leave request #'.$rowid.' has been rejected.<br><br>
+                        <h2>From: '.$napprover.' <br></h2>
+                        <h2>Reject reason: '.$remarks.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/leave/leaveApplication_view.php">Leave Request List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br><br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "Leave Request List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/leave/leaveApplication_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }        
 
     }
 
@@ -530,13 +642,15 @@
         $cmd->bindValue('approval','OBN20000205');         
         $cmd->bindValue('rowid',$rowid);                           
         $cmd->execute();
-    
 
-        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empcode";
+        $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+        WHERE emp_code = :empcode";
         $param = array(':empcode' => $approver);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();
+        $e_appr = $result['emailaddress'];
+        $n_appr = $result['fullname'];        
         $aprvname = $result['fullname'];
 
         $query = "INSERT INTO logs_leave (leave_id,emp_code,emp_name,remarks,audituser,auditdate) 
@@ -556,6 +670,51 @@
             $result = $stmt->execute($param);
 
             echo $result;
+
+
+
+        // $erequester = 'fcalumba@premiummegastructures.com';
+        // $nrequester = 'Francis Calumba';
+        $erequester = 'rmendoza@premiummegastructures.com';
+        $nrequester = 'Francis Calumba';            
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'President');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Forward Request to the President: ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>The leave request #'.$rowid.' has been forwarded to you for your approval.<br><br>
+                        <h2>From: '.$napprover.' <br><br></h2>
+    
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/leave/leaveApproval_view.php">Leave Approval List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br><br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "Leave Approval List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/leave/leaveApproval_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }        
+
  
     }
 

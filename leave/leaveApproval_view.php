@@ -36,6 +36,7 @@
           </nav>
 
          <div class="row">
+            <input type="text" name="empCode" id="empCode" value="<?php  echo $empCode; ?>" hidden>
             <div class="col-md-12 pt-3">
                 <div class="panel-body" id="pendingList">
                 </div>

@@ -185,6 +185,7 @@ swal({
   dangerMode: true,
 })
 .then((approveLeave) => {
+    document.getElementById("myDiv").style.display="block";
   if (approveLeave) {
     $.ajax({
         type: "POST",
@@ -198,6 +199,7 @@ swal({
                 type: "success",
                 icon: "success",
             }).then(function() {
+                document.getElementById("myDiv").style.display="none";
                 document.getElementById(empcode).innerHTML = upfillv;
                 document.getElementById('alertleave').value = upfillv;
                 document.querySelector('#clv'+rowid).remove();
@@ -208,7 +210,8 @@ swal({
         }
     });
 } else {
-    swal({text:"Your cancel the approval of leave!",icon:"error"});
+    document.getElementById("myDiv").style.display="none";
+    swal({text:"You cancel the approval of leave!",icon:"error"});
 }
 });
 
@@ -251,6 +254,7 @@ swal({
   dangerMode: true,
 })
 .then((fwdLeave) => {
+    document.getElementById("myDiv").style.display="block";
   if (fwdLeave) {
     $.ajax({
         type: "POST",
@@ -259,11 +263,12 @@ swal({
         success: function (data){
             console.log("success: "+ data);
             swal({
-                title: "Approved!", 
+                title: "Forwarded!", 
                 text: "Successfully forwarded leave!", 
                 type: "success",
                 icon: "success",
             }).then(function() {
+                document.getElementById("myDiv").style.display="none";
                 document.getElementById(empcode).innerHTML = upfillv;
                 document.getElementById('alertleave').value = upfillv;
                 document.querySelector('#clv'+rowid).remove();
@@ -274,6 +279,7 @@ swal({
         }
     });
 } else {
+    document.getElementById("myDiv").style.display="none";
     swal({text:"You cancel the forwarding of leave!",icon:"error"});
 }
 });
@@ -293,14 +299,19 @@ swal({
         e.preventDefault();
 
         empName = $(this).closest('tr').find('td:eq(0)').text();
+        logEmpCode = $('#empCode').val();
         var empCode = this.id;
 
         empname = empName;
 
         param = {
             "Action":"GetPendingList",
-            "employee": empCode,
+            "logEmpCode":logEmpCode,
+            "employee": empCode
         };
+
+        // console.log(param);
+        // return false;
 
         param = JSON.stringify(param);
         
@@ -334,8 +345,14 @@ swal({
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
-                $('#dtrList').remove();
-                $('#summaryList').append(data);
+                var summaryList = document.getElementById("dtrList");
+                    if(summaryList){
+                         $('#dtrList').remove();
+                
+                    }else{
+                        $('#summaryList').append(data);
+                    }
+              
             },
             error: function (data){
                 // console.log("error: "+ data);	
@@ -423,6 +440,7 @@ swal({
                           dangerMode: true,
                         })
                         .then((rejectLeave) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (rejectLeave) {
 
                                         $.ajax({
@@ -437,6 +455,7 @@ swal({
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                         $('#remarksModal').modal('hide');
                                                         $('#remarksModal').on('hidden.bs.modal', function (e) {
                                                           $(this)
@@ -457,6 +476,7 @@ swal({
                                             }
                                         });//ajax
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                              swal({text:"You cancel the rejection !",icon:"error"});
                           }
                         });
@@ -476,19 +496,20 @@ swal({
             
         var options = document.getElementById("leaveType").options;
         for (var i = 0; i < options.length; i++) {
-          if (options[i].text == "Vacation Leave" && $('#emptype').val() === 'Regular' && $('#vac_leavebal').val() !== '0.0') {
+          if (options[i].text == "Vacation Leave" && $('#emptype').val() == 'Regular' && $('#vac_leavebal').val() != '0.0') {
             options[i].selected = true;
             $('#vacleavebal').show();
             $("#leavepay").show();
+            $("#leave_pay1").prop("checked", true);
             break;
-          }else if (options[i].text == "Vacation Leave" && $('#emptype').val() === 'Regular' && $('#vac_leavebal').val() === '0.0') {
+          }else if (options[i].text == "Vacation Leave" && $('#emptype').val() == 'Regular' && $('#vac_leavebal').val() == '0.0') {
             options[i].selected = true;
             $('#vacleavebal').show();
             $("#leavepay").show();
             $("#leave_pay2").prop("checked", true);
             $("#wpay").hide();
             break;
-          }else if(options[i].text == "Vacation Leave" && $('#emptype').val() === 'Probationary'){
+          }else if(options[i].text == "Vacation Leave" && $('#emptype').val() == 'Probationary'){
             $("#leavepay").show();
             $("#leave_pay2").prop("checked", true);
             $("#wpay").hide();
@@ -523,7 +544,7 @@ swal({
                         // alert('Vacation Leave without Pay');
                 }else{
                     leave_pay = $('#leaveType').val();
-                    // alert(leave_pay);
+              
                 }   
 
                   var checkBox = document.getElementById("halfDay");
@@ -536,14 +557,12 @@ swal({
                 var dte = $('#dateFrom').val();
                 var dte_to = $('#dateTo').val();
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                dateArr = []; //Array where rest of the dates will be stored
+                dateArr = []; 
 
-                //creating JS date objects
                 var start = new Date(dte);
                 var date = new Date(dte_to);
                 var end = date.setDate(date.getDate() + 1);
 
-                //Logic for getting rest of the dates between two dates("FromDate" to "EndDate")
                 while(start < end){
                    dateArr.push(moment(start).format('MM-DD-YYYY'));
                    var newDate = start.setDate(start.getDate() + 1);
@@ -552,6 +571,10 @@ swal({
 
                 const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
+                var e_req = $('#e_req').val();
+                var n_req = $('#n_req').val();
+                var e_appr = $('#e_appr').val();
+                var n_appr = $('#n_appr').val();
 
             if (CheckInput() === true) {
 
@@ -564,7 +587,11 @@ swal({
                     "leavedesc" : $('#leaveDesc').val(),
                     "medicalfile": pdfFile,
                     "leaveCount": leaveCount,
-                    "allhalfdayMark": allhaftday
+                    "allhalfdayMark": allhaftday,
+                    "e_req": e_req,
+                    "n_req": n_req,
+                    "e_appr": e_appr,
+                    "n_appr": n_appr
     
                 };
                 
@@ -574,7 +601,6 @@ swal({
                 // exit();
 
                     if($('#dateTo').val() >= $('#dateFrom').val()){
-
                         swal({
                           title: "Are you sure?",
                           text: "You want to apply this leave?",
@@ -583,6 +609,7 @@ swal({
                           dangerMode: true,
                         })
                         .then((applyLeave) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (applyLeave) {
                                     $.ajax({
                                         type: "POST",
@@ -604,7 +631,8 @@ swal({
                                         }
                                     });//ajax
                           } else {
-                            swal({text:"Your cancel your leave!",icon:"error"});
+                            document.getElementById("myDiv").style.display="none";
+                            swal({text:"You cancel your leave!",icon:"error"});
                           }
                         });
                     

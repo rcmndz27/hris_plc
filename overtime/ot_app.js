@@ -70,6 +70,11 @@ $('#Submit').click(function(){
 
             const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
+            var e_req = $('#e_req').val();
+            var n_req = $('#n_req').val();
+            var e_appr = $('#e_appr').val();
+            var n_appr = $('#n_appr').val();            
+
 
             if (CheckInput() === true) {
 
@@ -79,10 +84,17 @@ $('#Submit').click(function(){
                     "otstartdtime": $('#otstartdtime').val(),
                     "otenddtime": $('#otenddtime').val(),
                     "otreqhrs": $('#otreqhrs').val(),
-                    "remarks": $('#remarks').val()
+                    "remarks": $('#remarks').val(),
+                    "e_req": e_req,
+                    "n_req": n_req,
+                    "e_appr": e_appr,
+                    "n_appr": n_appr
                 };
                 
                 param = JSON.stringify(param);
+
+                // console.log(param);
+                // return false;
 
                     if($('#otdateto').val() >= $('#otdate').val()){
 
@@ -94,13 +106,14 @@ $('#Submit').click(function(){
                               dangerMode: true,
                             })
                             .then((applyOT) => {
+                            document.getElementById("myDiv").style.display="block";
                               if (applyOT) {
                                         $.ajax({
                                         type: "POST",
                                         url: "../overtime/ot_app_process.php",
                                         data: {data:param} ,
                                         success: function (data){
-                                            // console.log("success: "+ data);
+                                            console.log("success: "+ data);
                                                     swal({
                                                     title: "Wow!", 
                                                     text: "Successfully added overtime details!", 
@@ -116,7 +129,8 @@ $('#Submit').click(function(){
                                     });//ajax
 
                               } else {
-                                swal({text:"Your cancel your overtime!",icon:"error"});
+                                document.getElementById("myDiv").style.display="none";
+                                swal({text:"You cancel your overtime!",icon:"error"});
                               }
                             });
                         }else{

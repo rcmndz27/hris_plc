@@ -66,6 +66,12 @@ $('#Submit').click(function(){
 
             const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
+            var e_req = $('#e_req').val();
+            var n_req = $('#n_req').val();
+            var e_appr = $('#e_appr').val();
+            var n_appr = $('#n_appr').val();            
+
+
             if (CheckInput() === true) {
 
                 param = {
@@ -74,7 +80,11 @@ $('#Submit').click(function(){
                     "ob_time": $('#ob_time').val(),
                     "ob_destination": $('#ob_destination').val(),
                     "ob_purpose": $('#ob_purpose').val(),
-                    "ob_percmp": $('#ob_percmp').val()
+                    "ob_percmp": $('#ob_percmp').val(),
+                    "e_req": e_req,
+                    "n_req": n_req,
+                    "e_appr": e_appr,
+                    "n_appr": n_appr   
                 };
                 
                 param = JSON.stringify(param);
@@ -92,6 +102,7 @@ $('#Submit').click(function(){
                               dangerMode: true,
                             })
                             .then((applyOb) => {
+                                document.getElementById("myDiv").style.display="block";
                               if (applyOb) {
                                         $.ajax({
                                         type: "POST",
@@ -114,12 +125,15 @@ $('#Submit').click(function(){
                                     });//ajax
 
                               } else {
+                                document.getElementById("myDiv").style.display="none";
                                 swal({text:"You cancel your official business!",icon:"error"});
                               }
                             });
                         }else{
                             swal({text:"OB DATE TO must be greater than OB DATE FROM!",icon:"error"});
                     }                
+            }else{
+                swal({text:"Please fill-up all blank fields.!",icon:"error"});
             }
                               
     });

@@ -19,6 +19,17 @@
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $r = $stmt->fetch();
+        $e_req = $r['emailaddress'];
+        $n_req = $r['firstname'].' '.$r['lastname'];
+
+
+        $aquery = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
+        $aparam = array(":empcode" => $r['reporting_to']);
+        $astmt =$connL->prepare($aquery);
+        $astmt->execute($aparam);
+        $ar = $astmt->fetch();
+        $e_appr = $ar['emailaddress'];
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];        
 
         $querys = 'SELECT * FROM dbo.employee_leave WHERE emp_code = :empcode ';
         $params = array(":empcode" => $_SESSION['userid']);
@@ -90,47 +101,47 @@
         }
     }
 
-        function cancelLeave(lvid,empcd)
-        {
+function cancelLeave(lvid,empcd)
+{
 
-                 var url = "../leave/cancelLeaveProcess.php";  
-                 var leaveid = lvid;   
-                 var emp_code = empcd;   
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to cancel this leave?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((cnclLv) => {
-                          if (cnclLv) {
-                            $.post (
-                                    url,
-                                    {
-                                        choice: 1,
-                                        leaveid:leaveid,
-                                        emp_code:emp_code
+         var url = "../leave/cancelLeaveProcess.php";  
+         var leaveid = lvid;   
+         var emp_code = empcd;   
+            swal({
+                  title: "Are you sure?",
+                  text: "You want to cancel this leave?",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((cnclLv) => {
+                  if (cnclLv) {
+                    $.post (
+                            url,
+                            {
+                                choice: 1,
+                                leaveid:leaveid,
+                                emp_code:emp_code
 
-                                    },
-                                    function(data) { 
-                                            swal({
-                                            title: "Oops!", 
-                                            text: "Successfully cancelled leave!", 
-                                            type: "info",
-                                            icon: "info",
-                                            }).then(function() {
-                                                document.getElementById('st'+leaveid).innerHTML = 'VOID';
-                                                document.querySelector('#clv').remove();
-                                            });  
-                                    }
-                                );
-                          } else {
-                            swal({text:"You stop the cancellation of your leave.",icon:"error"});
-                          }
-                        });
-      
-    }
+                            },
+                            function(data) { 
+                                    swal({
+                                    title: "Oops!", 
+                                    text: "Successfully cancelled leave!", 
+                                    type: "info",
+                                    icon: "info",
+                                    }).then(function() {
+                                        document.getElementById('st'+leaveid).innerHTML = 'VOID';
+                                        document.querySelector('#clv').remove();
+                                    });  
+                            }
+                        );
+                  } else {
+                    swal({text:"You stop the cancellation of your leave.",icon:"error"});
+                  }
+                });
+
+}
 
 </script>
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
@@ -139,6 +150,7 @@
 <script type="text/javascript"></script>
 <script src="../leave/moment2.min.js"></script>
 <script src="../leave/moment-range.js"></script>
+<div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
           <h1>LEAVE APPLICATION</h1>
@@ -191,6 +203,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <input type="text" name="e_req" id="e_req" value="<?php echo $e_req; ?>" hidden>  
+                <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
+                <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>
+                <input type="text" name="n_appr" id="n_appr" value="<?php  echo $n_appr; ?>" hidden>
+
+
                         <?php $leaveApp->GetLeaveType(); ?>
                         <div id="leavepay">
                             <div class="row">
@@ -586,7 +604,9 @@
                     </div> <!-- modal body closing -->
                 </div> <!-- modal content closing -->
             </div> <!-- modal dialog closing -->
-        </div><!-- modal fade closing -->        
+        </div><!-- modal fade closing -->   
+
+
 
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->

@@ -43,6 +43,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((savePayroll) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (savePayroll) {
                                             $.ajax({
                                                 type: "POST",
@@ -56,6 +57,7 @@ $(function(){
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                             document.getElementById(empId).innerHTML = upfilob;
                                                             document.getElementById('alertob').value = upfilob;
                                                             document.querySelector('#clv'+prid).remove();
@@ -67,6 +69,7 @@ $(function(){
                                             });//ajax
 
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                              swal({text:"You cancel the approval of official business!",icon:"error"});
 
                           }
@@ -100,6 +103,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((savePayroll) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (savePayroll) {
                                             $.ajax({
                                                 type: "POST",
@@ -113,6 +117,7 @@ $(function(){
                                                     type: "success",
                                                     icon: "success",
                                                     }).then(function() {
+                                                        document.getElementById("myDiv").style.display="none";
                                                             document.getElementById(empId).innerHTML = upfilob;
                                                             document.getElementById('alertob').value = upfilob;
                                                             document.querySelector('#clv'+prid).remove();
@@ -124,6 +129,7 @@ $(function(){
                                             });//ajax
 
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                              swal({text:"You cancel the approval of official business!",icon:"error"});
 
                           }
@@ -185,6 +191,7 @@ $(function(){
                           dangerMode: true,
                         })
                         .then((rejOb) => {
+                            document.getElementById("myDiv").style.display="block";
                           if (rejOb) {
                                     $.ajax({
                                         type: "POST",
@@ -192,6 +199,7 @@ $(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
+                                            document.getElementById("myDiv").style.display="none";
                                             $('#popUpModal').modal('hide');
                                             $('#popUpModal').on('hidden.bs.modal', function (e) {
                                               $(this)
@@ -212,6 +220,7 @@ $(function(){
                                     });//ajax
 
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel the rejection of official business!",icon:"error"});
                           }
                         });

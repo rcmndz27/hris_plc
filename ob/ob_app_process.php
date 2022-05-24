@@ -24,13 +24,17 @@
         $ob_destination = $obApplication->{"ob_destination"};
         $ob_purpose = $obApplication->{"ob_purpose"};
         $ob_percmp = $obApplication->{"ob_percmp"};
+        $e_req = $obApplication->{"e_req"};
+        $n_req = $obApplication->{"n_req"};
+        $e_appr = $obApplication->{"e_appr"};
+        $n_appr = $obApplication->{"n_appr"};
         $arr = $obApplication->{"ob_date"} ;
 
         foreach($arr as $value){
             $obDate = $value;
 
         $obApp->InsertAppliedObApp($empCode,$empReportingTo,$ob_time,$ob_destination,$ob_purpose,$ob_percmp, 
-            $obDate);
+            $obDate,$e_req,$n_req,$e_appr,$n_appr);
 
         }
 
