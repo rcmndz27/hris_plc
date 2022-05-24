@@ -1,5 +1,12 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../vendor/autoload.php';
+
     Class DtrCorrectApproval{
 
         function GetDtrCorrectSummary($empCode){
@@ -108,12 +115,23 @@
 
             global $connL;
 
-            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
-            $sparam = array(':empReportingTo' => $empReportingTo);
-            $sstmt =$connL->prepare($squery);
-            $sstmt->execute($sparam);
-            $sresult = $sstmt->fetch();
-            $sname = $sresult['fullname'];
+          $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+            WHERE emp_code = :empcode";
+            $rparam = array(':empcode' => $empId);
+            $rstmt =$connL->prepare($rquery);
+            $rstmt->execute($rparam);
+            $rresult = $rstmt->fetch();
+            $e_req = $rresult['emailaddress'];
+            $n_req = $rresult['fullname'];
+
+            $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :approver";
+            $param = array(':approver' => $empReportingTo);
+            $stmt =$connL->prepare($query);
+            $stmt->execute($param);
+            $result = $stmt->fetch();
+            $e_appr = $result['emailaddress'];
+            $n_appr = $result['fullname'];
+            $apprv_name = $result['fullname'];  
 
             $querys = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
             VALUES(:dtrc_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
@@ -123,8 +141,8 @@
             $params = array(
                 ":dtrc_id" => $rowId,
                 ":emp_code"=> $empId,
-                ":emp_name"=> $sname,
-                ":remarks" => 'Approved by '.$sname,
+                ":emp_name"=> $apprv_name,
+                ":remarks" => 'Approved by '.$apprv_name,
                 ":audituser" => $empReportingTo,
                 ":auditdate"=>date('m-d-Y')
             );
@@ -149,7 +167,46 @@
 
             $result = $stmt->execute($param);
 
-            echo $result;         
+            echo $result;  
+
+        $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'Requester');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Approved DTR Correction Request  ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your dtr correction request #'.$rowid.' has been approved.<br><br>
+                        <h2>From: '.$napprover.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php">DTR Correction Request List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "DTR Correction Request List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }                       
         }
 
         function RejectDtrCorrect($empReportingTo,$empId,$rjctRsn,$rowId){
@@ -157,12 +214,24 @@
             global $connL;
 
 
-            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empReportingTo";
-            $sparam = array(':empReportingTo' => $empReportingTo);
-            $sstmt =$connL->prepare($squery);
-            $sstmt->execute($sparam);
-            $sresult = $sstmt->fetch();
-            $sname = $sresult['fullname'];
+            $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+            WHERE emp_code = :empcode";
+            $rparam = array(':empcode' => $empId);
+            $rstmt =$connL->prepare($rquery);
+            $rstmt->execute($rparam);
+            $rresult = $rstmt->fetch();
+            $e_req = $rresult['emailaddress'];
+            $n_req = $rresult['fullname'];
+
+            $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :approver";
+            $param = array(':approver' => $empReportingTo);
+            $stmt =$connL->prepare($query);
+            $stmt->execute($param);
+            $result = $stmt->fetch();
+            $e_appr = $result['emailaddress'];
+            $n_appr = $result['fullname'];
+            $apprv_name = $result['fullname'];          
+
 
             $querys = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
             VALUES(:dtrc_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";
@@ -172,8 +241,8 @@
             $params = array(
                 ":dtrc_id" => $rowId,
                 ":emp_code"=> $empId,
-                ":emp_name"=> $sname,
-                ":remarks" => 'Rejected by '.$sname.'. Reason:'.$rjctRsn,
+                ":emp_name"=> $apprv_name,
+                ":remarks" => 'Rejected by '.$apprv_name.'. Reason:'.$rjctRsn,
                 ":audituser" => $empReportingTo,
                 ":auditdate"=>date('m-d-Y')
             );
@@ -199,7 +268,47 @@
             $result = $stmt->execute($param);
 
             echo $result;
-            
+
+       $erequester = $e_req;
+        $nrequester = $n_req;
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'Requester');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Rejected DTR Correction Request  ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your dtr correction request #'.$rowid.' has been rejected.<br><br>
+                        <h2>From: '.$napprover.' <br></h2>
+                        <h2>Reason: '.$rjctRsn.' <br><br></h2>
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php">DTR Correction Request List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "DTR Correction Request List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }            
+                       
         }
 
 
@@ -214,11 +323,15 @@ function FwdDtrCorrect($empReportingTo,$empId,$approver,$rowid){
         $cmd->execute();
     
 
-        $query = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empcode";
+
+        $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+        WHERE emp_code = :empcode";
         $param = array(':empcode' => $approver);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();
+        $e_appr = $result['emailaddress'];
+        $n_appr = $result['fullname'];        
         $aprvname = $result['fullname'];
 
         $query = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
@@ -238,6 +351,48 @@ function FwdDtrCorrect($empReportingTo,$empId,$approver,$rowid){
             $result = $stmt->execute($param);
 
             echo $result;
+
+        // $erequester = 'fcalumba@premiummegastructures.com';
+        // $nrequester = 'Francis Calumba';
+        $erequester = 'rmendoza@premiummegastructures.com';
+        $nrequester = 'Francis Calumba';            
+        $eapprover = $e_appr;
+        $napprover = $n_appr;
+
+        $mail = new PHPMailer(true);
+        try {
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        $mail->isSMTP();                                           
+        $mail->Host       = 'mail.obanana.com'; 
+        $mail->SMTPAuth   = true;                                   
+        $mail->Username   = 'hris-support@obanana.com';        
+        $mail->Password   = '@dmin123@dmin123';                              
+        $mail->SMTPSecure = 'tls';            
+        $mail->Port       = 587;                                   
+
+        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        $mail->addAddress($erequester,'President');    
+
+        $mail->isHTML(true);                          
+        $mail->Subject = 'Forward Request to the President: ';
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>The dtr correction request #'.$rowid.' has been forwarded to you for your approval.<br><br>
+                        <h2>From: '.$napprover.' <br><br></h2>
+    
+                        <h2>Check the request in :
+                        <a href="http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php">DTR Correction Approval List</a> 
+                        <br><br></h2>
+
+                        Thank you for using our application! <br><br>
+                        Regards, <br>
+                        Human Resource Information System <br> <br>
+
+                        <h6>If you are having trouble clicking the "DTR Correction Approval List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/dtrcorrect/dtrcorrect_app_view.php <h6>
+                       ';
+            $mail->send();
+            // echo 'Message has been sent';
+            } catch (Exception $e) {
+            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }                                        
  
     }
 

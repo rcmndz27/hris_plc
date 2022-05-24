@@ -74,6 +74,11 @@
 
 $('#Submit').click(function(){
 
+            var e_req = $('#e_req').val();
+            var n_req = $('#n_req').val();
+            var e_appr = $('#e_appr').val();
+            var n_appr = $('#n_appr').val();      
+
             if (CheckInput() === true) {
 
                 param = {
@@ -81,7 +86,11 @@ $('#Submit').click(function(){
                     "dtrc_date": $('#dtrc_date').val(),
                     "time_in": $('#time_in').val(),
                     "time_out": $('#time_out').val(),
-                    "remarks": $('#remarks').val()
+                    "remarks": $('#remarks').val(),
+                    "e_req": e_req,
+                    "n_req": n_req,
+                    "e_appr": e_appr,
+                    "n_appr": n_appr                      
                     
                };
                 
@@ -96,6 +105,7 @@ $('#Submit').click(function(){
                           dangerMode: true,
                         })
                         .then((applyWfh) => {
+                        document.getElementById("myDiv").style.display="block";                            
                           if (applyWfh) {
                                     $.ajax({
                                         type: "POST",
@@ -117,10 +127,10 @@ $('#Submit').click(function(){
                                         }
                                     });
                           } else {
+                            document.getElementById("myDiv").style.display="none";
                             swal({text:"You cancel your dtr correction!!",icon:"error"});
                           }
                         });
-
  
             }else{
                 swal({text:"Kindly fill up blank fields!",icon:"error"});

@@ -23,8 +23,12 @@
         $time_in = $dtrcApplication->{"time_in"};
         $time_out = $dtrcApplication->{"time_out"};      
         $remarks = $dtrcApplication->{"remarks"} ;
+        $e_req = $dtrcApplication->{"e_req"} ;
+        $n_req = $dtrcApplication->{"n_req"} ;
+        $e_appr = $dtrcApplication->{"e_appr"} ;
+        $n_appr = $dtrcApplication->{"n_appr"} ;
 
-        $dtrcApp->InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$remarks);
+        $dtrcApp->InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$remarks,$e_req,$n_req,$e_appr,$n_appr);
 
 
     }

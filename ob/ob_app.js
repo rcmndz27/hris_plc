@@ -133,7 +133,7 @@ $('#Submit').click(function(){
                             swal({text:"OB DATE TO must be greater than OB DATE FROM!",icon:"error"});
                     }                
             }else{
-                swal({text:"Please fill-up all blank fields.!",icon:"error"});
+                swal({text:"Kindly fill up blank fields!",icon:"error"});
             }
                               
     });
