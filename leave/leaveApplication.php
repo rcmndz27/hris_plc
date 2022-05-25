@@ -25,10 +25,10 @@ Class LeaveApplication{
                 $stmt =$connL->prepare($query);
                 $param = array(":empCode" => $this->employeeCode);
                 $stmt->execute($param);
-                $result = $stmt->fetch();
+                $result = $stmt->fetch();  
 
-                $used_vl = round(10.00,1) - round($result['earned_vl'],1);
-                $used_sl = round(10.00,1) - round($result['earned_sl'],1);
+                $used_vl = (isset($result['earned_vl']) ? round(10.00,1) - round($result['earned_vl'],1) : 0);
+                $used_sl = (isset($result['earned_sl']) ? round(10.00,1) - round($result['earned_sl'],1) : 0);
                 $pending_vl = (isset($result['pending_vl']) ? $result['pending_vl'] : 0);
                 $pending_sl = (isset($result['pending_sl']) ? $result['pending_sl'] : 0);
                 $earned_vl = (isset($result['earned_vl']) ? round($result['earned_vl'],2) : 0);

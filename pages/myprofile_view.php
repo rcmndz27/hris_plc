@@ -45,7 +45,7 @@
     <div class="section-title">
           <h1>MY PROFILE</h1>
         </div>
-    <div class="main-body">
+    <div class="main-body mbsda">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">

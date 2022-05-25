@@ -17,6 +17,12 @@
     border-radius: .25rem;
 }
 
+.mbsda{
+
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+}
+
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
