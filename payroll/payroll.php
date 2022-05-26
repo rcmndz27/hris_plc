@@ -36,6 +36,8 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
     $ob = 0;
     $sl = 0;
     $vl = 0;
+    $slnp = 0;
+    $vlnp = 0;    
 
     $qins = 'INSERT INTO dbo.payroll_period_logs (emp_code,period_from,period_to,location) 
     VALUES (:emp_code,:period_from,:period_to,:location)';
@@ -49,7 +51,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
     $result = $stmt_ins->execute($params);
 
 
-    $query = 'SELECT a.emp_code,a.lastname,a.firstname,a.middlename,period_from,period_to,tot_days_absent,tot_days_work,tot_lates,total_undertime,total_adjstmenthrs,tot_overtime_reg,tot_rest,tot_overtime_rest,tot_overtime_regholiday,tot_overtime_spholiday,tot_overtime_sprestholiday,total_undertime,night_differential,night_differential_ot,night_differential_ot_rest ,sick_leave,vacation_leave,tot_regholiday,tot_regholiday_nightdiff,tot_overtime_regholiday_nightdiff,tot_spholiday,tot_spholiday_nightdiff,tot_overtime_spholiday_nightdiff,night_differential_rest,tot_overtime_rest_regholiday,night_differential_rest_regholiday,tot_overtime_night_diff_rest_regholiday,tot_sprestholiday,tot_sprestholiday_nightdiff,tot_overtime_sprestholiday_nightdiff,workfromhome,offbusiness,b.rowid,b.badge_no,b.employee,b.location
+    $query = 'SELECT a.emp_code,a.lastname,a.firstname,a.middlename,period_from,period_to,tot_days_absent,tot_days_work,tot_lates,total_undertime,total_adjstmenthrs,tot_overtime_reg,tot_rest,tot_overtime_rest,tot_overtime_regholiday,tot_overtime_spholiday,tot_overtime_sprestholiday,total_undertime,night_differential,night_differential_ot,night_differential_ot_rest ,sick_leave,vacation_leave,sick_leave_nopay,vacation_leave_nopay,tot_regholiday,tot_regholiday_nightdiff,tot_overtime_regholiday_nightdiff,tot_spholiday,tot_spholiday_nightdiff,tot_overtime_spholiday_nightdiff,night_differential_rest,tot_overtime_rest_regholiday,night_differential_rest_regholiday,tot_overtime_night_diff_rest_regholiday,tot_sprestholiday,tot_sprestholiday_nightdiff,tot_overtime_sprestholiday_nightdiff,workfromhome,offbusiness,b.rowid,b.badge_no,b.employee,b.location
     from employee_profile a left join
     att_summary b on a.badgeno = b.badge_no
     WHERE tot_days_work is not null and a.emp_status = :status and period_from = :period_from AND period_to = :period_to and b.location = :location ORDER BY a.lastname DESC';
@@ -101,7 +103,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
     <th>Work From Home (Days)</th> 
     <th>Official Business (Days)</th>      
     <th>Sick Leave (Days)</th> 
-    <th>Vacation Leave (Days)</th>                          
+    <th>Vacation Leave (Days)</th>  
+    <th>Sick Leave No Pay (Days)</th> 
+    <th>Vacation Leave No Pay (Days)</th>                             
     <th class='evac'>Edit/View Attendance</th>           
     </tr>
     </thead>
@@ -153,7 +157,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='wfh".$r['badge_no']."'>" . round($r['workfromhome'],2) . "</td>".
             "<td id='ob".$r['badge_no']."'>" . round($r['offbusiness'],2) . "</td>".
             "<td id='slh".$r['badge_no']."'>" . round($r['sick_leave'],2) . "</td>".
-            "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>";
+            "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>".
+            "<td id='slhnp".$r['badge_no']."'>" . round($r['sick_leave_nopay'],2) . "</td>".
+            "<td id='vlhnp".$r['badge_no']."'>" . round($r['vacation_leave_nopay'],2) . "</td>";
             echo'<td><button type="button"class="hdeactv" 
             onclick="editAttModal('.$empn.','.$badgeno.','.$rwd.')" title="Edit Attendance"><i class="fas fa-edit"></i>
             </button>
@@ -195,7 +201,10 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             $wfh += round($r['workfromhome'] , 2);
             $ob += round($r['offbusiness'] , 2);            
             $sl += round($r['sick_leave'] , 2);
-            $vl += round($r['vacation_leave'] , 2);                                                                                              
+            $vl += round($r['vacation_leave'] , 2);
+            $slnp += round($r['sick_leave_nopay'] , 2);
+            $vlnp += round($r['vacation_leave_nopay'] , 2);            
+
         } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
 
         $q_logs = 'SELECT * FROM dbo.payroll WHERE rowid = (SELECT MAX(rowid) AS id 
@@ -247,7 +256,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td class='bg-success'><b>" . $wfh . "</b></td>".
             "<td class='bg-success'><b>" . $ob . "</b></td>".
             "<td class='bg-success'><b>" . $sl . "</b></td>".
-            "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".                                                
+            "<td class='bg-success'><b>" . $vl . "</b></td>".            
+            "<td class='bg-success'><b>" . $slnp . "</b></td>".
+            "<td class='bg-success' colspan='2'><b>" . $vlnp . "</b></td>".                                                
             "</tr><tr>";
             if($dtf_l == $dtFrom and $dtt_l == $dtTo and 
                 ucwords(strtolower($loc_l)) == ucwords(strtolower($location))){
@@ -292,9 +303,11 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td class='bg-success'><b>" . $rd_sh_ns_ot . "</b></td>".
             "<td class='bg-success'><b>" . $adj . "</b></td>".
             "<td class='bg-success'><b>" . $wfh . "</b></td>".
-            "<td class='bg-success'><b>" . $ob . "</b></td>".            
+            "<td class='bg-success'><b>" . $ob . "</b></td>".
             "<td class='bg-success'><b>" . $sl . "</b></td>".
-            "<td class='bg-success' colspan='2'><b>" . $vl . "</b></td>".
+            "<td class='bg-success'><b>" . $vl . "</b></td>".                         
+            "<td class='bg-success'><b>" . $slnp . "</b></td>".
+            "<td class='bg-success' colspan='2'><b>" . $vlnp . "</b></td>".
             "</tr><tr>";  
             echo"<td colspan='15' class='paytop'>".
             "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".

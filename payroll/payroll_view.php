@@ -305,6 +305,20 @@ else
                             </div> 
                             <div class="col-lg-4">
                                 <div class="form-group">
+                                    <label class="control-label" for="sick_leave_nopay">Sick Leave No Pay(Days):</label><br><br>
+                                    <input type="number" class="form-control" name="sick_leave_nopay"
+                                    id="sick_leave_nopay"> 
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="vacation_leave_nopay">Vacation Leave No Pay(Days):</label><br><br>
+                                    <input type="number" class="form-control" name="vacation_leave_nopay"
+                                    id="vacation_leave_nopay"> 
+                                </div>
+                            </div>                             
+                            <div class="col-lg-4">
+                                <div class="form-group">
                                     <label class="control-label" for="total_adjstmenthrs">Adjustment (Hrs):</label><br><br>
                                     <input type="number" class="form-control" name="total_adjstmenthrs"
                                     id="total_adjstmenthrs"> 
@@ -567,6 +581,8 @@ aria-hidden="true">
     document.getElementById('offbusiness').value =   document.getElementById('ob'+empcd).innerHTML;  
     document.getElementById('sick_leave').value =   document.getElementById('slh'+empcd).innerHTML;  
     document.getElementById('vacation_leave').value =   document.getElementById('vlh'+empcd).innerHTML;
+    document.getElementById('sick_leave_nopay').value =   document.getElementById('slhnp'+empcd).innerHTML;  
+    document.getElementById('vacation_leave_nopay').value =   document.getElementById('vlhnp'+empcd).innerHTML;    
 }
 
 function insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname) {
@@ -624,6 +640,8 @@ function updateAtt()
     var offbusiness = document.getElementById("offbusiness").value;
     var sick_leave = document.getElementById("sick_leave").value;
     var vacation_leave = document.getElementById("vacation_leave").value;
+    var sick_leave_nopay = document.getElementById("sick_leave_nopay").value;
+    var vacation_leave_nopay = document.getElementById("vacation_leave_nopay").value;    
     var remarks = document.getElementById("remarks").value;
 
 
@@ -663,6 +681,8 @@ function updateAtt()
     var old_offbusiness = document.getElementById('ob'+badge_no).innerHTML ;
     var old_sick_leave = document.getElementById('slh'+badge_no).innerHTML ;
     var old_vacation_leave = document.getElementById('vlh'+badge_no).innerHTML;
+    var old_sick_leave_nopay = document.getElementById('slhnp'+badge_no).innerHTML ;
+    var old_vacation_leave_nopay = document.getElementById('vlhnp'+badge_no).innerHTML;    
 
     // return false;
     
@@ -710,7 +730,9 @@ function updateAtt()
                     workfromhome: workfromhome,
                     offbusiness: offbusiness,
                     sick_leave: sick_leave,
-                    vacation_leave: vacation_leave
+                    vacation_leave: vacation_leave,
+                    sick_leave_nopay: sick_leave_nopay,
+                    vacation_leave_nopay: vacation_leave_nopay                    
                 },
                 function(data) {   
                 console.log(data);                                        
@@ -751,6 +773,8 @@ function updateAtt()
                         document.getElementById('ob'+badge_no).innerHTML = offbusiness;
                         document.getElementById('slh'+badge_no).innerHTML = sick_leave;
                         document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
+                        document.getElementById('slhnp'+badge_no).innerHTML = sick_leave_nopay;
+                        document.getElementById('vlhnp'+badge_no).innerHTML = vacation_leave_nopay;                        
 
             if(tot_days_absent !== old_tot_days_absent){
             action = 'Change';
@@ -919,6 +943,18 @@ function updateAtt()
             new_data = sick_leave;
             old_data =  old_sick_leave;
             column_name =  'Sick Leave Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(vacation_leave_nopay !== old_vacation_leave_nopay){
+            action = 'Change';
+            new_data = vacation_leave_nopay;
+            old_data =  old_vacation_leave_nopay;
+            column_name =  'Vacation Leave No Pay Days';         
+            insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
+            }if(sick_leave_nopay !== old_sick_leave_nopay){
+            action = 'Change';
+            new_data = sick_leave_nopay;
+            old_data =  old_sick_leave_nopay;
+            column_name =  'Sick Leave No Pay Days';         
             insertPayLogs(url2,badge_no,action,column_name,pay_from,pay_to,new_data,old_data,remarks,empcd,lname,fname);
             }if(workfromhome !== old_workfromhome){
             action = 'Change';

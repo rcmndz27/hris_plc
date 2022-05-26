@@ -68,7 +68,9 @@ class PayrollRegApplication {
                         <th> Transportation Allowance</th>
                         <th> Load Allowance </th>
                         <th> Sick Leave</th>
-                        <th> Vacation Leave </th>                        
+                        <th> Vacation Leave </th>   
+                        <th> Sick Leave No Pay</th>
+                        <th> Vacation Leave No Pay</th>                                              
                         <th> Grosspay </th>
                         <th> Total Taxable </th>
                         <th> Withholding Tax </th>
@@ -120,6 +122,8 @@ $trans_allowance = ($r['trans_allowance'] <> '0') ?  '&#8369;'.number_format($r[
 $load_allowance = ($r['load_allowance'] <> '0') ?  '&#8369;'.number_format($r['load_allowance'],2,'.',',') : 0 ;
 $sick_leave = ($r['sick_leave'] <> '0') ?  '&#8369;'.number_format($r['sick_leave'],2,'.',',') : 0 ;
 $vacation_leave = ($r['vacation_leave'] <> '0') ?  '&#8369;'.number_format($r['vacation_leave'],2,'.',',') : 0 ;
+$sick_leave_nopay = ($r['sick_leave_nopay'] <> '0') ?  '&#8369;'.number_format($r['sick_leave_nopay'],2,'.',',') : 0 ;
+$vacation_leave_nopay = ($r['vacation_leave_nopay'] <> '0') ?  '&#8369;'.number_format($r['vacation_leave_nopay'],2,'.',',') : 0 ;
 $gross_pay = ($r['gross_pay'] <> '0') ?  '&#8369;'.number_format($r['gross_pay'],2,'.',',') : 0 ;
 $total_taxable = ($r['total_taxable'] <> '0') ?  '&#8369;'.number_format($r['total_taxable'],2,'.',',') : 0 ;
 $witholding_tax = ($r['witholding_tax'] <> '0') ?  '&#8369;'.number_format($r['witholding_tax'],2,'.',',') : 0 ;
@@ -180,7 +184,9 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
     "<td>" . $trans_allowance. "</td>".
     "<td>" . $load_allowance. "</td>".
     "<td>" . $sick_leave. "</td>".
-    "<td>" . $vacation_leave. "</td>".                                    
+    "<td>" . $vacation_leave. "</td>". 
+    "<td>" . $sick_leave_nopay. "</td>".
+    "<td>" . $vacation_leave_nopay. "</td>".                                   
     "<td>" . $gross_pay. "</td>".
     "<td>" . $total_taxable. "</td>".
     "<td>" . $witholding_tax. "</td>".
