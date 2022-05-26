@@ -56,8 +56,8 @@ class PayrollRegApplication {
                         <th>Absences</th>
                         <th> Lates </th>
                         <th> Undertime </th>
-                        <th> Salary Adjustment (Hrs)</th>
                         <th> Salary Adjustment (Days)</th>
+                        <th> Salary Adjustment (Hrs)</th>
                         <th> Overtime </th>
                         <th> Meal Allowance </th>
                         <th> Salary Allowance </th>

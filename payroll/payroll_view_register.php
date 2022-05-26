@@ -165,6 +165,7 @@ function ConfirmPayRegView()
           emp_code: empCode
         },
         function(data) {
+          console.log("success: "+ data);
           swal({
             title: "Wow!", 
             text: "Successfully confirmed payroll register details!", 
