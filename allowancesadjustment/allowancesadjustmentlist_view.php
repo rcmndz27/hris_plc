@@ -294,7 +294,7 @@
                                     },
                                     function(data) { 
                                         swal({
-                                        title: "Wow!", 
+                                        title: "Success!", 
                                         text: "Successfully updated employee allowances adjustment detailss!", 
                                         type: "success",
                                         icon: "success",

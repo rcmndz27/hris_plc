@@ -190,7 +190,7 @@ else
                 },
                 function(data) {                   
                     swal({
-                        title: "Wow!", 
+                        title: "Success!", 
                         text: "Successfully generated attendance!", 
                         type: "success",
                         icon: "success",
@@ -239,7 +239,7 @@ else
                 },
                 function(data) {                 
                     swal({
-                        title: "Wow!", 
+                        title: "Success!", 
                         text: "Successfully generated attendance!", 
                         type: "success",
                         icon: "success",

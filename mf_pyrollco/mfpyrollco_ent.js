@@ -59,7 +59,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added the payroll cut-off details!", 
                                             type: "success",
                                             icon: "success",

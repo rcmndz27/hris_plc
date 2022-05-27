@@ -530,7 +530,7 @@ for (i = 0; i < tr.length; i++) {
                                             // console.log(data);
 
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully updated employee detailss!", 
                                                     type: "success",
                                                     icon: "success",

@@ -63,7 +63,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added the holiday details!", 
                                             type: "success",
                                             icon: "success",

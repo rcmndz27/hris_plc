@@ -111,7 +111,7 @@ $('#Submit').click(function(){
                                         success: function (data){
                                             console.log("success: "+ data);
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added official business details!", 
                                                     type: "success",
                                                     icon: "success",

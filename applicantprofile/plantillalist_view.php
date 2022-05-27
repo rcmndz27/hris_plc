@@ -147,7 +147,7 @@ var rowid = data;
                 },
                 function(data) { 
                     swal({
-                    title: "Wow!", 
+                    title: "Success!", 
                     text: "Successfully activated the plantilla details!", 
                     type: "success",
                     icon: "success",
@@ -190,7 +190,7 @@ var rowid = data;
                                     },
                                     function(data) { 
                                         swal({
-                                        title: "Wow!", 
+                                        title: "Success!", 
                                         text: "Successfully de-activated the plantilla!s!", 
                                         type: "success",
                                         icon: "success",

@@ -289,7 +289,7 @@ function password_show_hide() {
                                     },
                                     function(data) { 
                                         swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the user account details!", 
                                             type: "success",
                                             icon: "success",
@@ -334,7 +334,7 @@ function password_show_hide() {
                                     },
                                     function(data) { 
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully unlocked the user account!.", 
                                             icon: "success",
                                         }).then(function() {

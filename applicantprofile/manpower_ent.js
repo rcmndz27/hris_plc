@@ -54,7 +54,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added manpower details!", 
                                                     type: "success",
                                                     icon: "success",

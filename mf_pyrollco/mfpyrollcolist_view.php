@@ -279,7 +279,7 @@ for (i = 0; i < tr.length; i++) {
                                     },
                                     function(data) { 
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the payroll cut-off details!", 
                                             type: "success",
                                             icon: "success",

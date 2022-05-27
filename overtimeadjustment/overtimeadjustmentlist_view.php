@@ -289,7 +289,7 @@
                                     },
                                     function(data) { 
                                         swal({
-                                        title: "Wow!", 
+                                        title: "Success!", 
                                         text: "Successfully updated employee overtime adjustment detailss!", 
                                         type: "success",
                                         icon: "success",

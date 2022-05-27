@@ -60,7 +60,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added the department details!", 
                                             type: "success",
                                             icon: "success",

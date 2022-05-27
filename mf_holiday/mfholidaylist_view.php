@@ -246,7 +246,7 @@ for (i = 0; i < tr.length; i++) {
                                     },
                                     function(data) { 
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the holiday details!", 
                                             type: "success",
                                             icon: "success",

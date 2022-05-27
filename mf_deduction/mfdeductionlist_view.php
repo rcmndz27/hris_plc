@@ -275,7 +275,7 @@ for (i = 0; i < tr.length; i++) {
                                     },
                                     function(data) {                                             
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the deduction details!", 
                                             type: "success",
                                             icon: "success",

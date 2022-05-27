@@ -58,7 +58,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added bank details!", 
                                             type: "success",
                                             icon: "success",

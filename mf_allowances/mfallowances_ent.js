@@ -58,7 +58,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added allowances type!", 
                                             type: "success",
                                             icon: "success",

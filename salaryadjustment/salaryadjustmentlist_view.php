@@ -297,7 +297,7 @@
                                     },
                                     function(data) { 
                                         swal({
-                                        title: "Wow!", 
+                                        title: "Success!", 
                                         text: "Successfully updated employee salary adjustment detailss!", 
                                         type: "success",
                                         icon: "success",

@@ -284,7 +284,7 @@ var status = document.getElementById("stts").value;
                             },
                             function(data) { 
                                 swal({
-                                    title: "Wow!", 
+                                    title: "Success!", 
                                     text: "Successfully updated the employee allowances details!", 
                                     icon: "success",
                                 }).then(function() {

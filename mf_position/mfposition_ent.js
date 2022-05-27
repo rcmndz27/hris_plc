@@ -59,7 +59,7 @@ $(function(){
                                         success: function (result) {
                                             // console.log('success: ' + result);
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully added the job details!", 
                                             type: "success",
                                             icon: "success",

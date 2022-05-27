@@ -219,7 +219,7 @@ function chngPass(){
                                                 success: function (result) {
                                                     console.log('success: ' + result);
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully updated password!", 
                                                     type: "success",
                                                     icon: "success",

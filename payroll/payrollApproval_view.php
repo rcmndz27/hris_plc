@@ -174,7 +174,7 @@ function ViewPyReg(perfrom,perto,stats)
                                     },
                                     function(data) { 
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully approved payroll details!", 
                                             type: "success",
                                             icon: "success",

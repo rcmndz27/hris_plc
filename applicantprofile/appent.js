@@ -154,7 +154,7 @@ $(function(){
                                         success: function (result) {
                                             // console.log('success: ' + result);
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added new applicant details!", 
                                                     type: "success",
                                                     icon: "success",

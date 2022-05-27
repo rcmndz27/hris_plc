@@ -72,7 +72,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added employee salary adjustment detailss!", 
                                                     type: "success",
                                                     icon: "success",

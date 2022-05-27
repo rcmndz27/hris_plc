@@ -737,7 +737,7 @@ function updateAtt()
                 function(data) {   
                 console.log(data);                                        
                     swal({
-                        title: "Wow!", 
+                        title: "Success!", 
                         text: "Successfully updated the attendance details!", 
                         type: "success",
                         icon: "success",

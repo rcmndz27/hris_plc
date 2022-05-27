@@ -163,7 +163,7 @@ $('#Submit').click(function(){
                                         success: function (data){
                                             console.log("success: "+ data);
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added work from home details!", 
                                                     type: "success",
                                                     icon: "success",

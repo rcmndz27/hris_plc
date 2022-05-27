@@ -529,7 +529,7 @@
                                 },
                     function(data) {
                             swal({
-                            title: "Wow!", 
+                            title: "Success!", 
                             text: "Successfully verified applicant details!", 
                             type: "success",
                             icon: "success",
@@ -582,7 +582,7 @@
                                     },
                                     function(data) { 
                                         swal({
-                                        title: "Wow!", 
+                                        title: "Success!", 
                                         text: "Successfully verified applicant details!", 
                                         type: "success",
                                         icon: "success",

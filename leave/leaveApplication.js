@@ -618,7 +618,7 @@ swal({
                                         success: function (data){
                                             // console.log("success: "+ data);
                                                     swal({
-                                                    title: "Wow!", 
+                                                    title: "Success!", 
                                                     text: "Successfully added leave details!", 
                                                     type: "success",
                                                     icon: "success",

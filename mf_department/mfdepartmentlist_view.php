@@ -277,7 +277,7 @@ function myFunction() {
                                     },
                                     function(data) { 
                                             swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the department details!", 
                                             type: "success",
                                             icon: "success",

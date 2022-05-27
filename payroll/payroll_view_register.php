@@ -124,7 +124,7 @@ function deletePayReg()
         function(data) {
           // console.log(data);
           swal({
-            title: "Wow!", 
+            title: "Success!", 
             text: "Successfully deleted generated payroll!", 
             type: "success",
             icon: "success",
@@ -167,7 +167,7 @@ function ConfirmPayRegView()
         function(data) {
           console.log("success: "+ data);
           swal({
-            title: "Wow!", 
+            title: "Success!", 
             text: "Successfully confirmed payroll register details!", 
             type: "success",
             icon: "success",

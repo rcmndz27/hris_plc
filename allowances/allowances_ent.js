@@ -62,7 +62,7 @@ $(function(){
                                         },
                                         success: function (result) {
                                             swal({
-                                                title: "Wow!", 
+                                                title: "Success!", 
                                                 text: "Successfully added the employee allowances details!", 
                                                 icon: "success",
                                             }).then(function() {

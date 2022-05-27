@@ -244,7 +244,7 @@
                                     },
                                     function(data) { 
                                         swal({
-                                            title: "Wow!", 
+                                            title: "Success!", 
                                             text: "Successfully updated the employee leave balance details!", 
                                             icon: "success",
                                         }).then(function() {
