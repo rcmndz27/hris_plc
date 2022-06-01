@@ -1,27 +1,28 @@
-0<?php
+<?php
+                //     <div class="col-lg-1">
+                //         <select class="form-select" name="state" id="maxRows">
+                //              <option value="5000">ALL</option>
+                //              <option value="5">5</option>
+                //              <option value="10">10</option>
+                //              <option value="15">15</option>
+                //              <option value="20">20</option>
+                //              <option value="50">50</option>
+                //              <option value="70">70</option>
+                //              <option value="100">100</option>
+                //         </select> 
+                // </div>  
 
 Class NewHireAccess{
 
-    public function GetAllEmpHistory(){
+    public function GetAllEmpHistory($empStatus){
+
         global $connL;
 
         echo '
         <div class="form-row">  
-                    <div class="col-lg-1">
-                        <select class="form-select" name="state" id="maxRows">
-                             <option value="5000">ALL</option>
-                             <option value="5">5</option>
-                             <option value="10">10</option>
-                             <option value="15">15</option>
-                             <option value="20">20</option>
-                             <option value="50">50</option>
-                             <option value="70">70</option>
-                             <option value="100">100</option>
-                        </select> 
-                </div>         
                 <div class="col-lg-8">
                 </div>                               
-                <div class="col-lg-3">        
+                <div class="col-lg-4">        
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search..." title="Type in employee name"> 
                         </div>                     
                 </div>  
@@ -40,14 +41,16 @@ Class NewHireAccess{
         </thead>
         <tbody>';
 
-        $query = "SELECT * from dbo.employee_profile where emp_status = 'Active' ORDER BY lastname asc ";
+        $query = "SELECT * from dbo.employee_profile where emp_status = :empStatus ORDER BY lastname asc ";
+        $param = array(":empStatus" => $empStatus);
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
         if($result){
             do { 
-                $fullname=  $result['lastname'].','.$result['firstname'].' '.substr($result['middlename'],0,1).'.';
+                $fullname =  $result['lastname'].','.$result['firstname'].' '.substr($result['middlename'],0,1).'.';
                 $empcd = "'".$result['emp_code']."'";
+                $emppicloc = "'".$result['emp_pic_loc']."'";
                  $day[] = $result;
                 echo '
                 <tr>
@@ -58,7 +61,7 @@ Class NewHireAccess{
                 <td>' . $result['location'] . '</td>
                 <td>' . $result['emp_type'] . '</td>
                 <td>' . $result['emp_status'] . '</td>';
-                echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
+                echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.','.$emppicloc.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
                             </button><button type="button" class="hdeactv" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
                                 <i class="fas fa-edit"></i>
                             </button></td>

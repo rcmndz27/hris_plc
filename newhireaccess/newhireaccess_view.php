@@ -30,35 +30,54 @@
     }    
 ?>
 <script type="text/javascript">
-    
-    $(function(){
 
-    function XLSXExport(){
-        $("#allEmpList").tableExport({
-            headers: true,
-            footers: true,
-            formats: ['xlsx'],
-            filename: 'id',
-            bootstrap: false,
-            exportButtons: true,
-            position: 'top',
-            ignoreRows: null,
-            ignoreCols: null,
-            trimWhitespace: true,
-            RTL: false,
-            sheetname: 'Employees OBN'
-        });
+    function show() {
+        document.getElementById("myDiv").style.display="block";
     }
-    XLSXExport();
-    $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
-
-});
 
 
-    function viewEmpModal(lvlogid)
+     function generateEmpStatus()
+    {
+        document.getElementById("myDiv").style.display="block";
+        var url = "../newhireaccess/newhire_process.php";
+        var empStatus = $('#empStatus').val();
+
+        $.post (
+            url,
+            {   
+                empStatus:empStatus
+                
+            },
+            function(data) { 
+                $("#contents").html(data).show();
+                $("#allEmpList").tableExport({
+                    headers: true,
+                    footers: true,
+                    formats: ['xlsx'],
+                    filename: 'id',
+                    bootstrap: false,
+                    exportButtons: true,
+                    position: 'top',
+                    ignoreRows: null,
+                    ignoreCols: null,
+                    trimWhitespace: true,
+                    RTL: false,
+                    sheetname: 'Employees'
+                });
+            $(".fa-file-export").remove();
+            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');      
+                document.getElementById("myDiv").style.display="none"; 
+            }
+            );
+    }
+
+
+
+    function viewEmpModal(lvlogid,emppicloc)
     {
        $('#viewEmpModal').modal('toggle');
         var url = "../newhireaccess/nh_viewprofile.php";
+        document.getElementById("myImg").src = "../uploads/employees/"+emppicloc;
         var lvlogid = lvlogid;
 
         $.post (
@@ -74,6 +93,7 @@
 </script>
 <link rel="stylesheet" href="../newhireaccess/newhire-access.css">
 <script type='text/javascript' src='../js/validator.js'></script>
+<body onload="javascript:generateEmpStatus();">
 <div class="container">
     <div class="section-title">
           <h4>ALL EMPLOYEE LIST</h4>
@@ -87,17 +107,33 @@
                         </i>&nbsp;ALL EMPLOYEE LIST - 201 MASTERFILE</b></li>
             </ol>
           </nav>
+
+        <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">Status:</label>
+            <div class='col-md-2'>
+              <select class="form-select" id="empStatus" name="empStatus" value="">
+                <option value="Active">Active</option>
+                <option value="Resigned">Resigned</option>
+                <option value="Terminated">Terminated</option>
+                <option value="Separated">Separated</option>
+              </select>
+                
+            </div>           
+            <button type="button" id="search" class="delGenPay" onclick="generateEmpStatus();">
+              <i class="fas fa-search-plus"></i> GENERATE                      
+            </button>                                      
+        </div>
+
+
     <div class="pt-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allEmpApp->GetAllEmpHistory(); ?>
-                    </div>
-                </div>
+                    <div id='contents'></div>  
             </div>
         </div>
     </div>
+
+
 
     <div class="modal fade" id="HireEmp" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -117,6 +153,13 @@
                                 </legend>
                              </div>
                             <div class="form-row">
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                <label class="control-label" for="collegeCourse">Upload Photo <span class="req">*</span></label>
+                                <input class="d-block" type="file" name="empimgpic" id="empimgpic" accept="image/png, image/jpeg" onChange="GetEmpImgFile()">
+                                </div>
+                            </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="department">Employee Code</label>
@@ -321,7 +364,7 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-        <div class="modal fade" id="viewEmpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+    <div class="modal fade" id="viewEmpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -342,7 +385,7 @@
 
                                 <div class="col-lg-3">
                                     <label class="control-label" for=""> 
-                                        <img src="../img/newob.png" class="imgob">
+                                        <img src="" id="myImg" class="imgob">
                                     </label>                                        
                                 </div>  
 
@@ -382,12 +425,10 @@
 
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
-
+</body>
 <script type="text/javascript">
 
-
-
-      $('#perma').click(function(){
+       $('#perma').click(function(){
     
         var input2 = document.getElementById('emp_address2');
         input2.value = $('#emp_address').val();
@@ -441,15 +482,34 @@ for (i = 0; i < tr.length; i++) {
         return true;
     }
 
-    
+
+var empImgFile;
+
+function GetEmpImgFile() {
+    var selectedfile = document.getElementById("empimgpic").files;
+    if (selectedfile.length > 0) {
+        var uploadedFile = selectedfile[0];
+        var fileReader = new FileReader();
+        var fl = uploadedFile.name;
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result;
+            empImgFile =  fl;
+        }
+        fileReader.readAsDataURL(uploadedFile);
+    }
+}
 
 
 
     function updateEmpHired()
     {
 
+
+
         var url = "../newhireaccess/update_newhireaccess_process.php";
         var rowid = $('#rowid').val();
+        var emp_pic = empImgFile;
         var lastname = $('#lnameg').val();
         var firstname = $('#fnameg').val();
         var middlename = $('#mnameg').val();
@@ -483,6 +543,38 @@ for (i = 0; i < tr.length; i++) {
              var reportingto = reporting_to.split(" - ");
              var rt = reportingto[0];
         }
+
+
+            var files = document.getElementById("empimgpic").files;
+
+                   if(files.length > 0 ){
+
+                      var formData = new FormData();
+                      formData.append("file", files[0]);
+
+                      var xhttp = new XMLHttpRequest();
+
+                      // Set POST method and ajax file path
+                      xhttp.open("POST", "newemp_uploadajaxfile.php", true);
+
+                      // call on request changes state
+                      xhttp.onreadystatechange = function() {
+                         if (this.readyState == 4 && this.status == 200) {
+
+                           var response = this.responseText;
+                           if(response == 1){
+
+                           }else{
+                              swal({text:"File not uploaded!",icon:"error"});
+                           }
+                         }
+                      };
+                      // Send request with data
+                      xhttp.send(formData);
+
+                   }else{
+                      swal({text:"Please select an image file!",icon:"warning"});
+                   }
 
                         swal({
                           title:"Are you sure?",
@@ -523,20 +615,21 @@ for (i = 0; i < tr.length; i++) {
                                             pay_type: pay_type,
                                             emp_status : emp_status,
                                             reporting_to: rt,
+                                            emp_pic : emp_pic,
                                             rowid: rowid                
                                         },
                                         function(data) {
 
-                                            // console.log(data);
+                                            console.log('success: ' + data);
 
-                                                    swal({
-                                                    title: "Success!", 
-                                                    text: "Successfully updated employee detailss!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                       window.location.reload();
-                                                    });
+                                                    // swal({
+                                                    // title: "Success!", 
+                                                    // text: "Successfully updated employee detailss!", 
+                                                    // type: "success",
+                                                    // icon: "success",
+                                                    // }).then(function() {
+                                                    //    window.location.reload();
+                                                    // });
                                             }
                                     );
 
@@ -548,133 +641,133 @@ for (i = 0; i < tr.length; i++) {
                  }
 
                  
-getPagination('#allEmpList');
+// getPagination('#allEmpList');
 
-function getPagination(table) {
-  var lastPage = 1;
+// function getPagination(table) {
+//   var lastPage = 1;
 
-  $('#maxRows')
-    .on('change', function(evt) {
-      //$('.paginationprev').html('');  
-      // reset pagination
+//   $('#maxRows')
+//     .on('change', function(evt) {
+//       //$('.paginationprev').html('');  
+//       // reset pagination
 
-     lastPage = 1;
-      $('.pagination')
-        .find('li')
-        .slice(1, -1)
-        .remove();
-      var trnum = 0; // reset tr counter
-      var maxRows = parseInt($(this).val()); // get Max Rows from select option
+//      lastPage = 1;
+//       $('.pagination')
+//         .find('li')
+//         .slice(1, -1)
+//         .remove();
+//       var trnum = 0; // reset tr counter
+//       var maxRows = parseInt($(this).val()); // get Max Rows from select option
 
-      if (maxRows == 5000) {
-        $('.pagination').hide();
-      } else {
-        $('.pagination').show();
-      }
+//       if (maxRows == 5000) {
+//         $('.pagination').hide();
+//       } else {
+//         $('.pagination').show();
+//       }
 
-      var totalRows = $(table + ' tbody tr').length; // numbers of rows
-      $(table + ' tr:gt(0)').each(function() {
-        // each TR in  table and not the header
-        trnum++; // Start Counter
-        if (trnum > maxRows) {
-          // if tr number gt maxRows
+//       var totalRows = $(table + ' tbody tr').length; // numbers of rows
+//       $(table + ' tr:gt(0)').each(function() {
+//         // each TR in  table and not the header
+//         trnum++; // Start Counter
+//         if (trnum > maxRows) {
+//           // if tr number gt maxRows
 
-          $(this).hide(); // fade it out
-        }
-        if (trnum <= maxRows) {
-          $(this).show();
-        } // else fade in Important in case if it ..
-      }); //  was fade out to fade it in
-      if (totalRows > maxRows) {
-        // if tr total rows gt max rows option
-        var pagenum = Math.ceil(totalRows / maxRows); // ceil total(rows/maxrows) to get ..
-        //  numbers of pages
-        for (var i = 1; i <= pagenum; ) {
-          // for each page append pagination li
-          $('.pagination #prev')
-            .before(
-              '<li data-page="' +
-                i +
-                '">\
-                                  <span>' +
-                i++ +
-                '<span class="sr-only">(current)</span></span>\
-                                </li>'
-            )
-            .show();
-        } // end for i
-      } // end if row count > max rows
-      $('.pagination [data-page="1"]').addClass('active'); // add active class to the first li
-      $('.pagination li').on('click', function(evt) {
-        // on click each page
-        evt.stopImmediatePropagation();
-        evt.preventDefault();
-        var pageNum = $(this).attr('data-page'); // get it's number
+//           $(this).hide(); // fade it out
+//         }
+//         if (trnum <= maxRows) {
+//           $(this).show();
+//         } // else fade in Important in case if it ..
+//       }); //  was fade out to fade it in
+//       if (totalRows > maxRows) {
+//         // if tr total rows gt max rows option
+//         var pagenum = Math.ceil(totalRows / maxRows); // ceil total(rows/maxrows) to get ..
+//         //  numbers of pages
+//         for (var i = 1; i <= pagenum; ) {
+//           // for each page append pagination li
+//           $('.pagination #prev')
+//             .before(
+//               '<li data-page="' +
+//                 i +
+//                 '">\
+//                                   <span>' +
+//                 i++ +
+//                 '<span class="sr-only">(current)</span></span>\
+//                                 </li>'
+//             )
+//             .show();
+//         } // end for i
+//       } // end if row count > max rows
+//       $('.pagination [data-page="1"]').addClass('active'); // add active class to the first li
+//       $('.pagination li').on('click', function(evt) {
+//         // on click each page
+//         evt.stopImmediatePropagation();
+//         evt.preventDefault();
+//         var pageNum = $(this).attr('data-page'); // get it's number
 
-        var maxRows = parseInt($('#maxRows').val()); // get Max Rows from select option
+//         var maxRows = parseInt($('#maxRows').val()); // get Max Rows from select option
 
-        if (pageNum == 'prev') {
-          if (lastPage == 1) {
-            return;
-          }
-          pageNum = --lastPage;
-        }
-        if (pageNum == 'next') {
-          if (lastPage == $('.pagination li').length - 2) {
-            return;
-          }
-          pageNum = ++lastPage;
-        }
+//         if (pageNum == 'prev') {
+//           if (lastPage == 1) {
+//             return;
+//           }
+//           pageNum = --lastPage;
+//         }
+//         if (pageNum == 'next') {
+//           if (lastPage == $('.pagination li').length - 2) {
+//             return;
+//           }
+//           pageNum = ++lastPage;
+//         }
 
-        lastPage = pageNum;
-        var trIndex = 0; // reset tr counter
-        $('.pagination li').removeClass('active'); // remove active class from all li
-        $('.pagination [data-page="' + lastPage + '"]').addClass('active'); // add active class to the clicked
-        // $(this).addClass('active');                  // add active class to the clicked
-        limitPagging();
-        $(table + ' tr:gt(0)').each(function() {
-          // each tr in table not the header
-          trIndex++; // tr index counter
-          // if tr index gt maxRows*pageNum or lt maxRows*pageNum-maxRows fade if out
-          if (
-            trIndex > maxRows * pageNum ||
-            trIndex <= maxRows * pageNum - maxRows
-          ) {
-            $(this).hide();
-          } else {
-            $(this).show();
-          } //else fade in
-        }); // end of for each tr in table
-      }); // end of on click pagination list
-      limitPagging();
-    })
-    .val(100)
-    .change();
+//         lastPage = pageNum;
+//         var trIndex = 0; // reset tr counter
+//         $('.pagination li').removeClass('active'); // remove active class from all li
+//         $('.pagination [data-page="' + lastPage + '"]').addClass('active'); // add active class to the clicked
+//         // $(this).addClass('active');                  // add active class to the clicked
+//         limitPagging();
+//         $(table + ' tr:gt(0)').each(function() {
+//           // each tr in table not the header
+//           trIndex++; // tr index counter
+//           // if tr index gt maxRows*pageNum or lt maxRows*pageNum-maxRows fade if out
+//           if (
+//             trIndex > maxRows * pageNum ||
+//             trIndex <= maxRows * pageNum - maxRows
+//           ) {
+//             $(this).hide();
+//           } else {
+//             $(this).show();
+//           } //else fade in
+//         }); // end of for each tr in table
+//       }); // end of on click pagination list
+//       limitPagging();
+//     })
+//     .val(100)
+//     .change();
 
-  // end of on select change
+//   // end of on select change
 
-  // END OF PAGINATION
-}
+//   // END OF PAGINATION
+// }
 
-function limitPagging(){
-    // alert($('.pagination li').length)
+// function limitPagging(){
+//     // alert($('.pagination li').length)
 
-    if($('.pagination li').length > 7 ){
-            if( $('.pagination li.active').attr('data-page') <= 3 ){
-            $('.pagination li:gt(5)').hide();
-            $('.pagination li:lt(5)').show();
-            $('.pagination [data-page="next"]').show();
-        }if ($('.pagination li.active').attr('data-page') > 3){
-            $('.pagination li:gt(0)').hide();
-            $('.pagination [data-page="next"]').show();
-            for( let i = ( parseInt($('.pagination li.active').attr('data-page'))  -2 )  ; i <= ( parseInt($('.pagination li.active').attr('data-page'))  + 2 ) ; i++ ){
-                $('.pagination [data-page="'+i+'"]').show();
+//     if($('.pagination li').length > 7 ){
+//             if( $('.pagination li.active').attr('data-page') <= 3 ){
+//             $('.pagination li:gt(5)').hide();
+//             $('.pagination li:lt(5)').show();
+//             $('.pagination [data-page="next"]').show();
+//         }if ($('.pagination li.active').attr('data-page') > 3){
+//             $('.pagination li:gt(0)').hide();
+//             $('.pagination [data-page="next"]').show();
+//             for( let i = ( parseInt($('.pagination li.active').attr('data-page'))  -2 )  ; i <= ( parseInt($('.pagination li.active').attr('data-page'))  + 2 ) ; i++ ){
+//                 $('.pagination [data-page="'+i+'"]').show();
 
-            }
+//             }
 
-        }
-    }
-}
+//         }
+//     }
+// }
 
 </script>
 

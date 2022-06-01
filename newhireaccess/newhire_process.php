@@ -4,12 +4,8 @@
     include('../config/db.php');
 
     $dd = new NewHireAccess();
-    $action = $_POST["_action"];
-    $empstatus = $_POST["_empstatus"];
+    $empStatus = $_POST["empStatus"];
 
+    $dd->GetAllEmpHistory($empStatus);
 
-    if ($action == 1)
-    {
-        $dd->GetAllEmpHistory($empstatus);
-    }
 ?>

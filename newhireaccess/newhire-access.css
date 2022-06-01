@@ -153,10 +153,14 @@ table {
     font-weight: bolder;
 }
 
-.imgob{
-    height: 120px;
+.imgob{ 
+    height: 200px;
     width: 186px;
-    padding: 20px;
+    padding-top: 20px;
+    padding-right: 20Px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin: -1rem -1rem -1rem auto;
 }
     .bb{
         font-weight: bolder;
