@@ -77,7 +77,12 @@
     {
        $('#viewEmpModal').modal('toggle');
         var url = "../newhireaccess/nh_viewprofile.php";
-        document.getElementById("myImg").src = "../uploads/employees/"+emppicloc;
+        if(emppicloc){
+            document.getElementById("myImg").src = "../uploads/employees/"+emppicloc;
+        }else{
+            document.getElementById("myImg").src = "../uploads/employees/nophoto.png";
+        }
+
         var lvlogid = lvlogid;
 
         $.post (
@@ -619,17 +624,15 @@ function GetEmpImgFile() {
                                             rowid: rowid                
                                         },
                                         function(data) {
-
-                                            console.log('success: ' + data);
-
-                                                    // swal({
-                                                    // title: "Success!", 
-                                                    // text: "Successfully updated employee detailss!", 
-                                                    // type: "success",
-                                                    // icon: "success",
-                                                    // }).then(function() {
-                                                    //    window.location.reload();
-                                                    // });
+                                            // console.log('success: ' + data);
+                                                    swal({
+                                                    title: "Success!", 
+                                                    text: "Successfully updated employee detailss!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                       window.location.reload();
+                                                    });
                                             }
                                     );
 
