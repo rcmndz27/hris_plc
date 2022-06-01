@@ -55,14 +55,18 @@
           </nav>
           <?php  
               $sex = $result['sex'];
-              $emp_pic = $result['emp_pic'];
+              $emp_pic_loc = $result['emp_pic_loc'];
 
-              if($sex == 'Male' AND empty($emp_pic)){
+              if($sex == 'Male' AND empty($emp_pic_loc)){
                   $avatar = 'avatar2.png';
-              }else if($sex == 'Female' AND empty($emp_pic)){
+              }else if($sex == 'Female' AND empty($emp_pic_loc)){
                   $avatar = 'avatar8.png';
+              }else if($sex == 'Male' AND !empty($emp_pic_loc)){
+                  $avatar = $emp_pic_loc;
+              }else if($sex == 'Female' AND !empty($emp_pic_loc)){
+                  $avatar = $emp_pic_loc;
               }else{
-                  $avatar = $emp_pic;             
+                  $avatar = 'nophoto.png';
               }
            ?>
           <div class="row gutters-sm">
@@ -71,7 +75,7 @@
                 <div class="card-body ">
                   <div class="d-flex flex-column align-items-center text-center">
                     <?php 
-                    echo'<img src="../img/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
+                    echo'<img src="../uploads/employees/'.$avatar.'" alt="Admin" class="rounded-circle" width="150">';
                      ?>
                     
                     <div class="mt-3">

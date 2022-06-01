@@ -61,114 +61,114 @@
 
 
     // TOTAL WORK HRS
-    $queryrenot = 'EXEC hrissys_test.dbo.xp_attendance_portal_work :emp_code,:startDate,:endDate';
+    $queryrenot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_work :emp_code,:startDate,:endDate';
     $paramrenot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
-    $stmtrenot =$connL->prepare($queryrenot);
+    $stmtrenot =$dbConnection->prepare($queryrenot);
     $stmtrenot->execute($paramrenot);
     $resultrenot = $stmtrenot->fetch();
     $workhrs = (isset($resultrenot['workhrs'])) ? round($resultrenot['workhrs'],2) : 0 ;
 
 
     //JAN 
-    $queryjan = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryjan = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramjan = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-01-31") );
-    $stmtjan =$connL->prepare($queryjan);
+    $stmtjan =$dbConnection->prepare($queryjan);
     $stmtjan->execute($paramjan);
     $resultjan = $stmtjan->fetch();
     $jancnt = $resultjan['cnt'];
 
     //FEB 
-    $queryfeb = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryfeb = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramfeb = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-02-01"), ":endDate" => date("Y-02-28") );
-    $stmtfeb =$connL->prepare($queryfeb);
+    $stmtfeb =$dbConnection->prepare($queryfeb);
     $stmtfeb->execute($paramfeb);
     $resultfeb = $stmtfeb->fetch();
     $febcnt = $resultfeb['cnt'];
 
     //MAR 
-    $querymar = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $querymar = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $parammar = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-03-01"), ":endDate" => date("Y-03-31") );
-    $stmtmar =$connL->prepare($querymar);
+    $stmtmar =$dbConnection->prepare($querymar);
     $stmtmar->execute($parammar);
     $resultmar = $stmtmar->fetch();
     $marcnt = $resultmar['cnt'];
 
     //APR 
-    $queryapr = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryapr = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramapr = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-04-01"), ":endDate" => date("Y-04-30") );
-    $stmtapr =$connL->prepare($queryapr);
+    $stmtapr =$dbConnection->prepare($queryapr);
     $stmtapr->execute($paramapr);
     $resultapr = $stmtapr->fetch();
     $aprcnt = $resultapr['cnt'];
 
     //MAY 
-    $querymay = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $querymay = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $parammay = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-05-01"), ":endDate" => date("Y-05-31") );
-    $stmtmay =$connL->prepare($querymay);
+    $stmtmay =$dbConnection->prepare($querymay);
     $stmtmay->execute($parammay);
     $resultmay = $stmtmay->fetch();
     $maycnt = $resultmay['cnt'];    
 
     //jun 
-    $queryjun = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryjun = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramjun = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-06-01"), ":endDate" => date("Y-06-30") );
-    $stmtjun =$connL->prepare($queryjun);
+    $stmtjun =$dbConnection->prepare($queryjun);
     $stmtjun->execute($paramjun);
     $resultjun = $stmtjun->fetch();
     $juncnt = $resultjun['cnt'];
 
     //jul 
-    $queryjul = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryjul = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramjul = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-07-01"), ":endDate" => date("Y-07-31") );
-    $stmtjul =$connL->prepare($queryjul);
+    $stmtjul =$dbConnection->prepare($queryjul);
     $stmtjul->execute($paramjul);
     $resultjul = $stmtjul->fetch();
     $julcnt = $resultjul['cnt'];
 
     //aug 
-    $queryaug = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryaug = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramaug = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-08-01"), ":endDate" => date("Y-08-31") );
-    $stmtaug =$connL->prepare($queryaug);
+    $stmtaug =$dbConnection->prepare($queryaug);
     $stmtaug->execute($paramaug);
     $resultaug = $stmtaug->fetch();
     $augcnt = $resultaug['cnt'];    
 
     //sep 
-    $querysep = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $querysep = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramsep = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-09-01"), ":endDate" => date("Y-09-30") );
-    $stmtsep =$connL->prepare($querysep);
+    $stmtsep =$dbConnection->prepare($querysep);
     $stmtsep->execute($paramsep);
     $resultsep = $stmtsep->fetch();
     $sepcnt = $resultsep['cnt'];
 
     //OCT 
-    $queryoct = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $queryoct = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramoct = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-10-01"), ":endDate" => date("Y-10-31") );
-    $stmtoct =$connL->prepare($queryoct);
+    $stmtoct =$dbConnection->prepare($queryoct);
     $stmtoct->execute($paramoct);
     $resultoct = $stmtoct->fetch();
     $octcnt = $resultoct['cnt'];
 
     //nov 
-    $querynov = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $querynov = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramnov = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-11-01"), ":endDate" => date("Y-11-30") );
-    $stmtnov =$connL->prepare($querynov);
+    $stmtnov =$dbConnection->prepare($querynov);
     $stmtnov->execute($paramnov);
     $resultnov = $stmtnov->fetch();
     $novcnt = $resultnov['cnt'];    
 
     //dec 
-    $querydec = 'EXEC hrissys_test.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+    $querydec = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
     $paramdec = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-12-01"), ":endDate" => date("Y-12-31") );
-    $stmtdec =$connL->prepare($querydec);
+    $stmtdec =$dbConnection->prepare($querydec);
     $stmtdec->execute($paramdec);
     $resultdec = $stmtdec->fetch();
     $deccnt = $resultdec['cnt'];  
 
     //laudot 
-    $querylaudot = 'EXEC hrissys_test.dbo.xp_attendance_portal_sum :emp_code,:startDate,:endDate';
+    $querylaudot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_sum :emp_code,:startDate,:endDate';
     $paramlaudot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
-    $stmtlaudot =$connL->prepare($querylaudot);
+    $stmtlaudot =$dbConnection->prepare($querylaudot);
     $stmtlaudot->execute($paramlaudot);
     $resultlaudot = $stmtlaudot->fetch();
     $latepct = (isset($resultlaudot['latepct'])) ? round($resultlaudot['latepct'],2) : 0 ;

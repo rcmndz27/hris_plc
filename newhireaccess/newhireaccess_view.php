@@ -390,7 +390,7 @@
 
                                 <div class="col-lg-3">
                                     <label class="control-label" for=""> 
-                                        <img src="" id="myImg" class="imgob">
+                                        <img src="" id="myImg" class="imgob rounded-circle">
                                     </label>                                        
                                 </div>  
 
