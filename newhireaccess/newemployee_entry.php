@@ -78,7 +78,20 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="control-label" for="newEmpCode">Employee Code:<span class="req">*</span></label>
+                                          <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">OBN</span>
+                                            </div>
+                                            <input type="text" class="form-control inputtext" id="emp_code" name="emp_code" placeholder="000999">
+                                          </div> 
+                                    </div>
+                                </div>   
+
+                                                             
+                                <div class="col-lg-10">
                                     <div class="form-group">
                                         <label class="control-label" for="positionList">Position Title:<span class="req">*</span></label>
                                         <input type="text" class="form-control inputtext" name="positiontitle"

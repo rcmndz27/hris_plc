@@ -345,7 +345,7 @@ rel="stylesheet">
                                   <li><a href='../applicantprofile/applicantlist_view.php' onclick='show()'>Applicant Module</a></li>
                                   <li><a href='../applicantprofile/plantillalist_view.php' onclick='show()'>Plantilla Module</a></li>
                                   <li><a href='../applicantprofile/manpowerlist_view.php' onclick='show()'>Manpower Module</a></li>
-                                  <li><a href='..//newhireaccess/newemployee_entry.php' target='_blank'>Add New Employee</a></li>
+                                  <li><a href='../newhireaccess/newemployee_entry.php' target='_blank'>Add New Employee</a></li>
                                   <li><a href='../applicantprofile/applicant_entry.php' target='_blank'>Add New Applicant</a></li>                                                                    
                                 </ul>
                               </li>

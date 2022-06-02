@@ -190,7 +190,8 @@ if (empty($_SESSION['userid'])) {
           <div class="social-auth-links text-center mt-2 mb-3">
             <input type="submit" class="btn btn-login btn-block" name="loginSubmit" value="Login" >
             <div class="row">
-                <div class="col-sm-6">
+                <!-- <h6>Forgot password?Kindly contact the administrator.</h6> -->
+<!--                 <div class="col-sm-6">
                     <a href="newhireaccess/newemployee_entry.php" class="btn btn-block btn-login-emp mt-2" onclick="show()">
                         <i class="fas fa-users"></i> New Employee
                     </a>
@@ -199,7 +200,7 @@ if (empty($_SESSION['userid'])) {
                     <a href="applicantprofile/applicant_entry.php" class="btn btn-block btn-login-emp mt-2" onclick="show()">
                         <i class="fas fa-file "></i> Applicant
                     </a>
-                </div>
+                </div> -->
             </div>
           </div>
           </form>

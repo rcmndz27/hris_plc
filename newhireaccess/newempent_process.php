@@ -11,6 +11,7 @@ $newempent = json_decode($_POST["data"]);
 if($newempent->{"Action"} == "InsertNewEmpEnt")
 {
 
+    $emp_code = $newempent->{"emp_code"};
     $emp_pic_loc = $newempent->{"emp_pic_loc"};
     $preffieldwork = $newempent->{"preffieldwork"};
     $preffieldwork1 = $newempent->{"preffieldwork1"};
@@ -92,7 +93,7 @@ if($newempent->{"Action"} == "InsertNewEmpEnt")
     $arrduties = $newempent->{"duties"};
     $arrreasonforleaving = $newempent->{"reasonforleaving"}; 
    
-    $newEmpEnt->InsertNewEmpEnt($emp_pic_loc,$preffieldwork,$preffieldwork1,$positiontitle,$positiontitle1,$howtoapply,$referredby,$firstname,$middlename,$lastname,$maidenname,$emp_address,$emp_address2,$telno,$telno1,$celno,$celno1,$emailaddress,$emailaddress1,$birthdate,$birthplace,$nationality,$residence_certno,$residence_certdate,$residence_certplace,$tin_no,$sss_no,$phil_no,$pagibig_no,$tax_status,$married_dependents,$sex,$marital_status,$spousename,$spousebirthdate,$spouseoccupation,$spousecompany,$fathername,$fatheroccupation,$fatherbirthdate,$mothername,$motheroccupation,$motherbirthdate,$companyrelatives,$contactpersonname,$contactpersonno,$contactpersonaddress,$legalconvictioncharge,$legalconvictiondate,$legalconvictionwhere,$legalconviction,$civilcase,$rightsemployee);
+    $newEmpEnt->InsertNewEmpEnt($emp_code,$emp_pic_loc,$preffieldwork,$preffieldwork1,$positiontitle,$positiontitle1,$howtoapply,$referredby,$firstname,$middlename,$lastname,$maidenname,$emp_address,$emp_address2,$telno,$telno1,$celno,$celno1,$emailaddress,$emailaddress1,$birthdate,$birthplace,$nationality,$residence_certno,$residence_certdate,$residence_certplace,$tin_no,$sss_no,$phil_no,$pagibig_no,$tax_status,$married_dependents,$sex,$marital_status,$spousename,$spousebirthdate,$spouseoccupation,$spousecompany,$fathername,$fatheroccupation,$fatherbirthdate,$mothername,$motheroccupation,$motherbirthdate,$companyrelatives,$contactpersonname,$contactpersonno,$contactpersonaddress,$legalconvictioncharge,$legalconvictiondate,$legalconvictionwhere,$legalconviction,$civilcase,$rightsemployee);
 
     foreach($arrdepname as $key => $value){
             $depname = $value;

@@ -40,6 +40,7 @@ $(function(){
         var inputValues = [];
     
         inputValues = [
+            $('#emp_code'),
             // $('#empimgpic'),
             // $('#telno'),            
             // $('#reason_position'),
@@ -306,6 +307,7 @@ $(function(){
     
             param = {
                 'Action': 'InsertNewEmpEnt',
+                "emp_code": $('#emp_code').val(),
                 "emp_pic_loc": empImgFile,
                 'preffieldwork': $('#preffieldwork').val(),
                 'preffieldwork1': $('#preffieldwork1').val(),
