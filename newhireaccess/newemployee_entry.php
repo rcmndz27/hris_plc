@@ -764,7 +764,7 @@ id="expected_salary" placeholder="P 00,000.00">
                                         <input type="text" class="form-control inputnumber" name="duties[]"
                                             placeholder="Duties....">
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -772,7 +772,7 @@ id="expected_salary" placeholder="P 00,000.00">
                                         <input type="text" class="form-control inputnumber" 
                                             name="reasonforleaving[]" placeholder="Reason for leaving...">
                                     </div>
-                                </div> -->
+                                </div> 
 
                 <div id="job_dynamic_field"></div> 
                                  <div class="col-lg-4">

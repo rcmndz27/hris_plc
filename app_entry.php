@@ -69,7 +69,7 @@ else
       <nav id="navbar" class="navbar">
           <ul>
                 <li><a class="nav-link active" href="#"><i class="fas fa-users fa-fw"></i>  &nbsp;APPLICANT</a></li>
-                <li><a class="nav-link" href="../index.php"><i class="fas fa-home fa-fw" onclick="show()"></i>  &nbsp;LOGIN</a></li>
+       <!--          <li><a class="nav-link" href="../index.php"><i class="fas fa-home fa-fw" onclick="show()"></i>  &nbsp;LOGIN</a></li> -->
 
             </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
