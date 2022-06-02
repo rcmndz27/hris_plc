@@ -164,14 +164,14 @@
                     <div>
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">OT Date From:</label>
+                                        <label for="">OT Date From:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="otdate" name="otdate" class="form-control"
                                             value="<?php echo date('Y-m-d');?>">
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <label for="">OT Date To:</label>
+                                        <label for="">OT Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="otdateto" name="otdateto" class="form-control"
@@ -183,13 +183,13 @@
                         <div class="form-row align-items-center mb-2">
 
                             <div class="col-md-2 d-inline">
-                                <label for="">OT Start Time:</label>
+                                <label for="">OT Start Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="time" id="otstartdtime" name="otstartdtime" class="form-control" value="<?php echo date('h:i a');?>">
                             </div>
                             <div class="col-md-2 d-inline">
-                                <label for="">OT End Time:</label>
+                                <label for="">OT End Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="time" id="otenddtime" name="otenddtime" class="form-control" readonly>
@@ -198,7 +198,7 @@
 
                                     <div class="form-row align-items-center mb-2" id="planot">
                                        <div class="col-md-2 d-inline">
-                                            <label for="">Plan OT(hrs):</label>
+                                            <label for="">Plan OT(hrs):</label><span class="req">*</span>
                                         </div>
                                         <div class="col-md-3 d-inline">
                                               <input class="form-control" type="number" name="otreqhrs" id="otreqhrs"  min="1" max="10" onkeypress="return false" onchange="myChangeFunction()" placeholder="0">              
@@ -207,7 +207,7 @@
 
                         <div class="form-row mb-2">
                             <div class="col-md-2 d-inline">
-                                <label for='leaveDesc'>Remarks:</label>
+                                <label for='leaveDesc'>Remarks:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-10 d-inline">
                                 <textarea class="form-control inputtext" id="remarks" name="remarks" rows="4" cols="50" ></textarea>

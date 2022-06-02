@@ -111,6 +111,7 @@ Class NewHireAccess{
                         document.getElementById('pagibig_no').value = nameD[i][79];
                         document.getElementById('tin_no').value = nameD[i][76];
                         document.getElementById('birthdate').value = nameD[i][32];
+                        document.getElementById('datehired').value = nameD[i][31];
                         document.getElementById('birthplace').value = nameD[i][33];
                         document.getElementById('sex').value = nameD[i][28];
                         document.getElementById('marital_status').value = nameD[i][29];  

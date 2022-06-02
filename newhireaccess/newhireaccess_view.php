@@ -161,7 +161,7 @@
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                <label class="control-label" for="collegeCourse">Upload Photo <span class="req">*</span></label>
+                                <label class="control-label" for="collegeCourse">Upload Photo</label>
                                 <input class="d-block" type="file" name="empimgpic" id="empimgpic" accept="image/png, image/jpeg" onChange="GetEmpImgFile()">
                                 </div>
                             </div>
@@ -195,18 +195,24 @@
                                         <input type="text" id="emailaddg" class="form-control" placeholder="user@email.com">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="mnameg">Date Hired</label>
+                                        <input type="date" id="datehired" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label" for="fnameg">Telephone No.</label>
                                         <input type="text" id="telng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09" maxlength="11">
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
+                                </div>                                
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label class="control-label" for="mnameg">Mobile No.</label>
                                         <input type="text" id="celng" class="form-control" onkeypress="return onlyNumberKey(event)"placeholder="09" maxlength="11">
                                     </div>
-                                </div>  
+                                </div>                                    
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="lnameg">Present Address</label>
@@ -528,6 +534,7 @@ function GetEmpImgFile() {
         var pagibig_no = $('#pagibig_no').val();
         var tin_no = $('#tin_no').val(); 
         var birthdate = $('#birthdate').val();
+        var datehired = $('#datehired').val();
         var birthplace = $('#birthplace').val();
         var sex = $( "#sex option:selected" ).val();
         var marital_status = $( "#marital_status option:selected" ).val();                        
@@ -607,6 +614,7 @@ function GetEmpImgFile() {
                                             pagibig_no: pagibig_no,
                                             tin_no: tin_no, 
                                             birthdate: birthdate,
+                                            datehired: datehired,
                                             birthplace: birthplace,
                                             sex: sex,
                                             marital_status: marital_status,

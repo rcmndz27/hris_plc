@@ -84,6 +84,9 @@
                 <td >' . ($result['expirydate'] <> '1900-01-01' ? $result['expirydate'] : 'n/a') . '</td>
                 <td class="thw">Expiry Date:</td>
                 <td colspan ="2">' . ($result['expirydate_non'] <> '1900-01-01' ? $result['expirydate_non'] : 'n/a') . '</td></tr>
+                <tr><th class="thw">Date Hired</th>
+                <td >' . ($result['datehired'] <> '1900-01-01' ? date('F d, Y', strtotime($result['datehired'])) : 'n/a') . '</td>
+                </tr>                
                 <tr><th class="thw" colspan="5">&nbsp;</th></tr> 
                 <tr><th class="thw" colspan="5">II. Family Background:</th></tr>
                 <tr><th class="thw" colspan="5">&nbsp;</th></tr>

@@ -163,14 +163,14 @@
                       
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">OB Date From:</label>
+                                        <label for="">OB Date From:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="ob_from" name="ob_from" class="form-control"
                                             value="<?php echo date('Y-m-d');?>">
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <label for="">OB Date To:</label>
+                                        <label for="">OB Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="ob_to" name="ob_to" class="form-control"
@@ -182,13 +182,13 @@
                         <div class="form-row align-items-center mb-2">
 
                             <div class="col-md-2 d-inline">
-                                <label for="">OB Time:</label>
+                                <label for="">OB Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="time" id="ob_time" name="ob_time" class="form-control">
                             </div>
                             <div class="col-md-2 d-inline">
-                                <label for="">OB Destination:</label>
+                                <label for="">OB Destination:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-5 d-inline">
                                 <input type="text" id="ob_destination" name="ob_destination" class="form-control inputtext">
@@ -196,17 +196,17 @@
                         </div>
 
                                     <div class="form-row align-items-center mb-2">
-                                       <div class="col-md-2 d-inline">
-                                            <label for="ob_percmp">Person/Company to See:</label>
+                                       <div class="col-md-3 d-inline">
+                                            <label for="ob_percmp">Person/Company to See:</label><span class="req">*</span>
                                         </div>
-                                        <div class="col-md-10 d-inline">
+                                        <div class="col-md-9 d-inline">
                                             <input type="text" id="ob_percmp" name="ob_percmp" class="form-control inputtext">
                                         </div>
                                     </div>
 
                         <div class="form-row mb-2">
                             <div class="col-md-2 d-inline">
-                                <label for='leaveDesc'>Purpose:</label>
+                                <label for='leaveDesc'>Purpose:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-10 d-inline">
                                 <textarea class="form-control inputtext" id="ob_purpose" name="ob_purpose" rows="4" cols="50" ></textarea>

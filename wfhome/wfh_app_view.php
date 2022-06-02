@@ -180,14 +180,14 @@
                       
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">WFH Date From:</label>
+                                        <label for="">WFH Date From:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdate" name="wfhdate" class="form-control" 
                                             value="<?php echo date('Y-m-d');?>">
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <label for="">WFH Date To:</label>
+                                        <label for="">WFH Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdateto" name="wfhdateto" class="form-control"
@@ -198,7 +198,7 @@
                       
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">Task:</label>
+                                        <label for="">Task:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-10 d-inline">
                                         <input type="text" id="wfh_task" name="wfh_task" class="form-control inputtext">
@@ -207,7 +207,7 @@
 
                             <div class="form-row align-items-center mb-2">
                                     <div class="col-md-2 d-inline">
-                                        <label for="">Expected Output:</label>
+                                        <label for="">Expected Output:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-10 d-inline">
                                         <input type="text" id="wfh_output" name="wfh_output" class="form-control inputtext">
@@ -216,7 +216,7 @@
 
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">Percentage:</label>
+                                        <label for="">Percentage:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10">

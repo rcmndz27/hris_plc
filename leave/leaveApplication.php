@@ -285,7 +285,7 @@ Class LeaveApplication{
         echo '
         <div class="form-row mb-2">    
             <div class="col-md-2">
-                <label for="leaveType">Leave Type:</label>
+                <label for="leaveType">Leave Type:</label><span class="req">*</span>
             </div>
             <div class="col-md-5">
                 <select class="form-select" name="eleaveType" id="eleaveType" >';
@@ -376,7 +376,7 @@ Class LeaveApplication{
         echo '
         <div class="form-row mb-2">    
             <div class="col-md-2">
-                <label for="leaveType">Leave Type:</label>
+                <label for="leaveType">Leave Type:</label><span class="req">*</span>
             </div>
             <div class="col-md-5">
                 <select class="form-select" name="leaveType" id="leaveType" >';

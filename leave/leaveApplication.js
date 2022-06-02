@@ -489,10 +489,10 @@ swal({
         e.preventDefault();
         $('#popUpModal').modal('toggle');
 
-            $("#Attachment").hide();
-            $("#LabelAttachment").hide();
-            $("#medicalfiles").hide();
-            $("#AddAttachment").show();
+            // $("#Attachment").hide();
+            // $("#LabelAttachment").hide();
+            // // $("#medicalfiles").hide();
+            // $("#AddAttachment").show();
             
         var options = document.getElementById("leaveType").options;
         for (var i = 0; i < options.length; i++) {

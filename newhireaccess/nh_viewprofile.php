@@ -9,7 +9,5 @@
     if ($action == 1)
     {
         GetNhaProfile($lvlogid);
-    }else{
     }
-
 ?>

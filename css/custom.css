@@ -13,6 +13,9 @@ table   {
         font-family: "Dosis", sans-serif;
 }
 
+.req{
+    color: red;
+}
 
 .chart-area {
   position: relative;

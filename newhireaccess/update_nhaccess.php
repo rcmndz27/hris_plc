@@ -1,6 +1,6 @@
 <?php 
 
-    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$emp_address,$emp_address2,$sss_no,$phil_no,$pagibig_no,$tin_no,$birthdate,$birthplace,$sex,$marital_status,$emp_pic_loc,$rowid)
+    function UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$emp_address,$emp_address2,$sss_no,$phil_no,$pagibig_no,$tin_no,$datehired,$birthdate,$birthplace,$sex,$marital_status,$emp_pic_loc,$rowid)
     {
             global $connL;
 
@@ -18,6 +18,7 @@
                 pagibig_no = :pagibig_no,
                 tin_no = :tin_no,
                 birthdate = :birthdate,
+                datehired = :datehired,
                 birthplace = :birthplace,
                 sex = :sex,
                 marital_status = :marital_status,
@@ -47,6 +48,7 @@
             $cmd->bindValue('pagibig_no',$pagibig_no);
             $cmd->bindValue('tin_no',$tin_no);
             $cmd->bindValue('birthdate',$birthdate);
+            $cmd->bindValue('datehired',$datehired);
             $cmd->bindValue('birthplace',$birthplace);
             $cmd->bindValue('sex',$sex);
             $cmd->bindValue('marital_status',$marital_status);

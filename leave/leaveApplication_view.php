@@ -43,13 +43,13 @@
 
 <script type="text/javascript">
     
-     function showAttachment() {
+     // function showAttachment() {
 
-            $("#Attachment").show();
-            $("#medicalfiles").show();
-            $("#LabelAttachment").show();
-            $("#AddAttachment").hide();            
-          }
+     //        $("#Attachment").show();
+     //        $("#medicalfiles").show();
+     //        $("#LabelAttachment").show();
+     //        $("#AddAttachment").hide();            
+     //      }
 
     function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
 
@@ -207,13 +207,11 @@ function cancelLeave(lvid,empcd)
                 <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
                 <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>
                 <input type="text" name="n_appr" id="n_appr" value="<?php  echo $n_appr; ?>" hidden>
-
-
-                        <?php $leaveApp->GetLeaveType(); ?>
+                     <?php $leaveApp->GetLeaveType(); ?>
                         <div id="leavepay">
                             <div class="row">
                                 <div class=col-md-2>
-                                    <label for="">Leave Pay:</label>
+                                    <label for="">Leave Pay:</label><span class="req">*</span>
                                 </div>
                                 <div class="col-md-10">                                
                                         <div class="form-check form-check-inline" id="wpay" id="wpay">
@@ -355,14 +353,14 @@ function cancelLeave(lvid,empcd)
                         <div class="form-row align-items-center mb-2">
 
                             <div class="col-md-2 d-inline">
-                                <label for="">Leave From:</label>
+                                <label for="">Leave From:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="date" id="dateFrom" name="dateFrom" class="form-control"
                                     value="<?php echo date('Y-m-d');?>">
                             </div>
                             <div class="col-md-1 d-inline">
-                                <label for="">To:</label>
+                                <label for="">To:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="date" id="dateTo" name="dateTo" class="form-control"
@@ -401,28 +399,13 @@ function cancelLeave(lvid,empcd)
 
                         <div class="form-row mb-2">
                             <div class="col-md-2 d-inline">
-                                <label for='leaveDesc'>Reason:</label>
+                                <label for='leaveDesc'>Reason:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-10 d-inline">
                                 <textarea class="form-control inputtext" id="leaveDesc" name="leaveDesc" rows="4" cols="50" ></textarea>
                             </div>
                         </div>
 
-
-
-                        <div id='AddAttachment'>
-                            <div class="form-row mb-2">
-                                <div class="col-md-2">
-                                    <label for="">Attach File:</label>
-                                </div>
-                                <div class="col-md-10 d-inline">
-                                    <a class="" onclick="showAttachment()"><img src='../img/ppclip.jpg' class='ppclip'></img></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id='Attachment'>
                              <div class="row pb-2">
                                 <div class="col-md-2">
                                     <label for="Attachment" id="LabelAttachment">Attachment:</label>
@@ -431,7 +414,7 @@ function cancelLeave(lvid,empcd)
                                     <input type="file" name="medicalfiles" id="medicalfiles" accept=".pdf" onChange="GetMedFile()">
                                 </div>
                             </div>
-                        </div>
+                        
 
                 <div class="modal-footer">
                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>

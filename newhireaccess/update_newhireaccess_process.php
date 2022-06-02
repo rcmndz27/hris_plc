@@ -28,6 +28,7 @@
     $pagibig_no = $_POST["pagibig_no"];
     $tin_no = $_POST["tin_no"];
     $birthdate = $_POST["birthdate"];
+    $datehired = $_POST["datehired"];
     $birthplace = $_POST["birthplace"];
     $sex = $_POST["sex"];
     $marital_status = $_POST["marital_status"];
@@ -36,7 +37,7 @@
 
     if ($action == 1)
     {
-        UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$emp_address,$emp_address2,$sss_no,$phil_no,$pagibig_no,$tin_no,$birthdate,$birthplace,$sex,$marital_status,$emp_pic_loc,$rowid);
+        UpdateEmployeeLevel($department,$position,$location,$emp_type,$emp_level,$work_sched_type,$minimum_wage,$pay_type,$emp_status,$reporting_to,$lastname,$firstname,$middlename,$emailaddress,$telno,$celno,$emp_address,$emp_address2,$sss_no,$phil_no,$pagibig_no,$tin_no,$datehired,$birthdate,$birthplace,$sex,$marital_status,$emp_pic_loc,$rowid);
     }
 
 
