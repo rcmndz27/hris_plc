@@ -354,7 +354,7 @@ function FwdDtrCorrect($empReportingTo,$empId,$approver,$rowid){
 
         // $erequester = 'fcalumba@premiummegastructures.com';
         // $nrequester = 'Francis Calumba';
-        $erequester = 'rmendoza@premiummegastructures.com';
+        $erequester = 'fcalumba@premiummegastructures.com';
         $nrequester = 'Francis Calumba';            
         $eapprover = $e_appr;
         $napprover = $n_appr;

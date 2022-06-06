@@ -23,7 +23,7 @@ $mail = new PHPMailer(true);
 
             //Recipients
             $mail->setFrom('hris-support@obanana.com', 'No-Reply');
-            $mail->addAddress('rmendoza@premiummegastructures.com', 'Ric Mendoza');     //Add a recipient
+            $mail->addAddress('fcalumba@premiummegastructures.com', 'Ric Mendoza');     //Add a recipient
 
 
             //Content
