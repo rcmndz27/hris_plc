@@ -12,15 +12,14 @@
 
             $dbstringsLs = "sqlsrv:Server=192.168.201.8;Database=biotime8";     
             $dbConnectionL = new PDO($dbstringsLs, "mgr", "P@55w0rd456"); 
-      
-
             }
 
 
             catch (PDOException $e)
             {
                 die($e->getMessage());
-                echo 'Connection failed: ' . $e->getMessage();
+                echo 'Connection failed: ' ;
+                // . $e->getMessage();
             }
         
     
