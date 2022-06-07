@@ -86,7 +86,7 @@
                                         <?php $dd->GenerateSingleGenDropDown("emp_code", $mf->GetUserAccntNames("allusracnt")); ?> 
                                     </div>
                                 </div> 
-                              <div class="col-12">
+<!--                               <div class="col-12">
                                 <div class="form-group">
                                  <label class="control-label" for="users_id">User Password<span class="req">*</span>
                                  </label>
@@ -100,7 +100,7 @@
                                   </div>
                                 </div>
                                 </div>
-                              </div> 
+                              </div>  -->
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="emp_level">User Level<span class="req">*</span></label>
@@ -349,6 +349,44 @@ function password_show_hide() {
                         });
    
                 }
+
+function resetPassword(empcd)
+        {
+
+                 var url = "../users/resetPasswordProcess.php";    
+                 var emp_code = empcd;   
+
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to reset this user account password?",
+                          icon: "warning",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((restPSS) => {
+                          if (restPSS) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 1,
+                                        emp_code:emp_code
+                                    },
+                                    function(data) { 
+                                        // console.log(data);
+                                            swal({
+                                            title: "Oops!", 
+                                            text: "Successfully cancelled the password reset!", 
+                                            type: "info",
+                                            icon: "info",
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You stop the cancellation of password reset.",icon:"error"});
+                          }
+                        });
+      
+    }                
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

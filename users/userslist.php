@@ -77,6 +77,9 @@ Class UsersList{
                     echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.')" title="Update User/Change Password">
                                 <i class="fas fa-edit"></i>
                             </button>
+                            <button type="button" class="voidBut" onclick="resetPassword('. $empcd.')" title="Reset Password">
+                                <i class="fas fa-power-off"></i>
+                            </button>                            
                             </td>';
                 }
                 

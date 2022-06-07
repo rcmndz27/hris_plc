@@ -35,7 +35,7 @@ $(function(){
                 'Action': 'InsertUsersEnt',
                 'userid': emp_code,
                 'username': username,
-                'userpassword': $('#password').val(),
+                'userpassword': 'abc123',
                 'usertype': $('#emp_level').val(),
                 'eMplogName': $('#eMplogName').val(),
                 'status': $( "#status option:selected" ).text()

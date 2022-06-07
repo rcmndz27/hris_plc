@@ -21,8 +21,6 @@ if($usrent->{"Action"} == "InsertUsersEnt")
 
     $usrEnt->InsertUsersEnt($eMplogName,$username,$userid,$userpassword,$usertype,$status);
 
-}else{
-
 }
     
 

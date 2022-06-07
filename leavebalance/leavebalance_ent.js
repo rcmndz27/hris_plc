@@ -58,6 +58,7 @@ $(function(){
                                             data: param
                                         },
                                         success: function (result) {
+                                            console.log('success: ' + result);
                                             swal({
                                                 title: "Success!", 
                                                 text: "Successfully added the employee leave balance details!", 
