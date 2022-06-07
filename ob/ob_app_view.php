@@ -73,7 +73,7 @@
                     swal({
                           title: "Are you sure?",
                           text: "You want to cancel this work from home?",
-                          icon: "success",
+                          icon: "warning",
                           buttons: true,
                           dangerMode: true,
                         })

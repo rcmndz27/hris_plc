@@ -79,7 +79,7 @@ Class WfhApp{
                 <td>' . $result['wfh_output'] . '</td>
                 <td>' . $result['wfh_percentage'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
-                if($result['stats'] == 'PENDING'){
+                if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>

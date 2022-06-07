@@ -88,7 +88,7 @@ Class OtApp{
                 <td>' . $result['ot_ren_hrs'] . '</td>
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
-                if($result['stats'] == 'PENDING'){
+                if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>

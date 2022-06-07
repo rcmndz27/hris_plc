@@ -83,7 +83,7 @@ Class ObApp{
                 <td>' . $result['ob_purpose'] . '</td>
                 <td>' . $result['ob_percmp'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
-                if($result['stats'] == 'PENDING'){
+                if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>

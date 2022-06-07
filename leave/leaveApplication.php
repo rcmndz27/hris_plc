@@ -150,7 +150,7 @@ Class LeaveApplication{
 
                 // <button type="button" class="editL" onclick="updateLeaveModal('.$leaveid.')" title="View Leave"><i class="fas fa-edit"></i></button>
     
-                if($result['approved'] == 'PENDING'){
+                if($result['approved'] == 'PENDING' || $result['approved'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>

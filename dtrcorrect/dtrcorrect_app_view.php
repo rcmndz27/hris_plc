@@ -71,7 +71,7 @@
         swal({
               title: "Are you sure?",
               text: "You want to cancel this dtr correction?",
-              icon: "success",
+              icon: "warning",
               buttons: true,
               dangerMode: true,
             })

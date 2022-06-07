@@ -78,7 +78,7 @@ Class DtrCorrectApp{
                 <td>'.date('h:i a', strtotime($result['time_out'])).'</td>
                 <td>'.$result['remarks'] . '</td>
                 <td id="st'.$result['rowid'].'">'.$result['stats'].'</td>';
-                if($result['stats'] == 'PENDING'){
+                if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
                                 <i class="fas fa-binoculars"></i>
