@@ -15,6 +15,7 @@
       $empCode = $empInfo->GetEmployeeCode();
 
     global $connL;
+    global $dbConnection;
 
 
     //GET COMPANY
@@ -24,8 +25,18 @@
     $stmt->execute($param);
     $result = $stmt->fetch();
     $cmp = $result['company'];
+    $bdno = $result['badgeno'];
     $subemp = strlen($cmp);
 
+    //GET LAST TIME IN
+    $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
+    $ystmt =$dbConnection->prepare($yquery);
+    $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
+    $ystmt->execute($yparam);
+    $yresult = $ystmt->fetch();
+    $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
+    // $start = $yresult['timein'];
+    $timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
     // GET CUT OFF
     $qry = "SELECT * from payroll_cutoff WHERE GETDATE() between cutoff_from and cutoff_to" ;
@@ -296,18 +307,22 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Working Hours <?php echo date("Y") ?> 
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <?php echo date("F d, Y") ?> 
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $workhrs; ?></div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $timeinf; ?></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                                        <div class="col-auto py-2">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
+
+                    <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
+                      <span class="text-success small pt-1 fw-bold"><?php echo $timeoutf; ?></span> 
+                   
                                 </div>
                             </div>
                         </div>

@@ -386,8 +386,19 @@ rel="stylesheet">
                       break; 
                            case "Finance":   
                             echo "
-                                    <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$apprf."<i class='bi bi-chevron-down'></i></a>
-                                        <ul><li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
+                                    <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$appr."<i class='bi bi-chevron-down'></i></a>
+                                        <ul>
+                                    <li class='dropdown'><a href='#'><span>Approvals (".$approval_tm.")</span> 
+                                    <i class='bi bi-chevron-right'></i></a>
+                                    <ul>
+                                      <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>
+                                      <li><a href='../overtime/overtime-approval-view.php' onclick='show()'>Overtime (".$ot.")</a></li>
+                                      <li><a href='../wfhome/wfh-approval-view.php' onclick='show()'>Work From Home (".$wfh.")</a></li>
+                                       <li><a href='../ob/ob-approval-view.php' onclick='show()'>Official Business (".$ob.")</a></li>
+                                    <li><a href='../dtrcorrect/dtrcorrect-approval-view.php' onclick='show()'>DTR Correction (".$dtrc.")</a></li>                                                     
+                                    </ul>
+                                  </li>
+                                  <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View</a></li>
                                         </ul>
                                </li>";
                                     break;                       
