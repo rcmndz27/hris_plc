@@ -43,6 +43,8 @@
                 array_push($totalVal,$rsf['dtrc_date']);
                 
             } while ($rsf = $stmtf->fetch());                  
+        }else{
+            $totalVal = [];
         }
     }    
 ?>

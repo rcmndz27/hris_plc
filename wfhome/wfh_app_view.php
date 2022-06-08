@@ -43,6 +43,8 @@
                 array_push($totalVal,$rsf['wfh_date']);
                 
             } while ($rsf = $stmtf->fetch());                     
+        }else{
+            $totalVal = [];
         }
     }    
 ?>

@@ -44,6 +44,8 @@
                 array_push($totalVal,$rsf['ot_date']);
                 
             } while ($rsf = $stmtf->fetch());                  
+        }else{
+            $totalVal = [];
         }
 
     }    
