@@ -255,5 +255,55 @@ else
 
     }
 
+
+     function genOtPay()
+    {
+
+        var url = "../payroll_att/gen_ot_process.php";
+        var date = $('#ungenleave').children("option:selected").val();
+        var dates = date.split(" - ");
+        var eMplogName = $('#eMplogName').val();
+
+        // console.log(dates[0]);  
+        // console.log(dates[1]);  
+        // console.log(eMplogName);
+        // return false;
+
+        swal({
+          title: "Are you sure?",
+          text: "You want to generate this overtime to attendance?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+      })
+        .then((genAttPay) => {
+          document.getElementById("myDiv").style.display="block";
+          if (genAttPay) {
+            $.post (
+                url,
+                {
+                    action: 1,
+                    pyrollco_from: dates[0] ,
+                    pyrollco_to: dates[1] 
+                    ,eMplogName: eMplogName                           
+                },
+                function(data) {                 
+                    swal({
+                        title: "Success!", 
+                        text: "Successfully generated overtime to attendance!", 
+                        type: "success",
+                        icon: "success",
+                    }).then(function() {                        
+                        location.href = '../payroll/payroll_view.php';
+                    });  
+                });
+        } else {
+            document.getElementById("myDiv").style.display="none";
+            swal({text:"You cancel the generation of overtime to attendance!",icon:"error"});
+        }
+    });
+
+    }
+
 </script>
 <?php include('../_footer.php');  ?>

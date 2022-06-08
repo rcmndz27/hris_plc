@@ -29,7 +29,20 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];             
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];   
+
+
+        $queryf = "SELECT ot_date from dbo.tr_overtime WHERE emp_code = :empcode and  status in (1,2)";
+        $paramf = array(":empcode" => $_SESSION['userid']);
+        $stmtf =$connL->prepare($queryf);
+        $stmtf->execute($paramf);
+        $rsf = $stmtf->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$rsf['ot_date']);
+                
+            } while ($rsf = $stmtf->fetch());                  
 
     }    
 ?>
@@ -167,15 +180,13 @@
                                         <label for="">OT Date From:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
-                                        <input type="date" id="otdate" name="otdate" class="form-control"
-                                            value="<?php echo date('Y-m-d');?>">
+                                        <input type="date" id="otdate" name="otdate" class="form-control">
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <label for="">OT Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
-                                        <input type="date" id="otdateto" name="otdateto" class="form-control"
-                                            value="<?php echo date('Y-m-d');?>">
+                                        <input type="date" id="otdateto" name="otdateto" class="form-control">
                                     </div>
                             </div>
 
@@ -352,7 +363,30 @@
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
 
-  <script>
+  <script type="text/javascript">
+
+             $('#otdate').change(function(){
+
+                var dte = $('#otdate').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+                if(disableDates.includes(dte)){
+                    document.getElementById('otdate').value = '';
+                }
+
+            });
+
+             $('#otdateto').change(function(){
+
+                var dte_to = $('#otdateto').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+
+                if(disableDates.includes(dte_to)){
+                    document.getElementById('otdateto').value = '';
+                }
+
+            });
 
         function myChangeFunction(input1) {
             var dte = $('#otdate').val();

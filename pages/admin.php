@@ -15,6 +15,26 @@
 
     global $connL;
 
+    //GET COMPANY
+    $query = "SELECT * from employee_profile where emp_code = :empcode";
+    $stmt =$connL->prepare($query);
+    $param = array(":empcode" => $empCode);
+    $stmt->execute($param);
+    $result = $stmt->fetch();
+    $cmp = $result['company'];
+    $bdno = $result['badgeno'];
+    $subemp = strlen($cmp);
+
+    //GET LAST TIME IN
+    $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
+    $ystmt =$dbConnection->prepare($yquery);
+    $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
+    $ystmt->execute($yparam);
+    $yresult = $ystmt->fetch();
+    $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
+    // $start = $yresult['timein'];
+    $timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+
     // GET ACTIVE EMPLOYEES
     $qry = "SELECT count(emp_code) as empcnt,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntpct  from employee_profile where emp_status = 'Active'" ;
     $stm =$connL->prepare($qry);
@@ -220,14 +240,6 @@
                                             <i class="fas fa-male fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Female -->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Female
@@ -248,10 +260,36 @@
                                         <div class="col-auto">
                                             <i class="fas fa-female fa-2x text-gray-300"></i>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- time in -->
+                         <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <?php echo date("F d, Y") ?> 
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $timeinf; ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto py-2">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+
+                    <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
+                      <span class="text-success small pt-1 fw-bold"><?php echo $timeoutf; ?></span> 
+                   
+                                </div>
+                            </div>
+                        </div>                        
 
                     <!-- Content Row -->
 

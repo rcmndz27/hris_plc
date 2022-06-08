@@ -37,19 +37,26 @@
         $stmts->execute($params);
         $rs = $stmts->fetch();
 
+        $queryf = "SELECT date_from from dbo.tr_leave WHERE emp_code = :empcode and  approved in (1,2)";
+        $paramf = array(":empcode" => $_SESSION['userid']);
+        $stmtf =$connL->prepare($queryf);
+        $stmtf->execute($paramf);
+        $rsf = $stmtf->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$rsf['date_from']);
+                
+            } while ($rsf = $stmtf->fetch());
 
     }    
 ?>
 
-<script type="text/javascript">
-    
-     // function showAttachment() {
 
-     //        $("#Attachment").show();
-     //        $("#medicalfiles").show();
-     //        $("#LabelAttachment").show();
-     //        $("#AddAttachment").hide();            
-     //      }
+
+<script type="text/javascript">
+
+
 
     function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
 
@@ -202,6 +209,8 @@ function cancelLeave(lvid,empcd)
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
+                <!-- <?php echo json_encode($totalVal) ;?> -->
                 <div class="modal-body">
                 <input type="text" name="e_req" id="e_req" value="<?php echo $e_req; ?>" hidden>  
                 <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
@@ -357,14 +366,14 @@ function cancelLeave(lvid,empcd)
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="date" id="dateFrom" name="dateFrom" class="form-control"
-                                    value="<?php echo date('Y-m-d');?>">
+                                    >
                             </div>
                             <div class="col-md-1 d-inline">
                                 <label for="">To:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
                                 <input type="date" id="dateTo" name="dateTo" class="form-control"
-                                    value="<?php echo date('Y-m-d'); ?>">
+                                    >
                             </div>
                             <div class="col-md-3 d-inline">
                                 <div class="form-check" id="singleHalf">
@@ -595,6 +604,29 @@ function cancelLeave(lvid,empcd)
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+             $('#dateFrom').change(function(){
+
+                var dte = $('#dateFrom').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+                if(disableDates.includes(dte)){
+                    document.getElementById('dateFrom').value = '';
+                }
+
+            });
+
+             $('#dateTo').change(function(){
+
+                var dte_to = $('#dateTo').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+
+                if(disableDates.includes(dte_to)){
+                    document.getElementById('dateTo').value = '';
+                }
+
+            });
 
 
      function updateLeaveModal(leaveid){

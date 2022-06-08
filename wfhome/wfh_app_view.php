@@ -29,7 +29,19 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];            
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];     
+
+        $queryf = "SELECT wfh_date from dbo.tr_workfromhome WHERE emp_code = :empcode and  status in (1,2)";
+        $paramf = array(":empcode" => $_SESSION['userid']);
+        $stmtf =$connL->prepare($queryf);
+        $stmtf->execute($paramf);
+        $rsf = $stmtf->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$rsf['wfh_date']);
+                
+            } while ($rsf = $stmtf->fetch());                     
 
     }    
 ?>
@@ -184,14 +196,14 @@
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdate" name="wfhdate" class="form-control" 
-                                            value="<?php echo date('Y-m-d');?>">
+                                            >
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <label for="">WFH Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdateto" name="wfhdateto" class="form-control"
-                                            value="<?php echo date('Y-m-d');?>">
+                                            >
                                     </div>
                             </div>
 
@@ -219,7 +231,7 @@
                                         <label for="">Percentage:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10">
+                                        <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10" onkeypress="return false">
                                     </div>
                                     <div class="col-md-1 d-inline">
                                         <label for="">%</label>
@@ -272,7 +284,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group">
                                         <label class="control-label" for="wfhpercentage">Percentage %</label>
-                                        <input type="text" id="wfhpercentage" name="wfhpercentage" class="form-control" readonly>
+                                        <input type="text" id="wfhpercentage" name="wfhpercentage" class="form-control" readonly >
                                     </div>
                                 </div>                              
                                 <div class="col-lg-10">
@@ -341,6 +353,30 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+
+             $('#wfhdate').change(function(){
+
+                var dte = $('#wfhdate').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+                if(disableDates.includes(dte)){
+                    document.getElementById('wfhdate').value = '';
+                }
+
+            });
+
+             $('#wfhdateto').change(function(){
+
+                var dte_to = $('#wfhdateto').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+
+                if(disableDates.includes(dte_to)){
+                    document.getElementById('wfhdateto').value = '';
+                }
+
+            });    
 
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

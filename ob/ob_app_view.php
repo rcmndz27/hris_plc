@@ -29,7 +29,19 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];            
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];   
+
+        $queryf = "SELECT ob_date from dbo.tr_offbusiness WHERE emp_code = :empcode and  status in (1,2)";
+        $paramf = array(":empcode" => $_SESSION['userid']);
+        $stmtf =$connL->prepare($queryf);
+        $stmtf->execute($paramf);
+        $rsf = $stmtf->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$rsf['ob_date']);
+                
+            } while ($rsf = $stmtf->fetch());                  
 
 
     }    
@@ -167,14 +179,14 @@
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="ob_from" name="ob_from" class="form-control"
-                                            value="<?php echo date('Y-m-d');?>">
+                                            >
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <label for="">OB Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="ob_to" name="ob_to" class="form-control"
-                                            value="<?php echo date('Y-m-d');?>">
+                                            >
                                     </div>
                             </div>
 
@@ -332,6 +344,29 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+            $('#ob_from').change(function(){
+
+                var dte = $('#ob_from').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+                if(disableDates.includes(dte)){
+                    document.getElementById('ob_from').value = '';
+                }
+
+            });
+
+             $('#ob_to').change(function(){
+
+                var dte_to = $('#ob_to').val();
+                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+
+                if(disableDates.includes(dte_to)){
+                    document.getElementById('ob_to').value = '';
+                }
+
+            }); 
       
       function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

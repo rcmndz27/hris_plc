@@ -29,7 +29,19 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];           
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];    
+
+        $queryf = "SELECT dtrc_date from dbo.tr_dtrcorrect WHERE emp_code = :empcode and  status in (1,2)";
+        $paramf = array(":empcode" => $_SESSION['userid']);
+        $stmtf =$connL->prepare($queryf);
+        $stmtf->execute($paramf);
+        $rsf = $stmtf->fetch();
+
+            $totalVal = [];
+            do { 
+                array_push($totalVal,$rsf['dtrc_date']);
+                
+            } while ($rsf = $stmtf->fetch());                  
 
     }    
 ?>
@@ -183,7 +195,7 @@
                                     </div>
                                     <div class="col-md-4 d-inline">
                                         <input type="date" id="dtrc_date" name="dtrc_date" class="form-control" 
-                                            value="<?php echo date('Y-m-d');?>">
+                                            >
                                     </div>
                             </div>
 
@@ -326,6 +338,17 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+    $('#dtrc_date').change(function(){
+
+    var dte = $('#dtrc_date').val();
+    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+    if(disableDates.includes(dte)){
+        document.getElementById('dtrc_date').value = '';
+    }
+
+    });
 
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
