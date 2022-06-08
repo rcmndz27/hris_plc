@@ -37,12 +37,13 @@
         $stmtf->execute($paramf);
         $rsf = $stmtf->fetch();
 
+        if(!empty($rsf)){
             $totalVal = [];
             do { 
                 array_push($totalVal,$rsf['dtrc_date']);
                 
             } while ($rsf = $stmtf->fetch());                  
-
+        }
     }    
 ?>
 <script type="text/javascript">

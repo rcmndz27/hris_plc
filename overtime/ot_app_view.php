@@ -38,11 +38,13 @@
         $stmtf->execute($paramf);
         $rsf = $stmtf->fetch();
 
+        if(!empty($rsf)){
             $totalVal = [];
             do { 
                 array_push($totalVal,$rsf['ot_date']);
                 
             } while ($rsf = $stmtf->fetch());                  
+        }
 
     }    
 ?>
