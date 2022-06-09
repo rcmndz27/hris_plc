@@ -66,8 +66,8 @@ if (!empty($_POST['loginSubmit']))
                 $url_2 = 'pages/index.php';
 
 
-                $query_pay = $dbConnection->prepare('EXEC hrissys_dev.dbo.LoadEmployeeDTRDetails');
-                $query_pay->execute(); 
+                // $query_pay = $dbConnection->prepare('EXEC hrissys_dev.dbo.LoadEmployeeDTRDetails');
+                // $query_pay->execute(); 
 
                 // if ($userid == 'PMI12000001' || $userid == 'PMI18000072')
                 // {
