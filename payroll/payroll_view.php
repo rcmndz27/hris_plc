@@ -67,8 +67,10 @@ else
         <button type="button" class="gotopay" >
             <a href="../payroll/payroll_view_register.php" class="payreggoto" onclick="show()">
                 <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
-            </button>                                          
+            </button>   &nbsp;&nbsp;
+                <button type="button" class="genpyrll" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>                                                      
         </div>
+   
         <div class="row pt-5">
             <div class="col-md-12 mbot"><br> 
                 <div class="d-flex justify-content-center">
@@ -337,6 +339,51 @@ else
     </div> <!-- modal dialog closing -->
 </div><!-- modal fade closing -->
 
+<div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">USERS ENTRY  <i class="fas fa-minus-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="allempnames">Employee Code/Name<span class="req">*</span></label>
+                                        <?php $dd->GenerateSingleGenDropDown("allempnames", $mf->GetAttEmployeeNames("allempnames")); ?> 
+                                    </div>
+                                </div> 
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="allempnames">Payroll Period/Location<span class="req">*</span></label>
+                                    <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
+                                    </div>
+                                </div>  
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
+                            </div> <!-- form row closing -->
+                    </fieldset> 
+
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
+
 <div class="modal fade" id="viewAllAttendanceEmp" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
 aria-hidden="true">
 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -418,7 +465,68 @@ aria-hidden="true">
 </div>
 </div>
 </body>
-<script>
+<script type="text/javascript">
+
+    $('#usersEntry').click(function(e){
+        e.preventDefault();
+        $('#popUpModal').modal('toggle');
+
+    });
+
+    $('#Submit').click(function(){
+
+        var bdno = $('#allempnames').val();
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var det = cutoff.split(" - ");
+        var name =  document.getElementById(bdno).innerHTML;
+        var logname = $('#eMplogName').val();
+
+            param = {
+                'Action': 'InsertUsersAtt',
+                'bdno': bdno,
+                'name': name,
+                'pfrom': det[0],
+                'pto': det[1],
+                'loct': det[2],
+                'logname': logname
+              
+            }
+    
+            param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
+        
+                     swal({
+                          title: "Are you sure?",
+                          text: "You want to add this user to the payroll list?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((appEnt) => {
+                          if (appEnt) {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '../payroll/usersatt_process.php',
+                                        data: {
+                                            data: param
+                                        },
+                                        success: function (result) {
+                                            console.log('success: ' + result);
+                                            // swal({text:"Successfully added employee in payroll!",icon:"success"});
+                                            // location.reload();
+                                        },
+                                        error: function (result) {
+                                            console.log('error: ' + result);
+                                        }
+                                    }); //ajax
+                          } else {
+                            swal({text:"You cancel the addition of your employee in payroll!",icon:"error"});
+                          }
+                        });
+
+            });
 
 
     function show() {
