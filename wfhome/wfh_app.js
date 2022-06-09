@@ -61,8 +61,8 @@
 
         inputValues = [
             
-            $('#wfh_task'),
-            $('#wfh_output')
+            $('#wfh_task')
+            // ,$('#wfh_output')
             // ,$('#wfh_percentage')
             
         ];

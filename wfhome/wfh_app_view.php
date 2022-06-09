@@ -51,12 +51,13 @@
 <script type="text/javascript">
     
 
-        function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
+        function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhoutput2,wfhpercentage,wfhstats){
    
         $('#viewWfhModal').modal('toggle');
         document.getElementById('wfhdates').value =  wfhdate;   
         document.getElementById('wfhtask').value =  wfhtask;  
         document.getElementById('wfhoutput').value =  wfhoutput;  
+        document.getElementById('wfhoutput2').value =  wfhoutput2;  
         document.getElementById('wfhpercentage').value =  wfhpercentage;  
         document.getElementById('wfhstats').value =  wfhstats;                          
     }
@@ -119,12 +120,27 @@
       
     }
 
-  function timeIn(lvid,empcd)
+function timeInModal(lvid,empcd){
+          
+        $('#timeInModal').modal('toggle');
+        document.getElementById('empcd').value =  empcd;   
+        document.getElementById('lvid').value =  lvid;   
+  
+}
+
+  function timeIn()
         {
 
-                 var url = "../wfhome/timeInProcess.php";  
-                 var wfhid = lvid;   
-                 var emp_code = empcd;   
+            var url = "../wfhome/timeInProcess.php";  
+            var wfhid = document.getElementById("lvid").value; 
+            var emp_code = document.getElementById("empcd").value;
+            var wfh_output = document.getElementById("wfh_output").value;  
+
+            // console.log(wfhid);
+            // console.log(emp_code);
+            // console.log(wfh_output);
+
+            // return false;
                     swal({
                           title: "Are you sure?",
                           text: "You want to time in now?",
@@ -139,7 +155,8 @@
                                     {
                                         choice: 1,
                                         wfhid:wfhid,
-                                        emp_code:emp_code
+                                        emp_code:emp_code,
+                                        wfh_output:wfh_output
                                     },
                                     function(data) { 
                                         console.log(data);
@@ -155,6 +172,71 @@
                                 );
                           } else {
                             swal({text:"You cancel your time in!",icon:"error"});
+                          }
+                        });
+      
+    }    
+
+function timeOutModal(lvid,empcd,attid){
+          
+        $('#timeOutModal').modal('toggle');
+        document.getElementById('empcd').value =  empcd;   
+        document.getElementById('lvid').value =  lvid;   
+        document.getElementById('attid').value =  attid;   
+  
+}
+
+  function timeOut()
+        {
+
+            var url = "../wfhome/timeInProcess.php";  
+            var wfhid = document.getElementById("lvid").value; 
+            var emp_code = document.getElementById("empcd").value;
+            var wfh_output2 = document.getElementById("wfh_output2").value;  
+            var wfh_percentage = document.getElementById("wfh_percentage").value;  
+            var attid = document.getElementById("attid").value;  
+
+            // console.log(wfhid);
+            // console.log(emp_code);
+            // console.log(wfh_output2);
+            // console.log(wfh_percentage);
+            // console.log(attid);
+
+            // return false;
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to time out now?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((timeIn) => {
+                          if (timeIn) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 2,
+                                        wfhid:wfhid,
+                                        emp_code:emp_code,
+                                        wfh_output2:wfh_output2,
+                                        wfh_percentage:wfh_percentage,
+                                        attid:attid
+
+                                    },
+                                    function(data) { 
+                                        console.log(data);
+                                            swal({
+                                            title: "Success!", 
+                                            text: "Successfully time out!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                location.href = '../wfhome/wfh_app_view.php';
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You cancel your time out!",icon:"error"});
                           }
                         });
       
@@ -216,7 +298,7 @@
             </div>
         </div>
     </div>
-
+ <!-- apply wfh start -->
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -260,27 +342,7 @@
                                         <input type="text" id="wfh_task" name="wfh_task" class="form-control inputtext">
                                     </div>
                             </div>
-
-                            <div class="form-row align-items-center mb-2">
-                                    <div class="col-md-2 d-inline">
-                                        <label for="">Expected Output:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-10 d-inline">
-                                        <input type="text" id="wfh_output" name="wfh_output" class="form-control inputtext">
-                                    </div>
-                            </div>
-
-<!--                             <div class="form-row align-items-center mb-2">
-                                   <div class="col-md-2 d-inline">
-                                        <label for="">Percentage:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-2 d-inline">
-                                        <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10" onkeypress="return false">
-                                    </div>
-                                    <div class="col-md-1 d-inline">
-                                        <label for="">%</label>
-                                    </div>
-                            </div>     -->                        
+                    
                     </div>
                 </div>
 
@@ -294,6 +356,107 @@
         </div>
     </div>
 
+    <!-- end of apply wfh -->
+
+
+    <!-- start time in wfh  -->
+
+    <div class="modal fade" id="timeInModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Time-In <i class="fas fa-play"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>                  
+
+                        <input type="text" name="lvid" id="lvid" hidden>
+                        <input type="text" name="empcd" id="empcd" hidden>
+                            <div class="form-row align-items-center mb-2">
+                                    <div class="col-md-2 d-inline">
+                                        <label for="">Expected Output:</label><span class="req">*</span>
+                                    </div>
+                                    <div class="col-md-10 d-inline">
+                               <textarea class="form-control inputtext" id="wfh_output" name="wfh_output" rows="4" cols="50" ></textarea> 
+                                    </div>
+                            </div>
+                      
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="subbut" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end timein wfh -->
+
+
+    <!-- start time out wfh  -->
+
+    <div class="modal fade" id="timeOutModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Time-Out <i class="fas fa-hand-paper"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>                  
+
+                        <input type="text" name="lvid" id="lvid" hidden>
+                        <input type="text" name="empcd" id="empcd" hidden>
+                        <input type="text" name="attid" id="attid" hidden>
+                            <div class="form-row align-items-center mb-2">
+                                    <div class="col-md-2 d-inline">
+                                        <label for="">Output:</label><span class="req">*</span>
+                                    </div>
+                                    <div class="col-md-10 d-inline">
+                                        <textarea class="form-control inputtext" id="wfh_output2" name="wfh_output2" rows="4" cols="50" ></textarea>                                        
+                                    </div>
+                            </div>
+                            <div class="form-row align-items-center mb-2">
+                             <div class="col-md-2 d-inline">
+                                <label for="">Percentage:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-2 d-inline">
+                                <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10" onkeypress="return false" placeholder="0">
+                            </div>
+                            <div class="col-md-1 d-inline">
+                                <label for="">%</label>
+                            </div> 
+                            </div>                            
+                      
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end time out wfh -->
+
+
+
+    <!-- start view wfh  -->
 <div class="modal fade" id="viewWfhModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -342,7 +505,13 @@
                                         <label class="control-label" for="wfhstats">Status</label>
                                         <input type="text" id="wfhstats" name="wfhstats" class="form-control" readonly>
                                     </div>
-                                </div>         
+                                </div> 
+                                <div class="col-lg-10">
+                                    <div class="form-group">
+                                        <label class="control-label" for="wfhoutput2">Output</label>
+                                        <input type="text" id="wfhoutput2" name="wfhoutput2" class="form-control" readonly>                                        
+                                    </div>
+                                </div>                                         
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">

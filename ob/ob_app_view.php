@@ -309,7 +309,7 @@
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW OVERTIME LOGS   <i class='fas fa-building'></i></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW OFFICIAL BUSINESS LOGS   <i class='fas fa-building'></i></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>

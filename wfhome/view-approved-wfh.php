@@ -9,10 +9,10 @@
     else
     {
         include('../_header.php');
-        include('../ob/ob_app.php');
+        include('../wfhome/wfh_app.php');
 
-        $obApp = new ObApp(); 
-        $obApp->SetObAppParams($empCode);
+        $wfhApp = new WfhApp(); 
+        $wfhApp->SetWfhAppParams($empCode);
 
         $query = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
         $param = array(":empcode" => $_SESSION['userid']);
@@ -29,44 +29,28 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];   
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];     
 
-        $queryf = "SELECT ob_date from dbo.tr_offbusiness WHERE emp_code = :empcode and  status in (1,2)";
-        $paramf = array(":empcode" => $_SESSION['userid']);
-        $stmtf =$connL->prepare($queryf);
-        $stmtf->execute($paramf);
-        $rsf = $stmtf->fetch();
-
-        if(!empty($rsf)){
-            $totalVal = [];
-            do { 
-                array_push($totalVal,$rsf['ob_date']);
-                
-            } while ($rsf = $stmtf->fetch());                  
-        }else{
-            $totalVal = [];
-        }
 
     }    
 ?>
-
 <script type="text/javascript">
     
 
-    function viewObModal(obdestination,obdate,obtime,obpurpose,obpercmp,stats){
-            $('#viewObModal').modal('toggle');
-            document.getElementById('obdestination').value =  obdestination;   
-            document.getElementById('obdate').value =  obdate;  
-            document.getElementById('obtime').value =  obtime;  
-            document.getElementById('obpurpose').value =  obpurpose;  
-            document.getElementById('obpercmp').value =  obpercmp;  
-            document.getElementById('stats').value =  stats;                                         
+function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
+   
+        $('#viewWfhModal').modal('toggle');
+        document.getElementById('wfhdates').value =  wfhdate;   
+        document.getElementById('wfhtask').value =  wfhtask;  
+        document.getElementById('wfhoutput').value =  wfhoutput;  
+        document.getElementById('wfhpercentage').value =  wfhpercentage;  
+        document.getElementById('wfhstats').value =  wfhstats;                          
     }
 
-    function viewObHistoryModal(lvlogid)
+    function viewWfhHistoryModal(lvlogid)
     {
-       $('#viewObHistoryModal').modal('toggle');
-        var url = "../ob/ob_viewlogs.php";
+       $('#viewWfhHistoryModal').modal('toggle');
+        var url = "../wfhome/wfh_viewlogs.php";
         var lvlogid = lvlogid;
 
         $.post (
@@ -79,33 +63,27 @@
         );
     }
 
-     
 </script>
-<link rel="stylesheet" type="text/css" href="../ob/ob_view.css">
-<script type='text/javascript' src='../ob/ob_app.js'></script>
-<script type='text/javascript' src='../js/validator.js'></script>
-<script src="../ob/moment2.min.js"></script>
-<script src="../ob/moment-range.js"></script>
+<link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES OFFICIAL BUSINESS APPLICATION</h1>
+          <h1>ALL EMPLOYEES WORK FROM HOME APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-building'></i>&nbsp;ALL EMPLOYEES OFFICIAL BUSINESS APPLICATION</b></li>
+              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-warehouse fa-fw'>
+                        </i>&nbsp;ALL EMPLOYEES WORK FROM HOME APPLICATION</b></li>
             </ol>
           </nav>
-   
-    <div class="pt-3">
-
+<div class="pt-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $obApp->GetAllObAppHistory(); ?>
+                        <?php $wfhApp->GeAlltWfhAppHistory(); ?>
                     </div>
                 </div>
             </div>
@@ -113,12 +91,13 @@
     </div>
 
 
-<div class="modal fade" id="viewObModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+    <!-- start view wfh  -->
+<div class="modal fade" id="viewWfhModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW OFFICIAL BUSINESS <i class="fas fa-building"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW WORK FROM HOME <i class="fas fa-warehouse"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -130,42 +109,36 @@
                                 <legend class="fieldset-border pad">
                                 </legend>
                              </div>
+                             <!-- wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats -->
                         <div class="form-row">
-                            <!-- ob_from,ottype,otstartdtime,otenddtime,remark,otreqhrs,otrenhrs,rejectreason -->
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="obdate">OB Date</label>
-                                        <input type="text" id="obdate" name="obdate" class="form-control" readonly>
+                                        <label class="control-label" for="wfhdates">WFH Date</label>
+                                        <input type="text" id="wfhdates" name="wfhdates" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-9">
+                                <div class="col-lg-10">
                                     <div class="form-group">
-                                        <label class="control-label" for="obdestination">Destination</label>
-                                        <input type="text" id="obdestination" name="obdestination" class="form-control" readonly>
+                                        <label class="control-label" for="wfhtask">Task</label>
+                                        <input type="text" id="wfhtask" name="wfhtask" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="obtime">Time</label>
-                                        <input type="text" id="obtime" name="obtime" class="form-control" readonly>
+                                        <label class="control-label" for="wfhpercentage">Percentage %</label>
+                                        <input type="text" id="wfhpercentage" name="wfhpercentage" class="form-control" readonly >
                                     </div>
-                                </div>
-                                <div class="col-lg-9">
+                                </div>                              
+                                <div class="col-lg-10">
                                     <div class="form-group">
-                                        <label class="control-label" for="obpercmp">Person/Company to See</label>
-                                        <input type="text" id="obpercmp" name="obpercmp" class="form-control" readonly>                                        
+                                        <label class="control-label" for="wfhoutput">Expected Output</label>
+                                        <input type="text" id="wfhoutput" name="wfhoutput" class="form-control" readonly>                                        
                                     </div>
                                 </div> 
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label class="control-label" for="stats">Status</label>
-                                        <input type="text" id="stats" name="stats" class="form-control" readonly>
-                                    </div>
-                                </div>   
-                                <div class="col-lg-9">
-                                    <div class="form-group">
-                                        <label class="control-label" for="obpurpose">Purpose</label>
-                                        <input type="text" id="obpurpose" name="obpurpose" class="form-control" readonly>
+                                        <label class="control-label" for="wfhstats">Status</label>
+                                        <input type="text" id="wfhstats" name="wfhstats" class="form-control" readonly>
                                     </div>
                                 </div>         
                             </div> <!-- form row closing -->
@@ -179,12 +152,12 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-<div class="modal fade" id="viewObHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+<div class="modal fade" id="viewWfhHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW OFFICIAL BUSINESS LOGS   <i class='fas fa-building'></i></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW WORK FROM HOME LOGS   <i class='fas fa-warehouse'></i></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -216,27 +189,26 @@
                     </div> <!-- modal body closing -->
                 </div> <!-- modal content closing -->
             </div> <!-- modal dialog closing -->
-        </div><!-- modal fade closing -->        
+        </div><!-- modal fade closing -->   
 
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
 
 <script type="text/javascript">
+ 
 
-
-      function myFunction() {
+    function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allobList");
+  table = document.getElementById("wfhList");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
     if(td.length > 0){ // to avoid th
        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
-        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
          tr[i].style.display = "";
        } else {
          tr[i].style.display = "none";
@@ -246,7 +218,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-    getPagination('#allobList');
+    getPagination('#wfhList');
 
 function getPagination(table) {
   var lastPage = 1;
@@ -374,5 +346,4 @@ function limitPagging(){
     }
 }
 </script>
-
 <?php include("../_footer.php");?>
