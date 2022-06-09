@@ -324,7 +324,9 @@ rel="stylesheet">
                                   <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Leave Balance</a></li>
                                   <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
                                   <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
-                                  <li><a href='../wfhome/view-approved-wfh.php' onclick='show()'>View Approved WFH</a></li>                                  
+                                  <li><a href='../wfhome/view-approved-wfh.php' onclick='show()'>View Approved WFH</a></li> 
+                                 <li><a href='../ob/view-approved-ob.php' onclick='show()'>View Approved OB</a></li>
+                                   <li><a href='../dtrcorrect/view-approved-dtrc.php' onclick='show()'>View Approved DTR Correction</a></li>                                                                  
                                 </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fas fa-file-archive'></i><span>Masterfile</span> 

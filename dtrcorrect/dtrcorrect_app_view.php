@@ -177,7 +177,7 @@
 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">APPLY DTR CORRECTION <i class="fas fa-clock"></i></h5>
@@ -195,6 +195,7 @@
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
                                         <label for="">DTR Date:</label>
+                                        <span class="req">*</span>
                                     </div>
                                     <div class="col-md-4 d-inline">
                                         <input type="date" id="dtrc_date" name="dtrc_date" class="form-control" 
@@ -205,13 +206,13 @@
                       
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">Time-In:</label>
+                                        <label for="">Time-In:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-4 d-inline">
                                         <input type="time" id="time_in" name="time_out" class="form-control inputtext">
                                     </div>
                                     <div class="col-md-2 d-inline">
-                                        <label for="">Time-Out:</label>
+                                        <label for="">Time-Out:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-4 d-inline">
                                         <input type="time" id="time_out" name="time_out" class="form-control inputtext">
@@ -219,7 +220,7 @@
                             </div>
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">Reason:</label>
+                                        <label for="">Reason:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-10 d-inline">
                                         <input type="text" id="remarks" name="remarks" class="form-control inputtext">

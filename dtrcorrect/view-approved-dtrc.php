@@ -9,10 +9,10 @@
     else
     {
         include('../_header.php');
-        include('../wfhome/wfh_app.php');
+        include('../dtrcorrect/dtrcorrect_app.php');
 
-        $wfhApp = new WfhApp(); 
-        $wfhApp->SetWfhAppParams($empCode);
+        $dtrcorrectApp = new DtrCorrectApp(); 
+        $dtrcorrectApp->SetdtrcorrectAppParams($empCode);
 
         $query = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
         $param = array(":empcode" => $_SESSION['userid']);
@@ -29,9 +29,10 @@
         $astmt->execute($aparam);
         $ar = $astmt->fetch();
         $e_appr = $ar['emailaddress'];
-        $n_appr = $ar['firstname'].' '.$ar['lastname'];    
+        $n_appr = $ar['firstname'].' '.$ar['lastname'];   
 
-         
+
+        
         if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
         {
   
@@ -39,28 +40,27 @@
             echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
             echo "window.location.href = '../index.php';";
             echo "</script>";
-        } 
-
+        }  
 
     }    
 ?>
 <script type="text/javascript">
     
 
-function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
+    function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts){
    
-        $('#viewWfhModal').modal('toggle');
-        document.getElementById('wfhdates').value =  wfhdate;   
-        document.getElementById('wfhtask').value =  wfhtask;  
-        document.getElementById('wfhoutput').value =  wfhoutput;  
-        document.getElementById('wfhpercentage').value =  wfhpercentage;  
-        document.getElementById('wfhstats').value =  wfhstats;                          
+    $('#viewdtrcorrectModal').modal('toggle');
+        document.getElementById('dtrcdate').value =  dtrcdate;   
+        document.getElementById('timein').value =  timein;  
+        document.getElementById('timeout').value =  timeout;  
+        document.getElementById('rmrks').value =  rmrks;  
+        document.getElementById('stts').value =  stts;                          
     }
 
-    function viewWfhHistoryModal(lvlogid)
+    function viewdtrcorrectHistoryModal(lvlogid)
     {
-       $('#viewWfhHistoryModal').modal('toggle');
-        var url = "../wfhome/wfh_viewlogs.php";
+       $('#viewdtrcorrectHistoryModal').modal('toggle');
+        var url = "../dtrcorrect/dtrcorrect_viewlogs.php";
         var lvlogid = lvlogid;
 
         $.post (
@@ -73,27 +73,74 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
         );
     }
 
+    function canceldtrcorrect(lvid,empcd)
+    {
+
+     var url = "../dtrcorrect/canceldtrcorrectProcess.php";  
+     var dtrcorrectid = lvid;   
+     var emp_code = empcd;   
+        swal({
+              title: "Are you sure?",
+              text: "You want to cancel this dtr correction?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((cnclDTR) => {
+              if (cnclDTR) {
+                $.post (
+                        url,
+                        {
+                            choice: 1,
+                            dtrcorrectid:dtrcorrectid,
+                            emp_code:emp_code
+                        },
+                        function(data) { 
+                            // console.log(data);
+                                swal({
+                                title: "Oops!", 
+                                text: "Successfully cancelled dtr correction!", 
+                                type: "info",
+                                icon: "info",
+                                }).then(function() {
+                                    document.getElementById('st'+dtrcorrectid).innerHTML = 'VOID';
+                                    document.querySelector('#clv').remove();
+                                });  
+                        }
+                    );
+              } else {
+                swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
+              }
+            });
+    }
+
 </script>
-<link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
+<link rel="stylesheet" type="text/css" href="../dtrcorrect/dtrc_view.css">
+<script type='text/javascript' src='../dtrcorrect/dtrcorrect_app.js'></script>
+<script type='text/javascript' src='../js/validator.js'></script>
+<script src="../dtrcorrect/moment2.min.js"></script>
+<script src="../dtrcorrect/moment-range.js"></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES WORK FROM HOME APPLICATION</h1>
+          <h1>ALL EMPLOYEES DTR CORRECTION APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-warehouse fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES WORK FROM HOME APPLICATION</b></li>
+              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-clock fa-fw'>
+                        </i>&nbsp;ALL EMPLOYEES DTR CORRECTION APPLICATION</b></li>
             </ol>
           </nav>
 <div class="pt-3">
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $wfhApp->GeAlltWfhAppHistory(); ?>
+                        <?php $dtrcorrectApp->GetAlldtrcorrectAppHistory(); ?>
                     </div>
                 </div>
             </div>
@@ -101,13 +148,12 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
     </div>
 
 
-    <!-- start view wfh  -->
-<div class="modal fade" id="viewWfhModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+<div class="modal fade" id="viewdtrcorrectModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW WORK FROM HOME <i class="fas fa-warehouse"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW DTR CORRECTION <i class="fas fa-clock"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -119,36 +165,36 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
                                 <legend class="fieldset-border pad">
                                 </legend>
                              </div>
-                             <!-- wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats -->
+                             <!-- dtrcorrectdate,dtrcorrecttask,dtrcorrectoutput,dtrcorrectpercentage,dtrcorrectstats -->
                         <div class="form-row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="wfhdates">WFH Date</label>
-                                        <input type="text" id="wfhdates" name="wfhdates" class="form-control" readonly>
+                                        <label class="control-label" for="dtrcdate">DTR Date</label>
+                                        <input type="text" id="dtrcdate" name="dtrcdate" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-10">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="wfhtask">Task</label>
-                                        <input type="text" id="wfhtask" name="wfhtask" class="form-control" readonly>
+                                        <label class="control-label" for="stts">Status</label>
+                                        <input type="text" id="stts" name="stts" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="wfhpercentage">Percentage %</label>
-                                        <input type="text" id="wfhpercentage" name="wfhpercentage" class="form-control" readonly >
+                                        <label class="control-label" for="timein">Time-In</label>
+                                        <input type="text" id="timein" name="timein" class="form-control" readonly>
                                     </div>
                                 </div>                              
-                                <div class="col-lg-10">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="wfhoutput">Expected Output</label>
-                                        <input type="text" id="wfhoutput" name="wfhoutput" class="form-control" readonly>                                        
+                                        <label class="control-label" for="timeout">Time-Out</label>
+                                        <input type="text" id="timeout" name="timeout" class="form-control" readonly>                                        
                                     </div>
                                 </div> 
-                                <div class="col-lg-2">
+                                <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="wfhstats">Status</label>
-                                        <input type="text" id="wfhstats" name="wfhstats" class="form-control" readonly>
+                                        <label class="control-label" for="rmrks">Reason</label>
+                                        <input type="text" id="rmrks" name="rmrks" class="form-control" readonly>
                                     </div>
                                 </div>         
                             </div> <!-- form row closing -->
@@ -162,12 +208,12 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
-<div class="modal fade" id="viewWfhHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+<div class="modal fade" id="viewdtrcorrectHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW WORK FROM HOME LOGS   <i class='fas fa-warehouse'></i></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW WORK FROM HOME LOGS   <i class='fas fa-clock'></i></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -205,13 +251,23 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
 </div><!-- container closing -->
 
 <script type="text/javascript">
- 
+
+    $('#dtrc_date').change(function(){
+
+    var dte = $('#dtrc_date').val();
+    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+    if(disableDates.includes(dte)){
+        document.getElementById('dtrc_date').value = '';
+    }
+
+    });
 
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allwfhList");
+  table = document.getElementById("alldtrcorrectList");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -228,7 +284,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-    getPagination('#allwfhList');
+    getPagination('#alldtrcorrectList');
 
 function getPagination(table) {
   var lastPage = 1;

@@ -59,7 +59,7 @@ Class ObApp{
                     when   status = 3 then 'REJECTED'
                     when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as ob_rowid,* FROM dbo.tr_offbusiness a
         left join employee_profile b on a.emp_code = b.emp_code
-        where status = 2 ORDER BY date_filed DESC";
+        where status = 2 ORDER BY ob_date DESC";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();

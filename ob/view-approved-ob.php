@@ -31,21 +31,16 @@
         $e_appr = $ar['emailaddress'];
         $n_appr = $ar['firstname'].' '.$ar['lastname'];   
 
-        $queryf = "SELECT ob_date from dbo.tr_offbusiness WHERE emp_code = :empcode and  status in (1,2)";
-        $paramf = array(":empcode" => $_SESSION['userid']);
-        $stmtf =$connL->prepare($queryf);
-        $stmtf->execute($paramf);
-        $rsf = $stmtf->fetch();
-
-        if(!empty($rsf)){
-            $totalVal = [];
-            do { 
-                array_push($totalVal,$rsf['ob_date']);
-                
-            } while ($rsf = $stmtf->fetch());                  
+        
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
+        {
+  
         }else{
-            $totalVal = [];
-        }
+            echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+            echo "window.location.href = '../index.php';";
+            echo "</script>";
+        } 
+
 
     }    
 ?>

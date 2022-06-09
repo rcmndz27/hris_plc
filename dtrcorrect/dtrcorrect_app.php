@@ -16,6 +16,105 @@ Class DtrCorrectApp{
     }
 
 
+public function GetAlldtrcorrectAppHistory(){
+        global $connL;
+
+        echo '
+        <div class="form-row">  
+                    <div class="col-lg-1">
+                        <select class="form-select" name="state" id="maxRows">
+                             <option value="5000">ALL</option>
+                             <option value="5">5</option>
+                             <option value="10">10</option>
+                             <option value="15">15</option>
+                             <option value="20">20</option>
+                             <option value="50">50</option>
+                             <option value="70">70</option>
+                             <option value="100">100</option>
+                        </select> 
+                </div>         
+                <div class="col-lg-8">
+                </div>                               
+                <div class="col-lg-3">        
+                    <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for dtr correction.." title="Type in dtr correction details"> 
+                        </div>                     
+                </div>         
+        <table id="alldtrcorrectList" class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>DTR Date</th>
+                <th>Name</th>
+                <th>Time-In</th>
+                <th>Time-Out</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+        $query = "SELECT (CASE when status = 1 then 'PENDING'
+                    when   status = 2 then 'APPROVED'
+                    when   status = 3 then 'REJECTED'
+                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as dtrc_id,* FROM dbo.tr_dtrcorrect a
+        left join employee_profile b on a.emp_code = b.emp_code
+        where status = 2 ORDER BY dtrc_date DESC";
+        $stmt =$connL->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        if($result){
+            do { 
+                // dtrcdate,timein,timeout,remarks,stts
+                $dtrcdate = "'".date('m-d-Y', strtotime($result['dtrc_date']))."'";
+                $timein = "'".date('h:i a', strtotime($result['time_in']))."'";
+                $timeout = "'".date('h:i a', strtotime($result['time_out']))."'";
+                $rmrks = "'".$result['remarks']."'";
+                $stts = "'".$result['stats']."'";
+                $dtrcid = "'".$result['dtrc_id']."'";
+                $empcode = "'".$result['emp_code']."'";
+                echo '
+                <tr>
+                <td>'.date('m-d-Y', strtotime($result['dtrc_date'])).'</td>
+                <td>'.$result['fullname'] . '</td>
+                <td>'.date('h:i a', strtotime($result['time_in'])).'</td>
+                <td>'.date('h:i a', strtotime($result['time_out'])).'</td>
+                <td>'.$result['remarks'] . '</td>
+                <td id="st'.$result['dtrc_id'].'">'.$result['stats'].'</td>';
+                echo'
+                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                       
+                            </td>';                                
+
+
+            } while ($result = $stmt->fetch());
+
+            echo '</tr></tbody>';
+
+        }else { 
+            echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
+        }
+        echo '</table>
+        <div class="pagination-container">
+        <nav>
+          <ul class="pagination">
+            
+            <li data-page="prev" >
+                <span> << <span class="sr-only">(current)</span></span></li>
+    
+          <li data-page="next" id="prev">
+                  <span> >> <span class="sr-only">(current)</span></span>
+            </li>
+          </ul>
+        </nav>
+      </div>';
+    }
+
+
     public function GetdtrcorrectAppHistory(){
         global $connL;
 
@@ -39,7 +138,7 @@ Class DtrCorrectApp{
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for dtr correction.." title="Type in dtr correction details"> 
                         </div>                     
                 </div>         
-        <table id="wfhList" class="table table-striped table-sm">
+        <table id="dtrcorrectList" class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>DTR Date</th>
