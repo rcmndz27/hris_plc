@@ -252,18 +252,8 @@
 
 <script type="text/javascript">
 
-    $('#dtrc_date').change(function(){
-
-    var dte = $('#dtrc_date').val();
-    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
-
-    if(disableDates.includes(dte)){
-        document.getElementById('dtrc_date').value = '';
-    }
-
-    });
-
-    function myFunction() {
+  
+      function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -274,7 +264,8 @@ for (i = 0; i < tr.length; i++) {
     if(td.length > 0){ // to avoid th
        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
-        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
          tr[i].style.display = "";
        } else {
          tr[i].style.display = "none";
