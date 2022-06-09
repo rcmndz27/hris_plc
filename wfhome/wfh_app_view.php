@@ -119,6 +119,47 @@
       
     }
 
+  function timeIn(lvid,empcd)
+        {
+
+                 var url = "../wfhome/timeInProcess.php";  
+                 var wfhid = lvid;   
+                 var emp_code = empcd;   
+                    swal({
+                          title: "Are you sure?",
+                          text: "You want to time in now?",
+                          icon: "success",
+                          buttons: true,
+                          dangerMode: true,
+                        })
+                        .then((timeIn) => {
+                          if (timeIn) {
+                            $.post (
+                                    url,
+                                    {
+                                        choice: 1,
+                                        wfhid:wfhid,
+                                        emp_code:emp_code
+                                    },
+                                    function(data) { 
+                                        console.log(data);
+                                            swal({
+                                            title: "Success!", 
+                                            text: "Successfully time in!", 
+                                            type: "info",
+                                            icon: "info",
+                                            }).then(function() {
+                                                location.href = '../wfhome/wfh_app_view.php';
+                                            });  
+                                    }
+                                );
+                          } else {
+                            swal({text:"You cancel your time in!",icon:"error"});
+                          }
+                        });
+      
+    }    
+
 </script>
 <link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <script type='text/javascript' src='../wfhome/wfh_app.js'></script>
@@ -229,7 +270,7 @@
                                     </div>
                             </div>
 
-                            <div class="form-row align-items-center mb-2">
+<!--                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
                                         <label for="">Percentage:</label><span class="req">*</span>
                                     </div>
@@ -239,7 +280,7 @@
                                     <div class="col-md-1 d-inline">
                                         <label for="">%</label>
                                     </div>
-                            </div>                            
+                            </div>     -->                        
                     </div>
                 </div>
 

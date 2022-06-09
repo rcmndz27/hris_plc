@@ -62,8 +62,8 @@
         inputValues = [
             
             $('#wfh_task'),
-            $('#wfh_output'),
-            $('#wfh_percentage')
+            $('#wfh_output')
+            // ,$('#wfh_percentage')
             
         ];
 
@@ -131,7 +131,7 @@ $('#Submit').click(function(){
                     "wfhdate": ite_date,
                     "wfh_task": $('#wfh_task').val(),
                     "wfh_output": $('#wfh_output').val(),
-                    "wfh_percentage": $('#wfh_percentage').val(),
+                    "wfh_percentage": 0,
                     "e_req": e_req,
                     "n_req": n_req,
                     "e_appr": e_appr,

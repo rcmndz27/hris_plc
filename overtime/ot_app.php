@@ -69,8 +69,8 @@ Class OtApp{
             do { 
                 $otdate = "'".date('m-d-Y', strtotime($result['ot_date']))."'";
                 $ottype = "'".(isset($result['ot_type']) ? $result['ot_type'] : 'n/a')."'";
-                $otstartdtime = "'".date('h:i a', strtotime($result['ot_start_dtime']))."'";
-                $otenddtime = "'".date('h:i a', strtotime($result['ot_end_dtime']))."'";
+                $otstartdtime = "'".date('h:i A', strtotime($result['ot_start_dtime']))."'";
+                $otenddtime = "'".date('h:i A', strtotime($result['ot_end_dtime']))."'";
                 $remark = "'".(isset($result['remarks']) ? $result['remarks'] : 'n/a')."'";
                 $otreqhrs = "'".$result['ot_req_hrs']."'";
                 $otrenhrs = "'".$result['ot_ren_hrs']."'";
@@ -82,8 +82,8 @@ Class OtApp{
                 <tr>
                 <td>' . date('m-d-Y', strtotime($result['ot_date'])) . '</td>
                 <td>' . $result['ot_type'] . '</td>
-                <td>' . date('h:i a', strtotime($result['ot_start_dtime'])) . '</td>
-                <td>' . date('h:i a', strtotime($result['ot_end_dtime'])) . '</td>
+                <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
+                <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
                 <td>' . $result['ot_req_hrs'] . '</td>
                 <td>' . $result['ot_ren_hrs'] . '</td>
                 <td>' . $result['remarks'] . '</td>

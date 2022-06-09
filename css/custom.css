@@ -658,6 +658,32 @@ color: #d64747;
     opacity: 0.5;
 }
 
+.startIn{
+    background-color: #0a58ca;
+    border-color: #0a58ca;
+    font-weight: bolder;
+    color: #ffff;
+    font-size: 14px;
+    border-radius: 1rem;
+}
+.startIn:hover{
+    opacity: 0.5;
+}
+
+.startOut{
+    background-color: #198754;
+    border-color: #198754;
+    font-weight: bolder;
+    color: #ffff;
+    font-size: 14px;
+    border-radius: 1rem;
+}
+
+.startOut:hover{
+    opacity: 0.5;
+}
+
+
 .deactv{
     width: 130px; 
     background-color: #ffaa00;

@@ -4,6 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+
 //Load Composer's autoloader
 require '../vendor/autoload.php';
 
@@ -47,6 +48,8 @@ Class WfhApp{
                 <th>Task</th>
                 <th>Expected Output</th>
                 <th>Percentage %</th>
+                <th>Time-In</th>
+                <th>Time-Out</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -56,7 +59,11 @@ Class WfhApp{
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,* FROM dbo.tr_workfromhome where emp_code = :emp_code ORDER BY wfh_date DESC";
+                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,* 
+                    FROM dbo.tr_workfromhome a
+                    left join employee_attendance b
+                    on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
+                    and a.wfh_date = b.punch_date where a.emp_code = :emp_code ORDER BY wfh_date DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -70,16 +77,18 @@ Class WfhApp{
                 $wfhoutput = "'".$result['wfh_output']."'";
                 $wfhpercentage = "'".$result['wfh_percentage']."'";
                 $wfhstats = "'".$result['stats']."'";
-                $wfhid = "'".$result['rowid']."'";
-                $empcode = "'".$result['emp_code']."'";
-                echo '
+                $wfhid = "'".$result['wfhid']."'";
+                $empcode = "'".$result['empcd']."'";
+                echo "
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['wfh_date'])) . '</td>
-                <td>' . $result['wfh_task'] . '</td>
-                <td>' . $result['wfh_output'] . '</td>
-                <td>' . $result['wfh_percentage'] . '</td>
-                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
-                if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
+                <td>" . date('m-d-Y', strtotime($result['wfh_date']))."</td>
+                <td>" . $result['wfh_task'] ."</td>
+                <td>" . $result['wfh_output'] ."</td>
+                <td>" . $result['wfh_percentage']."</td>
+                <td id='ti".$result['wfhid']."'>".(isset($result['timein']) ? date('h:i A', strtotime($result['timein'])) : 'n/a') . "</td>
+                <td id='to".$result['wfhid']."'>".(isset($result['timeout']) ? date('h:i A', strtotime($result['timeout'])) : 'n/a') . "</td>
+                <td id='st".$result['wfhid']."'>" . $result['stats']."</td>";
+                if($result['stats'] == 'PENDING'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
@@ -91,6 +100,31 @@ Class WfhApp{
                                 <i class="fas fa-ban"></i>
                             </button>
                             </td>';
+                }else if($result['stats'] == 'APPROVED'){
+                echo'
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                           
+                            <button type="button" id="clv" class="voidBut" onclick="cancelWfh('.$wfhid.','.$empcode.')" title="Cancel Work From Home">
+                                <i class="fas fa-ban"></i>
+                            </button>';
+
+                            if(empty($result['timein'])){
+                                echo'
+                            <button type="button"  class="startIn" onclick="timeIn('.$wfhid.','.$empcode.')" title="Time In">
+                                <i class="fas fa-play"></i>
+                            </button>                            
+                            </td>';
+                            }else{
+                                echo'<button type="button"  class="startOut" onclick="timeOut('.$wfhid.','.$empcode.')" title="Time Out">
+                                <i class="fas fa-hand-paper"></i>
+                            </button>                            
+                            </td>';
+
+                            }
                 }else{
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
