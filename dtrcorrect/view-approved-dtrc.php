@@ -32,7 +32,7 @@
         $n_appr = $ar['firstname'].' '.$ar['lastname'];   
 
 
-        
+
         if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
         {
   
@@ -252,6 +252,23 @@
 
 <script type="text/javascript">
 
+    $("#alldtrcorrectList").tableExport({
+    headers: true,
+    footers: true,
+    formats: ['xlsx'],
+    filename: 'id',
+    bootstrap: false,
+    exportButtons: true,
+    position: 'top',
+    ignoreRows: null,
+    ignoreCols: null,
+    trimWhitespace: true,
+    RTL: false,
+    sheetname: 'alldtrcorrectList'
+});
+$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
+ 
+ 
   
       function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -275,7 +292,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-    getPagination('#alldtrcorrectList');
+getPagination('#alldtrcorrectList');
 
 function getPagination(table) {
   var lastPage = 1;

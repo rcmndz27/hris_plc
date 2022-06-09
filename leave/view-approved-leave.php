@@ -56,6 +56,8 @@
 
 
 
+
+
     function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
 
         $('#viewLeaveModal').modal('toggle');
@@ -108,6 +110,7 @@
 
 
 </script>
+<!-- -->
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <div class="container">
     <div class="section-title">
@@ -263,6 +266,21 @@
 
 <script type="text/javascript">
 
+$("#allleaveList").tableExport({
+    headers: true,
+    footers: true,
+    formats: ['xlsx'],
+    filename: 'id',
+    bootstrap: false,
+    exportButtons: true,
+    position: 'top',
+    ignoreRows: null,
+    ignoreCols: null,
+    trimWhitespace: true,
+    RTL: false,
+    sheetname: 'AllEmpLeaves'
+});
+$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
  
 
 getPagination('#allleaveList');

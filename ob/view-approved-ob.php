@@ -218,6 +218,22 @@
 
 <script type="text/javascript">
 
+    $("#allobList").tableExport({
+    headers: true,
+    footers: true,
+    formats: ['xlsx'],
+    filename: 'id',
+    bootstrap: false,
+    exportButtons: true,
+    position: 'top',
+    ignoreRows: null,
+    ignoreCols: null,
+    trimWhitespace: true,
+    RTL: false,
+    sheetname: 'allobList'
+});
+$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+
 
       function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

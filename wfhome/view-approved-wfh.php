@@ -205,6 +205,22 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+    $("#allwfhList").tableExport({
+    headers: true,
+    footers: true,
+    formats: ['xlsx'],
+    filename: 'id',
+    bootstrap: false,
+    exportButtons: true,
+    position: 'top',
+    ignoreRows: null,
+    ignoreCols: null,
+    trimWhitespace: true,
+    RTL: false,
+    sheetname: 'allwfhList'
+});
+$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
  
 
     function myFunction() {
