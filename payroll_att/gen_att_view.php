@@ -63,6 +63,10 @@ else
                         <a class="nav-link" id="overtime-tab" name="overtime-tab" data-toggle="tab" href="#overtime" role="tab"
                             aria-controls="overtime" aria-selected="false">Overtime</a>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="dtr-tab" name="dtr-tab" data-toggle="tab" href="#dtr" role="tab"
+                            aria-controls="dtr" aria-selected="false">DTR</a>
+                    </li>                    
                 </ul>
                
                 <!-- ATTENDANCE -->
@@ -126,36 +130,58 @@ else
                         </div>      
                     </fieldset>
                 </div>
-
+                <!-- OVERTIME -->
                     <div class="tab-pane fade" id="overtime" role="tabpanel" aria-labelledby="overtime-tab">
-                    <fieldset class="fieldset-border">
-                        <div class="d-flex justify-content-center">
-                            <legend class="fieldset-border pad">
-                                Generate Overtime for Payroll
-                            </legend>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
+                        <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                    Generate Overtime for Payroll
+                                </legend>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="form-group">
-                                    <?php $dd->GenerateDropDown("ungenot", $mf->UnGetAllCutoffPay("unpayview")); ?>
+                                <div class="col-lg-7">
+                                    <div class="form-group">
+                                        <?php $dd->GenerateDropDown("ungenot", $mf->UnGetAllCutoffPay("unpayview")); ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button type="button" id="search" class="genpyrll" onclick="genOtPay();">
-                                        <i class="fas fa-search-plus"></i>GENERATE                       
-                                    </button> 
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <button type="button" id="search" class="genpyrll" onclick="genOtPay();">
+                                            <i class="fas fa-search-plus"></i>GENERATE                       
+                                        </button> 
+                                    </div>
                                 </div>
+                            </div>      
+                        </fieldset>
+                    </div>
+
+                <!-- dtr -->
+                    <div class="tab-pane fade" id="dtr" role="tabpanel" aria-labelledby="dtr-tab">
+                        <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                    Generate DTR from Biometrics
+                                </legend>
                             </div>
-                        </div>      
-                    </fieldset>
-            </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="form-row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <button type="button" id="search" class="genpyrll" onclick="genDTR();">
+                                                <i class="fas fa-search-plus"></i>GENERATE                       
+                                            </button> 
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>      
+                        </fieldset>
+                    </div>                    
     </div>
 </div>
 
@@ -300,6 +326,45 @@ else
         } else {
             document.getElementById("myDiv").style.display="none";
             swal({text:"You cancel the generation of overtime to attendance!",icon:"error"});
+        }
+    });
+
+    }
+
+    function genDTR()
+    {
+
+        var url = "../payroll_att/gen_dtr_process.php";
+
+        swal({
+          title: "Are you sure?",
+          text: "You want to generate dtr ?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+      })
+        .then((genAttPay) => {
+          document.getElementById("myDiv").style.display="block";
+          if (genAttPay) {
+            $.post (
+                url,
+                {
+                    action: 1                         
+                },
+                function(data) {  
+                // console.log(data);               
+                    swal({
+                        title: "Success!", 
+                        text: "Successfully generated DTR!", 
+                        type: "success",
+                        icon: "success",
+                    }).then(function() {                        
+                        location.href = '../pages/admin.php';
+                    });  
+                });
+        } else {
+            document.getElementById("myDiv").style.display="none";
+            swal({text:"You cancel the generation of dtr!",icon:"error"});
         }
     });
 
