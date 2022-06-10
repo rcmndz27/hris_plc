@@ -27,7 +27,7 @@
 
     //GET LAST TIME IN
     $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
-    $ystmt =$dbConnection->prepare($yquery);
+    $ystmt =$connL->prepare($yquery);
     $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
     $ystmt->execute($yparam);
     $yresult = $ystmt->fetch();

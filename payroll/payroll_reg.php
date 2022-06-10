@@ -70,7 +70,9 @@ class PayrollRegApplication {
                         <th> Sick Leave</th>
                         <th> Vacation Leave </th>   
                         <th> Sick Leave No Pay</th>
-                        <th> Vacation Leave No Pay</th>                                              
+                        <th> Vacation Leave No Pay</th>  
+                        <th> Work From Home </th>
+                        <th> Official Business </th>                                            
                         <th> Grosspay </th>
                         <th> Total Taxable </th>
                         <th> Withholding Tax </th>
@@ -122,6 +124,8 @@ $trans_allowance = ($r['trans_allowance'] <> '0') ?  '&#8369;'.number_format($r[
 $load_allowance = ($r['load_allowance'] <> '0') ?  '&#8369;'.number_format($r['load_allowance'],2,'.',',') : 0 ;
 $sick_leave = ($r['sick_leave'] <> '0') ?  '&#8369;'.number_format($r['sick_leave'],2,'.',',') : 0 ;
 $vacation_leave = ($r['vacation_leave'] <> '0') ?  '&#8369;'.number_format($r['vacation_leave'],2,'.',',') : 0 ;
+$wfhome = ($r['wfhome'] <> '0') ?  '&#8369;'.number_format($r['wfhome'],2,'.',',') : 0 ;
+$offbusiness = ($r['offbusiness'] <> '0') ?  '&#8369;'.number_format($r['offbusiness'],2,'.',',') : 0 ;
 $sick_leave_nopay = ($r['sick_leave_nopay'] <> '0') ?  '&#8369;'.number_format($r['sick_leave_nopay'],2,'.',',') : 0 ;
 $vacation_leave_nopay = ($r['vacation_leave_nopay'] <> '0') ?  '&#8369;'.number_format($r['vacation_leave_nopay'],2,'.',',') : 0 ;
 $gross_pay = ($r['gross_pay'] <> '0') ?  '&#8369;'.number_format($r['gross_pay'],2,'.',',') : 0 ;
@@ -186,7 +190,9 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
     "<td>" . $sick_leave. "</td>".
     "<td>" . $vacation_leave. "</td>". 
     "<td>" . $sick_leave_nopay. "</td>".
-    "<td>" . $vacation_leave_nopay. "</td>".                                   
+    "<td>" . $vacation_leave_nopay. "</td>".   
+    "<td>" . $wfhome. "</td>".
+    "<td>" . $offbusiness. "</td>".                                     
     "<td>" . $gross_pay. "</td>".
     "<td>" . $total_taxable. "</td>".
     "<td>" . $witholding_tax. "</td>".
