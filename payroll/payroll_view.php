@@ -514,8 +514,8 @@ aria-hidden="true">
                                         },
                                         success: function (result) {
                                             console.log('success: ' + result);
-                                            // swal({text:"Successfully added employee in payroll!",icon:"success"});
-                                            // location.reload();
+                                            swal({text:"Successfully added employee in payroll!",icon:"success"});
+                                            location.reload();
                                         },
                                         error: function (result) {
                                             console.log('error: ' + result);
