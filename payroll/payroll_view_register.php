@@ -102,6 +102,7 @@ function deletePayReg()
 
   // console.log(dates[0]);
   // console.log(dates[1]);
+  // console.log(empCode);
   // return false;
 
   swal({
@@ -118,6 +119,7 @@ function deletePayReg()
         url,
         {
           choice: 2,
+          empCode:empCode,
           date_from: dates[0],
           date_to: dates[1]
         },

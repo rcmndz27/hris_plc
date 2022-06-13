@@ -23,7 +23,7 @@ function ConfirmPayRegView($empCode)
     }
 
 
-function DeletePayReg($date_from,$date_to)
+function DeletePayReg($date_from,$date_to,$empCode)
     {
             global $connL;
         
@@ -31,6 +31,32 @@ function DeletePayReg($date_from,$date_to)
             $cmd->bindValue('date_from',$date_from);
             $cmd->bindValue('date_to', $date_to);
             $cmd->execute();
+
+
+            $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empCode";
+            $sparam = array(':empCode' => $empCode);
+            $sstmt =$connL->prepare($squery);
+            $sstmt->execute($sparam);
+            $sresult = $sstmt->fetch();
+            $sname = $sresult['fullname'];
+
+
+        $query = "INSERT INTO logs_gen_script (pay_from,pay_to,remarks,audituser, auditdate) 
+            VALUES(:pay_from,:pay_to,:remarks,:audituser,:auditdate) ";
+
+            $stmt =$connL->prepare($query);
+
+            $param = array(
+                ":pay_from"=> $date_from,
+                ":pay_to" => $date_to,
+                ":remarks" => 'Delete PayReg',
+                ":audituser" => $sname,
+                ":auditdate"=>date('m-d-Y')
+            );
+
+        $result = $stmt->execute($param);
+
+        echo $result;
 
     }    
 

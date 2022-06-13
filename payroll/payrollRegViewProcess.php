@@ -10,8 +10,9 @@
         $empCode = $_POST['emp_code'];
         ConfirmPayRegView($empCode);
     }else{
+        $empCode = $_POST['empCode'];
         $date_from = $_POST['date_from'];
         $date_to = $_POST['date_to'];
-        DeletePayReg($date_from,$date_to);
+        DeletePayReg($date_from,$date_to,$empCode);
     }
 ?>
