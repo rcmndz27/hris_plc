@@ -152,8 +152,8 @@ Class OtApp{
                 <th>OT Type</th>
                 <th>Time-In</th>
                 <th>Time-Out</th>
-                <th>Plan OT</th>
-                <th>Rendered OT</th>
+                <th>Plan OT (Hrs)</th>
+                <th>Rendered OT (Hrs)</th>
                 <th>Remarks</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -189,7 +189,7 @@ Class OtApp{
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
-                <td>' . $result['ot_req_hrs'] . '</td>
+                <td>' . round($result['ot_req_hrs'],2) . '</td>
                 <td>' . $result['ot_ren_hrs'] . '</td>
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';

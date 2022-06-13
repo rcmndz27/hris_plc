@@ -123,14 +123,14 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                                    // swal({
-                                                    // title: "Success!", 
-                                                    // text: "Successfully added overtime details!", 
-                                                    // type: "success",
-                                                    // icon: "success",
-                                                    // }).then(function() {
-                                                    //     location.href = '../overtime/ot_app_view.php';
-                                                    // });
+                                                    swal({
+                                                    title: "Success!", 
+                                                    text: "Successfully added overtime details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../overtime/ot_app_view.php';
+                                                    });
                                         },
                                         error: function (data){
                                             // alert('error');
