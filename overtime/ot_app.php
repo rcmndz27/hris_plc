@@ -239,31 +239,37 @@ Class OtApp{
       </div>';
     }
 
-    public function InsertAppliedOtApp($empCode,$empReportingTo,$otDate,$otStartDtime,$otEndDtime,$otReqHrs,$remarks,$e_req,$n_req,$e_appr,$n_appr){
+    public function InsertAppliedOtApp($empCode,$empReportingTo,$otDate,$otStartDtime,$otEndDtime,$remarks,$e_req,$n_req,$e_appr,$n_appr){
 
         global $connL;
 
-            $query = "INSERT INTO tr_overtime (emp_code,ot_date,datefiled,reporting_to,ot_start_dtime,ot_end_dtime, ot_req_hrs,remarks,audituser, auditdate) 
-                VALUES(:emp_code,:otDate,:datefiled,:empReportingTo,:otStartDtime,:otEndDtime,:otReqHrs, :remarks,:audituser,:auditdate) ";
-    
-                $stmt =$connL->prepare($query);
+        $otsd_d = date('Y-m-d H:i:s', strtotime($otStartDtime));
+        $otend_d = date('Y-m-d H:i:s', strtotime($otEndDtime));
+        $otsd = strtotime($otStartDtime);
+        $otend = strtotime($otEndDtime);
+        $total = round(($otend - $otsd)/3600,2);
 
-                $param = array(
-                    ":emp_code"=> $empCode,
-                    ":otDate" => $otDate,
-                    ":datefiled"=>date('m-d-Y'),
-                    ":empReportingTo" => $empReportingTo,
-                    ":otStartDtime" => $otStartDtime,
-                    ":otEndDtime"=> $otEndDtime,
-                    ":otReqHrs"=> $otReqHrs,
-                    ":remarks"=> $remarks,
-                    ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
-                );
+        $query = "INSERT INTO tr_overtime (emp_code,ot_date,datefiled,reporting_to,ot_start_dtime,ot_end_dtime,ot_req_hrs,remarks,audituser, auditdate) 
+            VALUES(:emp_code,:otDate,:datefiled,:empReportingTo,:otStartDtime,:otEndDtime,:otReqHrs, :remarks,:audituser,:auditdate) ";
 
-            $result = $stmt->execute($param);
+            $stmt =$connL->prepare($query);
 
-            echo $result;
+            $param = array(
+                ":emp_code"=> $empCode,
+                ":otDate" => $otDate,
+                ":datefiled"=>date('m-d-Y'),
+                ":empReportingTo" => $empReportingTo,
+                ":otStartDtime" => $otsd_d,
+                ":otEndDtime"=> $otend_d,
+                ":otReqHrs"=> $total,
+                ":remarks"=> $remarks,
+                ":audituser" => $empCode,
+                ":auditdate"=>date('m-d-Y')
+            );
+
+        $result = $stmt->execute($param);
+
+        echo $result;
 
 
             $squery = "SELECT lastname+', '+firstname as [fullname] FROM employee_profile WHERE emp_code = :empCode";

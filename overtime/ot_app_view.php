@@ -181,17 +181,17 @@
                     <div>
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">OT Date From:</label><span class="req">*</span>
+                                        <label for="">OT Date:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
-                                        <input type="date" id="otdate" name="otdate" class="form-control">
+                                        <input type="date" id="otdate" name="otdate" class="form-control inputtext">
                                     </div>
-                                    <div class="col-md-2 d-inline">
+            <!--                         <div class="col-md-2 d-inline">
                                         <label for="">OT Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="otdateto" name="otdateto" class="form-control">
-                                    </div>
+                                    </div> -->
                             </div>
 
 
@@ -201,16 +201,16 @@
                                 <label for="">OT Start Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="time" id="otstartdtime" name="otstartdtime" class="form-control" value="<?php echo date('h:i a');?>">
+                                <input type="datetime-local" id="otstartdtime" name="otstartdtime" class="form-control inputtext" value="<?php echo date('h:i a');?>">
                             </div>
                             <div class="col-md-2 d-inline">
                                 <label for="">OT End Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="time" id="otenddtime" name="otenddtime" class="form-control" readonly>
+                                <input type="datetime-local" id="otenddtime" name="otenddtime" class="form-control inputtext">
                             </div>
                         </div>
-
+<!-- 
                                     <div class="form-row align-items-center mb-2" id="planot">
                                        <div class="col-md-2 d-inline">
                                             <label for="">Plan OT(hrs):</label><span class="req">*</span>
@@ -218,7 +218,7 @@
                                         <div class="col-md-3 d-inline">
                                               <input class="form-control" type="number" name="otreqhrs" id="otreqhrs"  min="1" max="10" onkeypress="return false" onchange="myChangeFunction()" placeholder="0">              
                                         </div>
-                                    </div>
+                                    </div> -->
 
                         <div class="form-row mb-2">
                             <div class="col-md-2 d-inline">
@@ -380,6 +380,8 @@
 
             });
 
+
+
              $('#otdateto').change(function(){
 
                 var dte_to = $('#otdateto').val();
@@ -392,28 +394,63 @@
 
             });
 
-        function myChangeFunction(input1) {
-            var dte = $('#otdate').val();
-            var dte_to = $('#otdateto').val();
-            var otstrt = $('#otstartdtime').val();
-            var dt = dte+' '+otstrt;
-            var othrs = $('#otreqhrs').val();
-            var dt_input = new Date(dt);
-            var hr = parseFloat(othrs);
+        //     $('#otenddtime').change(function(){
 
-            var hours = dt_input.getHours() + hr;
-            var minutes = dt_input.getMinutes();
-            var ampm = hours < 12 || hours > 24 ? 'AM' : 'PM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-            minutes = minutes < 10 ? '0'+minutes : minutes;
-            var strTime = hours + ':' + minutes + ' ' + ampm;
-            var dt = moment(strTime, ["h:mm A"]).format("HH:mm");
+        //         var dte = $('#otdate').val();
+        //         var dte_to = $('#otdateto').val();
+        //         var otstrt = $('#otstartdtime').val();
+        //         var otend = $('#otenddtime').val();
+        //         var dt = dte+' '+otstrt;
+        //         var dtd = dte_to+' '+otend;
+        //         var dt_input = new Date(dt);
+        //         var dt_input2 = new Date(dtd);
+        //         var dtstrt = dt_input.getHours();
+        //         var dtend = dt_input2.getHours();
+        //         var minutes = dt_input.getMinutes();
+        //         var minutes2 = dt_input2.getMinutes();
 
-            var input2 = document.getElementById('otenddtime');
-            input2.value = dt;
+        //         console.log(otstrt);
+        //         console.log(otend);
+        //         console.log(dt);
+        //         console.log(dtd);
+        //         console.log(dt_input);
+        //         console.log(dt_input2);   
+        //         console.log(dtstrt);
+        //         console.log(dtend); 
+        //         console.log(minutes);
+        //         console.log(minutes2);                                                 
 
-        }
+        //         return false;
+        //     });
+
+
+
+
+        // function myChangeFunction(input1) {
+        //     var dte = $('#otdate').val();
+        //     var dte_to = $('#otdateto').val();
+        //     var otstrt = $('#otstartdtime').val();
+        //     var dt = dte+' '+otstrt;
+        //     var othrs = $('#otreqhrs').val();
+        //     var dt_input = new Date(dt);
+        //     var hr = parseFloat(othrs);
+
+        //     var hours = dt_input.getHours();
+        //     var minutes = dt_input.getMinutes();
+        //     var ampm = hours < 12 || hours > 24 ? 'AM' : 'PM';
+        //     hours = hours % 12;
+        //     hours = hours ? hours : 12; // the hour '0' should be '12'
+        //     minutes = minutes < 10 ? '0'+minutes : minutes;
+        //     var strTime = hours + ':' + minutes + ' ' + ampm;
+        //     var dt = moment(strTime, ["h:mm A"]).format("HH:mm");
+
+        //     var input2 = document.getElementById('otenddtime');
+        //     input2.value = dt;
+
+        //     console.log(hours);
+        //     return false;
+
+        // }
 
         
 function myFunction() {
