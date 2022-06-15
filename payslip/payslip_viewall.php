@@ -52,11 +52,18 @@
 
       <div class="form-row pt-3">
                 <label for="employeepaylist" class="col-form-label pad">EMPLOYEE:</label>
-                <div class="col-md-4">      
-                        <?php $dd->GenerateSingleGenDropDown("emppay", $mf->GetAllEmployeePay("emppay")); ?>
+                <div class="col-md-3">      
+                        <?php $dd->GenerateSingleGenDropDown("emppay", $mf->GetAttEmployeeNames("allempnames")); ?>
                 </div>
 
-                <div class="col-md-3 d-flex">
+                <label for="payroll_period" class="col-form-label pad">PAY-PERIOD:</label>
+
+                <div class='col-md-3'>
+                    <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
+                </div>                
+
+
+                <div class="col-md-2 d-flex">
                         <button type="button" id="search" class="genpyrll" onclick="filterAtt()">
                             <i class="fas fa-search-plus"></i>GENERATE                       
                         </button>
@@ -83,18 +90,24 @@
         $('#expdf').show();
         document.getElementById("myDiv").style.display="block";
         var url = "../payslip/payslips_process.php";
-        var dt = $('#emppay').val();
-        var cfta = document.getElementById(dt).innerHTML;
-        var data = cfta.split(" - ");
+        var dt = 'OBN'+$('#emppay').val();
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var data = cutoff.split(" - ");
         $('#expdf').show();
+
+        // console.log(dt);
+        // console.log(data[0]);
+        // console.log(data[1]);
+
+        // return false;
 
         $.post (
             url,
             {
                 _action: 1,
                 _empCode: dt,
-                _from: data[1],
-                _to: data[2]
+                _from: data[0],
+                _to: data[1]
                 
             },
             function(data) { $("#contents").html(data).show(); 

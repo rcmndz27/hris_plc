@@ -31,7 +31,7 @@ require '../vendor/autoload.php';
             ";
             if($result){
                 do{
-                    $otFiled = (isset($result['ot_req_hrs']) ? $result['ot_req_hrs'] : 0);
+                    $otFiled = (isset($result['ot_req_hrs']) ? round($result['ot_req_hrs'],2) : 0);
                     $otFiled = ($otFiled === ".00" ? 0 : $otFiled);
                     echo"
                         <tr>

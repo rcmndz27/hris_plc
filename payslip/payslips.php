@@ -31,6 +31,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                 $totslvl = $r['sl']+$r['vl'];
                 $totslvl_amt = ($r['sl']+$r['vl'])*$r['daily_pay'];
                 $others = $r['salary_allowance']+$r['oot_allowance']+$r['inc_allowance']+$r['disc_allowance'];
+                $bscamount = $totworkamt+$totslvl_amt-$r['absences']-$r['late']-$r['undertime'];
 
                 echo "<tr>".
                     "<th colspan='3' class='erdc'>EARNINGS</th>".
@@ -43,7 +44,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         "<td colspan='3' class='erdc'>Premium Deductions</td>". 
                     "</tr>
                     <tr>".
-                        "<td>Regular Days:</td>".
+                        "<td>Total Days:</td>".
                         "<td class='cnto'>".number_format($r['tot_days_work'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($totworkamt,2,".", ",")."</td>".
                         "<td colspan='2' class='erdc'>Witholding Tax:</td>". 
@@ -75,7 +76,14 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         "<td class='cnto'>".number_format($r['total_undertime'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['undertime'],2,".", ",")."</td>".
                         "<td colspan='3' class='erdc'></td>". 
-                    "</tr> 
+                    "</tr>
+                    <tr>".
+                        "<td>Absent Amt:</td>".
+                        "<td class='cnto'>".number_format($r['tot_days_absent'],2,".", ",")."</td>".
+                        "<td class='camt'>₱ ".number_format($r['absences'],2,".", ",")."</td>".
+                        "<td colspan='2' class='erdc'>Total Taxable:</td>". 
+                        "<td colspan='1' class='cnto'>₱ ".number_format($r['total_taxable'],2,".", ",")."</td>". 
+                    "</tr>                      
                     <tr>".
                         "<td>Basic Adj. Amt:</td>".
                         "<td class='camt' colspan='2'>₱ ".number_format($r['salary_adjustment'],2,".", ",")."</td>".
@@ -86,7 +94,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                     "</tr> 
                     <tr colspan='6'>".
                         "<td class='erdc'>Basic Amount:</td>".
-                        "<td class='camt' colspan='2'>₱ ".number_format($r['semi_month_pay'],2,".", ",")."</td>".
+                        "<td class='camt' colspan='2'>₱ ".number_format($bscamount,2,".", ",")."</td>".
                         "<td colspan='2' class='erdc'>Description</td>". 
                         "<td colspan='1' class='erdc'>Amount</td>".
                     "</tr> 
@@ -138,7 +146,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         "<td class='cnto'>".number_format($r['att_tot_spholiday'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_spholiday'],2,".", ",")."</td>".
                         "<td colspan='2' class='erdc'>NET PAY:</td>". 
-                        "<td colspan='1' class='cnto'>₱ ".number_format($r['netpay'],2,".", ",")."</td>".  
+                        "<td colspan='1' class='cnto'><b><u>₱ ".number_format($r['netpay'],2,".", ",")."</b></u></td>".  
                     "</tr> 
                     <tr>".
                         "<td>Special Holiday OT:</td>".

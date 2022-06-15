@@ -309,6 +309,7 @@ rel="stylesheet">
                                 <ul> 
                                   <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
                                   <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
+                                  <li><a href='../att_report/att_rep_view.php' onclick='show()'>Attendance Report</a></li>
                                 </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>HR Tools</span> 

@@ -35,7 +35,7 @@ class PayrollRegApplication {
             <table id='payrollRegList' class='table table-striped table-sm'>
                 <thead>
                     <tr>
-                        <th colspan='58' class='paytop'>Payroll Register View</th>
+                        <th colspan='63' class='paytop'>Payroll Register View</th>
                     </tr>
                     <tr>
                         <th>Name</th>
@@ -225,12 +225,12 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
     } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
     echo"</tbody><tfoot>".
     "</tr><tr>".
-    "<td colspan='58' class='paytop'>".
+    "<td colspan='63' class='paytop'>".
     "<button class='conPyrll' onclick='ConfirmPayRegView()'><i class='fas fa-check-square'></i> CONFIRM PAYROLL REGISTER</button></td>".
     "</tr></tfoot>";    
 
     }else { 
-        echo '<tfoot><tr><td colspan="58" class="paytop">No Results Found</td></tr></tfoot>'; 
+        echo '<tfoot><tr><td colspan="63" class="paytop">No Results Found</td></tr></tfoot>'; 
     }
 
     echo"</table>"; 
