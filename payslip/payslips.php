@@ -103,19 +103,22 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                         "<td>Regular OT:</td>".
                         "<td class='cnto'>".number_format($r['att_tot_overtime_reg'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['tot_overtime_reg'],2,".", ",")."</td>".
-                        "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>SSS Salary Loan:</td>". 
+                        "<td colspan='1' class='cnto'>₱ ".number_format($r['sss_sal_loan'],2,".", ",")."</td>". 
                     "</tr>
                     <tr>".
                         "<td>Regular Night Differential:</td>".
                         "<td class='cnto'>".number_format($r['att_night_differential'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['night_differential'],2,".", ",")."</td>".
-                        "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Company Loan:</td>". 
+                        "<td colspan='1' class='cnto'>₱ ".number_format($r['com_loan'],2,".", ",")."</td>".
                     "</tr>                                                                                                          
                     <tr>".
                         "<td>Regular Night Differential OT:</td>".
                         "<td class='cnto'>".number_format($r['att_night_differential_ot'],2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($r['night_differential_ot'],2,".", ",")."</td>".
-                        "<td colspan='3' class='erdc'></td>". 
+                        "<td colspan='2' class='erdc'>Salary Deduction:</td>". 
+                        "<td colspan='1' class='cnto'>₱ ".number_format($r['sal_ded_nontax'],2,".", ",")."</td>".
                     "</tr> 
                     <tr>".
                         "<td>Worked on Regular Holiday:</td>".

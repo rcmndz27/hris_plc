@@ -72,6 +72,9 @@ Class UsersList{
                             <button id="ub'.$result['userid'].'" type="button" class="hdeactv" onclick="deleteLogsModal('. $empcd.')" title="Unblocked User">
                                 <i class="fas fa-lock-open"></i>
                             </button>
+                            <button type="button" class="voidBut" onclick="resetPassword('. $empcd.')" title="Reset Password">
+                                <i class="fas fa-power-off"></i>
+                            </button>                             
                             </td>';
                 } else{
                     echo'<td><button type="button" class="hactv" onclick="editUsrModal('. $empcd.','. $name.')" title="Update User/Change Password">

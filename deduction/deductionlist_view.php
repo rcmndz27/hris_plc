@@ -276,11 +276,13 @@
                                         period_cutoff: period_cutoff,
                                         amount: amount ,               
                                         effectivity_date: effectivity_date ,
+                                        dedcid: dedcid,
                                         status: status 
 
                                         
                                     },
-                                    function(data) {                                         
+                                    function(data) {   
+                                    // console.log(data);                                      
                                         swal({
                                             title: "Success!", 
                                             text: "Successfully updated the employee deduction details!", 

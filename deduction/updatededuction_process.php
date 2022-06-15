@@ -10,11 +10,12 @@
     $amount = $_POST["amount"];
     $effectivity_date = $_POST["effectivity_date"];  
     $status = $_POST["status"];        
+    $dedcid = $_POST["dedcid"];        
 
 
     if ($action == 1)
     {
-        UpdateDeduction($emp_code,$deduction_id,$period_cutoff,$amount,$effectivity_date,$status);
+        UpdateDeduction($emp_code,$deduction_id,$period_cutoff,$amount,$effectivity_date,$status,$dedcid);
     }
 
 ?>

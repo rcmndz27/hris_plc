@@ -374,8 +374,8 @@ function resetPassword(empcd)
                                     function(data) { 
                                         // console.log(data);
                                             swal({
-                                            title: "Oops!", 
-                                            text: "Successfully cancelled the password reset!", 
+                                            title: "Success!", 
+                                            text: "Successfully reset the password!", 
                                             type: "info",
                                             icon: "info",
                                             });  
