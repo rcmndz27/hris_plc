@@ -136,44 +136,44 @@ function timeInModal(lvid,empcd){
             var emp_code = document.getElementById("empcd").value;
             var wfh_output = document.getElementById("wfh_output").value;  
 
-            // console.log(wfhid);
-            // console.log(emp_code);
-            // console.log(wfh_output);
+            if(wfh_output){
+                            swal({
+                                  title: "Are you sure?",
+                                  text: "You want to time in now?",
+                                  icon: "success",
+                                  buttons: true,
+                                  dangerMode: true,
+                                })
+                                .then((timeIn) => {
+                                  if (timeIn) {
+                                    $.post (
+                                            url,
+                                            {
+                                                choice: 1,
+                                                wfhid:wfhid,
+                                                emp_code:emp_code,
+                                                wfh_output:wfh_output
+                                            },
+                                            function(data) { 
+                                                console.log(data);
+                                                    swal({
+                                                    title: "Success!", 
+                                                    text: "Successfully time in!", 
+                                                    type: "info",
+                                                    icon: "info",
+                                                    }).then(function() {
+                                                        location.href = '../wfhome/wfh_app_view.php';
+                                                    });  
+                                            }
+                                        );
+                                  } else {
+                                    swal({text:"You cancel your time in!",icon:"warning"});
+                                  }
+                                });
+                }else{
+                    swal({text:"Kindly fill up blank details!",icon:"warning"});
+                }
 
-            // return false;
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to time in now?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((timeIn) => {
-                          if (timeIn) {
-                            $.post (
-                                    url,
-                                    {
-                                        choice: 1,
-                                        wfhid:wfhid,
-                                        emp_code:emp_code,
-                                        wfh_output:wfh_output
-                                    },
-                                    function(data) { 
-                                        console.log(data);
-                                            swal({
-                                            title: "Success!", 
-                                            text: "Successfully time in!", 
-                                            type: "info",
-                                            icon: "info",
-                                            }).then(function() {
-                                                location.href = '../wfhome/wfh_app_view.php';
-                                            });  
-                                    }
-                                );
-                          } else {
-                            swal({text:"You cancel your time in!",icon:"error"});
-                          }
-                        });
       
     }    
 
@@ -196,49 +196,47 @@ function timeOutModal(lvid,empcd,attid){
             var wfh_percentage = document.getElementById("wfh_percentage").value;  
             var attid = document.getElementById("attid").value;  
 
-            // console.log(wfhid);
-            // console.log(emp_code);
-            // console.log(wfh_output2);
-            // console.log(wfh_percentage);
-            // console.log(attid);
 
-            // return false;
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to time out now?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((timeIn) => {
-                          if (timeIn) {
-                            $.post (
-                                    url,
-                                    {
-                                        choice: 2,
-                                        wfhid:wfhid,
-                                        emp_code:emp_code,
-                                        wfh_output2:wfh_output2,
-                                        wfh_percentage:wfh_percentage,
-                                        attid:attid
+            if(!wfh_output2 || !wfh_percentage){
+                  swal({text:"Kindly fill up blank details!",icon:"warning"});  
+            }else{
+                swal({
+                  title: "Are you sure?",
+                  text: "You want to time out now?",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((timeIn) => {
+                  if (timeIn) {
+                    $.post (
+                            url,
+                            {
+                                choice: 2,
+                                wfhid:wfhid,
+                                emp_code:emp_code,
+                                wfh_output2:wfh_output2,
+                                wfh_percentage:wfh_percentage,
+                                attid:attid
 
-                                    },
-                                    function(data) { 
-                                        console.log(data);
-                                            swal({
-                                            title: "Success!", 
-                                            text: "Successfully time out!", 
-                                            type: "info",
-                                            icon: "info",
-                                            }).then(function() {
-                                                location.href = '../wfhome/wfh_app_view.php';
-                                            });  
-                                    }
-                                );
-                          } else {
-                            swal({text:"You cancel your time out!",icon:"error"});
-                          }
-                        });
+                            },
+                            function(data) { 
+                                console.log(data);
+                                    swal({
+                                    title: "Success!", 
+                                    text: "Successfully time out!", 
+                                    type: "info",
+                                    icon: "info",
+                                    }).then(function() {
+                                        location.href = '../wfhome/wfh_app_view.php';
+                                    });  
+                            }
+                        );
+                  } else {
+                    swal({text:"You cancel your time out!",icon:"warning"});
+                  }
+                });                
+            }
       
     }    
 
