@@ -8,7 +8,8 @@
 
             $total_days = 0;
 
-            $query = "SELECT count(a.punch_date) as [total_days],b.lastname+','+b.firstname as [fullname]from employee_attendance a right join employee_profile b on a.emp_code = b.badgeno
+            $query = "SELECT count(a.punch_date) as [total_days],b.lastname+','+b.firstname as [fullname]
+            ,(CASE WHEN count(a.punch_date) >= 20 then 'Perfect Attendance' else ' ' END) as remarks from employee_attendance a right join employee_profile b on a.emp_code = b.badgeno
             where punch_date between :startDate and :endDate and timein is not null and timeout is not null
             and b.emp_status = 'Active' GROUP by b.badgeno,b.lastname,b.firstname";
             $param = array(":startDate" => $dateStart, ":endDate" => $dateEnd);
@@ -20,7 +21,7 @@
             <table id='attRepListTab' class='table table-striped table-sm'>
                 <thead>
                     <tr>
-                        <th colspan='7' class='text-center'>All Attendance</th>
+                        <th colspan='7' class='text-center'>Attendance from ".date('F d', strtotime($dateStart))." to ".date('F d, Y', strtotime($dateEnd))." </th>
                     </tr>
                     <tr>
                         <th>Days</th>
@@ -35,7 +36,7 @@
                         echo    "<tr>".
                                 "<td>" . round($result['total_days'],2) . "</td>".
                                 "<td>" . $result['fullname'] . "</td>".
-                                "<td></td>".
+                                "<td>" . $result['remarks'] . "</td>".
                                 "</tr>";
     
                         $total_days += $result['total_days'];

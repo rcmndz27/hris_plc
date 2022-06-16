@@ -35,11 +35,11 @@ else
 ?>
 
 <script type='text/javascript' src='../att_report/att_rep.js'></script>
-<link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
+<link rel="stylesheet" type="text/css" href="../pages/dtr.css">
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
-          <h2></h2>
+          <h2>ATTENDANCE REPORTS MODULE</h2>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
@@ -56,8 +56,8 @@ else
                             href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Perfect Attendance</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="leave-tab" name="leave-tab" data-toggle="tab" href="#leave"
-                            role="tab" aria-controls="leave" aria-selected="false">Leave</a>
+                        <a class="nav-link" id="late-tab" name="late-tab" data-toggle="tab" href="#late"
+                            role="tab" aria-controls="late" aria-selected="false">Late</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="overtime-tab" name="overtime-tab" data-toggle="tab" href="#overtime" role="tab"
@@ -74,11 +74,11 @@ else
                     <div class="tab-pane fade active show" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
                       <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
-                                <legend class="fieldset-border pad">
-                                    Perfect Attendance <span id="pfromt"></span> <span id="ptot"></span>
+                                <legend class="fieldset-border pad2">
+                                    PERFECT ATTENDANCE <span id="pfromt"></span> <span id="ptot"></span>
                                 </legend>
                              </div>
-                    <div class="form-row pt-3">
+                    <div class="form-row">
                             <input type="text" name="empCode" id="empCode" value="<?php $empCode ?>" hidden>
                                 <label class="control-label pad" for="dateFrom">FROM:</label>
                             <div class="col-md-2">
@@ -103,34 +103,37 @@ else
                 </div>                                                        
                     </fieldset>
                 </div>
-                <!-- leave -->
-                <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                <!-- late -->
+                <div class="tab-pane fade" id="late" role="tabpanel" aria-labelledby="late-tab">
                     <fieldset class="fieldset-border">
                         <div class="d-flex justify-content-center">
-                            <legend class="fieldset-border pad">
-                                Generate Leave for Payroll
+                            <legend class="fieldset-border pad2">
+                                LATES
                             </legend>
                         </div>
-                        <div class="form-row">
-                            <div class="col-lg-2">
-                                <div class="form-group">
-                                    <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
-
-                                </div>
+                    <div class="form-row pt-3">
+                            <input type="text" name="empCode" id="empCode" value="<?php $empCode ?>" hidden>
+                                <label class="control-label pad" for="dateFrom">FROM:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateFromL" class="form-control" name="dateFromL"
+                                    value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                             </div>
-                            <div class="col-lg-7">
-                                <div class="form-group">
-                                    <?php $dd->GenerateDropDown("ungenleave", $mf->UnGetAllCutoffPay("unpayview")); ?>
-                                </div>
+                                <label class="control-label pad" for="dateTo">TO:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateToL" class="form-control" name="dateToL" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                             </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    <button type="button" id="search" class="genpyrll" onclick="genLeavePay();">
-                                        <i class="fas fa-search-plus"></i>GENERATE                       
-                                    </button> 
-                                </div>
+                            <div class="col-md-1">
+                                <button type="submit" id="searchLate" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                                </button>
                             </div>
-                        </div>      
+                        </div>  
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div id="lateListTab" class="table-responsive-sm table-body"></div>
+                        </div>
+                    </div>
+                </div>     
                     </fieldset>
                 </div>
                 <!-- OVERTIME -->
