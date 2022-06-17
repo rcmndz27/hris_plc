@@ -60,12 +60,12 @@ else
                             role="tab" aria-controls="late" aria-selected="false">Late</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="overtime-tab" name="overtime-tab" data-toggle="tab" href="#overtime" role="tab"
-                            aria-controls="overtime" aria-selected="false">Overtime</a>
+                        <a class="nav-link" id="undertime-tab" name="undertime-tab" data-toggle="tab" href="#undertime" role="tab"
+                            aria-controls="undertime" aria-selected="false">Undertime</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="dtr-tab" name="dtr-tab" data-toggle="tab" href="#dtr" role="tab"
-                            aria-controls="dtr" aria-selected="false">DTR</a>
+                            aria-controls="dtr" aria-selected="false">NO LOGS</a>
                     </li>                    
                 </ul>
                
@@ -108,10 +108,10 @@ else
                     <fieldset class="fieldset-border">
                         <div class="d-flex justify-content-center">
                             <legend class="fieldset-border pad2">
-                                LATES
+                                LATES  <span id="Lpfromt"></span> <span id="Lptot"></span>
                             </legend>
                         </div>
-                    <div class="form-row pt-3">
+                    <div class="form-row">
                             <input type="text" name="empCode" id="empCode" value="<?php $empCode ?>" hidden>
                                 <label class="control-label pad" for="dateFrom">FROM:</label>
                             <div class="col-md-2">
@@ -136,57 +136,71 @@ else
                 </div>     
                     </fieldset>
                 </div>
-                <!-- OVERTIME -->
-                    <div class="tab-pane fade" id="overtime" role="tabpanel" aria-labelledby="overtime-tab">
+                <!-- UNDERTIME -->
+                    <div class="tab-pane fade" id="undertime" role="tabpanel" aria-labelledby="undertime-tab">
                         <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
-                                <legend class="fieldset-border pad">
-                                    Generate Overtime for Payroll
-                                </legend>
+                                <legend class="fieldset-border pad2">
+                                   UNDERTIME  <span id="Upfromt"></span> <span id="Uptot"></span>
+                            </legend>
+                        </div>
+                    <div class="form-row">
+                            <input type="text" name="empCode" id="empCode" value="<?php $empCode ?>" hidden>
+                                <label class="control-label pad" for="dateFrom">FROM:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateFromU" class="form-control" name="dateFromU"
+                                    value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                             </div>
-                            <div class="form-row">
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-7">
-                                    <div class="form-group">
-                                        <?php $dd->GenerateDropDown("ungenot", $mf->UnGetAllCutoffPay("unpayview")); ?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <button type="button" id="search" class="genpyrll" onclick="genOtPay();">
-                                            <i class="fas fa-search-plus"></i>GENERATE                       
-                                        </button> 
-                                    </div>
-                                </div>
-                            </div>      
-                        </fieldset>
+                                <label class="control-label pad" for="dateTo">TO:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateToU" class="form-control" name="dateToU" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" id="searchUT" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                                </button>
+                            </div>
+                        </div>  
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <div id="utListTab" class="table-responsive-sm table-body"></div>
+                        </div>
                     </div>
-
-                <!-- dtr -->
+                </div>     
+                    </fieldset>
+                </div>                    
+                <!-- NO LOGS -->
                     <div class="tab-pane fade" id="dtr" role="tabpanel" aria-labelledby="dtr-tab">
                         <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
-                                <legend class="fieldset-border pad">
-                                    Generate DTR from Biometrics
-                                </legend>
+                                <legend class="fieldset-border pad2">
+                                    NO LOG IN/OUT <span id="Npfromt"></span> <span id="Nptot"></span>
+                            </legend>
+                        </div>
+                    <div class="form-row">
+                            <input type="text" name="empCode" id="empCode" value="<?php $empCode ?>" hidden>
+                                <label class="control-label pad" for="dateFrom">FROM:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateFromN" class="form-control" name="dateFromN"
+                                    value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                             </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="form-row">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <button type="button" id="search" class="genpyrll" onclick="genDTR();">
-                                                <i class="fas fa-search-plus"></i>GENERATE                       
-                                            </button> 
-                                        </div>
-                                    </div>
-                                  </div>
-                            </div>      
-                        </fieldset>
+                                <label class="control-label pad" for="dateTo">TO:</label>
+                            <div class="col-md-2">
+                                <input type="date" id="dateToN" class="form-control" name="dateToN" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" id="searchN" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                                </button>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <div id="nListTab" class="table-responsive-sm table-body"></div>
+                                </div>
+                            </div>
+                        </div>     
+                    </fieldset>
                     </div>                    
     </div>
 </div>
