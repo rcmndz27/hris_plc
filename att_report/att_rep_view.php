@@ -207,6 +207,8 @@ else
 
 <script type="text/javascript">
 
+// perfect attendance 
+
            $('#dateTo').change(function(){
 
                 if($('#dateTo').val() < $('#dateFrom').val()){
@@ -224,6 +226,74 @@ else
                 if($('#dateFrom').val() > $('#dateTo').val()){
                     var input2 = document.getElementById('dateTo');
                     document.getElementById("dateTo").min = $('#dateFrom').val();
+                    input2.value = '';
+                }
+            });
+
+// late 
+           $('#dateToL').change(function(){
+
+                if($('#dateToL').val() < $('#dateFromL').val()){
+
+                    swal({text:"DATE TO must be greater than date from!",icon:"error"});
+
+                    var input2 = document.getElementById('dateToL');
+                    input2.value = '';               
+                }
+            });
+
+
+            $('#dateFromL').change(function(){
+
+                if($('#dateFromL').val() > $('#dateToL').val()){
+                    var input2 = document.getElementById('dateToL');
+                    document.getElementById("dateToL").min = $('#dateFromL').val();
+                    input2.value = '';
+                }
+            });
+
+// undertime 
+
+        $('#dateToU').change(function(){
+
+                if($('#dateToU').val() < $('#dateFromU').val()){
+
+                    swal({text:"DATE TO must be greater than date from!",icon:"error"});
+
+                    var input2 = document.getElementById('dateToU');
+                    input2.value = '';               
+                }
+            });
+
+
+            $('#dateFromU').change(function(){
+
+                if($('#dateFromU').val() > $('#dateToU').val()){
+                    var input2 = document.getElementById('dateToU');
+                    document.getElementById("dateToU").min = $('#dateFromU').val();
+                    input2.value = '';
+                }
+            });
+
+// no logs 
+
+           $('#dateToN').change(function(){
+
+                if($('#dateToN').val() < $('#dateFromN').val()){
+
+                    swal({text:"DATE TO must be greater than date from!",icon:"error"});
+
+                    var input2 = document.getElementById('dateToN');
+                    input2.value = '';               
+                }
+            });
+
+
+            $('#dateFromN').change(function(){
+
+                if($('#dateFromN').val() > $('#dateToN').val()){
+                    var input2 = document.getElementById('dateToN');
+                    document.getElementById("dateToN").min = $('#dateFromN').val();
                     input2.value = '';
                 }
             });
