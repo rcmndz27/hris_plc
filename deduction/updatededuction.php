@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+            date_default_timezone_set('Asia/Manila'); 
 
 
 function UpdateDeduction($emp_code,$deduction_id,$period_cutoff,$amount,$effectivity_date,$status,$dedcid)

@@ -1,5 +1,7 @@
 <?php
 
+            date_default_timezone_set('Asia/Manila');
+
 Class DeductionEnt{
 
 public function InsertDeductionEnt($eMplogName,$emp_code,$deduction_id,$period_cutoff,$effectivity_date,$amount)
@@ -19,7 +21,7 @@ public function InsertDeductionEnt($eMplogName,$emp_code,$deduction_id,$period_c
                     ":effectivity_date"=> $effectivity_date,
                     ":amount"=> $amount,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:S')                                          
                 );
 
             $result = $stmt->execute($param);

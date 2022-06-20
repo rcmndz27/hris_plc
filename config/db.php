@@ -1,4 +1,5 @@
 <?php
+            date_default_timezone_set('Asia/Manila'); 
 
             $dbstringsL = "sqlsrv:Server=192.168.201.8;Database=hrissys_test";
             $connL = new PDO($dbstringsL, "mgr", "P@55w0rd456");

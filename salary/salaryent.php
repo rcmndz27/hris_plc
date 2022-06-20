@@ -1,5 +1,7 @@
 <?php
 
+            date_default_timezone_set('Asia/Manila');
+
 Class SalaryEnt{
 
 public function InsertSalaryEnt($eMplogName,$emp_code,$bank_type,$bank_no,$pay_rate,$amount,$status)
@@ -20,7 +22,7 @@ public function InsertSalaryEnt($eMplogName,$emp_code,$bank_type,$bank_no,$pay_r
                     ":amount"=> $amount,
                     ":status"=> $status,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:S')                                          
                 );
 
             $result = $stmt->execute($param);

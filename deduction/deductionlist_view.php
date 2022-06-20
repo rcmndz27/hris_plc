@@ -1,4 +1,5 @@
 <?php
+         
     session_start();
 
     if (empty($_SESSION['userid']))
@@ -54,7 +55,9 @@
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allDeductionList->GetAllDeductionList(); ?>
+                        <?php
+
+           $allDeductionList->GetAllDeductionList(); ?>
                     </div>
                 </div>
             </div>
@@ -81,15 +84,19 @@
                         <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateSingleDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
+                                        <label class="control-label" for="deductionid">Employee Code/Name<span class="req">*</span></label>
+                                        <?php
+
+           $dd->GenerateSingleDropDown("emp_code", $mf->GetEmployeeNames("allempnames")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="deduction_id">Deduction Name<span class="req">*</span>
                                         </label>
-                                        <?php $dd->GenerateSingleDropDown("deduction_id", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
+                                        <?php
+
+           $dd->GenerateSingleDropDown("deduction_id", $mf->GetAllEmployeeDeduction("dedlist")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -108,7 +115,7 @@
                                     <label class="control-label" for="effectivity_date">Effectivity Date<span class="req">*</span>
                                     </label>                                        
                                         <input type="date" class="form-control inputtext" name="effectivity_date"
-                                            id="effectivity_date" min="<?php  echo date('Y-m-d'); ?>" value="<?php  echo date('Y-m-d'); ?>" onkeydown="return false">
+                                            id="effectivity_date" min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false">
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -210,7 +217,46 @@
                     </div> <!-- modal body closing -->
                 </div> <!-- modal content closing -->
             </div> <!-- modal dialog closing -->
-        </div><!-- modal fade closing -->        
+        </div><!-- modal fade closing -->   
+
+<div class="modal fade" id="viewDedLogs" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title bb" id="popUpModalTitle">VIEW DEDUCTION LOGS  <i class="fas fa-money-bill"></i></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times; </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                    <div class="d-flex justify-content-center">
+                        <legend class="fieldset-border pad">
+                        </legend>
+                    </div>
+                    <div class="form-row">
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <div id="contents2" class="table-responsive-sm table-body">
+                                        <button type="button" id="search" hidden>GENERATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                               
+                    </div> <!-- form row closing -->
+                </fieldset> 
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                </div> 
+            </div> <!-- main body closing -->
+        </div> <!-- modal body closing -->
+    </div> <!-- modal content closing -->
+</div> <!-- modal dialog closing -->
+</div><!-- modal fade closing -->                
 
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
@@ -226,6 +272,19 @@
             return swal({text:"Only numbers are allowed!",icon:"error"});;
         return true;
     }
+
+function insertMfDedLogs(url2,emp_code,column_name,new_data,old_data) {
+
+    $.post (url2,
+    {
+        emp_code:emp_code,
+        column_name: column_name,
+        new_data: new_data,
+        old_data: old_data
+    });
+}
+
+
 
       function editDedModal(empcd,dedcid,fname){
 
@@ -246,6 +305,7 @@
     {
 
         var url = "../deduction/updatededuction_process.php";
+        var url2 = "../deduction/logsmfdeduction_process.php";
         var emp_code = document.getElementById("empcode").value;
         var deduction_id = document.getElementById("deductionid").value;
         var dedcid = document.getElementById("dedcid").value;
@@ -256,56 +316,123 @@
         var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         var effectivity_date = document.getElementById("effectivitydate").value; 
         var status = document.getElementById("stts").value; 
+        
+        var old_deductionid =  document.getElementById('dn'+dedcid).innerHTML;   
+        var old_period_cutoff =  document.getElementById('pc'+dedcid).innerHTML;   
+        var old_amount =  document.getElementById('am'+dedcid).innerHTML;  
+        var old_effectivity_date =  document.getElementById('ed'+dedcid).innerHTML;
+        var old_status =  document.getElementById('st'+dedcid).innerHTML;        
 
+            swal({
+              title: "Are you sure?",
+              text: "You want to update this employee deduction details?",
+              icon: "success",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((updateDedd) => {
+              if (updateDedd) {
+                    $.post (
+                        url,
+                        {
+                            action: 1,
+                            emp_code: emp_code ,
+                            deduction_id: deduction_id,
+                            period_cutoff: period_cutoff,
+                            amount: amount ,               
+                            effectivity_date: effectivity_date ,
+                            dedcid: dedcid,
+                            status: status 
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to update this employee deduction details?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((updateDedd) => {
-                          if (updateDedd) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        emp_code: emp_code ,
-                                        deduction_id: deduction_id,
-                                        period_cutoff: period_cutoff,
-                                        amount: amount ,               
-                                        effectivity_date: effectivity_date ,
-                                        dedcid: dedcid,
-                                        status: status 
+                            
+                        },
+                        function(data) {   
+                        // console.log(data);                                      
+                            swal({
+                                title: "Success!", 
+                                text: "Successfully updated the employee deduction details!", 
+                                icon: "success",
+                            }).then(function() {
+                                $('#updateDed').modal('hide');
+                                document.getElementById('dn'+dedcid).innerHTML = deductionid;
+                                document.getElementById('dnr'+dedcid).innerHTML = deduction_id;
+                                document.getElementById('pc'+dedcid).innerHTML = period_cutoff;
+                                document.getElementById('am'+dedcid).innerHTML = amount;
+                                document.getElementById('amtn'+dedcid).innerHTML = amtn;
+                                document.getElementById('ed'+dedcid).innerHTML = effectivity_date;
+                                document.getElementById('st'+dedcid).innerHTML = status;
 
-                                        
-                                    },
-                                    function(data) {   
-                                    // console.log(data);                                      
-                                        swal({
-                                            title: "Success!", 
-                                            text: "Successfully updated the employee deduction details!", 
-                                            icon: "success",
-                                        }).then(function() {
-                                            $('#updateDed').modal('hide');
-                                            document.getElementById('dn'+dedcid).innerHTML = deductionid;
-                                            document.getElementById('dnr'+dedcid).innerHTML = deduction_id;
-                                            document.getElementById('pc'+dedcid).innerHTML = period_cutoff;
-                                            document.getElementById('am'+dedcid).innerHTML = amount;
-                                            document.getElementById('amtn'+dedcid).innerHTML = amtn;
-                                            document.getElementById('ed'+dedcid).innerHTML = effectivity_date;
-                                            document.getElementById('st'+dedcid).innerHTML = status;
-                                        }); 
-                                    }
-                                );
+                                if(deductionid !== old_deductionid){
+                                new_data = deductionid;
+                                old_data =  old_deductionid;
+                                column_name =  'Deduction Name';
+                                insertMfDedLogs(url2,emp_code,column_name,new_data,old_data);
+                                }if(period_cutoff !== old_period_cutoff){
+                                new_data = period_cutoff;
+                                old_data =  old_period_cutoff;
+                                column_name =  'Period Cutoff';         
+                                insertMfDedLogs(url2,emp_code,column_name,new_data,old_data);
+                                }if(effectivity_date !== old_effectivity_date){
+                                new_data = effectivity_date;
+                                old_data =  old_effectivity_date;
+                                column_name =  'Effectivity Date';         
+                                insertMfDedLogs(url2,emp_code,column_name,new_data,old_data);
+                                }if(amount !== old_amount){
+                                new_data = amount;
+                                old_data =  old_amount;
+                                column_name =  'Deduction Amount';         
+                                insertMfDedLogs(url2,emp_code,column_name,new_data,old_data);
+                                }if(status !== old_status){
+                                new_data = status;
+                                old_data =  old_status;
+                                column_name =  'Status';         
+                                insertMfDedLogs(url2,emp_code,column_name,new_data,old_data);
+                                }       
 
-                          } else {
-                            swal({text:"You cancel the updating of employee deduction details!",icon:"error"});
-                          }
-                        });
-   
-                }
+                            }); 
+                        }
+                    );
+
+              } else {
+                swal({text:"You cancel the updating of employee deduction details!",icon:"warning"});
+              }
+            });
+
+    }
+
+function viewDedLogs(empcd)
+ {
+     $('#viewDedLogs').modal('toggle');
+     var url = "../deduction/viewdeductionlogs_process.php";
+     var emp_code = empcd;
+
+     $.post (
+        url,
+        {
+            emp_code: emp_code        
+        },
+        function(data) { 
+            $("#contents2").html(data).show(); 
+            $("#ViewDedLogs").tableExport({
+                headers: true,
+                footers: true,
+                formats: ['xlsx'],
+                filename: 'id',
+                bootstrap: false,
+                exportButtons: true,
+                position: 'top',
+                ignoreRows: null,
+                ignoreCols: null,
+                trimWhitespace: true,
+                RTL: false,
+                sheetname: 'Deduction Logs'
+            });
+            $(".fa-file-export").remove();
+            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+        }
+        );
+ }
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -464,4 +591,6 @@ function limitPagging(){
 
 
 
-<?php include("../_footer.php");?>
+<?php
+
+           include("../_footer.php");?>

@@ -1,5 +1,7 @@
 <?php
 
+            date_default_timezone_set('Asia/Manila');
+
 Class SalaryList{
 
     public function GetAllSalaryList(){
@@ -59,12 +61,14 @@ Class SalaryList{
                 <td id="am'.$result['emp_code'].'" hidden>'.round($result['amount'],3).'</td>
                 <td id="amtn'.$result['emp_code'].'">₱ ' . number_format($result['amount'],0,'.',',').'</td>
                 <td id="st'.$result['emp_code'].'">' . $result['status'] . '</td>';
-                echo'<td><button type="button" class="actv" onclick="editSalaryModal('.$empcd.','.$fname.')">
-                                <i class="fas fa-edit"></i> UPDATE
-                            </button></td>';
-                
-                
-
+                echo'<td><button type="button" class="hactv" onclick="editSalaryModal('.$empcd.','.$fname.')" title="Update Salary">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button type="button" class="voidBut" onclick="viewSalaryLogs('.$empcd.')" title="Salary Logs">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            </td>';
+                             
             } while ($result = $stmt->fetch());
 
             echo '</tr></tbody>';

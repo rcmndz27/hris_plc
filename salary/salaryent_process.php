@@ -1,5 +1,7 @@
 <?php
 
+            date_default_timezone_set('Asia/Manila');
+
 
     include('../salary/salaryent.php');
     include('../config/db.php');

@@ -1,4 +1,6 @@
 <?php
+
+            date_default_timezone_set('Asia/Manila');
     session_start();
 
     if (empty($_SESSION['userid']))
@@ -54,7 +56,9 @@
             <div class="col-md-12">
                 <div class="panel-body">
                     <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $allSalaryList->GetAllSalaryList(); ?>
+                        <?php
+
+            date_default_timezone_set('Asia/Manila'); $allSalaryList->GetAllSalaryList(); ?>
 
                     </div>
                 </div>
@@ -84,13 +88,17 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Employee Code/Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("emp_code", $mf->GetEmployeeSalary("empsal")); ?> 
+                                        <?php
+
+            date_default_timezone_set('Asia/Manila'); $dd->GenerateDropDown("emp_code", $mf->GetEmployeeSalary("empsal")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="bank_type">Bank Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("bank_type", $mf->GetAllBank("bankname")); ?> 
+                                        <?php
+
+            date_default_timezone_set('Asia/Manila'); $dd->GenerateDropDown("bank_type", $mf->GetAllBank("bankname")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -125,7 +133,9 @@
                                             id="status" value="Active" readonly>                                        
                                     </div>
                                 </div> 
-                                <input type="text" name="eMplogName" id="eMplogName" value="<?php echo $empName ?>" hidden>
+                                <input type="text" name="eMplogName" id="eMplogName" value="<?php
+
+            date_default_timezone_set('Asia/Manila'); echo $empName ?>" hidden>
                             </div> <!-- form row closing -->
                     </fieldset> 
 
@@ -167,7 +177,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="banktype">Bank Name<span class="req">*</span></label>
-                                        <?php $dd->GenerateDropDown("banktype", $mf->GetAllBank("bankname")); ?> 
+                                        <?php
+
+            date_default_timezone_set('Asia/Manila'); $dd->GenerateDropDown("banktype", $mf->GetAllBank("bankname")); ?> 
                                     </div>
                                 </div> 
                                 <div class="col-lg-6">
@@ -218,6 +230,46 @@
             </div> <!-- modal dialog closing -->
         </div><!-- modal fade closing -->
 
+<div class="modal fade" id="viewSalaryLogs" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title bb" id="popUpModalTitle">VIEW SALARY LOGS  <i class="fas fa-money-bill"></i></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times; </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                    <div class="d-flex justify-content-center">
+                        <legend class="fieldset-border pad">
+                        </legend>
+                    </div>
+                    <div class="form-row">
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <div id="contents2" class="table-responsive-sm table-body">
+                                        <button type="button" id="search" hidden>GENERATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                               
+                    </div> <!-- form row closing -->
+                </fieldset> 
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                </div> 
+            </div> <!-- main body closing -->
+        </div> <!-- modal body closing -->
+    </div> <!-- modal content closing -->
+</div> <!-- modal dialog closing -->
+</div><!-- modal fade closing -->   
+
+
     </div> <!-- main body mbt closing -->
 </div><!-- container closing -->
 
@@ -249,12 +301,23 @@
 
 }
 
+function insertMfSalLogs(url2,emp_code,column_name,new_data,old_data) {
+
+    $.post (url2,
+    {
+        emp_code:emp_code,
+        column_name: column_name,
+        new_data: new_data,
+        old_data: old_data
+    });
+}
 
      function updateSal()
     {
 
 
         var url = "../salary/updatesalary_process.php";
+        var url2 = "../salary/logmfsalary_process.php";
         var emp_code = document.getElementById("empcode").value;
         var bank_type = document.getElementById("banktype").value;
         var bank_no = document.getElementById("bankno").value;
@@ -262,51 +325,120 @@
         var amount = document.getElementById("amnt").value;
         var status = document.getElementById("stts").value;      
         var amtn = '₱ '+amount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to update this employee salary details?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((verifyApp) => {
-                          if (verifyApp) {
-                                $.post (
-                                    url,
-                                    {
-                                        action: 1,
-                                        emp_code: emp_code ,
-                                        bank_type: bank_type ,
-                                        bank_no: bank_no ,
-                                        pay_rate: pay_rate ,
-                                        amount: amount ,               
-                                        status: status 
-                                        
-                                    },
-                                    function(data) { 
-                                        swal({
-                                            title: "Success!", 
-                                            text: "Successfully updated the employee salary details!", 
-                                            icon: "success",
-                                        }).then(function() {
-                                            $('#updateSal').modal('hide');
-                                                document.getElementById('bt'+emp_code).innerHTML =  bank_type;
-                                                document.getElementById('bn'+emp_code).innerHTML = bank_no;
-                                                document.getElementById('pr'+emp_code).innerHTML =  pay_rate;
-                                                document.getElementById('am'+emp_code).innerHTML =  amount;
-                                                document.getElementById('amtn'+emp_code).innerHTML =  amtn;
-                                                document.getElementById('st'+emp_code).innerHTML =   status;
-                                         }); 
-                                    }
-                                );
 
-                          } else {
-                            swal({text:"You cancel the updating of employee salary details!",icon:"error"});
-                          }
-                        });
-   
-                }
+        var old_bank_type =  document.getElementById('bt'+emp_code).innerHTML;  
+        var old_bank_no =  document.getElementById('bn'+emp_code).innerHTML;  
+        var old_pay_rate =  document.getElementById('pr'+emp_code).innerHTML;  
+        var old_amount  = document.getElementById('am'+emp_code).innerHTML;  
+        var old_status =  document.getElementById('st'+emp_code).innerHTML;            
+
+swal({                     
+  title: "Are you sure?",
+  text: "You want to update this employee salary details?",
+  icon: "success",
+  buttons: true,
+  dangerMode: true,
+})
+    .then((verifyApp) => {
+      if (verifyApp) {                      
+        $.post (
+            url,
+            {
+                action: 1,
+                emp_code: emp_code ,
+                bank_type: bank_type ,
+                bank_no: bank_no ,
+                pay_rate: pay_rate ,
+                amount: amount ,               
+                status: status 
+                
+            },
+            function(data) { 
+                console.log(data);
+                swal({
+                    title: "Success!", 
+                    text: "Successfully updated the employee salary details!", 
+                    icon: "success",
+                }).then(function() {
+                    $('#updateSal').modal('hide');
+                        document.getElementById('bt'+emp_code).innerHTML =  bank_type;
+                        document.getElementById('bn'+emp_code).innerHTML = bank_no;
+                        document.getElementById('pr'+emp_code).innerHTML =  pay_rate;
+                        document.getElementById('am'+emp_code).innerHTML =  amount;
+                        document.getElementById('amtn'+emp_code).innerHTML =  amtn;
+                        document.getElementById('st'+emp_code).innerHTML =   status;
+
+                        if(bank_type !== old_bank_type){
+                        new_data = bank_type;
+                        old_data =  old_bank_type;
+                        column_name =  'Bank Type';
+                        insertMfSalLogs(url2,emp_code,column_name,new_data,old_data);
+                        }if(bank_no !== old_bank_no){
+                        new_data = bank_no;
+                        old_data =  old_bank_no;
+                        column_name =  'Bank No.';         
+                        insertMfSalLogs(url2,emp_code,column_name,new_data,old_data);
+                        }if(pay_rate !== old_pay_rate){
+                        new_data = pay_rate;
+                        old_data =  old_pay_rate;
+                        column_name =  'Pay Type';         
+                        insertMfSalLogs(url2,emp_code,column_name,new_data,old_data);
+                        }if(amount !== old_amount){
+                        new_data = amount;
+                        old_data =  old_amount;
+                        column_name =  'Salary Rate';         
+                        insertMfSalLogs(url2,emp_code,column_name,new_data,old_data);
+                        }if(status !== old_status){
+                        new_data = status;
+                        old_data =  old_status;
+                        column_name =  'Status';         
+                        insertMfSalLogs(url2,emp_code,column_name,new_data,old_data);
+                        }                                                
+                 }); 
+            }
+        );
+
+  } else {
+    swal({text:"You cancel the updating of employee salary details!",icon:"error"});
+  }
+});
+
+}
+
+
+function viewSalaryLogs(empcd)
+ {
+     $('#viewSalaryLogs').modal('toggle');
+     var url = "../salary/viewsalarylogs_process.php";
+     var emp_code = empcd;
+
+     $.post (
+        url,
+        {
+            emp_code: emp_code        
+        },
+        function(data) { 
+            $("#contents2").html(data).show(); 
+            $("#ViewSalaryLogs").tableExport({
+                headers: true,
+                footers: true,
+                formats: ['xlsx'],
+                filename: 'id',
+                bootstrap: false,
+                exportButtons: true,
+                position: 'top',
+                ignoreRows: null,
+                ignoreCols: null,
+                trimWhitespace: true,
+                RTL: false,
+                sheetname: 'Salary Logs'
+            });
+            $(".fa-file-export").remove();
+            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+        }
+        );
+ }
+
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -463,4 +595,6 @@ function limitPagging(){
 </script>
 
 
-<?php include("../_footer.php");?>
+<?php
+
+            date_default_timezone_set('Asia/Manila'); include("../_footer.php");?>
