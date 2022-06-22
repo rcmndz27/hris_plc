@@ -16,7 +16,7 @@ Class DtrCorrectApp{
     }
 
 
-public function GetAlldtrcorrectAppHistory(){
+public function GetAlldtrcorrectAppHistory($date_from,$date_to){
         global $connL;
 
         echo '
@@ -39,7 +39,7 @@ public function GetAlldtrcorrectAppHistory(){
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for dtr correction.." title="Type in dtr correction details"> 
                         </div>                     
                 </div>         
-        <table id="alldtrcorrectList" class="table table-striped table-sm">
+        <table id="DtrcListTab" class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>DTR Date</th>
@@ -58,9 +58,10 @@ public function GetAlldtrcorrectAppHistory(){
                     when   status = 3 then 'REJECTED'
                     when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as dtrc_id,* FROM dbo.tr_dtrcorrect a
         left join employee_profile b on a.emp_code = b.emp_code
-        where status = 2 ORDER BY dtrc_date DESC";
+        where status = 2 and dtrc_date between :startDate and :endDate";
+        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
 
         if($result){
@@ -75,7 +76,7 @@ public function GetAlldtrcorrectAppHistory(){
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>'.date('m-d-Y', strtotime($result['dtrc_date'])).'</td>
+                <td>'.date('F d,Y', strtotime($result['dtrc_date'])).'</td>
                 <td>'.$result['fullname'] . '</td>
                 <td>'.date('h:i a', strtotime($result['time_in'])).'</td>
                 <td>'.date('h:i a', strtotime($result['time_out'])).'</td>

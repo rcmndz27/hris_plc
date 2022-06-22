@@ -76,7 +76,7 @@ Class LeaveApplication{
         
     }
 
-public function GetAllLeaveHistory(){
+public function GetAllLeaveHistory($date_from,$date_to){
         
         global $connL;
 
@@ -101,13 +101,12 @@ public function GetAllLeaveHistory(){
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for leave.." title="Type in leave details"> 
                 </div>                     
         </div>         
-        <table id="allleaveList" class="table table-striped table-sm">
+        <table id="LeaveListTab" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Date Filed</th>
+                <th>Leave Date</th>
                 <th>Name</th>
                 <th>Leave Type</th>
-                <th>Leave Date</th>
                 <th>Description</th>
                 <th>Leave Count</th>
                 <th>Status</th>
@@ -122,9 +121,10 @@ public function GetAllLeaveHistory(){
                     when   approved = 3 then 'REJECTED'
                     when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved, b.lastname+','+b.firstname as fullname,a.rowid as lv_rowid FROM dbo.tr_leave a
         left join employee_profile b on a.emp_code = b.emp_code
-        where approved = 2";
+        where a.approved = 2 and a.date_from between :startDate and :endDate";
+        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
 
         if($result){
@@ -143,10 +143,9 @@ public function GetAllLeaveHistory(){
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['datefiled'])) . '</td>
+                <td id="ld'.$result['lv_rowid'].'">' . date('F d,Y', strtotime($result['date_from'])) . '</td>
                 <td>' . $result['fullname'] . '</td>
                 <td id="lt'.$result['lv_rowid'].'">' . $result['leavetype'] . '</td>
-                <td id="ld'.$result['lv_rowid'].'">' . date('m-d-Y', strtotime($result['date_from'])) . '</td>
                 <td id="ds'.$result['lv_rowid'].'">' . $result['leave_desc'] . '</td>
                 <td id="lc'.$result['lv_rowid'].'">' . $result['actl_cnt'] . '</td>
                 <td id="st'.$result['lv_rowid'].'">' . $result['approved'] . '</td>';
@@ -221,8 +220,7 @@ public function GetAllLeaveHistory(){
         </thead>
         <tbody>';
 
-        $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,emp_code,
-                    (CASE when approved = 1 then 'PENDING'
+        $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,emp_code,(CASE when approved = 1 then 'PENDING'
                     when   approved = 2 then 'APPROVED'
                     when   approved = 3 then 'REJECTED'
                     when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY date_from DESC, leavetype";

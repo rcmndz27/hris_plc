@@ -71,6 +71,37 @@
             }
         }
 
+
+        public function GetAllCutoffCO($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+
+               
+
+                $sql = $connL->prepare(@"SELECT * FROM dbo.mf_pyrollco ORDER by pyrollco_from DESC");
+                $sql->execute();
+
+                if ($type == "payrollco")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                        array_push( $data, array($r["rowid"], date("m/d/Y", strtotime($r["pyrollco_from"])) . " - " . date("m/d/Y", strtotime($r["pyrollco_to"]))) );
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
+
+
         public function GetAllCutoffPay($type)
         {
             global $connL;

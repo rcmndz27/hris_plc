@@ -16,7 +16,7 @@ Class WfhApp{
         $this->employeeCode = $employeeCode;
     }
 
-        public function GeAlltWfhAppHistory(){
+        public function GetAllWfhAppHistory($date_from,$date_to){
 
         global $connL;
 
@@ -66,12 +66,11 @@ Class WfhApp{
                     on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
                     and a.wfh_date = b.punch_date
                     left join employee_profile c on a.emp_code = c.emp_code
-                     where status = 2 
-                    --group by a.emp_code
-                    ORDER BY wfh_date DESC
-                    ";
+                     where status = 2  and wfh_date between :startDate and :endDate 
+                    ORDER BY wfh_date DESC";
+        $param = array(":startDate" => date('Y-m-d',strtotime($date_from)),":endDate" => date('Y-m-d',strtotime($date_to)));                    
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
 
         if($result){
@@ -87,7 +86,7 @@ Class WfhApp{
                 $attid = "'".$result['attid']."'";
                 echo "
                 <tr>
-                <td>" . date('m-d-Y', strtotime($result['wfh_date']))."</td>
+                <td>" . date('F d,Y', strtotime($result['wfh_date']))."</td>
                 <td>" . $result['fullname']."</td>
                 <td>" . $result['wfh_task'] ."</td>
                 <td>" . (isset($result['wfh_output']) ? $result['wfh_output'] : 'n/a') ."</td>

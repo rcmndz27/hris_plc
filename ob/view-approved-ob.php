@@ -10,7 +10,11 @@
     {
         include('../_header.php');
         include('../ob/ob_app.php');
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');        
 
+        $mf = new MasterFile();
+        $dd = new DropDown();
         $obApp = new ObApp(); 
         $obApp->SetObAppParams($empCode);
 
@@ -76,36 +80,37 @@
 
      
 </script>
+<script type='text/javascript' src='../leave/viewapp.js'></script>
 <link rel="stylesheet" type="text/css" href="../ob/ob_view.css">
-<script type='text/javascript' src='../ob/ob_app.js'></script>
-<script type='text/javascript' src='../js/validator.js'></script>
-<script src="../ob/moment2.min.js"></script>
-<script src="../ob/moment-range.js"></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES OFFICIAL BUSINESS APPLICATION</h1>
+          <h1>ALL EMPLOYEES OFFICIAL BUSINESS APPROVED APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-building'></i>&nbsp;ALL EMPLOYEES OFFICIAL BUSINESS APPLICATION</b></li>
+              <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-building'></i>&nbsp;ALL EMPLOYEES OFFICIAL BUSINESS APPROVED APPLICATION</b></li>
             </ol>
           </nav>
    
-    <div class="pt-3">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $obApp->GetAllObAppHistory(); ?>
-                    </div>
-                </div>
+    <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+            <div class='col-md-3'>
+                <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
+            </div>           
+            <button type="submit" id="searchObApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+            </button>                                                  
+    </div>
+             
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="ObListTab" class="table-responsive-sm table-body"></div>
             </div>
         </div>
-    </div>
+    </div>  
 
 
 <div class="modal fade" id="viewObModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
@@ -218,28 +223,12 @@
 
 <script type="text/javascript">
 
-    $("#allobList").tableExport({
-    headers: true,
-    footers: true,
-    formats: ['xlsx'],
-    filename: 'id',
-    bootstrap: false,
-    exportButtons: true,
-    position: 'top',
-    ignoreRows: null,
-    ignoreCols: null,
-    trimWhitespace: true,
-    RTL: false,
-    sheetname: 'allobList'
-});
-$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
 
-
-      function myFunction() {
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allobList");
+  table = document.getElementById("ObListTab");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -257,7 +246,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-    getPagination('#allobList');
+    getPagination('#ObListTab');
 
 function getPagination(table) {
   var lastPage = 1;

@@ -10,7 +10,11 @@
     {
         include('../_header.php');
         include('../wfhome/wfh_app.php');
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');        
 
+        $mf = new MasterFile();
+        $dd = new DropDown();
         $wfhApp = new WfhApp(); 
         $wfhApp->SetWfhAppParams($empCode);
 
@@ -74,10 +78,11 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
     }
 
 </script>
+<script type='text/javascript' src='../leave/viewapp.js'></script>
 <link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES WORK FROM HOME APPLICATION</h1>
+          <h1>ALL EMPLOYEES WORK FROM HOME APPROVED APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
@@ -85,21 +90,27 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-warehouse fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES WORK FROM HOME APPLICATION</b></li>
+                        </i>&nbsp;ALL EMPLOYEES WORK FROM HOME APPROVED APPLICATION</b></li>
             </ol>
           </nav>
-<div class="pt-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $wfhApp->GeAlltWfhAppHistory(); ?>
-                    </div>
-                </div>
+
+    <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+            <div class='col-md-3'>
+                <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
+            </div>           
+            <button type="submit" id="searchWfhApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+            </button>                                                  
+    </div>
+             
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="WfhListTab" class="table-responsive-sm table-body"></div>
             </div>
         </div>
-    </div>
-
+    </div>     
 
     <!-- start view wfh  -->
 <div class="modal fade" id="viewWfhModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
@@ -206,28 +217,12 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
 
 <script type="text/javascript">
 
-    $("#allwfhList").tableExport({
-    headers: true,
-    footers: true,
-    formats: ['xlsx'],
-    filename: 'id',
-    bootstrap: false,
-    exportButtons: true,
-    position: 'top',
-    ignoreRows: null,
-    ignoreCols: null,
-    trimWhitespace: true,
-    RTL: false,
-    sheetname: 'allwfhList'
-});
-$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
- 
 
-    function myFunction() {
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allwfhList");
+  table = document.getElementById("WfhListTab");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -244,7 +239,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-    getPagination('#allwfhList');
+    getPagination('#WfhListTab');
 
 function getPagination(table) {
   var lastPage = 1;

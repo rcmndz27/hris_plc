@@ -16,7 +16,7 @@ Class OtApp{
         $this->employeeCode = $employeeCode;
     }
 
-    public function GetAllOtAppHistory(){
+    public function GetAllOtAppHistory($date_from,$date_to){
         global $connL;
 
         echo '
@@ -39,7 +39,7 @@ Class OtApp{
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for overtime.." title="Type in overtime details"> 
                         </div>                     
                 </div>         
-        <table id="allotList" class="table table-striped table-sm">
+        <table id="OtListTab" class="table table-striped table-sm">
         <thead>
             <tr>
                 <th>OT Date</th>
@@ -61,9 +61,10 @@ Class OtApp{
                     when   status = 3 then 'REJECTED'
                     when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as ot_rowid,* FROM dbo.tr_overtime a
         left join employee_profile b on a.emp_code = b.emp_code
-        where status = 2 ORDER BY ot_date DESC";
+        where a.status = 2 and a.ot_date between :startDate and :endDate";
+        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
 
         if($result){
@@ -81,7 +82,7 @@ Class OtApp{
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['ot_date'])) . '</td>
+                <td>' . date('F d,Y', strtotime($result['ot_date'])) . '</td>
                 <td>' . $result['fullname'] . '</td>
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>

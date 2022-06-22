@@ -10,7 +10,11 @@
     {
         include('../_header.php');
         include('../dtrcorrect/dtrcorrect_app.php');
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');        
 
+        $mf = new MasterFile();
+        $dd = new DropDown();        
         $dtrcorrectApp = new DtrCorrectApp(); 
         $dtrcorrectApp->SetdtrcorrectAppParams($empCode);
 
@@ -73,53 +77,9 @@
         );
     }
 
-    function canceldtrcorrect(lvid,empcd)
-    {
-
-     var url = "../dtrcorrect/canceldtrcorrectProcess.php";  
-     var dtrcorrectid = lvid;   
-     var emp_code = empcd;   
-        swal({
-              title: "Are you sure?",
-              text: "You want to cancel this dtr correction?",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-            })
-            .then((cnclDTR) => {
-              if (cnclDTR) {
-                $.post (
-                        url,
-                        {
-                            choice: 1,
-                            dtrcorrectid:dtrcorrectid,
-                            emp_code:emp_code
-                        },
-                        function(data) { 
-                            // console.log(data);
-                                swal({
-                                title: "Oops!", 
-                                text: "Successfully cancelled dtr correction!", 
-                                type: "info",
-                                icon: "info",
-                                }).then(function() {
-                                    document.getElementById('st'+dtrcorrectid).innerHTML = 'VOID';
-                                    document.querySelector('#clv').remove();
-                                });  
-                        }
-                    );
-              } else {
-                swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
-              }
-            });
-    }
-
 </script>
+<script type='text/javascript' src='../leave/viewapp.js'></script>
 <link rel="stylesheet" type="text/css" href="../dtrcorrect/dtrc_view.css">
-<script type='text/javascript' src='../dtrcorrect/dtrcorrect_app.js'></script>
-<script type='text/javascript' src='../js/validator.js'></script>
-<script src="../dtrcorrect/moment2.min.js"></script>
-<script src="../dtrcorrect/moment-range.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>ALL EMPLOYEES DTR CORRECTION APPLICATION</h1>
@@ -133,20 +93,23 @@
                         </i>&nbsp;ALL EMPLOYEES DTR CORRECTION APPLICATION</b></li>
             </ol>
           </nav>
-<div class="pt-3">
 
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $dtrcorrectApp->GetAlldtrcorrectAppHistory(); ?>
-                    </div>
-                </div>
+    <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+            <div class='col-md-3'>
+                <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
+            </div>           
+            <button type="submit" id="searchDtrcApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+            </button>                                                  
+    </div>
+             
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="DtrcListTab" class="table-responsive-sm table-body"></div>
             </div>
         </div>
-    </div>
-
+    </div> 
 
 <div class="modal fade" id="viewdtrcorrectModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -252,29 +215,11 @@
 
 <script type="text/javascript">
 
-    $("#alldtrcorrectList").tableExport({
-    headers: true,
-    footers: true,
-    formats: ['xlsx'],
-    filename: 'id',
-    bootstrap: false,
-    exportButtons: true,
-    position: 'top',
-    ignoreRows: null,
-    ignoreCols: null,
-    trimWhitespace: true,
-    RTL: false,
-    sheetname: 'alldtrcorrectList'
-});
-$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
- 
- 
-  
-      function myFunction() {
+function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("alldtrcorrectList");
+  table = document.getElementById("DtrcListTab");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -292,7 +237,7 @@ for (i = 0; i < tr.length; i++) {
  }
 }
     
-getPagination('#alldtrcorrectList');
+getPagination('#DtrcListTab');
 
 function getPagination(table) {
   var lastPage = 1;

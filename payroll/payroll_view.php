@@ -54,12 +54,9 @@ else
       </nav>
 
       <div class="form-row">
-        <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD/LOCATION:</label>
+        <label for="payroll_period" class="col-form-label pad">PERIOD:</label>
         <div class='col-md-2'>
-            <select class="form-control" id="empCode" name="empCode" value="" hidden>
-                <option value="<?php echo $empCode ?>"><?php echo $empCode ?></option>
-            </select>
-            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
+            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payroll")); ?>
         </div>           
         <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      

@@ -15,11 +15,10 @@ Class ObApp{
         $this->employeeCode = $employeeCode;
     }
 
-    public function GetAllObAppHistory(){
+    public function GetAllObAppHistory($date_from,$date_to){
         global $connL;
 
-        echo '
-        <div class="form-row">  
+        echo '<div class="form-row">  
                     <div class="col-lg-1">
                         <select class="form-select" name="state" id="maxRows">
                              <option value="5000">ALL</option>
@@ -38,13 +37,12 @@ Class ObApp{
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for official business.." title="Type in official business details"> 
                         </div>                     
                 </div>          
-        <table id="allobList" class="table table-striped table-sm">
+        <table id="ObListTab" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Date Filed</th>
+                <th>OB Date</th>
                 <th>Name</th>
                 <th>Destination</th>
-                <th>OB Date</th>
                 <th>Time</th>
                 <th>Purpose</th>
                 <th>Person/Company to See</th>
@@ -59,9 +57,10 @@ Class ObApp{
                     when   status = 3 then 'REJECTED'
                     when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as ob_rowid,* FROM dbo.tr_offbusiness a
         left join employee_profile b on a.emp_code = b.emp_code
-        where status = 2 ORDER BY ob_date DESC";
+        where status = 2 and ob_date between :startDate and :endDate";
+        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
         $stmt =$connL->prepare($query);
-        $stmt->execute();
+        $stmt->execute($param);
         $result = $stmt->fetch();
 
         if($result){
@@ -77,10 +76,9 @@ Class ObApp{
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['date_filed'])) . '</td>
+                <td>' . date('F d,Y', strtotime($result['ob_date'])). '</td>
                 <td>' . $result['fullname'] . '</td>
                 <td>' . $result['ob_destination'] . '</td>
-                <td>' . date('m-d-Y', strtotime($result['ob_date'])). '</td>
                 <td>' . date('h:i a', strtotime($result['ob_time'])) . '</td>
                 <td>' . $result['ob_purpose'] . '</td>
                 <td>' . $result['ob_percmp'] . '</td>

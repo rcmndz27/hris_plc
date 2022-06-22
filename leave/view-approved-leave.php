@@ -10,7 +10,11 @@
     {
         include('../_header.php');
         include('../leave/leaveApplication.php');
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');        
 
+        $mf = new MasterFile();
+        $dd = new DropDown();
         $leaveApp = new LeaveApplication(); 
         $leaveApp->SetLeaveApplicationParams($empCode,$empType);
 
@@ -54,10 +58,6 @@
 
 <script type="text/javascript">
 
-
-
-
-
     function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
 
         $('#viewLeaveModal').modal('toggle');
@@ -92,7 +92,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();
-        table = document.getElementById("allleaveList");
+        table = document.getElementById("LeaveListTab");
         tr = table.getElementsByTagName("tr");
         for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td");
@@ -108,34 +108,39 @@
         }
     }
 
-
 </script>
-<!-- -->
+<script type='text/javascript' src='../leave/viewapp.js'></script>
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES LEAVE APPLICATION</h1>
+          <h1>ALL EMPLOYEES LEAVE APPROVED APPLICATION</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-suitcase fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES LEAVE APPLICATION</b></li>
+                        </i>&nbsp;ALL EMPLOYEES LEAVE APPROVED APPLICATION</b></li>
             </ol>
           </nav>
-    <div class="pt-3">
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $leaveApp->GetAllLeaveHistory(); ?>
-                    </div>
-                </div>
+    <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+            <div class='col-md-3'>
+                <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
+            </div>           
+            <button type="submit" id="searchLeaveApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+            </button>                                                  
+    </div>
+             
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="LeaveListTab" class="table-responsive-sm table-body"></div>
             </div>
         </div>
-    </div>
+    </div>      
 
     <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -147,85 +152,14 @@
                         <span aria-hidden="true">&times; </span>
                     </button>
                 </div>
-        <div class="modal-body">
-            <div class="main-body">
-                <fieldset class="fieldset-border">
-                            <div class="d-flex justify-content-center">
-                                <legend class="fieldset-border pad">
-                                </legend>
-                             </div>
-                        <div class="form-row">
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="datefl">Date Filed</label>
-                                        <input type="text" id="datefl" name="datefl" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <label class="control-label" for="leavetyp">Leave Type</label>
-                                        <input type="text" id="leavetyp" name="leavetyp" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" for="datefr">Date From</label>
-                                        <input type="text" id="datefr" name="datefr" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label class="control-label" for="dateto">Date To</label>
-                                        <input type="text" id="dateto" name="dateto" class="form-control" readonly>                                        
-                                    </div>
-                                </div> 
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label class="control-label" for="actlcnt">Leave Count</label>
-                                        <input type="text" id="actlcnt" name="actlcnt" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="appdays">Approved/Rejected (Days)</label>
-                                        <input type="text" id="appdays" name="appdays" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="leavedesc">Description</label>
-                                        <input type="text" id="leavedesc" name="leavedesc" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <label class="control-label" for="remark">Remarks</label>
-                                        <input type="text" id="remark" name="remark" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label class="control-label" for="appr_oved">Status</label>
-                                        <input type="text" id="appr_oved" name="appr_oved" class="form-control" readonly>
-                                    </div>
-                                </div>                                
-                            </div> <!-- form row closing -->
-                    </fieldset> 
-                                <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
-                                </div> 
-                        </div> <!-- main body closing -->
-                    </div> <!-- modal body closing -->
-                </div> <!-- modal content closing -->
-            </div> <!-- modal dialog closing -->
-        </div><!-- modal fade closing -->
+ 
 
 <div class="modal fade" id="viewLeaveHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-sg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW LEAVE LOGS   <i class="fas fa-suitcase"></i></h5>
+                    <h5 class="modal-title bb" id="popUpModalTitle">VIEW LEAVE LOGS  <i class="fas fa-suitcase"></i></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times; </span>
                     </button>
@@ -266,24 +200,8 @@
 
 <script type="text/javascript">
 
-$("#allleaveList").tableExport({
-    headers: true,
-    footers: true,
-    formats: ['xlsx'],
-    filename: 'id',
-    bootstrap: false,
-    exportButtons: true,
-    position: 'top',
-    ignoreRows: null,
-    ignoreCols: null,
-    trimWhitespace: true,
-    RTL: false,
-    sheetname: 'AllEmpLeaves'
-});
-$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
- 
 
-getPagination('#allleaveList');
+getPagination('#LeaveListTab');
 
 function getPagination(table) {
   var lastPage = 1;

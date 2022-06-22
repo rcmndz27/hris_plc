@@ -10,7 +10,11 @@
     {
         include('../_header.php');
         include('../overtime/ot_app.php');
+        include('../elements/DropDown.php');
+        include('../controller/MasterFile.php');         
 
+        $mf = new MasterFile();
+        $dd = new DropDown();
         $otApp = new OtApp(); 
         $otApp->SetOtAppParams($empCode);
 
@@ -118,13 +122,10 @@
 
 </script>
 <link rel="stylesheet" type="text/css" href="../overtime/ot_view.css">
-<script type='text/javascript' src='../overtime/ot_app.js'></script>
-<script type='text/javascript' src='../js/validator.js'></script>
-<script src="../overtime/moment2.min.js"></script>
-<script src="../overtime/moment-range.js"></script>
+<script type='text/javascript' src='../leave/viewapp.js'></script>
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES OVERTIME APPLICATION</h1>
+          <h1>ALL EMPLOYEES OVERTIME APPROVED APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
@@ -132,23 +133,26 @@
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-hourglass fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES OVERTIME APPLICATION</b></li>
+                        </i>&nbsp;ALL EMPLOYEES OVERTIME APPROVED APPLICATION</b></li>
             </ol>
           </nav>
-   
-    <div class="pt-3">
+     <div class="form-row">
+            <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+            <div class='col-md-3'>
+                <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
+            </div>           
+            <button type="submit" id="searchOtApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+            </button>                                                  
+    </div>
+             
 
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel-body">
-                    <div id="tableList" class="table-responsive-sm table-body">
-                        <?php $otApp->GetAllOtAppHistory(); ?>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="OtListTab" class="table-responsive-sm table-body"></div>
             </div>
         </div>
-    </div>
+    </div>    
 
 <div class="modal fade" id="viewOtModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -278,28 +282,12 @@
 
   <script type="text/javascript">
 
-$("#allotList").tableExport({
-    headers: true,
-    footers: true,
-    formats: ['xlsx'],
-    filename: 'id',
-    bootstrap: false,
-    exportButtons: true,
-    position: 'top',
-    ignoreRows: null,
-    ignoreCols: null,
-    trimWhitespace: true,
-    RTL: false,
-    sheetname: 'allotList'
-});
-$(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
-             
         
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("allotList");
+  table = document.getElementById("OtListTab");
   tr = table.getElementsByTagName("tr");
 for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
@@ -318,9 +306,7 @@ for (i = 0; i < tr.length; i++) {
 }
 
 
-
-
-getPagination('#allotList');
+getPagination('#OtListTab');
 
 function getPagination(table) {
   var lastPage = 1;
