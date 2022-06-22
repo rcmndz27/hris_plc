@@ -172,7 +172,7 @@ public function GetAlldtrcorrectAppHistory(){
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>'.date('m-d-Y', strtotime($result['dtrc_date'])).'</td>
+                <td>'.date('F d, Y', strtotime($result['dtrc_date'])).'</td>
                 <td>'.date('h:i a', strtotime($result['time_in'])).'</td>
                 <td>'.date('h:i a', strtotime($result['time_out'])).'</td>
                 <td>'.$result['remarks'] . '</td>

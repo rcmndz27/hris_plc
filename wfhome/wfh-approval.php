@@ -85,7 +85,7 @@ require '../vendor/autoload.php';
                     echo"
                         <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
-                            <td>".date('m-d-Y', strtotime($result['wfh_date']))."</td>
+                            <td>".date('F d, Y', strtotime($result['wfh_date']))."</td>
                             <td>".$result['wfh_task']."</td>
                             <td>".$result['wfh_output']."</td>
                             <td>".$result['wfh_percentage']."</td>

@@ -33,6 +33,9 @@ $(function(){
         param = {"Action":"ApproveOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId};
         param = JSON.stringify(param);
 
+        // console.log(param);
+        // return false;
+
                         swal({
                           title: "Are you sure?",
                           text: "You want to approve this overtime?",
@@ -170,7 +173,7 @@ $(function(){
                         swal({
                           title: "Are you sure?",
                           text: "You want to reject this overtime?",
-                          icon: "error",
+                          icon: "warning",
                           buttons: true,
                           dangerMode: true,
                         })

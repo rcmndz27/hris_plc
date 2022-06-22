@@ -146,9 +146,8 @@ Class ObApp{
         <table id="obList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Date Filed</th>
-                <th>Destination</th>
                 <th>OB Date</th>
+                <th>Destination</th>
                 <th>Time</th>
                 <th>Purpose</th>
                 <th>Person/Company to See</th>
@@ -180,9 +179,8 @@ Class ObApp{
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['date_filed'])) . '</td>
+                <td>' . date('F d, Y', strtotime($result['ob_date'])). '</td>                
                 <td>' . $result['ob_destination'] . '</td>
-                <td>' . date('m-d-Y', strtotime($result['ob_date'])). '</td>
                 <td>' . date('h:i a', strtotime($result['ob_time'])) . '</td>
                 <td>' . $result['ob_purpose'] . '</td>
                 <td>' . $result['ob_percmp'] . '</td>

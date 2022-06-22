@@ -185,7 +185,7 @@ Class OtApp{
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['ot_date'])) . '</td>
+                <td>' . date('F d, Y', strtotime($result['ot_date'])) . '</td>
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
@@ -303,8 +303,9 @@ Class OtApp{
 
             echo $results;
 
-            $query_pay = $connL->prepare('EXEC hrissys_test.dbo.GenerateOTType');
-            $query_pay->execute(); 
+        $query_pay = $connL->prepare('EXEC hrissys_test.dbo.GenerateOTType :ot_date');
+        $query_pay->bindValue(':ot_date',$otDate);
+        $query_pay->execute();
 
         $erequester = $e_req;
         $nrequester = $n_req;

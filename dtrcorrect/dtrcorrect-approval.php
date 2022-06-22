@@ -83,7 +83,7 @@ require '../vendor/autoload.php';
                     echo"
                         <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
-                            <td>".date('m-d-Y', strtotime($result['dtrc_date']))."</td>
+                            <td>".date('F d, Y', strtotime($result['dtrc_date']))."</td>
                             <td>".date('h:i a', strtotime($result['time_in']))."</td>
                             <td>".date('h:i a', strtotime($result['time_out']))."</td>
                             <td>".$result['remarks']."</td>

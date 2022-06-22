@@ -197,7 +197,7 @@ Class WfhApp{
                 $attid = "'".$result['attid']."'";
                 echo "
                 <tr>
-                <td>" . date('m-d-Y', strtotime($result['wfh_date']))."</td>
+                <td>" . date('F d, Y', strtotime($result['wfh_date']))."</td>
                 <td>" . $result['wfh_task'] ."</td>
                 <td>" . (isset($result['wfh_output']) ? $result['wfh_output'] : 'n/a') ."</td>
                 <td>" . (isset($result['wfh_output2']) ? $result['wfh_output2'] : 'n/a') ."</td>

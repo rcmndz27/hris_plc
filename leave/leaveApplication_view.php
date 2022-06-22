@@ -115,42 +115,42 @@
 function cancelLeave(lvid,empcd)
 {
 
-         var url = "../leave/cancelLeaveProcess.php";  
-         var leaveid = lvid;   
-         var emp_code = empcd;   
-            swal({
-                  title: "Are you sure?",
-                  text: "You want to cancel this leave?",
-                  icon: "success",
-                  buttons: true,
-                  dangerMode: true,
-                })
-                .then((cnclLv) => {
-                  if (cnclLv) {
-                    $.post (
-                            url,
-                            {
-                                choice: 1,
-                                leaveid:leaveid,
-                                emp_code:emp_code
+ var url = "../leave/cancelLeaveProcess.php";  
+ var leaveid = lvid;   
+ var emp_code = empcd;   
+    swal({
+          title: "Are you sure?",
+          text: "You want to cancel this leave?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((cnclLv) => {
+          if (cnclLv) {
+            $.post (
+                    url,
+                    {
+                        choice: 1,
+                        leaveid:leaveid,
+                        emp_code:emp_code
 
-                            },
-                            function(data) { 
-                                    swal({
-                                    title: "Oops!", 
-                                    text: "Successfully cancelled leave!", 
-                                    type: "info",
-                                    icon: "info",
-                                    }).then(function() {
-                                        document.getElementById('st'+leaveid).innerHTML = 'VOID';
-                                        document.querySelector('#clv').remove();
-                                    });  
-                            }
-                        );
-                  } else {
-                    swal({text:"You stop the cancellation of your leave.",icon:"error"});
-                  }
-                });
+                    },
+                    function(data) { 
+                            swal({
+                            title: "Oops!", 
+                            text: "Successfully cancelled leave!", 
+                            type: "info",
+                            icon: "info",
+                            }).then(function() {
+                                document.getElementById('st'+leaveid).innerHTML = 'VOID';
+                                document.querySelector('#clv').remove();
+                            });  
+                    }
+                );
+          } else {
+            swal({text:"You stop the cancellation of your leave.",icon:"error"});
+          }
+        });
 
 }
 

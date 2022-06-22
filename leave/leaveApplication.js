@@ -36,9 +36,9 @@ function uploadFile() {
 
            var response = this.responseText;
            if(response == 1){
-              alert("Upload successfully.");
+              // alert("Upload successfully.");
            }else{
-              alert("File not uploaded.");
+              // alert("File not uploaded.");
            }
          }
       };

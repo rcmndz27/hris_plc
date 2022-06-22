@@ -211,9 +211,8 @@ public function GetAllLeaveHistory(){
         <table id="leaveList" class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Date Filed</th>
-                <th>Leave Type</th>
                 <th>Leave Date</th>
+                <th>Leave Type</th>
                 <th>Description</th>
                 <th>Leave Count</th>
                 <th>Status</th>
@@ -248,9 +247,8 @@ public function GetAllLeaveHistory(){
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
-                <td>' . date('m-d-Y', strtotime($result['datefiled'])) . '</td>
+                <td id="ld'.$result['rowid'].'">' . date('F d, Y', strtotime($result['date_from'])) . '</td>
                 <td id="lt'.$result['rowid'].'">' . $result['leavetype'] . '</td>
-                <td id="ld'.$result['rowid'].'">' . date('m-d-Y', strtotime($result['date_from'])) . '</td>
                 <td id="ds'.$result['rowid'].'">' . $result['leave_desc'] . '</td>
                 <td id="lc'.$result['rowid'].'">' . $result['actl_cnt'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['approved'] . '</td>';

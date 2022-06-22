@@ -84,7 +84,7 @@ require '../vendor/autoload.php';
 
                     echo"
                         <tr id='clv".$result['rowid']."'>
-                            <td>".date('m-d-Y',strtotime($result['ob_date']))."</td>
+                            <td>".date('F d, Y',strtotime($result['ob_date']))."</td>
                             <td>".$result['ob_destination']."</td>
                             <td>".date('h:i a', strtotime($result['ob_time']))."</td>
                             <td>".$result['ob_purpose']."</td>
