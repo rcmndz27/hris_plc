@@ -56,7 +56,8 @@ else
       <div class="form-row">
         <label for="payroll_period" class="col-form-label pad">PERIOD:</label>
         <div class='col-md-2'>
-            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payroll")); ?>
+            <input type="text" name="empCode" id="empCode" value="<?php echo $empCode; ?>" hidden>
+            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
         </div>           
         <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
@@ -537,7 +538,7 @@ aria-hidden="true">
         var url = "../payroll/payrollrep_process.php";
         var cutoff = $('#ddcutoff').children("option:selected").val();
         var dates = cutoff.split(" - ");
-        var empCode = $('#empCode').children("option:selected").val();
+        var empCode = $('#empCode').val();
         document.getElementById('loct').innerHTML = dates[2];
         document.getElementById('pfromt').innerHTML = dates[0];
         document.getElementById('ptot').innerHTML = dates[1];
