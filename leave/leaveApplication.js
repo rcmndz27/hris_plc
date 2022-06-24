@@ -432,55 +432,55 @@ swal({
 
         param = JSON.stringify(param);
 
-                          swal({
-                          title: "Are you sure?",
-                          text: "You want to reject this leave?",
-                          icon: "warning",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((rejectLeave) => {
-                            document.getElementById("myDiv").style.display="block";
-                          if (rejectLeave) {
+          swal({
+          title: "Are you sure?",
+          text: "You want to reject this leave?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((rejectLeave) => {
+            document.getElementById("myDiv").style.display="block";
+          if (rejectLeave) {
 
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "../leave/leaveApprovalProcess.php",
-                                            data: {data:param} ,
-                                            success: function (data){
-                                                 console.log("success: "+ data); 
-                                                    swal({
-                                                    title: "Rejected!", 
-                                                    text: "Successfully rejected leave!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        document.getElementById("myDiv").style.display="none";
-                                                        $('#remarksModal').modal('hide');
-                                                        $('#remarksModal').on('hidden.bs.modal', function (e) {
-                                                          $(this)
-                                                            .find("input,textarea,select")
-                                                               .val('')
-                                                               .end()
-                                                            .find("input[type=checkbox], input[type=radio]")
-                                                               .prop("checked", "")
-                                                               .end();
-                                                        })                     
-                                                        document.getElementById(empcode).innerHTML = upfillv;
-                                                        document.getElementById('alertleave').value = upfillv;
-                                                        document.querySelector('#clv'+rowid).remove();
-                                                    });
-                                            },
-                                            error: function (data){
-                                                // console.log("error: "+ data);    
-                                            }
-                                        });//ajax
-                          } else {
-                            document.getElementById("myDiv").style.display="none";
-                             swal({text:"You cancel the rejection !",icon:"error"});
-                          }
-                        });
-        
+                        $.ajax({
+                            type: "POST",
+                            url: "../leave/leaveApprovalProcess.php",
+                            data: {data:param} ,
+                            success: function (data){
+                                 console.log("success: "+ data); 
+                                    swal({
+                                    title: "Rejected!", 
+                                    text: "Successfully rejected leave!", 
+                                    type: "success",
+                                    icon: "success",
+                                    }).then(function() {
+                                        document.getElementById("myDiv").style.display="none";
+                                        $('#remarksModal').modal('hide');
+                                        $('#remarksModal').on('hidden.bs.modal', function (e) {
+                                          $(this)
+                                            .find("input,textarea,select")
+                                               .val('')
+                                               .end()
+                                            .find("input[type=checkbox], input[type=radio]")
+                                               .prop("checked", "")
+                                               .end();
+                                        })                     
+                                        document.getElementById(empcode).innerHTML = upfillv;
+                                        document.getElementById('alertleave').value = upfillv;
+                                        document.querySelector('#clv'+rowid).remove();
+                                    });
+                            },
+                            error: function (data){
+                                // console.log("error: "+ data);    
+                            }
+                        });//ajax
+          } else {
+            document.getElementById("myDiv").style.display="none";
+             swal({text:"You cancel the rejection !",icon:"error"});
+          }
+        });
+
 
     });
        

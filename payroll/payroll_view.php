@@ -54,11 +54,20 @@ else
       </nav>
 
       <div class="form-row">
-        <label for="payroll_period" class="col-form-label pad">PERIOD:</label>
-        <div class='col-md-2'>
-            <input type="text" name="empCode" id="empCode" value="<?php echo $empCode; ?>" hidden>
+        <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
+        <input type="text" name="empCode" id="empCode" value="<?php echo $empCode; ?>" hidden>
+        <div class='col-lg-1' id="slct">
+            <select class="form-select" id="spay">
+                <option value="15th">15th Payroll</option>
+                <option value="30th">30th Payroll</option>
+            </select>
+        </div>
+        <div class='col-md-2' id="s15th">
             <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
-        </div>           
+        </div>
+        <div class='col-md-2' id="s30th">
+            <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetAllCutoffPay("payview")); ?>
+        </div>                    
         <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
         </button>
@@ -73,7 +82,7 @@ else
             <div class="col-md-12 mbot"><br> 
                 <div class="d-flex justify-content-center">
                     <legend class="fieldset-border pad">
-                       <div id="pyper">Payroll Period of <span id="loct"></span> from <span id="pfromt"></span> to <span id="ptot"></span></div>
+                       <div id="pyper">Payroll Period of </span> from <span id="pfromt"></span> to <span id="ptot"></span></div>
                    </legend>
                </div>
                <div id='contents'></div>   
@@ -464,6 +473,19 @@ aria-hidden="true">
 </div>
 </body>
 <script type="text/javascript">
+    
+    $("#s30th").hide();
+    $('#spay').change(function(){
+        if($('#spay').val() == '15th'){
+            $("#s30th").hide();
+        }else{
+            $("#s30th").show();
+        }
+    });
+
+
+
+
 
     $('#usersEntry').click(function(e){
         e.preventDefault();
@@ -485,7 +507,7 @@ aria-hidden="true">
                 'name': name,
                 'pfrom': det[0],
                 'pto': det[1],
-                'loct': det[2],
+                'loct': 'Makati',
                 'logname': logname
               
             }
@@ -539,7 +561,6 @@ aria-hidden="true">
         var cutoff = $('#ddcutoff').children("option:selected").val();
         var dates = cutoff.split(" - ");
         var empCode = $('#empCode').val();
-        document.getElementById('loct').innerHTML = dates[2];
         document.getElementById('pfromt').innerHTML = dates[0];
         document.getElementById('ptot').innerHTML = dates[1];
         $.post (
@@ -548,7 +569,7 @@ aria-hidden="true">
                 _action: 1,
                 _from: dates[0],
                 _to: dates[1],
-                _location: dates[2],
+                _location: 'Makati',
                 _empCode: empCode
                 
             },
@@ -1116,31 +1137,86 @@ function ApprovePayView()
     var empCode = $('#empCode').children("option:selected").val();
     var url = "../payroll/payrollViewProcess.php";
 
-    $('#contents').html('');
+    if($('#spay').val() == '15th'){    
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var dates = cutoff.split(" - ");
+        var ppay =  $('#spay').val();
 
+        // console.log(dates[0]);
+        // console.log(dates[1]);
+        // return false;
 
-    swal({
-      title: "Are you sure?",
-      text: "You want to save this payroll?",
-      icon: "info",
-      buttons: true,
-      dangerMode: true,
-  })
-    .then((savePayroll) => {
-      if (savePayroll) {
-        $.post (
-            url,
-            {
-                choice: 1,
-                emp_code: empCode
-            },
-            function(data) {window.location.replace("../payroll/payroll_view_register.php"); }
-            );
+            $('#contents').html('');
+            swal({
+              title: "Are you sure?",
+              text: "You want to save this payroll for "+ppay+'?\n'+dates[0]+' to '+dates[1],
+              icon: "info",
+              buttons: true,
+              dangerMode: true,
+          })
+            .then((savePayroll) => {
+              if (savePayroll) {
+                $.post (
+                    url,
+                    {
+                        choice: 1,
+                        emp_code: empCode,
+                        pfrom:dates[0],
+                        pto: dates[1],
+                        ppay:ppay
+                    },
+                    function(data) {window.location.replace("../payroll/payroll_view_register.php"); }
+                    );
 
-    } else {
-        swal({text:"You cancel the saving of payroll!",icon:"error"});
+            } else {
+                swal({text:"You cancel the saving of payroll!",icon:"error"});
+            }
+        });        
+    }else{ 
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var dates = cutoff.split(" - ");
+        var cutoff30 = $('#ddcutoff30').children("option:selected").val();
+        var dates30 = cutoff30.split(" - ");
+        var ppay =  $('#spay').val();
+
+        // console.log(dates[0]);
+        // console.log(dates[1]);
+        // console.log(dates30[0]);
+        // console.log(dates30[1]);
+        // return false;
+
+            $('#contents').html('');
+            swal({
+              title: "Are you sure?",
+              text: "You want to generate this payroll for "+ppay+'?\n'+dates30[0]+' to '+dates30[1],
+              icon: "info",
+              buttons: true,
+              dangerMode: true,
+          })
+            .then((savePayroll) => {
+              if (savePayroll) {
+                $.post (
+                    url,
+                    {
+                        choice: 2,
+                        emp_code: empCode,
+                        pfrom:dates[0],
+                        pto: dates[1],
+                        pfrom30:dates30[0],
+                        pto30: dates30[1],                        
+                        ppay:ppay
+                    },
+                    function(data) {
+                        window.location.replace("../payroll/payroll_view_register.php"); 
+                    }
+                    );
+
+            } else {
+                swal({text:"You cancel the saving of payroll!",icon:"error"});
+            }
+        });        
     }
-});
+
 
     
 }

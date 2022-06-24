@@ -23,7 +23,7 @@ function GenLeave($eMplogName,$pyrollco_from,$pyrollco_to){
             ":pay_to"=> $pyrollco_to,
             ":remarks"=> 'Leave',
             ":audituser" => $eMplogName,
-            ":auditdate"=>date('Y-m-d')                                          
+            ":auditdate"=>date('Y-m-d h:i:s')                                          
         );
 
     $result = $stmt->execute($param);

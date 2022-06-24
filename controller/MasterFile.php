@@ -118,9 +118,7 @@
                 {
                     while ($r = $sql->fetch(PDO::FETCH_ASSOC))
                     {
-                        array_push( $data, array($r["location"], 
-                            date("m/d/Y", strtotime($r["period_from"])) . " - " . date("m/d/Y", strtotime($r["period_to"])) 
-                        . " - " .$r["location"] ) );
+                    array_push( $data, array($r["location"], date("m/d/Y", strtotime($r["period_from"])) . " - " . date("m/d/Y", strtotime($r["period_to"]))) );
                     }
                 }
 
@@ -142,7 +140,7 @@
 
                
 
-                $sql = $connL->prepare(@"select location,period_from,period_to from att_summary group by location,period_from,period_to");
+                $sql = $connL->prepare(@"select location,period_from,period_to from att_summary group by location,period_from,period_to order by period_from desc");
                 $sql->execute();
 
                 if ($type == "unpayview")
@@ -187,7 +185,7 @@
                 return $data;
             }
             catch (Exception $e)
-            {
+            {         
                 echo $e->getMessage();
             }
         }

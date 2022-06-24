@@ -26,7 +26,7 @@ function GenOt($eMplogName,$pyrollco_from,$pyrollco_to){
             ":pay_to"=> $pyrollco_to,
             ":remarks"=> 'Overtime',
             ":audituser" => $eMplogName,
-            ":auditdate"=>date('Y-m-d-Y')                                          
+            ":auditdate"=>date('Y-m-d h:i:s')                                          
         );
 
     $result = $stmt->execute($param);
