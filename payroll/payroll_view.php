@@ -1200,10 +1200,10 @@ function ApprovePayView()
                     {
                         choice: 2,
                         emp_code: empCode,
-                        pfrom:dates[0],
-                        pto: dates[1],
-                        pfrom30:dates30[0],
-                        pto30: dates30[1],                        
+                        pfrom:dates30[0],
+                        pto: dates30[1],
+                        pfrom30:dates[0],
+                        pto30: dates[1],                        
                         ppay:ppay
                     },
                     function(data) {
