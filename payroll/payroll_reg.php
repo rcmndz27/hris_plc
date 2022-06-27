@@ -100,7 +100,11 @@ class PayrollRegApplication {
                         <th> SSS MPF ER </th>
                         <th> SSS EC </th>
                         <th> PHIC ER </th>
-                        <th> hdmf ER </th>   
+                        <th> hdmf ER </th> 
+                        <th> TIN No. </th>
+                        <th> Philhealth No. </th>
+                        <th> Pagibig No. </th>
+                        <th> SSS No. </th>                            
                     </tr>
                 </thead>
                 <tbody>";
@@ -221,6 +225,10 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
     "<td>" . $sss_ec. "</td>".
     "<td>" . $phic_er. "</td>".
     "<td>" . $hdmf_er. "</td>".
+    "<td>" . $r['tin_no']. "</td>".
+    "<td>" . $r['phil_no']. "</td>".
+    "<td>" . $r['pagibig_no']. "</td>".
+    "<td>" . $r['sss_no']. "</td>".    
     "</tr>";
     } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
     echo"</tbody><tfoot>".
