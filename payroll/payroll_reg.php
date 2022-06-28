@@ -12,6 +12,7 @@ class PayrollRegApplication {
             $stmt->execute();
             $r = $stmt->fetch();
 
+
             echo "
         <div class='form-row'>  
                     <div class='col-lg-1'>

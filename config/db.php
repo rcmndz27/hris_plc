@@ -20,7 +20,7 @@
             {
                 die($e->getMessage());
                 echo 'Connection failed: ' ;
-                // . $e->getMessage();
+                . $e->getMessage();
             }
         
     
