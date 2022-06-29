@@ -108,7 +108,7 @@
                                             type: "info",
                                             icon: "info",
                                             }).then(function() {
-                                                document.getElementById('st'+wfhid).innerHTML = 'VOID';
+                                                document.getElementById('st'+wfhid).innerHTML = 'CANCELLED';
                                                 document.querySelector('#clv').remove();
                                             });  
                                     }
@@ -320,14 +320,14 @@ function timeOutModal(lvid,empcd,attid){
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdate" name="wfhdate" class="form-control" 
-                                            >
+                                            value="<?php echo date('Y-m-d'); ?>">
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <label for="">WFH Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdateto" name="wfhdateto" class="form-control"
-                                            >
+                                            value="<?php echo date('Y-m-d'); ?>">
                                     </div>
                             </div>
 

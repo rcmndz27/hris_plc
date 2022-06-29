@@ -109,7 +109,7 @@
                                             type: "info",
                                             icon: "info",
                                             }).then(function() {
-                                                document.getElementById('st'+obid).innerHTML = 'VOID';
+                                                document.getElementById('st'+obid).innerHTML = 'CANCELLED';
                                                 document.querySelector('#clv').remove();
                                             });  
                                     }

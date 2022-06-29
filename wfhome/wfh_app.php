@@ -60,7 +60,7 @@ Class WfhApp{
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,c.lastname+','+c.firstname as fullname,* 
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,c.lastname+','+c.firstname as fullname,* 
                     FROM dbo.tr_workfromhome a
                     left join employee_attendance b
                     on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
@@ -172,7 +172,7 @@ Class WfhApp{
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
                     FROM dbo.tr_workfromhome a
                     left join employee_attendance b
                     on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
@@ -243,6 +243,15 @@ Class WfhApp{
                             }else{
 
                             }
+                }else if($result['stats'] == 'CANCELLED'){
+                echo'
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>                                                   
+                            </td>';
                 }else{
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">

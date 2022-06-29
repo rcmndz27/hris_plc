@@ -142,7 +142,7 @@ function cancelLeave(lvid,empcd)
                             type: "info",
                             icon: "info",
                             }).then(function() {
-                                document.getElementById('st'+leaveid).innerHTML = 'VOID';
+                                document.getElementById('st'+leaveid).innerHTML = 'CANCELLED';
                                 document.querySelector('#clv').remove();
                             });  
                     }

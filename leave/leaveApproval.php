@@ -256,7 +256,7 @@ require '../vendor/autoload.php';
                         echo '<td><p class="text-danger">REJECTED</p></td>';
                         break;
                     case 4:
-                        echo '<td><p class="text-danger">VOID</p></td>';
+                        echo '<td><p class="text-danger">CANCELLED</p></td>';
                         break;    
                     default:
                         break;

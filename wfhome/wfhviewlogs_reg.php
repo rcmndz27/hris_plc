@@ -8,7 +8,7 @@
         <table id="WfhLogsList" class="table table-striped">
         <thead>
             <tr>
-                <th colspan="3" class ="text-center">Work From Home Logs</th>
+                <th colspan="4" class ="text-center">Work From Home Logs</th>
             </tr>
             <tr>
                 <th>Remarks</th>
@@ -40,7 +40,7 @@
             echo '</tr></tbody>';
 
         }else { 
-            echo '<tfoot><tr><td colspan="3" class="text-center">No Results Found</td></tr></tfoot>'; 
+            echo '<tfoot><tr><td colspan="4" class="text-center">No Results Found</td></tr></tfoot>'; 
         }
         echo '</table>';
     } 

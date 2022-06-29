@@ -107,7 +107,7 @@
                                 type: "info",
                                 icon: "info",
                                 }).then(function() {
-                                    document.getElementById('st'+dtrcorrectid).innerHTML = 'VOID';
+                                    document.getElementById('st'+dtrcorrectid).innerHTML = 'CANCELLED';
                                     document.querySelector('#clv').remove();
                                 });  
                         }

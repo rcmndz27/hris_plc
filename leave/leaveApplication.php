@@ -119,7 +119,7 @@ public function GetAllLeaveHistory($date_from,$date_to){
                     (CASE when approved = 1 then 'PENDING'
                     when   approved = 2 then 'APPROVED'
                     when   approved = 3 then 'REJECTED'
-                    when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved, b.lastname+','+b.firstname as fullname,a.rowid as lv_rowid FROM dbo.tr_leave a
+                    when   approved = 4 then 'CANCELLED' ELSE 'N/A' END) as approved, b.lastname+','+b.firstname as fullname,a.rowid as lv_rowid FROM dbo.tr_leave a
         left join employee_profile b on a.emp_code = b.emp_code
         where a.approved = 2 and a.date_from between :startDate and :endDate";
         $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
@@ -223,7 +223,7 @@ public function GetAllLeaveHistory($date_from,$date_to){
         $query = "SELECT rowid,datefiled,leave_desc,leavetype,date_from,date_to, actl_cnt,remarks,app_days,emp_code,(CASE when approved = 1 then 'PENDING'
                     when   approved = 2 then 'APPROVED'
                     when   approved = 3 then 'REJECTED'
-                    when   approved = 4 then 'VOID' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY date_from DESC, leavetype";
+                    when   approved = 4 then 'CANCELLED' ELSE 'N/A' END) as approved FROM dbo.tr_leave where emp_code = :emp_code ORDER BY date_from DESC, leavetype";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);

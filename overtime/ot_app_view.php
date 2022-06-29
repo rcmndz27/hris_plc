@@ -111,7 +111,7 @@
                                     type: "info",
                                     icon: "info",
                                     }).then(function() {
-                                        document.getElementById('st'+otid).innerHTML = 'VOID';
+                                        document.getElementById('st'+otid).innerHTML = 'CANCELLED';
                                         document.querySelector('#clv').remove();
                                     });  
                             }

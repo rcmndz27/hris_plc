@@ -56,7 +56,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to){
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as dtrc_id,* FROM dbo.tr_dtrcorrect a
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,b.lastname+','+b.firstname as fullname,a.rowid as dtrc_id,* FROM dbo.tr_dtrcorrect a
         left join employee_profile b on a.emp_code = b.emp_code
         where status = 2 and dtrc_date between :startDate and :endDate";
         $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
@@ -155,7 +155,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to){
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'VOID' ELSE 'N/A' END) as stats,* FROM dbo.tr_dtrcorrect where emp_code = :emp_code ORDER BY dtrc_date DESC";
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,* FROM dbo.tr_dtrcorrect where emp_code = :emp_code ORDER BY dtrc_date DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
