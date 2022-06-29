@@ -153,7 +153,7 @@
                     </fieldset> 
                                 <div class="modal-footer">                                  
                                     <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" onclick="updateBan()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
+                                    <button type="button" class="subbut" onclick="updateBan()" id="updateBanT"><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

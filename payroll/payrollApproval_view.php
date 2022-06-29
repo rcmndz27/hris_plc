@@ -124,15 +124,18 @@ function ViewPyReg(perfrom,perto,stats)
         var url = "../payroll/payrollapp_process.php";
         var period_from = perfrom;
         var period_to = perto;
-        var payroll_status = stats;
+
+        // console.log(period_from);
+        // console.log(period_to);
+        // console.log(payroll_status);
+        // return false;
 
         $.post (
             url,
             {
                 _action: 1,
                 period_from: period_from,
-                period_to: period_to,
-                payroll_status: payroll_status           
+                period_to: period_to        
             },
             function(data) { 
                 $("#contents2").html(data).show(); 

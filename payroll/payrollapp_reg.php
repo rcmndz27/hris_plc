@@ -2,19 +2,20 @@
  
 
 
-    function GetPayrollAppRegList($period_from,$period_to,$payroll_status)
+    function GetPayrollAppRegList($period_from,$period_to)
     {
          
-            global $connL;
+    global $connL;
 
-            $query = "SELECT * FROM dbo.payroll WHERE payroll_status = 'N' ORDER BY name asc";  
-            $stmt =$connL->prepare($query);
-            $stmt->execute();
-            $r = $stmt->fetch();
+    $query = "SELECT * FROM dbo.payroll WHERE payroll_status = 'N' and date_from = :period_from and date_to = :period_to ORDER BY name asc";  
+    $param = array(":period_from" => $period_from,":period_to" => $period_to);
+    $stmt =$connL->prepare($query);
+    $stmt->execute($param);
+    $r = $stmt->fetch();
 
 
-            echo "<table id='payrollAppRegList' class='table table2 table-striped table-sm'>
-                <thead>
+    echo "<table id='payrollAppRegList' class='table table2 table-striped table-sm'>
+        <thead>
                     <tr>
                         <th colspan='55' class='paytop'>Payroll Register View Pay Period from ".$period_from." to ".$period_to." </th>
                     </tr>
@@ -116,7 +117,7 @@ $hdmf_er = ($r['hdmf_er'] <> '0') ?  '&#8369;'.number_format($r['hdmf_er'],2,'.'
 
 
                                     echo "<tr>".
-                                    "<td class='ryt'>" . $r['emp_code']. "</td>".
+                                    "<td class='ryt'>" . $r['name']. "</td>".
                                     "<td class='ryt'>" . $r['position'] . "</td>".
                                     "<td class='ryt'>" . $r['department'] . "</td>".
                                     "<td>" . '&#8369;'.number_format($r['month_pay'],2,'.',','). "</td>".
