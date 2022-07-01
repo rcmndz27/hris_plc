@@ -262,7 +262,10 @@ Class WfhApp{
                             </button> 
                             <button type="button" id="clv" class="voidBut" onclick="cancelWfh('.$wfhid.','.$empcode.')" title="Cancel Work From Home">
                                 <i class="fas fa-ban"></i>
-                            </button>                                                   
+                            </button>   
+                            <button type="button"  class="startOut" onclick="timeOutModal('.$wfhid.','.$empcode.','.$attid.')" title="Time Out">
+                                <i class="fas fa-hand-paper"></i>
+                            </button>                                                                              
                             </td>';
                 }                            
 
