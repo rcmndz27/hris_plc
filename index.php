@@ -38,8 +38,8 @@
         <div class="card-body">
           <!-- <p class="login-box-msg">Sign in to start your session</p> -->
 
-          <h2 style="text-align:center;">SYSTEM DOWN !!!!! <br> 
-          PLEASE CONTACT THE ADMINISTRATOR.</h2>
+          <h2 style="text-align:center;">SYSTEM MAINTENANCE! <br> 
+          PLEASE BARE WITH US.</h2>
         </div>
         <!-- /.card-body -->
       </div>
