@@ -18,7 +18,8 @@
 
             catch (PDOException $e)
             {
-                die($e->getMesmgrge());
+                die($e->getMessage());
+                echo 'Connection failed: ' . $e->getMessage();
                 echo '<script type="text/javascript">swal({text:"The system is down. Please contact the Administrator!"});';
                 echo "window.location.href = '../sysdown.php';";
                 echo "</script>";
