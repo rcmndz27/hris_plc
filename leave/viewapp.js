@@ -25,14 +25,19 @@ $(function(){
 
         var cutoff = $('#ddcutoff').children("option:selected").val();
         var det = cutoff.split(" - ");
+        var status = $('#status').val();
  
         param = {
           Action: "GetAppLeave",
           date_from: det[0],
-          date_to: det[1]
+          date_to: det[1],
+          status : status
         };
         
         param = JSON.stringify(param);
+
+        // console.log(param);
+        // return false;
 
         $.ajax({
             type: "POST",

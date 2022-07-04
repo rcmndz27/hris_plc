@@ -17,7 +17,8 @@
     if($dtr->{"Action"} == "GetAppLeave"){
         $date_from = $dtr->{"date_from"};
         $date_to = $dtr->{"date_to"};
-        $lv->GetAllLeaveHistory($date_from,$date_to);
+        $status = $dtr->{"status"};
+        $lv->GetAllLeaveHistory($date_from,$date_to,$status);
     }else if($dtr->{"Action"} == "GetAppOt"){
         $date_from = $dtr->{"date_from"};
         $date_to = $dtr->{"date_to"};

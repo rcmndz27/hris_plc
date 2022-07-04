@@ -76,7 +76,7 @@ Class LeaveApplication{
         
     }
 
-public function GetAllLeaveHistory($date_from,$date_to){
+public function GetAllLeaveHistory($date_from,$date_to,$status){
         
         global $connL;
 
@@ -121,8 +121,8 @@ public function GetAllLeaveHistory($date_from,$date_to){
                     when   approved = 3 then 'REJECTED'
                     when   approved = 4 then 'CANCELLED' ELSE 'N/A' END) as approved, b.lastname+','+b.firstname as fullname,a.rowid as lv_rowid FROM dbo.tr_leave a
         left join employee_profile b on a.emp_code = b.emp_code
-        where a.approved = 2 and a.date_from between :startDate and :endDate";
-        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)));
+        where a.approved = :status and a.date_from between :startDate and :endDate";
+        $param = array(":startDate" => date('Y-m-d', strtotime($date_from)),":endDate" => date('Y-m-d', strtotime($date_to)),":status" => $status);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();

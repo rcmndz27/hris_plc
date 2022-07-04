@@ -128,7 +128,16 @@
             <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
             <div class='col-md-3'>
                 <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
-            </div>           
+            </div>    
+            <label for="status" class="col-form-label pad">STATUS:</label>
+            <div class='col-md-2'>
+                <select class="form-select" id="status" name="status">
+                    <option value="1">PENDING</option>
+                    <option value="2">APPROVED</option>
+                    <option value="3">REJECTED</option>
+                    <option value="4">CANCELLED</option>
+                </select>
+            </div>                       
             <button type="submit" id="searchLeaveApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
             </button>                                                  
     </div>
