@@ -142,7 +142,7 @@
         </div>
     </div>      
 
-    <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+<div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -152,7 +152,78 @@
                         <span aria-hidden="true">&times; </span>
                     </button>
                 </div>
- 
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                            <div class="d-flex justify-content-center">
+                                <legend class="fieldset-border pad">
+                                </legend>
+                             </div>
+                        <div class="form-row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="datefl">Date Filed</label>
+                                        <input type="text" id="datefl" name="datefl" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="form-group">
+                                        <label class="control-label" for="leavetyp">Leave Type</label>
+                                        <input type="text" id="leavetyp" name="leavetyp" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="datefr">Date From</label>
+                                        <input type="text" id="datefr" name="datefr" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="dateto">Date To</label>
+                                        <input type="text" id="dateto" name="dateto" class="form-control" readonly>                                        
+                                    </div>
+                                </div> 
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label class="control-label" for="actlcnt">Leave Count</label>
+                                        <input type="text" id="actlcnt" name="actlcnt" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="appdays">Approved/Rejected (Days)</label>
+                                        <input type="text" id="appdays" name="appdays" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="leavedesc">Description</label>
+                                        <input type="text" id="leavedesc" name="leavedesc" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="form-group">
+                                        <label class="control-label" for="remark">Remarks</label>
+                                        <input type="text" id="remark" name="remark" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="appr_oved">Status</label>
+                                        <input type="text" id="appr_oved" name="appr_oved" class="form-control" readonly>
+                                    </div>
+                                </div>                                
+                            </div> <!-- form row closing -->
+                    </fieldset> 
+                                <div class="modal-footer">
+                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
 
 <div class="modal fade" id="viewLeaveHistoryModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
