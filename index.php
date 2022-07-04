@@ -39,7 +39,7 @@
           <!-- <p class="login-box-msg">Sign in to start your session</p> -->
 
           <h2 style="text-align:center;">SYSTEM MAINTENANCE! <br> 
-          PLEASE BARE WITH US.</h2>
+          PLEASE BEAR WITH US. WE ARE TRANSFERRING TO NEW HRIS SERVER!</h2>
         </div>
         <!-- /.card-body -->
       </div>
