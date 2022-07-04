@@ -313,14 +313,14 @@ Class ObApp{
         $mail->Body    = '<h1>Hi '.$napprover.' </b>,</h1>An employee has requested official business(#'.$rst['maxid'].').<br><br>
                         <h2>From: '.$nrequester.' <br><br></h2>
                         <h2>Check the request in :
-                        <a href="http://203.177.143.61:8080/hris_obanana/ob/ob-approval-view.php">Official Business Approval List</a> 
+                        <a href="http://124.6.185.87:6868/hris_obanana/ob/ob-approval-view.php">Official Business Approval List</a> 
                         <br><br></h2>
 
                         Thank you for using our application! <br>
                         Regards, <br>
                         Human Resource Information System <br> <br>
 
-                        <h6>If you are having trouble clicking the "Official Business Approval List" button, copy and paste the URL below into your web browser: http://203.177.143.61:8080/hris_obanana/ob/ob-approval-view.php <h6>
+                        <h6>If you are having trouble clicking the "Official Business Approval List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/hris_obanana/ob/ob-approval-view.php <h6>
                        ';
             $mail->send();
             // echo 'Message has been sent';
