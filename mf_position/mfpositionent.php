@@ -14,7 +14,7 @@ public function InsertMfpositionEnt($position,$status,$empCode)
                     ":position"=> $position,                                      
                     ":status"=> 'Active',
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -42,7 +42,7 @@ public function InsertMfpositionEnt($position,$status,$empCode)
                     ":dept_id"=> $deptJob,
                     ":status" => 'Active',
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);

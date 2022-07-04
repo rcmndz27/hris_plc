@@ -19,7 +19,7 @@ public function InsertManpowerEnt($eMplogName,$position,$req_ment,$date_needed,$
                     ":date_needed"=> $date_needed,
                     ":status"=> $status,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

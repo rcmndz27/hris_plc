@@ -243,7 +243,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to){
                     ":time_out"=> $time_out,
                     ":remarks"=> $remarks,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -274,7 +274,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to){
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply DTR Correction for '.$dtrc_date,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);

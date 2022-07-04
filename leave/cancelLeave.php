@@ -42,7 +42,7 @@
                 ":emp_code"=> $emp_code,
                 ":remarks" => 'Cancelled/Voided Leave',
                 ":audituser" => $emp_code,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y h:i:s')
             );
 
         $results = $stmts->execute($params);

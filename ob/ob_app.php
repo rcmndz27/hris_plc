@@ -249,7 +249,7 @@ Class ObApp{
                     ":ob_purpose"=> $ob_purpose,
                     ":ob_percmp"=> $ob_percmp,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -280,7 +280,7 @@ Class ObApp{
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply OB for '.$obDate,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);

@@ -51,7 +51,7 @@ function DeletePayReg($date_from,$date_to,$empCode)
                 ":pay_to" => $date_to,
                 ":remarks" => 'Delete PayReg',
                 ":audituser" => $sname,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y h:i:s')
             );
 
         $result = $stmt->execute($param);

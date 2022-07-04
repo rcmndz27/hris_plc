@@ -50,7 +50,7 @@ date_default_timezone_set('Asia/Manila');
                 ":emp_name"=> $sname,
                 ":remarks" => 'User Time in: '.date('h:i A'),
                 ":audituser" => $emp_code,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y h:i:s')
             );
 
         $results = $stmts->execute($params);
@@ -116,7 +116,7 @@ date_default_timezone_set('Asia/Manila');
                 ":emp_name"=> $sname,
                 ":remarks" => 'User Time Out: '.date('h:i A'),
                 ":audituser" => $emp_code,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y h:i:s')
             );
 
         $results = $stmts->execute($params);

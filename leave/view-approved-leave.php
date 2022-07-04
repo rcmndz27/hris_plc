@@ -113,14 +113,14 @@
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES LEAVE APPROVED APPLICATION</h1>
+          <h1>ALL EMPLOYEES LEAVE APPLICATION</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-suitcase fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES LEAVE APPROVED APPLICATION</b></li>
+                        </i>&nbsp;ALL EMPLOYEES LEAVE APPLICATION</b></li>
             </ol>
           </nav>
 

@@ -29,7 +29,7 @@ public function InsertUsersEnt($eMplogName,$username,$userid,$userpassword,$user
                     ":useremail"=> $useremail,
                     ":status"=> $status,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

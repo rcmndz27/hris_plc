@@ -639,7 +639,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                     ":app_days"=> 0,
                     ":approved"=> 1,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -663,7 +663,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                     ":emp_name"=> $empName,
                     ":remarks" => 'Apply '.$leaveType,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);

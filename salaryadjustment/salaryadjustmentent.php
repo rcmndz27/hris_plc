@@ -21,7 +21,7 @@ public function InsertSalaryAdjEnt($eMplogName,$emp_code,$description,$period_fr
                     ":amount"=> $amount,
                     ":remarks"=> $remarks,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

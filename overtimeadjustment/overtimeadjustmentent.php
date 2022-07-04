@@ -20,7 +20,7 @@ public function InsertOvertimeAdjEnt($emp_code,$description,$otadj_date,$inc_dec
                     ":amount"=> $amount,
                     ":remarks"=> $remarks,
                     ":audituser" => 'admin',
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

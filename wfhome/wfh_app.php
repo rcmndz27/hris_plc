@@ -311,7 +311,7 @@ Class WfhApp{
                     ":wfh_output"=> $wfh_output,
                     ":wfh_percentage"=> $wfh_percentage,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -342,7 +342,7 @@ Class WfhApp{
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply WFH for '.$wfhDate,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);

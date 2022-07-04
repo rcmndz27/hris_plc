@@ -19,7 +19,7 @@ public function InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_v
                     ":earned_sl_bank"=> $earned_sl_bank,
                     ":status"=> 'Active',
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y')                                          
+                    ":auditdate"=>date('m-d-Y h:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

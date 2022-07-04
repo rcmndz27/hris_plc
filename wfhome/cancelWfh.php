@@ -31,7 +31,7 @@
                 ":emp_name"=> $sname,
                 ":remarks" => 'Cancelled/Voided Work From Home',
                 ":audituser" => $emp_code,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y h:i:s')
             );
 
         $results = $stmts->execute($params);

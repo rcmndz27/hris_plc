@@ -146,7 +146,7 @@ require '../vendor/autoload.php';
                     ":emp_name"=> $apprv_name,
                     ":remarks" => 'Approved by '.$apprv_name,
                     ":audituser" => $empReportingTo,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);
@@ -245,7 +245,7 @@ require '../vendor/autoload.php';
                     ":emp_name"=> $apprv_name,
                     ":remarks" => 'Rejected by '.$apprv_name.'. Reason:'.$rjctRsn,
                     ":audituser" => $empReportingTo,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $results = $stmts->execute($params);
@@ -345,7 +345,7 @@ function FwdWfh($empReportingTo,$empId,$approver,$rowid){
                     ":emp_name"=> $aprvname,
                     ":remarks" => 'Forwarded to Sir.Francis Calumba',
                     ":audituser" => $approver,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y h:i:s')
                 );
 
             $result = $stmt->execute($param);
