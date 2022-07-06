@@ -336,10 +336,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
-                            </button>                           
-                            <button type="button" id="clv" class="voidBut" onclick="cancelWfh('.$wfhid.','.$empcode.')" title="Cancel Work From Home">
-                                <i class="fas fa-ban"></i>
-                            </button>';
+                            </button>                           ';
 
                             if(empty($result['timein']) && empty($result['timeout'])){
                                 echo'
