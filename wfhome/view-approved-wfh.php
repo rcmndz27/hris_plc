@@ -36,7 +36,7 @@
         $n_appr = $ar['firstname'].' '.$ar['lastname'];    
 
          
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President' || $empUserType == 'Team Manager')
         {
   
         }else{
@@ -82,7 +82,7 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
 <link rel="stylesheet" type="text/css" href="../wfhome/wfh_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES WORK FROM HOME APPROVED APPLICATION</h1>
+          <h1>EMPLOYEES WORK FROM HOME APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
@@ -90,7 +90,7 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-warehouse fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES WORK FROM HOME APPROVED APPLICATION</b></li>
+                        </i>&nbsp;EMPLOYEES WORK FROM HOME APPLICATION</b></li>
             </ol>
           </nav>
 
@@ -99,10 +99,39 @@ function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhpercentage,wfhstats){
             <div class='col-md-3'>
                 <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
             </div>           
-            <button type="submit" id="searchWfhApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
-            </button>                                                  
+            <?php if($empUserType == 'Team Manager'){   
+                     echo '
+                    <label for="status" class="col-form-label pad">NAME:</label><div class="col-md-3">';
+                    $dd->GenerateSingleRepDropDown("empCode",$mf->GetAttEmployeeNamesRep("allemprepnames",$empCode));
+                    echo '</div>
+                    <button type="submit" id="searchWfhRep" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    </button>';
+                }else{
+                    echo '
+                    <label for="status" class="col-form-label pad">STATUS:</label>
+                    <div class="col-md-2">
+                        <select class="form-select" id="status" name="status">
+                            <option value="1">PENDING</option>
+                            <option value="2">APPROVED</option>
+                            <option value="3">REJECTED</option>
+                            <option value="4">CANCELLED</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="searchWfhApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    </button>';
+                }
+            ?>                                                  
     </div>
-             
+        
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="WfhListRepTab" class="table-responsive-sm table-body"></div>
+            </div>
+        </div>
+    </div>    
+
 
     <div class="row">
         <div class="col-md-12">
@@ -229,7 +258,9 @@ for (i = 0; i < tr.length; i++) {
     if(td.length > 0){ // to avoid th
        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
-        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1  || td[5].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1  || td[7].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[8].innerHTML.toUpperCase().indexOf(filter) > -1) {
          tr[i].style.display = "";
        } else {
          tr[i].style.display = "none";
@@ -237,9 +268,35 @@ for (i = 0; i < tr.length; i++) {
 
     }
  }
-}
+ }
+
+            
+function myFunctionRep() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("WfhListRepTab");
+  tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td");
+    if(td.length > 0){ // to avoid th
+       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1  || td[5].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1  || td[7].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[8].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
+
+    }
+ }
+
+ }
     
-    getPagination('#WfhListTab');
+getPagination('#WfhListTab');
+getPagination('#WfhListRepTab');
 
 function getPagination(table) {
   var lastPage = 1;

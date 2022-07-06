@@ -320,16 +320,21 @@ rel="stylesheet">
                                   <li><a href='../deduction/deductionlist_view.php' onclick='show()'>Deduction Management</a></li>
                                   <li><a href='../allowances/allowanceslist_view.php' onclick='show()'>Allowances Management</a></li>
                                   <li><a href='../users/userslist_view.php' onclick='show()'>Users Management</a></li>                                                  
-                                  <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
                                   <li><a href='../payroll_att/gen_att_view.php' onclick='show()'>Generate Scripts</a></li>
-                                  <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Leave Balance</a></li>
-                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
-                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
-                                  <li><a href='../wfhome/view-approved-wfh.php' onclick='show()'>View Approved WFH</a></li> 
-                                 <li><a href='../ob/view-approved-ob.php' onclick='show()'>View Approved OB</a></li>
-                                   <li><a href='../dtrcorrect/view-approved-dtrc.php' onclick='show()'>View Approved DTR Correction</a></li>                                                                  
+                                  <li><a href='../leavebalance/leavebalancelist_view.php' onclick='show()'>Employee Leave Balance</a></li>                                                                
                                 </ul>
                               </li>
+                                <li class='dropdown'><a href='#'><i class='fas fa-user'></i><span>Employees View</span> 
+                                  <i class='bi bi-chevron-right'></i></a>
+                                  <ul>                                                
+                                    <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
+                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>Employee Leaves</a></li>
+                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>Employee Overtime</a></li>
+                                  <li><a href='../wfhome/view-approved-wfh.php' onclick='show()'>Employee WFH</a></li> 
+                                 <li><a href='../ob/view-approved-ob.php' onclick='show()'>Employee OB</a></li>
+                                   <li><a href='../dtrcorrect/view-approved-dtrc.php' onclick='show()'>Employee DTR Correction</a></li>  
+                                  </ul>
+                                </li>                                
                               <li class='dropdown'><a href='#'><i class='fas fa-file-archive'></i><span>Masterfile</span> 
                                 <i class='bi bi-chevron-right'></i></a>
                                 <ul> 
@@ -370,19 +375,15 @@ rel="stylesheet">
                                     <li><a href='../dtrcorrect/dtrcorrect-approval-view.php' onclick='show()'>DTR Correction (".$dtrc.")</a></li>                                                     
                                     </ul>
                                   </li>
-                                 <li class='dropdown'><a href='#'><i class='fas fa-flag fa-fw'></i><span>Reports</span> 
-                                    <i class='bi bi-chevron-right'></i></a>
-                                    <ul> 
-                                      <li><a href='../pages/otApprovalReport_view.php' onclick='show()'>OT Approval Report</a></li>
-                                      <li><a href='../pages/dashboard_view.php' onclick='show()'>Demographic Report</a></li>
-                                    </ul>
-                                  </li>
-                                <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>View Tools</span> 
+                                <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>My Employee's View</span> 
                                   <i class='bi bi-chevron-right'></i></a>
                                   <ul>                                                
                                     <li><a href='../dtr/index.php' onclick='show()'>Employee Attendance</a></li>
-                                    <li><a href='../leave/view-approved-leave.php' onclick='show()'>View Approved Leaves</a></li>
-                                    <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>View Approved Overtime</a></li>
+                                  <li><a href='../leave/view-approved-leave.php' onclick='show()'>Employee Leaves</a></li>
+                                  <li><a href='../overtime/view-approved-overtime.php' onclick='show()'>Employee Overtime</a></li>
+                                  <li><a href='../wfhome/view-approved-wfh.php' onclick='show()'>Employee WFH</a></li> 
+                                 <li><a href='../ob/view-approved-ob.php' onclick='show()'>Employee OB</a></li>
+                                   <li><a href='../dtrcorrect/view-approved-dtrc.php' onclick='show()'>Employee DTR Correction</a></li>  
                                   </ul>
                                 </li>                                                                                              
                     </ul>

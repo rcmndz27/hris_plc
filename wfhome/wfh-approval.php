@@ -195,14 +195,14 @@ require '../vendor/autoload.php';
         $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your work from home request #'.$rowid.' has been approved.<br><br>
                         <h2>From: '.$napprover.' <br><br></h2>
                         <h2>Check the request in :
-                        <a href="http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php">Work from Home Request List</a> 
+                        <a href="http://124.6.185.87:6868/wfhome/wfh_app_view.php">Work from Home Request List</a> 
                         <br><br></h2>
 
                         Thank you for using our application! <br>
                         Regards, <br>
                         Human Resource Information System <br> <br>
 
-                        <h6>If you are having trouble clicking the "Work from Home Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php <h6>
+                        <h6>If you are having trouble clicking the "Work from Home Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/wfhome/wfh_app_view.php <h6>
                        ';
             $mail->send();
             // echo 'Message has been sent';
@@ -295,14 +295,14 @@ require '../vendor/autoload.php';
                         <h2>From: '.$napprover.' <br></h2>
                         <h2>Reason: '.$rjctRsn.' <br><br></h2>
                         <h2>Check the request in :
-                        <a href="http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php">Work from Home Request List</a> 
+                        <a href="http://124.6.185.87:6868/wfhome/wfh_app_view.php">Work from Home Request List</a> 
                         <br><br></h2>
 
                         Thank you for using our application! <br>
                         Regards, <br>
                         Human Resource Information System <br> <br>
 
-                        <h6>If you are having trouble clicking the "Work from Home Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php <h6>
+                        <h6>If you are having trouble clicking the "Work from Home Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/wfhome/wfh_app_view.php <h6>
                        ';
             $mail->send();
             // echo 'Message has been sent';
@@ -379,14 +379,14 @@ function FwdWfh($empReportingTo,$empId,$approver,$rowid){
                         <h2>From: '.$napprover.' <br><br></h2>
     
                         <h2>Check the request in :
-                        <a href="http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php">Work from Home Approval List</a> 
+                        <a href="http://124.6.185.87:6868/wfhome/wfh_app_view.php">Work from Home Approval List</a> 
                         <br><br></h2>
 
                         Thank you for using our application! <br><br>
                         Regards, <br>
                         Human Resource Information System <br> <br>
 
-                        <h6>If you are having trouble clicking the "Work from Home Approval List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/hris_obanana/wfhome/wfh_app_view.php <h6>
+                        <h6>If you are having trouble clicking the "Work from Home Approval List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/wfhome/wfh_app_view.php <h6>
                        ';
             $mail->send();
             // echo 'Message has been sent';

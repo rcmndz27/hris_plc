@@ -48,7 +48,15 @@ else
         <div class="form-row pt-3">
             <label for="employee" class="col-form-label pad">EMPLOYEE:</label>
         <div class="col-md-3">
-            <?php $dd->GenerateSingleAttDropDown("empCode", $mf->GetAttEmployeeNames("allempnames")); ?>            
+            <?php 
+
+            if($empUserType == 'Team Manager'){
+                $dd->GenerateSingleRepDropDown("empCode",$mf->GetAttEmployeeNamesRep("allemprepnames",$empCode));
+            }else{
+                $dd->GenerateSingleAttDropDown("empCode",$mf->GetAttEmployeeNames("allempnames")); 
+            }
+            
+            ?>            
         </div>
         <label for="from" class="col-form-label pad">FROM:</label>
         <div class="col-md-2">

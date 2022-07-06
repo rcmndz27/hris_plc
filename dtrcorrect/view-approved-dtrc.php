@@ -37,7 +37,7 @@
 
 
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
+        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President' || $empUserType == 'Team Manager')
         {
   
         }else{
@@ -82,7 +82,7 @@
 <link rel="stylesheet" type="text/css" href="../dtrcorrect/dtrc_view.css">
 <div class="container">
     <div class="section-title">
-          <h1>ALL EMPLOYEES DTR CORRECTION APPLICATION</h1>
+          <h1>EMPLOYEES DTR CORRECTION APPLICATION</h1>
         </div>
     <div class="main-body mbt">
 
@@ -90,7 +90,7 @@
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-clock fa-fw'>
-                        </i>&nbsp;ALL EMPLOYEES DTR CORRECTION APPLICATION</b></li>
+                        </i>&nbsp;EMPLOYEES DTR CORRECTION APPLICATION</b></li>
             </ol>
           </nav>
 
@@ -99,9 +99,37 @@
             <div class='col-md-3'>
                 <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffCO("payrollco")); ?>
             </div>           
-            <button type="submit" id="searchDtrcApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
-            </button>                                                  
+            <?php if($empUserType == 'Team Manager'){   
+                     echo '
+                    <label for="status" class="col-form-label pad">NAME:</label><div class="col-md-3">';
+                    $dd->GenerateSingleRepDropDown("empCode",$mf->GetAttEmployeeNamesRep("allemprepnames",$empCode));
+                    echo '</div>
+                    <button type="submit" id="searchDtrcRep" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    </button>';
+                }else{
+                    echo '
+                    <label for="status" class="col-form-label pad">STATUS:</label>
+                    <div class="col-md-2">
+                        <select class="form-select" id="status" name="status">
+                            <option value="1">PENDING</option>
+                            <option value="2">APPROVED</option>
+                            <option value="3">REJECTED</option>
+                            <option value="4">CANCELLED</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="searchDtrcApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    </button>';
+                }
+            ?>                                                
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+                <div id="DtrcListRepTab" class="table-responsive-sm table-body"></div>
+            </div>
+        </div>
+    </div>     
              
     <div class="row">
         <div class="col-md-12">
@@ -226,8 +254,7 @@ for (i = 0; i < tr.length; i++) {
     if(td.length > 0){ // to avoid th
        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
         || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
-        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1  || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
          tr[i].style.display = "";
        } else {
          tr[i].style.display = "none";
@@ -235,9 +262,33 @@ for (i = 0; i < tr.length; i++) {
 
     }
  }
-}
+ }
+
+            
+function myFunctionRep() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("DtrcListRepTab");
+  tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
+   td = tr[i].getElementsByTagName("td");
+    if(td.length > 0){ // to avoid th
+       if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1  || td[5].innerHTML.toUpperCase().indexOf(filter) > -1) {
+         tr[i].style.display = "";
+       } else {
+         tr[i].style.display = "none";
+       }
+
+    }
+ }
+
+ }
     
 getPagination('#DtrcListTab');
+getPagination('#DtrcListRepTab');
 
 function getPagination(table) {
   var lastPage = 1;

@@ -727,6 +727,35 @@
             }
         }
 
+        public function GetAttEmployeeNamesRep($type,$empCode)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+               
+
+                $sql = $connL->prepare(@"SELECT rowid,badgeno,(lastname +','+firstname+' '+middlename) as fullname FROM dbo.employee_profile where emp_status = 'Active' and reporting_to = :empCode ORDER by lastname ASC");
+                $param = array(":empCode" => $empCode);
+                $sql->execute($param );
+
+                if ($type == "allemprepnames")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                       array_push( $data, array($r["badgeno"],$r["fullname"]));
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }        
+
         public function GetUserAccntNames($type)
         {
             global $connL;
