@@ -30,9 +30,9 @@
             // var_dump($dateStart);
             // exit();
             
-            $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_code,:startDate,:endDate';
+            $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_code,:startDate,:endDate';
             $param = array(":emp_code" => substr($empcode,$subemp), ":startDate" => $dateStart, ":endDate" => $dateEnd );
-            $stmt =$dbConnection->prepare($query);
+            $stmt =$connL->prepare($query);
             $stmt->execute($param);
             $result = $stmt->fetch();
             $nm = (isset($result['name'])) ? $result['name'] : '' ;
