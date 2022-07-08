@@ -40,10 +40,11 @@ Class EmployeeAttendance{
         }                
 
         echo "
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>
         <table id='empDtrList' class='table table-striped table-sm'>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th> Name</th>
                     <th>Date</th>
                     <th>Time In</th>
                     <th>Time Out</th>

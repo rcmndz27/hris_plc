@@ -29,6 +29,7 @@ else
 <script type="text/javascript" src="../dtr/dtr-viewing.js"></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 <!-- <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script> -->
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
@@ -79,7 +80,16 @@ else
 </div>
 
 <script type="text/javascript">
-    
+       
+    function exportReportToExcel() {
+  let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+  TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+    name: `export_attendance.xlsx`, // fileName you could use any name
+    sheet: {
+      name: 'Attendance' // sheetName
+    }
+  });
+}
        
        $('#dateTo').change(function(){
 

@@ -1,23 +1,6 @@
 $(function(){
 
 
-    function XLSXExport(){
-        $("#dtrList").tableExport({
-            headers: true,
-            footers: true,
-            formats: ['xlsx'],
-            filename: 'id',
-            bootstrap: false,
-            exportButtons: true,
-            position: 'top',
-            ignoreRows: null,
-            ignoreCols: null,
-            trimWhitespace: true,
-            RTL: false,
-            sheetname: 'id'
-        });
-    }
-
     $("#search").click(function(e){
 
          e.preventDefault();
@@ -46,10 +29,10 @@ $(function(){
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
-                $("#tableList").html(data);
-                XLSXExport();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
-
+                    $('#dtrList').remove();      
+                    $('#btnExport').remove();
+                    $('#dtrViewList').append(data);     
+                // XLSXExport();
                 document.getElementById("myDiv").style.display="none";
             },
             error: function (data){

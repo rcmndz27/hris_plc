@@ -39,7 +39,7 @@ $(function(){
         // document.querySelector('#clv'+prid).remove();
         // var otbut = document.getElementById('alertot'+prid).value;
         // if(otbut == 0){
-        //     document.querySelector(empId).remove();
+        //    console.log(document.querySelector('[data-id]').remove);
         // }else{
 
         // }        

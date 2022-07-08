@@ -36,7 +36,7 @@ require '../vendor/autoload.php';
                     echo"
                         <tr>
                             <td>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</td>
-                            <td>"."<button style='width: 9.375rem;' class='penLeave btnPending ".$result['otrid']."' id='".$result['emp_code']."' type='submit'>".$otFiled."</button>
+                            <td>"."<button style='width: 9.375rem;' class='penLeave btnPending ".$result['otrid']." ' data-id='".$result['otrid']."' id='".$result['emp_code']."' type='submit'>".$otFiled."</button>
                             <button id='alertot".$result['otrid']."' value='".$otFiled."' hidden></button></td>
                         </tr>";
                 } while($result = $stmt->fetch());

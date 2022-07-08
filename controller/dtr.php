@@ -38,6 +38,7 @@
             $nm = (isset($result['name'])) ? $result['name'] : '' ;
             // $name=str_replace('.',', ',$nm);
             echo "
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>
             <table id='dtrList' class='table table-striped table-sm'>
                 <thead>
                     <tr>
