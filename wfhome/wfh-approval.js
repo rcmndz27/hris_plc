@@ -2,6 +2,7 @@ $(function(){
 
     var empId;
     var rowId;
+   
 
     function SetEmployeeCode(element){
 
@@ -151,8 +152,8 @@ $(function(){
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
-                $("#employeeOTDetailList").remove();
-                $("#otDetails").append(data);
+                $("#employeeWfhDetailList").remove();
+                $("#wfhDetails").append(data);
                 // location.reload();
             },
             error: function (data){

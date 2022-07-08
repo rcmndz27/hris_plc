@@ -18,23 +18,23 @@ Class EmployeeAttendance{
         $totalUndertime = 0;
         $totalOvertime = 0;
 
-        global $dbConnection;
+        global $connL;
 
         if($empCodeParam == 'All')
         {
 
 
                 $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
-                $query = 'EXEC hrissys_dev.dbo.xp_all_attendance_portal :startDate,:endDate';
-                $stmt =$dbConnection->prepare($query);
+                $query = 'EXEC hrissys_test.dbo.xp_all_attendance_portal :startDate,:endDate';
+                $stmt =$connL->prepare($query);
                 $stmt->execute($param);
                 $result = $stmt->fetch();
         }else{
 
 
                 $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
-                $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
-                $stmt =$dbConnection->prepare($query);
+                $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
+                $stmt =$connL->prepare($query);
                 $stmt->execute($param);
                 $result = $stmt->fetch();
         }                

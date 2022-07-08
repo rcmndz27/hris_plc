@@ -23,7 +23,7 @@ require '../vendor/autoload.php';
             // // exit();
 
             echo "
-                <table id='employeeOTSummaryList' class='table table-striped table-sm'>
+                <table id='employeeWfhSummaryList' class='table table-striped table-sm'>
                     <thead>
                         <tr>
                             <th>Employee Name</th>
@@ -419,51 +419,6 @@ function FwdWfh($empReportingTo,$empId,$approver,$rowid){
             echo  $employeeList;
         }
     
-        function GetApprovedList($employee){
-            
-            global $connL;
-
-            $query = 'SELECT employee, ot_date, reg_ot, sh_ot, rd_ot FROM ListApprovedWork from Home WHERE emp_code = :emp_code';
-            $param = array(':emp_code' => $employee);
-            $stmt = $connL->prepare($query);
-            $stmt->execute($param);
-            $result = $stmt->fetch();
-    
-    
-            echo '
-            <table id="approvedList" class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>Employee</th>
-                    <th>Date</th>
-                    <th>Regular OT</th>
-                    <th>Special Holiday OT</th>
-                    <th>Restday OT</th>
-                </tr>
-            </thead>
-            <tbody>';
-    
-            
-            if($result){
-                do { 
-                    echo '
-                    <tr>
-                    <td>' . $result['employee'] . '</td>
-                    <td>' . date('m-d-Y', strtotime($result['ot_date'])) . '</td>
-                    <td>' . $result['reg_ot'] . '</td>
-                    <td>' . $result['sh_ot'] . '</td>
-                    <td>' . $result['rd_ot'] . '</td>
-                    </tr>';
-    
-                } while ($result = $stmt->fetch());
-    
-                echo '</tbody>';
-    
-            }else { 
-                echo '<tfoot><tr><td colspan="8" class="text-center">No Results Found</td></tr></tfoot>'; 
-            }
-            echo '</table>';
-        } 
     
         
     }
