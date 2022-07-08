@@ -33,17 +33,6 @@ $(function(){
         param = {"Action":"ApproveOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId};
         param = JSON.stringify(param);
 
-        // document.getElementById("myDiv").style.display="none";
-        // document.getElementById(empId).innerHTML = upfilot;
-        // document.getElementById('alertot'+prid).value = upfilot;
-        // document.querySelector('#clv'+prid).remove();
-        // var otbut = document.getElementById('alertot'+prid).value;
-        // if(otbut == 0){
-        //    console.log(document.querySelector('[data-id]').remove);
-        // }else{
-
-        // }        
-
         // console.log('old'+filot);
         // console.log('new'+otbut);
         // return false;
@@ -74,7 +63,12 @@ $(function(){
                                 document.getElementById(empId).innerHTML = upfilot;
                                 document.getElementById('alertot'+prid).value = upfilot;
                                 document.querySelector('#clv'+prid).remove();
+                                var otbut = document.getElementById('alertot'+prid).value;
+                                if(otbut == 0){
+                                   $('#'+empId).remove();
+                                }else{
 
+                                }    
                             });  
                         },
                         error: function (data){
