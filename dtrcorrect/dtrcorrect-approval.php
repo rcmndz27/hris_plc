@@ -62,7 +62,7 @@ require '../vendor/autoload.php';
             $result = $stmt->fetch();
 
             echo "
-                <table id='employeeDtrCorrectDetailList' class='table table-striped table-sm'>
+                <table id='employeedtrcDetailList' class='table table-striped table-sm'>
                     <thead>
                         <tr>
                             <th colspan ='6' class='text-center'>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</th>

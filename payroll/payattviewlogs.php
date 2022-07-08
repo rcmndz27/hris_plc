@@ -13,7 +13,7 @@
         $totalUndertime = 0;
         $totalOvertime = 0;
 
-        global $dbConnection;
+        global $connL;
 
         if(strlen($emp_code) === 0){
 
@@ -26,8 +26,8 @@
             $param = array(":emp_ssn" => $emp_code, ":startDate" => $dateFrom, ":endDate" => $dateTo );
         }
 
-        $query = 'EXEC hrissys_dev.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
-        $stmt =$dbConnection->prepare($query);
+        $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
+        $stmt =$connL->prepare($query);
         $stmt->execute($param);
         $result = $stmt->fetch();
 

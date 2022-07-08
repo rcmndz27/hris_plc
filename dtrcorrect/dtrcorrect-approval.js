@@ -131,8 +131,8 @@ $(function(){
             data: {data:param} ,
             success: function (data){
                 // console.log("success: "+ data);
-                $("#employeeOTDetailList").remove();
-                $("#otDetails").append(data);
+                $("#employeedtrcDetailList").remove();
+                $("#dtrcDetails").append(data);
                 // location.reload();
             },
             error: function (data){

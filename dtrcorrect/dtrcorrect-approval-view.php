@@ -69,7 +69,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12 pt-3" id="otDetails">
+        <div class="col-md-12 pt-3" id="dtrcDetails">
             
         </div>
     </div>

@@ -28,52 +28,65 @@ $(function(){
 
         var prid = this.id;
         var apvdOt = $(this).closest('tr').find("td:eq(4) input").val();
-        var filot = $('#alertot').val();
+        var filot = $('#alertot'+prid).val();
         var upfilot = filot-apvdOt;
         param = {"Action":"ApproveOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId};
         param = JSON.stringify(param);
 
-        // console.log(param);
+        // document.getElementById("myDiv").style.display="none";
+        // document.getElementById(empId).innerHTML = upfilot;
+        // document.getElementById('alertot'+prid).value = upfilot;
+        // document.querySelector('#clv'+prid).remove();
+        // var otbut = document.getElementById('alertot'+prid).value;
+        // if(otbut == 0){
+        //     document.querySelector('#alertot'+prid).remove();
+        // }else{
+
+        // }        
+
+        // console.log('old'+filot);
+        // console.log('new'+otbut);
         // return false;
 
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to approve this overtime?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((aprOt) => {
-                            document.getElementById("myDiv").style.display="block";
-                          if (aprOt) {
-                                            $.ajax({
-                                                type: "POST",
-                                                url: "../overtime/overtime-approval-process.php",
-                                                data: {data:param} ,
-                                                success: function (data){
-                                                    console.log("success: "+ data);
-                                                    swal({
-                                                    title: "Approved!", 
-                                                    text: "Successfully approved overtime!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        document.getElementById("myDiv").style.display="none";
-                                                        document.getElementById(empId).innerHTML = upfilot;
-                                                        document.getElementById('alertot').value = upfilot;
-                                                        document.querySelector('#clv'+prid).remove();
-                                                    });  
-                                                },
-                                                error: function (data){
-                                                    console.log("error: "+ data);    
-                                                }
-                                            });//ajax
+            swal({
+              title: "Are you sure?",
+              text: "You want to approve this overtime?",
+              icon: "success",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((aprOt) => {
+                document.getElementById("myDiv").style.display="block";
+              if (aprOt) {
+                    $.ajax({
+                        type: "POST",
+                        url: "../overtime/overtime-approval-process.php",
+                        data: {data:param} ,
+                        success: function (data){
+                            console.log("success: "+ data);
+                            swal({
+                            title: "Approved!", 
+                            text: "Successfully approved overtime!", 
+                            type: "success",
+                            icon: "success",
+                            }).then(function() {
+                                document.getElementById("myDiv").style.display="none";
+                                document.getElementById(empId).innerHTML = upfilot;
+                                document.getElementById('alertot'+prid).value = upfilot;
+                                document.querySelector('#clv'+prid).remove();
 
-                          } else {
-                            document.getElementById("myDiv").style.display="none";
-                             swal({text:"You cancel the approval of overtime!",icon:"error"});
-                          }
-                        });
+                            });  
+                        },
+                        error: function (data){
+                            console.log("error: "+ data);    
+                        }
+                    });//ajax
+
+              } else {
+                document.getElementById("myDiv").style.display="none";
+                 swal({text:"You cancel the approval of overtime!",icon:"error"});
+              }
+            });
 
     });
 
