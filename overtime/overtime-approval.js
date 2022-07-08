@@ -33,20 +33,20 @@ $(function(){
         param = {"Action":"ApproveOT",'rowid': this.id,'approvedot': apvdOt,'empId':empId};
         param = JSON.stringify(param);
 
-        // document.getElementById("myDiv").style.display="none";
-        // document.getElementById(empId).innerHTML = upfilot;
-        // document.getElementById('alertot'+prid).value = upfilot;
-        // document.querySelector('#clv'+prid).remove();
-        // var otbut = document.getElementById('alertot'+prid).value;
-        // if(otbut == 0){
-        //     document.querySelector('#alertot'+prid).remove();
-        // }else{
+        document.getElementById("myDiv").style.display="none";
+        document.getElementById(empId).innerHTML = upfilot;
+        document.getElementById('alertot'+prid).value = upfilot;
+        document.querySelector('#clv'+prid).remove();
+        var otbut = document.getElementById('alertot'+prid).value;
+        if(otbut == 0){
+            document.querySelector(empId).remove();
+        }else{
 
-        // }        
+        }        
 
-        // console.log('old'+filot);
-        // console.log('new'+otbut);
-        // return false;
+        console.log('old'+filot);
+        console.log('new'+otbut);
+        return false;
 
             swal({
               title: "Are you sure?",
