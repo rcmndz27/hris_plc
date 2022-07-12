@@ -81,42 +81,42 @@
         function cancelWfh(lvid,empcd)
         {
 
-                 var url = "../wfhome/cancelWfhProcess.php";  
-                 var wfhid = lvid;   
-                 var emp_code = empcd;   
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to cancel this work from home?",
-                          icon: "warning",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((cnclOT) => {
-                          if (cnclOT) {
-                            $.post (
-                                    url,
-                                    {
-                                        choice: 1,
-                                        wfhid:wfhid,
-                                        emp_code:emp_code
-                                    },
-                                    function(data) { 
-                                        // console.log(data);
-                                            swal({
-                                            title: "Oops!", 
-                                            text: "Successfully cancelled work from home!", 
-                                            type: "info",
-                                            icon: "info",
-                                            }).then(function() {
-                                                document.getElementById('st'+wfhid).innerHTML = 'CANCELLED';
-                                                document.querySelector('#clv').remove();
-                                            });  
-                                    }
-                                );
-                          } else {
-                            swal({text:"You stop the cancellation of your work from home.",icon:"error"});
-                          }
-                        });
+             var url = "../wfhome/cancelWfhProcess.php";  
+             var wfhid = lvid;   
+             var emp_code = empcd;   
+                swal({
+                      title: "Are you sure?",
+                      text: "You want to cancel this work from home?",
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((cnclOT) => {
+                      if (cnclOT) {
+                        $.post (
+                        url,
+                        {
+                            choice: 1,
+                            wfhid:wfhid,
+                            emp_code:emp_code
+                        },
+                        function(data) { 
+                            // console.log(data);
+                                swal({
+                                title: "Oops!", 
+                                text: "Successfully cancelled work from home!", 
+                                type: "info",
+                                icon: "info",
+                                }).then(function() {
+                                    document.getElementById('st'+wfhid).innerHTML = 'CANCELLED';
+                                    document.querySelector('#clv').remove();
+                                });  
+                        }
+                    );
+                      } else {
+                        swal({text:"You stop the cancellation of your work from home.",icon:"error"});
+                      }
+                    });
       
     }
 
@@ -137,39 +137,39 @@ function timeInModal(lvid,empcd){
             var wfh_output = document.getElementById("wfh_output").value;  
 
             if(wfh_output){
-                            swal({
-                                  title: "Are you sure?",
-                                  text: "You want to time in now?",
-                                  icon: "success",
-                                  buttons: true,
-                                  dangerMode: true,
-                                })
-                                .then((timeIn) => {
-                                  if (timeIn) {
-                                    $.post (
-                                            url,
-                                            {
-                                                choice: 1,
-                                                wfhid:wfhid,
-                                                emp_code:emp_code,
-                                                wfh_output:wfh_output
-                                            },
-                                            function(data) { 
-                                                console.log(data);
-                                                    swal({
-                                                    title: "Success!", 
-                                                    text: "Successfully time in!", 
-                                                    type: "info",
-                                                    icon: "info",
-                                                    }).then(function() {
-                                                        location.href = '../wfhome/wfh_app_view.php';
-                                                    });  
-                                            }
-                                        );
-                                  } else {
-                                    swal({text:"You cancel your time in!",icon:"warning"});
-                                  }
-                                });
+                swal({
+                      title: "Are you sure?",
+                      text: "You want to time in now?",
+                      icon: "success",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((timeIn) => {
+                      if (timeIn) {
+                        $.post (
+                        url,
+                        {
+                            choice: 1,
+                            wfhid:wfhid,
+                            emp_code:emp_code,
+                            wfh_output:wfh_output
+                        },
+                        function(data) { 
+                            console.log(data);
+                                swal({
+                                title: "Success!", 
+                                text: "Successfully time in!", 
+                                type: "info",
+                                icon: "info",
+                                }).then(function() {
+                                    location.href = '../wfhome/wfh_app_view.php';
+                                });  
+                        }
+                            );
+                      } else {
+                        swal({text:"You cancel your time in!",icon:"warning"});
+                      }
+                    });
                 }else{
                     swal({text:"Kindly fill up blank details!",icon:"warning"});
                 }
@@ -316,19 +316,19 @@ function timeOutModal(lvid,empcd,attid){
                       
                             <div class="form-row align-items-center mb-2">
                                    <div class="col-md-2 d-inline">
-                                        <label for="">WFH Date From:</label><span class="req">*</span>
+                                        <label for="">WFH Date:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdate" name="wfhdate" class="form-control" 
-                                            value="<?php echo date('Y-m-d'); ?>">
+                                            value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
                                     </div>
-                                    <div class="col-md-2 d-inline">
+<!--                                     <div class="col-md-2 d-inline">
                                         <label for="">WFH Date To:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="wfhdateto" name="wfhdateto" class="form-control"
                                             value="<?php echo date('Y-m-d'); ?>">
-                                    </div>
+                                    </div> -->
                             </div>
 
                       
@@ -337,7 +337,7 @@ function timeOutModal(lvid,empcd,attid){
                                         <label for="">Task:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-10 d-inline">
-                                        <input type="text" id="wfh_task" name="wfh_task" class="form-control inputtext">
+                                         <textarea class="form-control inputtext" id="wfh_task" name="wfh_task" rows="4" cols="50" ></textarea> 
                                     </div>
                             </div>
                     
@@ -566,28 +566,28 @@ function timeOutModal(lvid,empcd,attid){
 <script type="text/javascript">
 
 
-             $('#wfhdate').change(function(){
+     $('#wfhdate').change(function(){
 
-                var dte = $('#wfhdate').val();
-                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+        var dte = $('#wfhdate').val();
+        var disableDates  =  <?php echo json_encode($totalVal) ;?>;
 
-                if(disableDates.includes(dte)){
-                    document.getElementById('wfhdate').value = '';
-                }
+        if(disableDates.includes(dte)){
+            document.getElementById('wfhdate').value = '';
+        }
 
-            });
+    });
 
-             $('#wfhdateto').change(function(){
+     $('#wfhdateto').change(function(){
 
-                var dte_to = $('#wfhdateto').val();
-                var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+        var dte_to = $('#wfhdateto').val();
+        var disableDates  =  <?php echo json_encode($totalVal) ;?>;
 
 
-                if(disableDates.includes(dte_to)){
-                    document.getElementById('wfhdateto').value = '';
-                }
+        if(disableDates.includes(dte_to)){
+            document.getElementById('wfhdateto').value = '';
+        }
 
-            });    
+    });    
 
     function myFunction() {
   var input, filter, table, tr, td, i, txtValue;

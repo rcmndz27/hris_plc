@@ -209,13 +209,13 @@
                                         <label for="">Time-In:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-4 d-inline">
-                                        <input type="time" id="time_in" name="time_out" class="form-control inputtext">
+                                        <input type="datetime-local" id="time_in" name="time_in" class="form-control inputtext">
                                     </div>
                                     <div class="col-md-2 d-inline">
                                         <label for="">Time-Out:</label><span class="req">*</span>
                                     </div>
                                     <div class="col-md-4 d-inline">
-                                        <input type="time" id="time_out" name="time_out" class="form-control inputtext">
+                                        <input type="datetime-local" id="time_out" name="time_out" class="form-control inputtext">
                                     </div>                                    
                             </div>
                             <div class="form-row align-items-center mb-2">
@@ -343,14 +343,62 @@
 
 <script type="text/javascript">
 
+$('#time_in').change(function(){
+
+    var dte = $('#time_in').val();
+    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+    if(disableDates.includes(dte)){
+        document.getElementById('time_in').value = '';
+    }
+
+            if($('#time_in').val() > $('#time_out').val()){
+                var input2 = document.getElementById('time_out');
+                document.getElementById("time_out").min = $('#time_in').val();
+                input2.value = '';
+            }
+
+});
+
+ $('#time_out').change(function(){
+
+    var dte_to = $('#time_out').val();
+    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+
+
+    if(disableDates.includes(dte_to)){
+        document.getElementById('time_out').value = '';
+    }
+
+
+        if($('#time_out').val() < $('#time_in').val()){
+
+            swal({text:"DATETIME TO must be greater than DATETIM FROM!",icon:"error"});
+
+            var input2 = document.getElementById('time_out');
+            input2.value = '';               
+
+        } 
+
+});    
+
+
+
+
     $('#dtrc_date').change(function(){
 
     var dte = $('#dtrc_date').val();
     var disableDates  =  <?php echo json_encode($totalVal) ;?>;
+    var cst = $('#dtrc_date').val();
+    var dte = cst+'T00:00';
+ 
 
     if(disableDates.includes(dte)){
         document.getElementById('dtrc_date').value = '';
     }
+
+    document.getElementById('time_in').value = dte;               
+    document.getElementById('time_out').value = dte;       
 
     });
 

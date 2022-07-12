@@ -96,6 +96,9 @@ $('#Submit').click(function(){
                 
                 param = JSON.stringify(param);
 
+                // console.log(param);
+                // return false;
+
                         
                         swal({
                           title: "Are you sure?",
@@ -113,14 +116,14 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                                    swal({
-                                                    title: "Success!", 
-                                                    text: "Successfully added dtr correction details!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        location.href = '../dtrcorrect/dtrcorrect_app_view.php';
-                                                    });
+                                            swal({
+                                            title: "Success!", 
+                                            text: "Successfully added dtr correction details!", 
+                                            type: "success",
+                                            icon: "success",
+                                            }).then(function() {
+                                                location.href = '../dtrcorrect/dtrcorrect_app_view.php';
+                                            });
                                         },
                                         error: function (data){
                                             swal('error');

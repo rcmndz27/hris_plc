@@ -73,49 +73,49 @@
 
 
 
-            $('#wfhdateto').change(function(){
+            // $('#wfhdateto').change(function(){
 
-                if($('#wfhdateto').val() < $('#wfhdate').val()){
+            //     if($('#wfhdateto').val() < $('#wfhdate').val()){
 
-                    swal({text:"WFH date TO must be greater than WFH Date From!",icon:"error"});
+            //         swal({text:"WFH date TO must be greater than WFH Date From!",icon:"error"});
 
-                    var input2 = document.getElementById('wfhdateto');
-                    input2.value = '';               
+            //         var input2 = document.getElementById('wfhdateto');
+            //         input2.value = '';               
 
-                }else{
-                    // alert('Error');
-                }   
+            //     }else{
+            //         // alert('Error');
+            //     }   
 
-            });
+            // });
 
 
-            $('#wfhdate').change(function(){
+            // $('#wfhdate').change(function(){
 
-                    var input2 = document.getElementById('wfhdateto');
-                    document.getElementById("wfhdateto").min = $('#wfhdate').val();
-                    input2.value = '';
+            //         var input2 = document.getElementById('wfhdateto');
+            //         document.getElementById("wfhdateto").min = $('#wfhdate').val();
+            //         input2.value = '';
 
-            });
+            // });
 
 $('#Submit').click(function(){
 
  
-            var dte = $('#wfhdate').val();
-            var dte_to = $('#wfhdateto').val();
+            // var dte = $('#wfhdate').val();
+            // var dte_to = $('#wfhdateto').val();
 
-            dateArr = []; 
+            // dateArr = []; 
 
-            var start = new Date(dte);
-            var date = new Date(dte_to);
-            var end = date.setDate(date.getDate() + 1);
+            // var start = new Date(dte);
+            // var date = new Date(dte_to);
+            // var end = date.setDate(date.getDate() + 1);
 
-            while(start < end){
-               dateArr.push(moment(start).format('MM-DD-YYYY'));
-               var newDate = start.setDate(start.getDate() + 1);
-               start = new Date(newDate);  
-            }
+            // while(start < end){
+            //    dateArr.push(moment(start).format('MM-DD-YYYY'));
+            //    var newDate = start.setDate(start.getDate() + 1);
+            //    start = new Date(newDate);  
+            // }
 
-            const ite_date = dateArr.length === 0  ? dte : dateArr ;
+            // const ite_date = dateArr.length === 0  ? dte : dateArr ;
 
             var e_req = $('#e_req').val();
             var n_req = $('#n_req').val();
@@ -128,7 +128,7 @@ $('#Submit').click(function(){
 
                 param = {
                     "Action":"ApplyWfhApp",
-                    "wfhdate": ite_date,
+                    "wfhdate": $('#wfhdate').val(),
                     "wfh_task": $('#wfh_task').val(),
                     "wfh_output": $('#wfh_output').val(),
                     "wfh_percentage": 0,
@@ -143,10 +143,8 @@ $('#Submit').click(function(){
 
                 // alert(param);
                 // exit();
-                    
-                    if($('#wfhdateto').val() >= $('#wfhdate').val()){
-                        
-                        swal({
+                
+                      swal({
                           title: "Are you sure?",
                           text: "You want to apply this work from home?",
                           icon: "success",
@@ -162,14 +160,14 @@ $('#Submit').click(function(){
                                         data: {data:param} ,
                                         success: function (data){
                                             console.log("success: "+ data);
-                                                    swal({
-                                                    title: "Success!", 
-                                                    text: "Successfully added work from home details!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        location.href = '../wfhome/wfh_app_view.php';
-                                                    });
+                                                swal({
+                                                title: "Success!", 
+                                                text: "Successfully added work from home details!", 
+                                                type: "success",
+                                                icon: "success",
+                                                }).then(function() {
+                                                    location.href = '../wfhome/wfh_app_view.php';
+                                                });
                                         },
                                         error: function (data){
                                             swal('error');
@@ -181,9 +179,6 @@ $('#Submit').click(function(){
                           }
                         });
 
-                    }else{
-                        swal({text:"WFH Date TO must be greater than WFH Date From!",icon:"error"});
-                    }
  
             }else{
                 swal({text:"Kindly fill up blank fields!",icon:"error"});

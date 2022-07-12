@@ -87,8 +87,8 @@ Class OtApp{
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
-                <td>' . $result['ot_req_hrs'] . '</td>
-                <td>' . $result['ot_ren_hrs'] . '</td>
+                <td>' . round($result['ot_req_hrs'],2) . '</td> 
+                <td>' . round($result['ot_ren_hrs'],2) . '</td>
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['ot_rowid'].'">' . $result['stats'] . '</td>';
                 echo'
@@ -194,8 +194,8 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
-                <td>' . $result['ot_req_hrs'] . '</td>
-                <td>' . $result['ot_ren_hrs'] . '</td>
+                <td>' . round($result['ot_req_hrs'],2) . '</td> 
+                <td>' . round($result['ot_ren_hrs'],2) . '</td>
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['ot_rowid'].'">' . $result['stats'] . '</td>';
                 echo'
@@ -297,8 +297,8 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td>' . $result['ot_type'] . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_start_dtime'])) . '</td>
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
-                <td>' . round($result['ot_req_hrs'],2) . '</td>
-                <td>' . $result['ot_ren_hrs'] . '</td>
+                <td>' . round($result['ot_req_hrs'],2) . '</td> 
+                <td>' . round($result['ot_ren_hrs'],2) . '</td>
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){

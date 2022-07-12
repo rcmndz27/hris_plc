@@ -34,7 +34,6 @@ else
 
 ?>
 
-<!-- <link rel="stylesheet" type="text/css" href="../payslip/payslip.css"> -->
 <link rel="stylesheet" type="text/css" href="../newhireaccess/newemp.css">
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
@@ -56,6 +55,10 @@ else
                             href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Attendance</a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="correct-tab" name="correct-tab" data-toggle="tab" href="#correct"
+                            role="tab" aria-controls="correct" aria-selected="false">DTR Correction</a>
+                    </li>                    
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="leave-tab" name="leave-tab" data-toggle="tab" href="#leave"
                             role="tab" aria-controls="leave" aria-selected="false">Leave</a>
                     </li>
@@ -71,6 +74,7 @@ else
                
                 <!-- ATTENDANCE -->
                 <div class="tab-content" id="myTabContent">
+                    <input type="text" name="eMplogName" id="eMplogName" value="<?php  echo $empName; ?>" hidden>
                     <div class="tab-pane fade active show" id="attendance" role="tabpanel" aria-labelledby="attendance-tab">
                       <fieldset class="fieldset-border">
                             <div class="d-flex justify-content-center">
@@ -100,6 +104,36 @@ else
                             </div>      
                     </fieldset>
                 </div>
+                <!-- DTRC -->
+                <div class="tab-pane fade" id="correct" role="tabpanel" aria-labelledby="correct-tab">
+                    <fieldset class="fieldset-border">
+                        <div class="d-flex justify-content-center">
+                            <legend class="fieldset-border pad">
+                                Generate DTR Correction for Payroll
+                            </legend>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
+
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <?php $dd->GenerateDropDown("ungendtrc", $mf->UnGetAllCutoffPay("unpayview")); ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <button type="button" id="search" class="genpyrll" onclick="genDtrcPay();">
+                                        <i class="fas fa-search-plus"></i>GENERATE                       
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>      
+                    </fieldset>
+                </div>                
                 <!-- leave -->
                 <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
                     <fieldset class="fieldset-border">
@@ -195,6 +229,11 @@ else
         var dates = date.split(" - ");
         var eMplogName = $('#eMplogName').val();
 
+        // console.log(dates[0]);  
+        // console.log(dates[1]);  
+        // console.log(eMplogName);
+        // return false;
+
 
         swal({
           title: "Are you sure?",
@@ -227,6 +266,56 @@ else
         } else {
             document.getElementById("myDiv").style.display="none";
             swal({text:"You cancel the generation of attendance!",icon:"error"});
+        }
+    });
+
+    }
+
+
+    function genDtrcPay()
+    {
+
+        var url = "../payroll_att/gen_dtrc_process.php";
+        var date = $('#ungendtrc').children("option:selected").val();
+        var dates = date.split(" - ");
+        var eMplogName = $('#eMplogName').val();
+
+        // console.log(dates[0]);  
+        // console.log(dates[1]);  
+        // console.log(eMplogName);
+        // return false;
+
+        swal({
+          title: "Are you sure?",
+          text: "You want to generate this dtr correction to attendance?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+      })
+        .then((genAttPay) => {
+          document.getElementById("myDiv").style.display="block";
+          if (genAttPay) {
+            $.post (
+                url,
+                {
+                    action: 1,
+                    pyrollco_from: dates[0] ,
+                    pyrollco_to: dates[1] ,
+                    eMplogName: eMplogName                           
+                },
+                function(data) {                 
+                    swal({
+                        title: "Success!", 
+                        text: "Successfully generated attendance!", 
+                        type: "success",
+                        icon: "success",
+                    }).then(function() {                        
+                        location.href = '../payroll/payroll_view.php';
+                    });  
+                });
+        } else {
+            document.getElementById("myDiv").style.display="none";
+            swal({text:"You cancel the generation of dtr correction to attendance!",icon:"error"});
         }
     });
 
@@ -286,7 +375,7 @@ else
     {
 
         var url = "../payroll_att/gen_ot_process.php";
-        var date = $('#ungenleave').children("option:selected").val();
+        var date = $('#ungenot').children("option:selected").val();
         var dates = date.split(" - ");
         var eMplogName = $('#eMplogName').val();
 

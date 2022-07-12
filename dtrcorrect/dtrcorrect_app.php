@@ -329,6 +329,12 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
 
             global $connL;
 
+            $timi = date('m-d-Y h:i:s', strtotime($time_in));
+            $timo = date('m-d-Y h:i:s', strtotime($time_out));
+
+            // echo $timi;
+            // exit();
+
             $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,reporting_to,audituser,auditdate) 
                 VALUES(:emp_code,:dtrc_date,:date_filed,:time_in,:time_out,:remarks,:empReportingTo,:audituser,:auditdate) ";
     
@@ -339,8 +345,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                     ":dtrc_date" => $dtrc_date,
                     ":date_filed"=>date('m-d-Y'),
                     ":empReportingTo" => $empReportingTo,
-                    ":time_in"=> $time_in,
-                    ":time_out"=> $time_out,
+                    ":time_in"=> $timi,
+                    ":time_out"=> $timo,
                     ":remarks"=> $remarks,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y h:i:s')

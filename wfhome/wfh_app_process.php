@@ -26,17 +26,10 @@
         $n_req = $wfhApplication->{"n_req"};
         $e_appr = $wfhApplication->{"e_appr"};
         $n_appr = $wfhApplication->{"n_appr"};
-        $arr = $wfhApplication->{"wfhdate"} ;
-
-        foreach($arr as $value){
-            $wfhDate = $value;
+        $wfhDate = $wfhApplication->{"wfhdate"} ;
 
         $wfhApp->InsertAppliedWfhApp($empCode,$empReportingTo,$wfhDate,$wfh_task,$wfh_output,$wfh_percentage,$e_req,$n_req,$e_appr,$n_appr);
-
-        }
-
-    }else{
-    }
+   }
        
 
 ?>
