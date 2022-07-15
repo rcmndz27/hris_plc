@@ -27,7 +27,6 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                 </thead>
                 <tbody>";
 
-                // $totworkamt = $r['tot_days_work']*$r['daily_pay'];
                 $totworkamt = $r['semi_month_pay'];
                 $totslvl = $r['sl']+$r['vl'];
                 $totslvl_amt = ($r['sl']+$r['vl'])*$r['daily_pay'];

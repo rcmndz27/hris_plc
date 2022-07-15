@@ -192,7 +192,7 @@ require '../vendor/autoload.php';
 
         $mail->isHTML(true);                          
         $mail->Subject = 'Approved Work from Home Request  ';
-        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your work from home request #'.$rowid.' has been approved.<br><br>
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your work from home request #'.$rowId.' has been approved.<br><br>
                         <h2>From: '.$napprover.' <br><br></h2>
                         <h2>Check the request in :
                         <a href="http://124.6.185.87:6868/wfhome/wfh_app_view.php">Work from Home Request List</a> 
@@ -291,7 +291,7 @@ require '../vendor/autoload.php';
 
         $mail->isHTML(true);                          
         $mail->Subject = 'Rejected Work from Home Request  ';
-        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your work from home request #'.$rowid.' has been rejected.<br><br>
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your work from home request #'.$rowId.' has been rejected.<br><br>
                         <h2>From: '.$napprover.' <br></h2>
                         <h2>Reason: '.$rjctRsn.' <br><br></h2>
                         <h2>Check the request in :
