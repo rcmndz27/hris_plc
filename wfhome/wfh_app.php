@@ -353,7 +353,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             }else{
 
                             }
-                }else if($result['stats'] == 'APPROVED'and $result['wfh_date'] <> date('Y-m-d') and $result['timein'] = null or $result['timeout']){
+                }else if($result['stats'] == 'APPROVED'and $result['wfh_date'] <> date('Y-m-d') and $result['timein'] = null or $result['timeout'] = null){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
