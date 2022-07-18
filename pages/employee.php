@@ -1,4 +1,4 @@
-<?php
+\<?php
     session_start();
 
     if (empty($_SESSION['userid']))
@@ -30,7 +30,7 @@
 
     //GET LAST TIME IN
     $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
-    $ystmt =$dbConnection->prepare($yquery);
+    $ystmt =$connL->prepare($yquery);
     $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
     $ystmt->execute($yparam);
     $yresult = $ystmt->fetch();
@@ -186,13 +186,151 @@
     $udpct =  (isset($resultlaudot['udpct'])) ? round($resultlaudot['udpct'],2) : 0 ;
     $otpct = (isset($resultlaudot['otpct'])) ? round($resultlaudot['otpct'],2) : 0 ;
 
+    //wfh login
+     $spquery = "SELECT (CASE when status = 1 then 'PENDING'
+                when   status = 2 then 'APPROVED'
+                when   status = 3 then 'REJECTED'
+                when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+                FROM dbo.tr_workfromhome a
+                left join employee_attendance b
+                on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
+                and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
+    $spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
+    $spstmt =$connL->prepare($spquery);
+    $spstmt->execute($spparam);
+    $spresult = $spstmt->fetch();
+    $wfhd = $spresult['wfh_date'];
+    $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
+    $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
+    $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
     }
 
     
     
 
 ?>
+<script type="text/javascript">
+    
+    function timeInModal(lvid,empcd){
+          
+        $('#timeInModal').modal('toggle');
+        document.getElementById('empcd').value =  empcd;   
+        document.getElementById('lvid').value =  lvid;   
+  
+}
 
+  function timeIn()
+        {
+
+            var url = "../wfhome/timeInProcess.php";  
+            var wfhid = document.getElementById("lvid").value; 
+            var emp_code = document.getElementById("empcd").value;
+            var wfh_output = document.getElementById("wfh_output").value;  
+
+            if(wfh_output){
+                swal({
+                      title: "Are you sure?",
+                      text: "You want to time in now?",
+                      icon: "success",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((timeIn) => {
+                      if (timeIn) {
+                        $.post (
+                        url,
+                        {
+                            choice: 1,
+                            wfhid:wfhid,
+                            emp_code:emp_code,
+                            wfh_output:wfh_output
+                        },
+                        function(data) { 
+                            console.log(data);
+                                swal({
+                                title: "Success!", 
+                                text: "Successfully time in!", 
+                                type: "info",
+                                icon: "info",
+                                }).then(function() {
+                                    location.href = '../pages/employee.php';
+                                });  
+                        }
+                            );
+                      } else {
+                        swal({text:"You cancel your time in!",icon:"warning"});
+                      }
+                    });
+                }else{
+                    swal({text:"Kindly fill up blank details!",icon:"warning"});
+                }
+
+      
+    }    
+
+function timeOutModal(lvid,empcd,attid){
+          
+        $('#timeOutModal').modal('toggle');
+        document.getElementById('empcd').value =  empcd;   
+        document.getElementById('lvid').value =  lvid;   
+        document.getElementById('attid').value =  attid;   
+  
+}
+
+  function timeOut()
+        {
+
+            var url = "../wfhome/timeInProcess.php";  
+            var wfhid = document.getElementById("lvid").value; 
+            var emp_code = document.getElementById("empcd").value;
+            var wfh_output2 = document.getElementById("wfh_output2").value;  
+            var wfh_percentage = document.getElementById("wfh_percentage").value;  
+            var attid = document.getElementById("attid").value;  
+
+
+            if(!wfh_output2 || !wfh_percentage){
+                  swal({text:"Kindly fill up blank details!",icon:"warning"});  
+            }else{
+                swal({
+                  title: "Are you sure?",
+                  text: "You want to time out now?",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((timeIn) => {
+                  if (timeIn) {
+                    $.post (
+                            url,
+                            {
+                                choice: 2,
+                                wfhid:wfhid,
+                                emp_code:emp_code,
+                                wfh_output2:wfh_output2,
+                                wfh_percentage:wfh_percentage,
+                                attid:attid
+
+                            },
+                            function(data) { 
+                                console.log(data);
+                                    swal({
+                                    title: "Success!", 
+                                    text: "Successfully time out!", 
+                                    type: "info",
+                                    icon: "info",
+                                    }).then(function() {
+                                        location.href = '../wfhome/wfh_app_view.php';
+                                    });  
+                            }
+                        );
+                  } else {
+                    swal({text:"You cancel your time out!",icon:"warning"});
+                  }
+                });                
+            }
+      
+    }    
+</script>
 
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <body id="page-top" style="background-color: #f8f9fc;height:100%;overflow: hidden;">
@@ -207,16 +345,104 @@
             <!-- Main Content -->
             <div id="content">
 
+<div class="modal fade" id="timeInModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Time-In <i class="fas fa-play"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>                  
+
+                        <input type="text" name="lvid" id="lvid" hidden>
+                        <input type="text" name="empcd" id="empcd" hidden>
+                            <div class="form-row align-items-center mb-2">
+                                    <div class="col-md-2 d-inline">
+                                        <label for="">Expected Output:</label><span class="req">*</span>
+                                    </div>
+                                    <div class="col-md-10 d-inline">
+                               <textarea class="form-control inputtext" id="wfh_output" name="wfh_output" rows="4" cols="50" ></textarea> 
+                                    </div>
+                            </div>
+                      
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="subbut" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end timein wfh -->
+
+
+    <!-- start time out wfh  -->
+
+    <div class="modal fade" id="timeOutModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Time-Out <i class="fas fa-hand-paper"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>                  
+                        <input type="text" name="lvid" id="lvid" hidden>
+                        <input type="text" name="empcd" id="empcd" hidden>
+                        <input type="text" name="attid" id="attid" hidden>
+                            <div class="form-row align-items-center mb-2">
+                                    <div class="col-md-2 d-inline">
+                                        <label for="">Output:</label><span class="req">*</span>
+                                    </div>
+                                    <div class="col-md-10 d-inline">
+                                        <textarea class="form-control inputtext" id="wfh_output2" name="wfh_output2" rows="4" cols="50" ></textarea>                                        
+                                    </div>
+                            </div>
+                            <div class="form-row align-items-center mb-2">
+                             <div class="col-md-2 d-inline">
+                                <label for="">Percentage:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-2 d-inline">
+                                <input type="number" id="wfh_percentage" name="wfh_percentage" class="form-control inputtext" min="10" max="100" step="10" onkeypress="return false" placeholder="0">
+                            </div>
+                            <div class="col-md-1 d-inline">
+                                <label for="">%</label>
+                            </div> 
+                            </div>                            
+                      
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- end time out wfh -->
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                       <div class="row">
                         <div class="col-md-12 pt-5">
+                           <h1><br></h1>
                         </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-md-12 pt-5">
-                        </div>
-                    </div>                    
+                    </div>            
 
                     <!-- Content Row -->
                     <div class="row">
@@ -301,32 +527,50 @@
                             </div>
                         </div>
 
-                        <!-- Female -->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <?php echo date("F d, Y") ?> 
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $timeinf; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto py-2">
-                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
+    <!-- time in -->
+     <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <?php echo date("F d, Y");  if(isset($wfhd)){echo': WFH';}   ?> 
+                        </div>
+            <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $timeinf; ?>
+                    <?php  
 
+                    if(isset($wfhd)){
+                            if(empty($spresult['timein']) && empty($spresult['timeout'])){
+                                echo'
+                            <button type="button"  class="startIn" onclick="timeInModal('.$wfhid.','.$wfhempcd.')" title="Time In">
+                                <i class="fas fa-play"> Time-In </i>
+                            </button>                            
+                            </td>';
+                            }else if(!empty($spresult['timein']) && empty($spresult['timeout'])){
+                                echo'<button type="button"  class="startOut" onclick="timeOutModal('.$wfhid.','.$wfhempcd.','.$attid.')" title="Time Out">
+                                <i class="fas fa-hand-paper"> Time-Out </i>
+                            </button>                            
+                            </td>';
+
+                            }
+                    }else{
+                    }   
+                     ?>
+
+                    </div>
+                 </div>
+                        </div>
+                    </div>
+                    <div class="col-auto py-2">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
                     <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
                       <span class="text-success small pt-1 fw-bold"><?php echo $timeoutf; ?></span> 
-                   
-                                </div>
-                            </div>
-                        </div>
-
+                    </div>
+                </div>
+            </div>     
                     <!-- Content Row -->
 
                     <div class="row">
@@ -392,12 +636,6 @@
                         </div>
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                     
-                    </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -406,14 +644,6 @@
 
         </div>
         <!-- End of Content Wrapper -->
-                              <div class="row">
-                        <div class="col-md-12 pt-5">
-                        </div>
-                    </div>
-                      <div class="row">
-                        <div class="col-md-12 pt-5">
-                        </div>
-                    </div>   
 
     </div>
     <!-- End of Page Wrapper -->
