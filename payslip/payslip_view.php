@@ -74,7 +74,7 @@ else
 
     var a = document.getElementById("ddcutoff").value;
     var b = document.getElementById("search");
-    // console.log
+    console.log(a);
     if (a == null || a == "") {
       document.getElementById('ddcutoff').disabled = true
       document.getElementById("search").disabled = true;
@@ -119,17 +119,6 @@ else
             onrendered: function (canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
-                    userPassword: '123456',
-                    ownerPassword: '123456',
-                    permissions: {
-                    printing: 'highResolution', //'lowResolution'
-                    modifying: false,
-                    copying: false,
-                    annotating: true,
-                    fillingForms: true,
-                    contentAccessibility: true,
-                    documentAssembly: true
-                  },
                     content: [{
                         image: data,
                         width: 500

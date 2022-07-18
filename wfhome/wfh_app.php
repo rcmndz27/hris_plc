@@ -353,6 +353,18 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             }else{
 
                             }
+                }else if($result['stats'] == 'APPROVED'and $result['wfh_date'] <> date('Y-m-d')){
+                echo'
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                                <i class="fas fa-binoculars"></i>
+                            </button>
+                            <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
+                                <i class="fas fa-history"></i>
+                            </button>
+                            <button type="button" id="clv" class="voidBut" onclick="cancelWfh('.$wfhid.','.$empcode.')" title="Cancel Work From Home">
+                                <i class="fas fa-ban"></i>
+                            </button>                         ';
+
                 }else if($result['stats'] == 'CANCELLED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
