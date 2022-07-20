@@ -20,7 +20,7 @@ public function InsertUsersAtt($bdno,$name,$pfrom,$pto,$loct,$logname)
                     ":period_from"=> $pfrom,
                     ":period_to"=> $pto,
                     ":audituser" => $logname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

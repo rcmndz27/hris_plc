@@ -372,7 +372,7 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 ":otReqHrs"=> $total,
                 ":remarks"=> $remarks,
                 ":audituser" => $empCode,
-                ":auditdate"=>date('m-d-Y')
+                ":auditdate"=>date('m-d-Y H:i:s')
             );
 
         $result = $stmt->execute($param);
@@ -404,7 +404,7 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply OT for '.$otDate,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $results = $stmts->execute($params);

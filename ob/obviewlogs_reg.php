@@ -33,7 +33,7 @@
                 <td>' . $result['remarks'] . '</td>
                 <td>' . $result['emp_name'] . '</td>
                 <td>' . $result['audituser'] . '</td>
-                <td>' . date('m-d-Y', strtotime($result['auditdate'])) . '</td>';
+                <td>' . date('m-d-Y h:i A', strtotime($result['auditdate'])) . '</td>';
 
             } while ($result = $stmt->fetch());
 

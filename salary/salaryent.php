@@ -22,7 +22,7 @@ public function InsertSalaryEnt($eMplogName,$emp_code,$bank_type,$bank_no,$pay_r
                     ":amount"=> $amount,
                     ":status"=> $status,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y h:i:S')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

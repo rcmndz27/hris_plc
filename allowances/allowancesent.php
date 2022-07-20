@@ -19,7 +19,7 @@ public function InsertAllowancesEnt($eMplogName,$emp_code,$benefit_id,$period_cu
                     ":effectivity_date"=> $effectivity_date,
                     ":amount"=> $amount,
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

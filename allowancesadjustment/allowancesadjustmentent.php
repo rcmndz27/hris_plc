@@ -20,7 +20,7 @@ public function InsertAllowancesAdjEnt($emp_code,$description,$aladj_date,$inc_d
                     ":amount"=> $amount,
                     ":remarks"=> $remarks,
                     ":audituser" => 'admin',
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

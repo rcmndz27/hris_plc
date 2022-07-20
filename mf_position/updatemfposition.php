@@ -35,7 +35,7 @@ function InsertJobdept($rowid,$deptJob,$empCode){
                     ":dept_id"=> $deptJob,
                     ":status" => 'Active',
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $results = $stmts->execute($params);

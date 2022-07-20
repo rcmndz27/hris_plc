@@ -20,7 +20,7 @@ public function InsertDeductionEnt($eMplogName,$emp_code,$deduction_id,$period_c
                     ":amount"=> $amount,
                     ":status"=> 'Active',
                     ":audituser" => $eMplogName,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);

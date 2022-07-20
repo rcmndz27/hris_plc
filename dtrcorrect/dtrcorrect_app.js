@@ -98,42 +98,41 @@ $('#Submit').click(function(){
 
                 // console.log(param);
                 // return false;
-
-                        
-                        swal({
-                          title: "Are you sure?",
-                          text: "You want to apply this dtr correction?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((applyWfh) => {
-                        document.getElementById("myDiv").style.display="block";                            
-                          if (applyWfh) {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "../dtrcorrect/dtrcorrect_app_process.php",
-                                        data: {data:param} ,
-                                        success: function (data){
-                                            console.log("success: "+ data);
-                                            swal({
-                                            title: "Success!", 
-                                            text: "Successfully added dtr correction details!", 
-                                            type: "success",
-                                            icon: "success",
-                                            }).then(function() {
-                                                location.href = '../dtrcorrect/dtrcorrect_app_view.php';
-                                            });
-                                        },
-                                        error: function (data){
-                                            swal('error');
-                                        }
-                                    });
-                          } else {
-                            document.getElementById("myDiv").style.display="none";
-                            swal({text:"You cancel your dtr correction!!",icon:"error"});
-                          }
-                        });
+                    
+                    swal({
+                      title: "Are you sure?",
+                      text: "You want to apply this dtr correction?",
+                      icon: "success",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((applyWfh) => {
+                    document.getElementById("myDiv").style.display="block";                            
+                      if (applyWfh) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "../dtrcorrect/dtrcorrect_app_process.php",
+                                    data: {data:param} ,
+                                    success: function (data){
+                                        console.log("success: "+ data);
+                                        swal({
+                                        title: "Success!", 
+                                        text: "Successfully added dtr correction details!", 
+                                        type: "success",
+                                        icon: "success",
+                                        }).then(function() {
+                                            location.href = '../dtrcorrect/dtrcorrect_app_view.php';
+                                        });
+                                    },
+                                    error: function (data){
+                                        swal('error');
+                                    }
+                                });
+                      } else {
+                        document.getElementById("myDiv").style.display="none";
+                        swal({text:"You cancel your dtr correction!!",icon:"error"});
+                      }
+                    });
  
             }else{
                 swal({text:"Kindly fill up blank fields!",icon:"error"});

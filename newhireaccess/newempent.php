@@ -71,7 +71,7 @@ public function InsertNewEmpEnt($emp_code,$emp_pic_loc,$preffieldwork,$preffield
                 ":datehired"=> null,  
                 ":rightsemployee"=> $rightsemployee,  
                 ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                ":auditdate"=>date('m-d-Y h:i:s')                                          
+                ":auditdate"=>date('m-d-Y H:i:s')                                          
                 );
 
             $result = $stmt->execute($param);
@@ -98,7 +98,7 @@ public function InsertNewEmpDep($depname,$depbirthdate,$deprelationship,$firstna
                     ":depbirthdate"=> $depbirthdate,
                     ":deprelationship"=> $deprelationship, 
                     ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                     );
 
             $result = $stmt->execute($param);
@@ -123,7 +123,7 @@ public function InsertNewEmpSib($sibname,$sibrelationship,$firstname,$middlename
                     ":sibname"=> $sibname,
                     ":sibrelationship"=> $sibrelationship,
                     ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                     );
 
             $result = $stmt->execute($param);
@@ -151,7 +151,7 @@ public function InsertNewEmpCon($conname,$conoccupation,$concompany,$conconvicti
                     ":concompany"=> $concompany,
                     ":conconviction"=> $conconviction,
                     ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                     );
 
             $result = $stmt->execute($param);
@@ -179,7 +179,7 @@ public function InsertNewEmpEdu($schoolname,$schoolfrom,$schoolto,$coursename,$c
                     ":coursename"=> $coursename,
                     ":certificatedegree"=> $certificatedegree,                   
                     ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                     );
 
             $result = $stmt->execute($param);
@@ -215,7 +215,7 @@ public function InsertNewEmpJob($startingposition,$mostrecentposition,$jobfrom,$
                     ":duties"=> $duties,  
                     ":reasonforleaving"=> $reasonforleaving,                                      
                     ":audituser" => substr($firstname,0,1)."".substr($middlename,0,1)."".$lastname,
-                    ":auditdate"=>date('m-d-Y h:i:s')                                          
+                    ":auditdate"=>date('m-d-Y H:i:s')                                          
                     );
 
             $result = $stmt->execute($param);

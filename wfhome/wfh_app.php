@@ -427,7 +427,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                     ":wfh_output"=> $wfh_output,
                     ":wfh_percentage"=> $wfh_percentage,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -458,7 +458,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply WFH for '.$wfhDate,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $results = $stmts->execute($params);

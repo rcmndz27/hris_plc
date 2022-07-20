@@ -274,8 +274,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 echo '
                 <tr>
                 <td>'.date('F d, Y', strtotime($result['dtrc_date'])).'</td>
-                <td>'.date('h:i a', strtotime($result['time_in'])).'</td>
-                <td>'.date('h:i a', strtotime($result['time_out'])).'</td>
+                <td>'.date('h:i A', strtotime($result['time_in'])).'</td>
+                <td>'.date('h:i A', strtotime($result['time_out'])).'</td>
                 <td>'.$result['remarks'] . '</td>
                 <td id="st'.$result['rowid'].'">'.$result['stats'].'</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
@@ -329,10 +329,12 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
 
             global $connL;
 
-            $timi = date('m-d-Y h:i:s', strtotime($time_in));
-            $timo = date('m-d-Y h:i:s', strtotime($time_out));
+            $timi = date('m-d-Y H:i:s', strtotime($time_in));
+            $timo = date('m-d-Y H:i:s', strtotime($time_out));
 
             // echo $timi;
+            // echo '<br>';
+            // echo $timo;
             // exit();
 
             $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,reporting_to,audituser,auditdate) 
@@ -349,7 +351,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                     ":time_out"=> $timo,
                     ":remarks"=> $remarks,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $result = $stmt->execute($param);
@@ -371,16 +373,14 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
 
             $querys = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
                 VALUES(:dtrc_id,:emp_code,:emp_name,:remarks,:audituser,:auditdate) ";
-    
-                $stmts =$connL->prepare($querys);
-    
+                $stmts =$connL->prepare($querys);    
                 $params = array(
                     ":dtrc_id" => $rst['maxid'],
                     ":emp_code"=> $empCode,
                     ":emp_name"=> $sname,
                     ":remarks" => 'Apply DTR Correction for '.$dtrc_date,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $results = $stmts->execute($params);

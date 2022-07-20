@@ -24,7 +24,7 @@ function InsertPayLogs($action,$badge_no,$emp_code,$emp_name,$column_name,$pay_f
                     ":old_data"=> $old_data,
                     ":remarks" => $remarks,
                     ":audituser" => $empCode,
-                    ":auditdate"=>date('m-d-Y h:i:s')
+                    ":auditdate"=>date('m-d-Y H:i:s')
                 );
 
             $results = $stmts->execute($params);

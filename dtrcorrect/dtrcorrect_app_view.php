@@ -101,15 +101,15 @@
                         },
                         function(data) { 
                             // console.log(data);
-                                swal({
-                                title: "Oops!", 
-                                text: "Successfully cancelled dtr correction!", 
-                                type: "info",
-                                icon: "info",
-                                }).then(function() {
-                                    document.getElementById('st'+dtrcorrectid).innerHTML = 'CANCELLED';
-                                    document.querySelector('#clv').remove();
-                                });  
+                            swal({
+                            title: "Oops!", 
+                            text: "Successfully cancelled dtr correction!", 
+                            type: "info",
+                            icon: "info",
+                            }).then(function() {
+                                document.getElementById('st'+dtrcorrectid).innerHTML = 'CANCELLED';
+                                document.querySelector('#clv').remove();
+                            });  
                         }
                     );
               } else {
