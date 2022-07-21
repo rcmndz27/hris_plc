@@ -68,6 +68,9 @@
         var url = "../wfhome/wfh_viewlogs.php";
         var lvlogid = lvlogid;
 
+        // console.log(lvlogid);
+        // return false;
+
         $.post (
             url,
             {

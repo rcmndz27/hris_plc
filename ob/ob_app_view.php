@@ -82,42 +82,42 @@
      function cancelOb(lvid,empcd)
         {
 
-                 var url = "../ob/cancelObProcess.php";  
-                 var obid = lvid;   
-                 var emp_code = empcd;   
-                    swal({
-                          title: "Are you sure?",
-                          text: "You want to cancel this work from home?",
-                          icon: "warning",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((cnclOB) => {
-                          if (cnclOB) {
-                            $.post (
-                                    url,
-                                    {
-                                        choice: 1,
-                                        obid:obid,
-                                        emp_code:emp_code
-                                    },
-                                    function(data) { 
-                                        // console.log(data);
-                                            swal({
-                                            title: "Oops!", 
-                                            text: "Successfully cancelled official business!", 
-                                            type: "info",
-                                            icon: "info",
-                                            }).then(function() {
-                                                document.getElementById('st'+obid).innerHTML = 'CANCELLED';
-                                                document.querySelector('#clv').remove();
-                                            });  
-                                    }
-                                );
-                          } else {
-                            swal({text:"You stop the cancellation of your official business.",icon:"error"});
-                          }
-                        });
+         var url = "../ob/cancelObProcess.php";  
+         var obid = lvid;   
+         var emp_code = empcd;   
+            swal({
+                  title: "Are you sure?",
+                  text: "You want to cancel this work from home?",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((cnclOB) => {
+                  if (cnclOB) {
+                    $.post (
+                            url,
+                            {
+                                choice: 1,
+                                obid:obid,
+                                emp_code:emp_code
+                            },
+                            function(data) { 
+                                // console.log(data);
+                                    swal({
+                                    title: "Oops!", 
+                                    text: "Successfully cancelled official business!", 
+                                    type: "info",
+                                    icon: "info",
+                                    }).then(function() {
+                                        document.getElementById('st'+obid).innerHTML = 'CANCELLED';
+                                        document.querySelector('#clv').remove();
+                                    });  
+                            }
+                        );
+                  } else {
+                    swal({text:"You stop the cancellation of your official business.",icon:"error"});
+                  }
+                });
       
     }
 </script>

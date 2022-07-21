@@ -130,9 +130,9 @@
     $spstmt->execute($spparam);
     $spresult = $spstmt->fetch();
     $wfhd = $spresult['wfh_date'];
-    $wfhid = "'".$spresult['wfhid']."'";
-    $wfhempcd = "'".$spresult['empcd']."'";
-    $attid = "'".$spresult['attid']."'";
+    $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
+    $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
+    $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
     }
     
             if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President') {
