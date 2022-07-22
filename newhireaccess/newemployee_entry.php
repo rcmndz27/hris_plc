@@ -881,7 +881,7 @@ id="expected_salary" placeholder="P 00,000.00">
  </script>
 
 
-  <script>  
+<!--   <script>  
  $(document).ready(function(){  
       var i=1;  
       $('#add_con').click(function(){  
@@ -894,7 +894,7 @@ id="expected_salary" placeholder="P 00,000.00">
            $('#row'+button_id+'').remove();  
       });   
  });  
- </script>
+ </script> -->
 
    <script>  
  $(document).ready(function(){  

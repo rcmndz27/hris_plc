@@ -41,15 +41,7 @@ $(function(){
     
         inputValues = [
             $('#emp_code'),
-            // $('#empimgpic'),
-            // $('#telno'),            
-            // $('#reason_position'),
-            // $('#expected_salary'),
-            // $('#preffieldwork'),
-            // $('#preffieldwork1'),
-            $('#positiontitle'),
-            // $('#positiontitle1'),
-            // $('#howtoapply'),
+            $('#positiontitle'),  
             $('#firstname'),
             $('#lastname'),
             $('#emp_address'),
@@ -61,7 +53,15 @@ $(function(){
             $('#age'),
             $('#nationality'),
             $('#sex'),
-            $('#marital_status')
+            $('#marital_status')                      
+            // $('#empimgpic'),
+            // $('#telno'),            
+            // $('#reason_position'),
+            // $('#expected_salary'),
+            // $('#preffieldwork'),
+            // $('#preffieldwork1'),
+            // $('#positiontitle1'),
+            // $('#howtoapply'),
             // $('#contactpersonname'),
             // $('#contactpersonno')
         ];
@@ -309,10 +309,10 @@ $(function(){
                 'Action': 'InsertNewEmpEnt',
                 "emp_code": $('#emp_code').val(),
                 "emp_pic_loc": empImgFile,
-                'preffieldwork': $('#preffieldwork').val(),
-                'preffieldwork1': $('#preffieldwork1').val(),
+                // 'preffieldwork': $('#preffieldwork').val(),
+                // 'preffieldwork1': $('#preffieldwork1').val(),
                 'positiontitle': $('#positiontitle').val(),
-                'positiontitle1': $('#positiontitle1').val(),  
+                // 'positiontitle1': $('#positiontitle1').val(),  
                 // 'reason_position': $('#reason_position').val(),
                 // 'expected_salary': $('#expected_salary').val(),  
                 'howtoapply': $( "#howtoapply option:selected" ).text(),
@@ -332,9 +332,9 @@ $(function(){
                 'birthdate':$( "#birthdate" ).val(),                       
                 'birthplace':$( "#birthplace" ).val(),
                 'nationality':$( "#nationality" ).val(),
-                'residence_certno':$( "#residence_certno" ).val(),
-                'residence_certdate':$( "#residence_certdate" ).val(),
-                'residence_certplace':$( "#residence_certplace" ).val(),
+                // 'residence_certno':$( "#residence_certno" ).val(),
+                // 'residence_certdate':$( "#residence_certdate" ).val(),
+                // 'residence_certplace':$( "#residence_certplace" ).val(),
                 'tin_no':$( "#tin_no" ).val(),
                 'sss_no':$( "#sss_no" ).val(),
                 'phil_no':$( "#phil_no" ).val(),
@@ -363,16 +363,16 @@ $(function(){
                 'contactpersonname':$( "#contactpersonname" ).val(),
                 'contactpersonno':$( "#contactpersonno" ).val(),
                 'contactpersonaddress':$( "#contactpersonaddress" ).val(),
-                'legalconvictioncharge':$( "#legalconvictioncharge" ).val(),
-                'legalconvictiondate':$( "#legalconvictiondate" ).val(),
-                'legalconvictionwhere':$( "#legalconvictionwhere" ).val(),
-                'legalconviction':$( "#legalconviction" ).val(),
-                'civilcase':$( "#civilcase" ).val(),
-                'conname': $("input[name='conname[]']").map(function(){return $(this).val();}).get(),
-                'conoccupation': $("input[name='conoccupation[]']").map(function(){return $(this).val();}).get(),
-                'concompany': $("input[name='concompany[]']").map(function(){return $(this).val();}).get(),
-                'conconviction': $("input[name='conconviction[]']").map(function(){return $(this).val();}).get(),                                
-                'rightsemployee':$( "#rightsemployee" ).val(),
+                // 'legalconvictioncharge':$( "#legalconvictioncharge" ).val(),
+                // 'legalconvictiondate':$( "#legalconvictiondate" ).val(),
+                // 'legalconvictionwhere':$( "#legalconvictionwhere" ).val(),
+                // 'legalconviction':$( "#legalconviction" ).val(),
+                // 'civilcase':$( "#civilcase" ).val(),
+                // 'conname': $("input[name='conname[]']").map(function(){return $(this).val();}).get(),
+                // 'conoccupation': $("input[name='conoccupation[]']").map(function(){return $(this).val();}).get(),
+                // 'concompany': $("input[name='concompany[]']").map(function(){return $(this).val();}).get(),
+                // 'conconviction': $("input[name='conconviction[]']").map(function(){return $(this).val();}).get(),                                
+                // 'rightsemployee':$( "#rightsemployee" ).val(),
                 'schoolfrom': $("input[name='schoolfrom[]']").map(function(){return $(this).val();}).get(),
                 'schoolto': $("input[name='schoolto[]']").map(function(){return $(this).val();}).get(),
                 'schoolname': $("input[name='schoolname[]']").map(function(){return $(this).val();}).get(),
@@ -391,11 +391,12 @@ $(function(){
                 'reasonforleaving': $("input[name='reasonforleaving[]']").map(function(){return $(this).val();}).get()
             }
         
-            // console.log(param);
-            // exit();
+
             param = JSON.stringify(param);
 
-
+            // console.log(param);
+            // return false;
+            
             var files = document.getElementById("empimgpic").files;
 
                    if(files.length > 0 ){
@@ -430,15 +431,15 @@ $(function(){
                                                     data: param
                                                 },
                                                 success: function (result) {                                            
-                                                    // console.log('success: ' + result);
-                                                    swal({
-                                                    title: "Success!", 
-                                                    text: "Successfully added new employee details!", 
-                                                    type: "success",
-                                                    icon: "success",
-                                                    }).then(function() {
-                                                        location.href = '../index.php';
-                                                    });
+                                                    console.log('success: ' + result);
+                                                    // swal({
+                                                    // title: "Success!", 
+                                                    // text: "Successfully added new employee details!", 
+                                                    // type: "success",
+                                                    // icon: "success",
+                                                    // }).then(function() {
+                                                    //     location.href = '../index.php';
+                                                    // });
                                                 },
                                                 error: function (result) {
                                                     // console.log('error: ' + result);
