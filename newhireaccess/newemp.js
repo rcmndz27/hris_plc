@@ -432,14 +432,14 @@ $(function(){
                                                 },
                                                 success: function (result) {                                            
                                                     console.log('success: ' + result);
-                                                    // swal({
-                                                    // title: "Success!", 
-                                                    // text: "Successfully added new employee details!", 
-                                                    // type: "success",
-                                                    // icon: "success",
-                                                    // }).then(function() {
-                                                    //     location.href = '../index.php';
-                                                    // });
+                                                    swal({
+                                                    title: "Success!", 
+                                                    text: "Successfully added new employee details!", 
+                                                    type: "success",
+                                                    icon: "success",
+                                                    }).then(function() {
+                                                        location.href = '../index.php';
+                                                    });
                                                 },
                                                 error: function (result) {
                                                     // console.log('error: ' + result);
