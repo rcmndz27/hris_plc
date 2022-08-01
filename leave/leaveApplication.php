@@ -511,6 +511,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                         <option value="Special Leave for Women">Special Leave for Women</option>
                         <option value="Military Service Leave">Military Service Leave</option>
                         <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                        <option value="Floating Leave">Floating Leave</option>
 
                     ';    
                 }else if($this->employeeType === 'Project Based'){
@@ -526,6 +527,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';  
                     }elseif(($earned_vl !== 0) && ($earned_sl === 0)){
                         echo '
@@ -538,6 +540,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';
                     }elseif(($earned_vl === 0) && ($earned_sl !== 0)){
                         echo '
@@ -550,6 +553,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';   
                     }else{
 
@@ -602,6 +606,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                         <option value="Special Leave for Women">Special Leave for Women</option>
                         <option value="Military Service Leave">Military Service Leave</option>
                         <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                        <option value="Floating Leave">Floating Leave</option>
 
                     ';    
                 }else if($this->employeeType === 'Project Based'){
@@ -617,6 +622,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';  
                     }elseif(($earned_vl !== 0) && ($earned_sl === 0)){
                         echo '
@@ -629,6 +635,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';
                     }elseif(($earned_vl === 0) && ($earned_sl !== 0)){
                         echo '
@@ -641,6 +648,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                             <option value="Special Leave for Women">Special Leave for Women</option>
                             <option value="Military Service Leave">Military Service Leave</option>
                             <option value="Special Leave for Victim of Violence">Special Leave for Victim of Violence</option>
+                            <option value="Floating Leave">Floating Leave</option>
                         ';   
                     }else{
 

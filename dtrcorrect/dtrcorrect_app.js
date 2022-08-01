@@ -52,7 +52,13 @@
 // }
 
 
+
  $(function(){
+
+    $('#ltimein').hide();
+    $('#itimein').hide();
+    $('#ltimeout').hide();
+    $('#itimeout').hide();
 
    
     function CheckInput() {
