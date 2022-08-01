@@ -53,7 +53,7 @@ else
     <label for="payroll_period" class="col-form-label pad">PAYROLL PERIOD:</label>
 
     <div class='col-md-3'>
-        <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoff("paycut")); ?>
+        <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
     </div>
 
     <div class="col-md-3 d-flex">
