@@ -80,12 +80,16 @@ require '../vendor/autoload.php';
             ";
             if($result){
                 do{
+                    $t_in = (isset($result['time_in'])) ? date('h:i A', strtotime($result['time_in'])) : 'n/a';
+                    $t_out = (isset($result['time_out'])) ? date('h:i A', strtotime($result['time_out'])) : 'n/a';
                     echo"
+
+
                         <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
                             <td>".date('F d, Y', strtotime($result['dtrc_date']))."</td>
-                            <td>".date('h:i a', strtotime($result['time_in']))."</td>
-                            <td>".date('h:i a', strtotime($result['time_out']))."</td>
+                            <td>".$t_in."</td>
+                            <td>".$t_out."</td>
                             <td>".$result['remarks']."</td>
                             <td hidden>"."<input type='text' class='form-control' 
                             value='".$result['reporting_to']."' >"."</td>
@@ -115,23 +119,95 @@ require '../vendor/autoload.php';
 
             global $connL;
 
-          $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
-            WHERE emp_code = :empcode";
-            $rparam = array(':empcode' => $empId);
-            $rstmt =$connL->prepare($rquery);
-            $rstmt->execute($rparam);
-            $rresult = $rstmt->fetch();
-            $e_req = $rresult['emailaddress'];
-            $n_req = $rresult['fullname'];
+        $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
+        WHERE emp_code = :empcode";
+        $rparam = array(':empcode' => $empId);
+        $rstmt =$connL->prepare($rquery);
+        $rstmt->execute($rparam);
+        $rresult = $rstmt->fetch();
+        $e_req = $rresult['emailaddress'];
+        $n_req = $rresult['fullname'];
 
-            $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :approver";
-            $param = array(':approver' => $empReportingTo);
-            $stmt =$connL->prepare($query);
-            $stmt->execute($param);
-            $result = $stmt->fetch();
-            $e_appr = $result['emailaddress'];
-            $n_appr = $result['fullname'];
-            $apprv_name = $result['fullname'];  
+        $query = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile WHERE emp_code = :approver";
+        $param = array(':approver' => $empReportingTo);
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $e_appr = $result['emailaddress'];
+        $n_appr = $result['fullname'];
+        $apprv_name = $result['fullname'];  
+
+        $pquery = "SELECT * FROM tr_dtrcorrect WHERE emp_code = :emp_code and rowid = :rowId";
+        $pparam = array(':emp_code' => $empId,':rowId' => $rowId);
+        $pstmt =$connL->prepare($pquery);
+        $pstmt->execute($pparam);
+        $presult = $pstmt->fetch();
+        $p_in = $presult['time_in'];
+        $p_out = $presult['time_out'];
+        $p_date = $presult['dtrc_date'];
+
+        $fquery = "SELECT * FROM employee_attendance WHERE emp_code = :emp_code and punch_date = :p_date ";
+        $fparam = array(':emp_code' => substr($empId,3),':p_date' => $p_date);
+        $fstmt =$connL->prepare($fquery);
+        $fstmt->execute($fparam);    
+        $fresult = $fstmt->fetch();  
+        $ea_date = $fresult['punch_date']; 
+        $ea_name = $fresult['name']; 
+        $ea_in = $fresult['timein'];
+        $ea_out = $fresult['timeout'];
+        $ea_empc = $fresult['emp_code'];  
+
+
+        if(isset($ea_date)){
+                if(isset($ea_in) and isset($ea_out)){
+                    $queryn = "UPDATE employee_attendance SET timein = :timein, timeout = :timeout 
+                    WHERE emp_code = :emp_code AND punch_date = :punch_date";
+                    $stmtn =$connL->prepare($queryn);
+                    $paramn = array(
+                        ":emp_code"=> $ea_empc,
+                        ":punch_date"=> $ea_date,
+                        ":timein" => $p_in,
+                        ":timeout"=> $p_out
+                    );
+                    $stmtn->execute($paramn);
+                }else if(isset($ea_in) and !isset($ea_out)){
+                    $queryn = "UPDATE employee_attendance SET timeout = :timeout
+                    WHERE emp_code = :emp_code AND punch_date = :punch_date";
+                    $stmtn =$connL->prepare($queryn);
+                    $paramn = array(
+                        ":emp_code"=> $ea_empc,
+                        ":punch_date"=> $ea_date,
+                        ":timeout" => $p_out
+                    );   
+                    $stmtn->execute($paramn);
+                }else{
+                    $queryn = "UPDATE employee_attendance SET timein = :timein
+                    WHERE emp_code = :emp_code AND punch_date = :punch_date";
+                    $stmtn =$connL->prepare($queryn);
+                    $paramn = array(
+                        ":emp_code"=> $ea_empc,
+                        ":punch_date"=> $ea_date,
+                        ":timein" => $p_in
+                    );
+                    $stmtn->execute($paramn);                                     
+                }
+        }else{
+            $querym = "INSERT INTO employee_attendance (emp_code,name,punch_date,timein,timeout) 
+            VALUES(:emp_code,:name,:punch_date,:timein,:timeout) ";
+
+            $stmtm =$connL->prepare($querym);
+
+            $paramm = array(
+                ":emp_code"=> substr($empId,3),
+                ":name"=> $n_req,
+                ":punch_date"=> $p_date,
+                ":timein" => $p_in,
+                ":timeout"=> $p_out
+            );
+
+             $resultm = $stmtm->execute($paramm);
+            echo $resultm;
+        }    
 
             $querys = "INSERT INTO logs_dtrc (dtrc_id,emp_code,emp_name,remarks,audituser,auditdate) 
             VALUES(:dtrc_id, :emp_code,:emp_name,:remarks,:audituser, :auditdate) ";

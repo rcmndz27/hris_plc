@@ -265,40 +265,43 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
             do { 
                 // dtrcdate,timein,timeout,remarks,stts
                 $dtrcdate = "'".date('m-d-Y', strtotime($result['dtrc_date']))."'";
-                $timein = "'".date('h:i a', strtotime($result['time_in']))."'";
-                $timeout = "'".date('h:i a', strtotime($result['time_out']))."'";
+                $t_in = (isset($result['time_in'])) ? date('h:i A', strtotime($result['time_in'])) : 'n/a';
+                $t_out = (isset($result['time_out'])) ? date('h:i A', strtotime($result['time_out'])) : 'n/a';
+                $timein = "'".$t_in ."'";
+                $timeout = "'".$t_out."'";
                 $rmrks = "'".$result['remarks']."'";
                 $stts = "'".$result['stats']."'";
                 $dtrcid = "'".$result['rowid']."'";
                 $empcode = "'".$result['emp_code']."'";
+
                 echo '
                 <tr>
                 <td>'.date('F d, Y', strtotime($result['dtrc_date'])).'</td>
-                <td>'.date('h:i A', strtotime($result['time_in'])).'</td>
-                <td>'.date('h:i A', strtotime($result['time_out'])).'</td>
-                <td>'.$result['remarks'] . '</td>
+                <td>'.$t_in.'</td>
+                <td>'.$t_out.'</td>
+                <td>'.$result['remarks'] .'</td>
                 <td id="st'.$result['rowid'].'">'.$result['stats'].'</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
                 <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
-                                <i class="fas fa-binoculars"></i>
-                            </button>
-                            <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
-                                <i class="fas fa-history"></i>
-                            </button>                           
-                            <button type="button" id="clv" class="voidBut" onclick="canceldtrcorrect('.$dtrcid.','.$empcode.')" title="Cancel DTR Correction">
-                                <i class="fas fa-ban"></i>
-                            </button>
-                            </td>';
+                    <i class="fas fa-binoculars"></i>
+                </button>
+                <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                    <i class="fas fa-history"></i>
+                </button>                           
+                <button type="button" id="clv" class="voidBut" onclick="canceldtrcorrect('.$dtrcid.','.$empcode.')" title="Cancel DTR Correction">
+                    <i class="fas fa-ban"></i>
+                </button>
+                </td>';
                 }else{
                 echo'
                 <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
-                                <i class="fas fa-binoculars"></i>
-                            </button>
-                            <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
-                                <i class="fas fa-history"></i>
-                            </button>                       
-                            </td>';
+                        <i class="fas fa-binoculars"></i>
+                    </button>
+                    <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                        <i class="fas fa-history"></i>
+                    </button>                       
+                    </td>';
                 }                            
 
 
@@ -329,11 +332,19 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
 
             global $connL;
 
+           if($time_in == ''){
+            $timi = null;
+           }else{
             $timi = date('m-d-Y H:i:s', strtotime($time_in));
+           }
+
+           if($time_out == ''){
+            $timo = null;
+           }else{
             $timo = date('m-d-Y H:i:s', strtotime($time_out));
+           }
 
             // echo $timi;
-            // echo '<br>';
             // echo $timo;
             // exit();
 

@@ -55,6 +55,14 @@ else
                             href="#attendance" role="tab" aria-controls="attendance" aria-selected="true">Attendance</a>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="wfhome-tab" name="wfhome-tab" data-toggle="tab" href="#wfhome"
+                            role="tab" aria-controls="wfhome" aria-selected="false">WORK FROM HOME</a>
+                    </li>    
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="offb-tab" name="offb-tab" data-toggle="tab" href="#offb"
+                            role="tab" aria-controls="offb" aria-selected="false">OFFICIAL BUSINESS</a>
+                    </li>                                            
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="correct-tab" name="correct-tab" data-toggle="tab" href="#correct"
                             role="tab" aria-controls="correct" aria-selected="false">DTR Correction</a>
                     </li>                    
@@ -66,10 +74,10 @@ else
                         <a class="nav-link" id="overtime-tab" name="overtime-tab" data-toggle="tab" href="#overtime" role="tab"
                             aria-controls="overtime" aria-selected="false">Overtime</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+<!--                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="dtr-tab" name="dtr-tab" data-toggle="tab" href="#dtr" role="tab"
                             aria-controls="dtr" aria-selected="false">DTR</a>
-                    </li>                    
+                    </li>    -->                 
                 </ul>
                
                 <!-- ATTENDANCE -->
@@ -104,6 +112,65 @@ else
                             </div>      
                     </fieldset>
                 </div>
+                <!-- WORK FROM HOME -->
+                <div class="tab-pane fade" id="wfhome" role="tabpanel" aria-labelledby="wfhome-tab">
+                    <fieldset class="fieldset-border">
+                        <div class="d-flex justify-content-center">
+                            <legend class="fieldset-border pad">
+                                Generate Work From Home for Payroll
+                            </legend>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <?php $dd->GenerateDropDown("ungendtrc", $mf->UnGetAllCutoffPay("unpayview")); ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <button type="button" id="search" class="genpyrll" onclick="genWfhPay();">
+                                        <i class="fas fa-search-plus"></i>GENERATE                       
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>      
+                    </fieldset>
+                </div>
+                <!-- OB -->
+                <div class="tab-pane fade" id="offb" role="tabpanel" aria-labelledby="offb-tab">
+                    <fieldset class="fieldset-border">
+                        <div class="d-flex justify-content-center">
+                            <legend class="fieldset-border pad">
+                                Generate Official Business for Payroll
+                            </legend>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label for="employeepaylist" class="col-form-label pad">PAYROLL PERIOD:</label>   
+
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="form-group">
+                                    <?php $dd->GenerateDropDown("ungendtrc", $mf->UnGetAllCutoffPay("unpayview")); ?>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <button type="button" id="search" class="genpyrll" onclick="genObPay();">
+                                        <i class="fas fa-search-plus"></i>GENERATE                       
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>      
+                    </fieldset>
+                </div>                                    
                 <!-- DTRC -->
                 <div class="tab-pane fade" id="correct" role="tabpanel" aria-labelledby="correct-tab">
                     <fieldset class="fieldset-border">
@@ -234,7 +301,6 @@ else
         // console.log(eMplogName);
         // return false;
 
-
         swal({
           title: "Are you sure?",
           text: "You want to generate this attendance?",
@@ -266,6 +332,56 @@ else
         } else {
             document.getElementById("myDiv").style.display="none";
             swal({text:"You cancel the generation of attendance!",icon:"error"});
+        }
+    });
+
+    }
+
+
+    function genWfhPay()
+    {
+
+        var url = "../payroll_att/gen_wfh_process.php";
+        var date = $('#ungendtrc').children("option:selected").val();
+        var dates = date.split(" - ");
+        var eMplogName = $('#eMplogName').val();
+
+        // console.log(dates[0]);  
+        // console.log(dates[1]);  
+        // console.log(eMplogName);
+        // return false;
+
+        swal({
+          title: "Are you sure?",
+          text: "You want to generate this work from home to attendance?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+      })
+        .then((genAttPay) => {
+          document.getElementById("myDiv").style.display="block";
+          if (genAttPay) {
+            $.post (
+                url,
+                {
+                    action: 1,
+                    pyrollco_from: dates[0] ,
+                    pyrollco_to: dates[1] ,
+                    eMplogName: eMplogName                           
+                },
+                function(data) {                 
+                    swal({
+                        title: "Success!", 
+                        text: "Successfully generated work from home to attendance!", 
+                        type: "success",
+                        icon: "success",
+                    }).then(function() {                        
+                        location.href = '../payroll/payroll_view.php';
+                    });  
+                });
+        } else {
+            document.getElementById("myDiv").style.display="none";
+            swal({text:"You cancel the generation of work from home to attendance!",icon:"error"});
         }
     });
 
@@ -306,7 +422,7 @@ else
                 function(data) {                 
                     swal({
                         title: "Success!", 
-                        text: "Successfully generated attendance!", 
+                        text: "Successfully generated dtr correction to attendance!", 
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
@@ -321,6 +437,55 @@ else
 
     }
 
+
+     function genObPay()
+    {
+
+        var url = "../payroll_att/gen_ob_process.php";
+        var date = $('#ungenot').children("option:selected").val();
+        var dates = date.split(" - ");
+        var eMplogName = $('#eMplogName').val();
+
+        // console.log(dates[0]);  
+        // console.log(dates[1]);  
+        // console.log(eMplogName);
+        // return false;
+
+        swal({
+          title: "Are you sure?",
+          text: "You want to generate this official business to attendance?",
+          icon: "success",
+          buttons: true,
+          dangerMode: true,
+      })
+        .then((genAttPay) => {
+          document.getElementById("myDiv").style.display="block";
+          if (genAttPay) {
+            $.post (
+                url,
+                {
+                    action: 1,
+                    pyrollco_from: dates[0] ,
+                    pyrollco_to: dates[1] 
+                    ,eMplogName: eMplogName                           
+                },
+                function(data) {                 
+                    swal({
+                        title: "Success!", 
+                        text: "Successfully generated official business to attendance!", 
+                        type: "success",
+                        icon: "success",
+                    }).then(function() {                        
+                        location.href = '../payroll/payroll_view.php';
+                    });  
+                });
+        } else {
+            document.getElementById("myDiv").style.display="none";
+            swal({text:"You cancel the generation of official business to attendance!",icon:"error"});
+        }
+    });
+
+    }
     function genLeavePay()
     {
 
@@ -420,44 +585,44 @@ else
 
     }
 
-    function genDTR()
-    {
+    // function genDTR()
+    // {
 
-        var url = "../payroll_att/gen_dtr_process.php";
+    //     var url = "../payroll_att/gen_dtr_process.php";
 
-        swal({
-          title: "Are you sure?",
-          text: "You want to generate dtr ?",
-          icon: "success",
-          buttons: true,
-          dangerMode: true,
-      })
-        .then((genAttPay) => {
-          document.getElementById("myDiv").style.display="block";
-          if (genAttPay) {
-            $.post (
-                url,
-                {
-                    action: 1                         
-                },
-                function(data) {  
-                // console.log(data);               
-                    swal({
-                        title: "Success!", 
-                        text: "Successfully generated DTR!", 
-                        type: "success",
-                        icon: "success",
-                    }).then(function() {                        
-                        location.href = '../pages/admin.php';
-                    });  
-                });
-        } else {
-            document.getElementById("myDiv").style.display="none";
-            swal({text:"You cancel the generation of dtr!",icon:"error"});
-        }
-    });
+    //     swal({
+    //       title: "Are you sure?",
+    //       text: "You want to generate dtr ?",
+    //       icon: "success",
+    //       buttons: true,
+    //       dangerMode: true,
+    //   })
+    //     .then((genAttPay) => {
+    //       document.getElementById("myDiv").style.display="block";
+    //       if (genAttPay) {
+    //         $.post (
+    //             url,
+    //             {
+    //                 action: 1                         
+    //             },
+    //             function(data) {  
+    //             // console.log(data);               
+    //                 swal({
+    //                     title: "Success!", 
+    //                     text: "Successfully generated DTR!", 
+    //                     type: "success",
+    //                     icon: "success",
+    //                 }).then(function() {                        
+    //                     location.href = '../pages/admin.php';
+    //                 });  
+    //             });
+    //     } else {
+    //         document.getElementById("myDiv").style.display="none";
+    //         swal({text:"You cancel the generation of dtr!",icon:"error"});
+    //     }
+    // });
 
-    }
+    // }
 
 </script>
 <?php include('../_footer.php');  ?>

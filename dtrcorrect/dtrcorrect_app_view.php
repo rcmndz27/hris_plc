@@ -49,7 +49,7 @@
     }    
 ?>
 <script type="text/javascript">
-    
+
 
     function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts){
    
@@ -190,44 +190,59 @@
                 <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
                 <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>
                 <input type="text" name="n_appr" id="n_appr" value="<?php  echo $n_appr; ?>" hidden>                      
-                    <div>
-                      
-                            <div class="form-row align-items-center mb-2">
-                                   <div class="col-md-2 d-inline">
-                                        <label for="">DTR Date:</label>
-                                        <span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-4 d-inline">
-                                        <input type="date" id="dtrc_date" name="dtrc_date" class="form-control" 
-                                            >
-                                    </div>
+            <div>
+              
+                    <div class="form-row align-items-center mb-2">
+                           <div class="col-md-2 d-inline">
+                                <label for="">DTR Date:</label>
+                                <span class="req">*</span>
                             </div>
-
-                      
-                            <div class="form-row align-items-center mb-2">
-                                   <div class="col-md-2 d-inline">
-                                        <label for="">Time-In:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-4 d-inline">
-                                        <input type="datetime-local" id="time_in" name="time_in" class="form-control inputtext">
-                                    </div>
-                                    <div class="col-md-2 d-inline">
-                                        <label for="">Time-Out:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-4 d-inline">
-                                        <input type="datetime-local" id="time_out" name="time_out" class="form-control inputtext">
-                                    </div>                                    
+                            <div class="col-md-3 d-inline">
+                                <input type="date" id="dtrc_date" name="dtrc_date" class="form-control" 
+                                    value="<?php echo date('Y-m-d'); ?>">
                             </div>
-                            <div class="form-row align-items-center mb-2">
-                                   <div class="col-md-2 d-inline">
-                                        <label for="">Reason:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-10 d-inline">
-                                        <input type="text" id="remarks" name="remarks" class="form-control inputtext">
-                                    </div>
-                            </div>                            
                     </div>
-                </div>
+                    <div class="form-row align-items-center mb-2">
+                           <div class="col-md-2 d-inline">
+                                <label for="">DTR Type:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-4 d-inline">
+                                <select class="form-select" id="dtrtype">
+                                    <option value="Both">Both Time-In and Time-Out</option>                                    
+                                    <option value="Time-in">Time-in Only</option>
+                                    <option value="Time-out">Time-out Only</option>
+                                </select>
+                            </div>    
+                    </div>
+                    <div class="form-row align-items-center mb-2">     
+                            <!-- time in  -->
+                               <div class="col-md-2 d-inline" >
+                                    <label id="ltimein">Time-In:<span class="req">*</span></label>
+                                </div>
+                                <div class="col-md-4 d-inline" id="itimein">
+                                    <input type="datetime-local" id="time_in" name="time_in" class="form-control inputtext">
+                                </div>
+                        </div>                                                   
+                            <!-- timeout -->
+                    <div class="form-row align-items-center mb-2">                              
+                                <div class="col-md-2 d-inline">
+                                    <label id="ltimeout">Time-Out:<span class="req">*</span></label>
+                                </div>
+                                <div class="col-md-4 d-inline" id="itimeout">
+                                    <input type="datetime-local" id="time_out" name="time_out" class="form-control inputtext">
+                                </div>   
+                    </div>                                                                  
+                   
+                    <div class="form-row align-items-center mb-2">
+                           <div class="col-md-2 d-inline">
+                                <label for="">Reason:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-10 d-inline">
+                                <input type="text" id="remarks" name="remarks" class="form-control inputtext">
+                            </div>
+                    </div>                            
+            </div>
+        </div>
 
 
                 <div class="modal-footer">
