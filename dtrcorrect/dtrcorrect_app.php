@@ -345,8 +345,9 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
            }
 
             // echo $timi;
+            // echo nl2br('\r \n');
             // echo $timo;
-            // exit();
+       
 
             $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,reporting_to,audituser,auditdate) 
                 VALUES(:emp_code,:dtrc_date,:date_filed,:time_in,:time_out,:remarks,:empReportingTo,:audituser,:auditdate) ";
