@@ -176,39 +176,39 @@ require '../vendor/autoload.php';
         $eapprover = $e_appr;
         $napprover = $n_appr;
 
-        $mail = new PHPMailer(true);
-        try {
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
-        $mail->isSMTP();                                           
-        $mail->Host       = 'mail.obanana.com'; 
-        $mail->SMTPAuth   = true;                                   
-        $mail->Username   = 'hris-support@obanana.com';        
-        $mail->Password   = '@dmin123@dmin123';                              
-        $mail->SMTPSecure = 'tls';            
-        $mail->Port       = 587;                                   
+        // $mail = new PHPMailer(true);
+        // try {
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;      
+        // $mail->isSMTP();                                           
+        // $mail->Host       = 'mail.obanana.com'; 
+        // $mail->SMTPAuth   = true;                                   
+        // $mail->Username   = 'hris-support@obanana.com';        
+        // $mail->Password   = '@dmin123@dmin123';                              
+        // $mail->SMTPSecure = 'tls';            
+        // $mail->Port       = 587;                                   
 
-        $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
-        $mail->addAddress($erequester,'Requester');    
+        // $mail->setFrom('hris-support@obanana.com','HRIS-NOREPLY');
+        // $mail->addAddress($erequester,'Requester');    
 
-        $mail->isHTML(true);                          
-        $mail->Subject = 'Approved Overtime Request  ';
-        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your overtime request #'.$rowid.' has been approved.<br><br>
-                        <h2>From: '.$napprover.' <br><br></h2>
-                        <h2>Check the request in :
-                        <a href="http://124.6.185.87:6868/overtime/ot_app_view.php">Overtime Request List</a> 
-                        <br><br></h2>
+        // $mail->isHTML(true);                          
+        // $mail->Subject = 'Approved Overtime Request  ';
+        // $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your overtime request #'.$rowid.' has been approved.<br><br>
+        //                 <h2>From: '.$napprover.' <br><br></h2>
+        //                 <h2>Check the request in :
+        //                 <a href="http://124.6.185.87:6868/overtime/ot_app_view.php">Overtime Request List</a> 
+        //                 <br><br></h2>
 
-                        Thank you for using our application! <br>
-                        Regards, <br>
-                        Human Resource Information System <br> <br>
+        //                 Thank you for using our application! <br>
+        //                 Regards, <br>
+        //                 Human Resource Information System <br> <br>
 
-                        <h6>If you are having trouble clicking the "Overtime Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/overtime/ot_app_view.php <h6>
-                       ';
-            $mail->send();
-            // echo 'Message has been sent';
-            } catch (Exception $e) {
-            // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            }
+        //                 <h6>If you are having trouble clicking the "Overtime Request List" button, copy and paste the URL below into your web browser: http://124.6.185.87:6868/overtime/ot_app_view.php <h6>
+        //                ';
+        //     $mail->send();
+        //     // echo 'Message has been sent';
+        //     } catch (Exception $e) {
+        //     // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        //     }
          
 
 

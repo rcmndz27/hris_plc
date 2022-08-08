@@ -351,11 +351,15 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
 
         global $connL;
 
-        $otsd_d = date('Y-m-d H:i:s', strtotime($otStartDtime));
-        $otend_d = date('Y-m-d H:i:s', strtotime($otEndDtime));
+        $otsd_d = date('m-d-Y H:i:s', strtotime($otStartDtime));
+        $otend_d = date('m-d-Y H:i:s', strtotime($otEndDtime));
         $otsd = strtotime($otStartDtime);
         $otend = strtotime($otEndDtime);
         $total = round(($otend - $otsd)/3600,2);
+
+        // echo $otsd_d;
+        // echo $otend_d;
+        // exit();
 
         $query = "INSERT INTO tr_overtime (emp_code,ot_date,datefiled,reporting_to,ot_start_dtime,ot_end_dtime,ot_req_hrs,remarks,audituser, auditdate) 
             VALUES(:emp_code,:otDate,:datefiled,:empReportingTo,:otStartDtime,:otEndDtime,:otReqHrs, :remarks,:audituser,:auditdate) ";

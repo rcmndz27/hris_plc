@@ -61,26 +61,6 @@
 $('#Submit').click(function(){
 
     
-
-            // var dte = $('#otdate').val();
-            // var dte_to = $('#otdateto').val();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-            // dateArr = []; //Array where rest of the dates will be stored
-
-            // //creating JS date objects
-            // var start = new Date(dte);
-            // var date = new Date(dte_to);
-            // var end = date.setDate(date.getDate() + 1);
-
-            // //Logic for getting rest of the dates between two dates("FromDate" to "EndDate")
-            // while(start < end){
-            //    dateArr.push(moment(start).format('MM-DD-YYYY'));
-            //    var newDate = start.setDate(start.getDate() + 1);
-            //    start = new Date(newDate);  
-            // }
-
-            // const ite_date = dateArr.length === 0  ? dte : dateArr ;
-
             var e_req = $('#e_req').val();
             var n_req = $('#n_req').val();
             var e_appr = $('#e_appr').val();
