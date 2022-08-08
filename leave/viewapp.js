@@ -1,21 +1,21 @@
 $(function(){
 
-    function XLSXExport(){
-        $("#LeaveListTab").tableExport({
-            headers: true,
-            footers: true,
-            formats: ['xlsx'],
-            filename: 'id',
-            bootstrap: false,
-            exportButtons: true,
-            position: 'top',
-            ignoreRows: null,
-            ignoreCols: null,
-            trimWhitespace: true,
-            RTL: false,
-            sheetname: ' Leaves'
-        });
-    }
+    // function XLSXExport(){
+    //     $("#LeaveListTab").tableExport({
+    //         headers: true,
+    //         footers: true,
+    //         formats: ['xlsx'],
+    //         filename: 'id',
+    //         bootstrap: false,
+    //         exportButtons: true,
+    //         position: 'top',
+    //         ignoreRows: null,
+    //         ignoreCols: null,
+    //         trimWhitespace: true,
+    //         RTL: false,
+    //         sheetname: ' Leaves'
+    //     });
+    // }
 
 
     $("#searchLeaveApp").click(function(e){
@@ -46,9 +46,9 @@ $(function(){
             success: function (data){
                 document.getElementById("myDiv").style.display="none"; 
                 $("#LeaveListTab").html(data);
-                XLSXExport();
-                $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // XLSXExport();
+                // $(".fa-file-export").remove();
+                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -120,22 +120,22 @@ $(function(){
 
 
 
- function XLSXExportOt(){
-        $("#OtListTab").tableExport({
-            headers: true,
-            footers: true,
-            formats: ['xlsx'],
-            filename: 'id',
-            bootstrap: false,
-            exportButtons: true,
-            position: 'top',
-            ignoreRows: null,
-            ignoreCols: null,
-            trimWhitespace: true,
-            RTL: false,
-            sheetname: ' OT'
-        });
-    }
+ // function XLSXExportOt(){
+ //        $("#OtListTab").tableExport({
+ //            headers: true,
+ //            footers: true,
+ //            formats: ['xlsx'],
+ //            filename: 'id',
+ //            bootstrap: false,
+ //            exportButtons: true,
+ //            position: 'top',
+ //            ignoreRows: null,
+ //            ignoreCols: null,
+ //            trimWhitespace: true,
+ //            RTL: false,
+ //            sheetname: ' OT'
+ //        });
+ //    }
 
 
     $("#searchOtApp").click(function(e){
@@ -164,9 +164,9 @@ $(function(){
                 // console.log("success: "+ data);
                 document.getElementById("myDiv").style.display="none"; 
                 $("#OtListTab").html(data);
-                XLSXExportOt();
-                $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // XLSXExportOt();
+                // $(".fa-file-export").remove();
+                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -276,9 +276,9 @@ $(function(){
                 // console.log("success: "+ data);
                 document.getElementById("myDiv").style.display="none"; 
                 $("#WfhListTab").html(data);
-                XLSXExportWfh();
-                $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // XLSXExportWfh();
+                // $(".fa-file-export").remove();
+                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -389,9 +389,9 @@ function XLSXExportOb(){
                 // console.log("success: "+ data);
                 document.getElementById("myDiv").style.display="none"; 
                 $("#ObListTab").html(data);
-                XLSXExportOb();
-                $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // XLSXExportOb();
+                // $(".fa-file-export").remove();
+                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){              
                 document.getElementById("myDiv").style.display="none"; 
@@ -499,9 +499,9 @@ function XLSXExportDtrc(){
                 // console.log("success: "+ data);
                 document.getElementById("myDiv").style.display="none"; 
                 $("#DtrcListTab").html(data);
-                XLSXExportDtrc();
-                $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // XLSXExportDtrc();
+                // $(".fa-file-export").remove();
+                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 

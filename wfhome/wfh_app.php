@@ -39,7 +39,10 @@ Class WfhApp{
                 <div class="col-lg-3">        
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for work from home.." title="Type in work from home details"> 
                         </div>                     
-                </div>         
+                </div>   ';
+                echo"    
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>  ";
+        echo'        
         <table id="WfhListTab" class="table table-striped table-sm">
         <thead>
             <tr>

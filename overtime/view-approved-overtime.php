@@ -123,6 +123,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="../overtime/ot_view.css">
 <script type='text/javascript' src='../leave/viewapp.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>EMPLOYEES OVERTIME APPLICATION</h1>
@@ -309,6 +310,16 @@
 </div><!-- container closing -->
 
   <script type="text/javascript">
+
+    function exportReportToExcel() {
+  let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+  TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+    name: `export_ot.xlsx`, // fileName you could use any name
+    sheet: {
+      name: 'Overtime' // sheetName
+    }
+  });
+} 
 
         
 function myFunction() {

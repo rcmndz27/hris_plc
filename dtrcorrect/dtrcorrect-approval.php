@@ -160,7 +160,7 @@ require '../vendor/autoload.php';
 
         if(isset($ea_date)){
                 if(isset($ea_in) and isset($ea_out)){
-                    $queryn = "UPDATE employee_attendance SET timein = :timein, timeout = :timeout 
+                    $queryn = "UPDATE employee_attendance SET timein = :timein, timeout = :timeout , emp_id = 0
                     WHERE emp_code = :emp_code AND punch_date = :punch_date";
                     $stmtn =$connL->prepare($queryn);
                     $paramn = array(
@@ -171,7 +171,7 @@ require '../vendor/autoload.php';
                     );
                     $stmtn->execute($paramn);
                 }else if(isset($ea_in) and !isset($ea_out)){
-                    $queryn = "UPDATE employee_attendance SET timeout = :timeout
+                    $queryn = "UPDATE employee_attendance SET timeout = :timeout , emp_id = 0
                     WHERE emp_code = :emp_code AND punch_date = :punch_date";
                     $stmtn =$connL->prepare($queryn);
                     $paramn = array(
@@ -181,7 +181,7 @@ require '../vendor/autoload.php';
                     );   
                     $stmtn->execute($paramn);
                 }else{
-                    $queryn = "UPDATE employee_attendance SET timein = :timein
+                    $queryn = "UPDATE employee_attendance SET timein = :timein , emp_id = 0
                     WHERE emp_code = :emp_code AND punch_date = :punch_date";
                     $stmtn =$connL->prepare($queryn);
                     $paramn = array(
@@ -193,13 +193,14 @@ require '../vendor/autoload.php';
                     $stmtn->execute($paramn);                                     
                 }
         }else{
-            $querym = "INSERT INTO employee_attendance (emp_code,name,punch_date,timein,timeout) 
-            VALUES(:emp_code,:name,:punch_date,:timein,:timeout) ";
+            $querym = "INSERT INTO employee_attendance (emp_code,emp_id,name,punch_date,timein,timeout) 
+            VALUES(:emp_code,:emp_id,:name,:punch_date,:timein,:timeout) ";
 
             $stmtm =$connL->prepare($querym);
 
             $paramm = array(
                 ":emp_code"=> substr($empId,3),
+                ":emp_id"=> 0,
                 ":name"=> $n_req,
                 ":punch_date"=> $p_date,
                 ":timein" => $p_in,

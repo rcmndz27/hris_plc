@@ -38,7 +38,10 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <div class="col-lg-3">        
                     <input type="text" id="myInput" class="form-control" onkeyup="myFunction()" placeholder="Search for dtr correction.." title="Type in dtr correction details"> 
                         </div>                     
-                </div>         
+                </div>  ';
+                echo"    
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>  ";
+        echo'         
         <table id="DtrcListTab" class="table table-striped table-sm">
         <thead>
             <tr>

@@ -111,6 +111,7 @@
 </script>
 <script type='text/javascript' src='../leave/viewapp.js'></script>
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
+<script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 <div class="container">
     <div class="section-title">
           <h1>EMPLOYEES LEAVE APPLICATION</h1>
@@ -302,6 +303,17 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
+
+
+function exportReportToExcel() {
+  let table = document.getElementsByTagName("table"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+  TableToExcel.convert(table[0], { // html code may contain multiple tables so here we are refering to 1st table tag
+    name: `export_leave.xlsx`, // fileName you could use any name
+    sheet: {
+      name: 'Leave' // sheetName
+    }
+  });
+} 
 
 
 function myFunction() {
