@@ -117,7 +117,7 @@ require '../vendor/autoload.php';
 
         function ApproveDtrCorrect($empReportingTo,$empId,$rowId){
 
-            global $connL;
+        global $connL;
 
         $rquery = "SELECT firstname+' '+lastname as [fullname],emailaddress FROM employee_profile 
         WHERE emp_code = :empcode";
@@ -185,6 +185,7 @@ require '../vendor/autoload.php';
                     WHERE emp_code = :emp_code AND punch_date = :punch_date";
                     $stmtn =$connL->prepare($queryn);
                     $paramn = array(
+                        ":emp_code"=> $ea_empc,
                         ":emp_code"=> $ea_empc,
                         ":punch_date"=> $ea_date,
                         ":timein" => $p_in
@@ -266,7 +267,7 @@ require '../vendor/autoload.php';
 
         $mail->isHTML(true);                          
         $mail->Subject = 'Approved DTR Correction Request  ';
-        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your dtr correction request #'.$rowid.' has been approved.<br><br>
+        $mail->Body    = '<h1>Hi '.$nrequester.' </b>,</h1>Your dtr correction request #'.$rowId.' has been approved.<br><br>
                         <h2>From: '.$napprover.' <br><br></h2>
                         <h2>Check the request in :
                         <a href="http://124.6.185.87:6868/dtrcorrect/dtrcorrect_app_view.php">DTR Correction Request List</a> 
