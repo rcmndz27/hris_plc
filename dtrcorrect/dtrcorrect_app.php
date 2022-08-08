@@ -71,6 +71,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
             do { 
                 // dtrcdate,timein,timeout,remarks,stts
                 $dtrcdate = "'".date('m-d-Y', strtotime($result['dtrc_date']))."'";
+                $t_in = (isset($result['time_in'])) ? date('h:i A', strtotime($result['time_in'])) : 'n/a';
+                $t_out = (isset($result['time_out'])) ? date('h:i A', strtotime($result['time_out'])) : 'n/a';
                 $timein = "'".date('h:i a', strtotime($result['time_in']))."'";
                 $timeout = "'".date('h:i a', strtotime($result['time_out']))."'";
                 $rmrks = "'".$result['remarks']."'";
@@ -81,8 +83,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <tr>
                 <td>'.date('F d,Y', strtotime($result['dtrc_date'])).'</td>
                 <td>'.$result['fullname'] . '</td>
-                <td>'.date('h:i a', strtotime($result['time_in'])).'</td>
-                <td>'.date('h:i a', strtotime($result['time_out'])).'</td>
+                <td>'.$t_in.'</td>
+                <td>'.$t_out.'</td>
                 <td>'.$result['remarks'] . '</td>
                 <td id="st'.$result['dtrc_id'].'">'.$result['stats'].'</td>';
                 echo'
