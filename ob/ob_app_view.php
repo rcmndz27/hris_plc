@@ -170,6 +170,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                             <div class="row">
+                                <div class=col-md-2>
+                                    <label for="">Approver:</label><span class="req">*</span>
+                                </div>
+                                <div class="col-md-10">                 
+                                    <h5><?php  echo $n_appr; ?></h5>
+                                </div>
+                            </div>                        
                 <input type="text" name="e_req" id="e_req" value="<?php echo $e_req; ?>" hidden>  
                 <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
                 <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>

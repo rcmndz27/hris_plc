@@ -62,7 +62,7 @@
 
 
 
-    function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt){
+    function viewLeaveModal(datefl,leavedesc,leavetyp,datefr,dateto,remark,appdays,appr_oved,actlcnt,appr_over){
 
         $('#viewLeaveModal').modal('toggle');
         document.getElementById('datefl').value =  datefl;   
@@ -74,6 +74,7 @@
         document.getElementById('appdays').value =  appdays;  
         document.getElementById('appr_oved').value =  appr_oved;  
         document.getElementById('actlcnt').value =  actlcnt;        
+        document.getElementById('appr_over').value =  appr_over;        
 }
 
     function viewLeaveHistoryModal(lvlogid)
@@ -214,14 +215,21 @@ function cancelLeave(lvid,empcd)
                     </button>
                 </div>
 
-                <!-- <?php echo json_encode($totalVal) ;?> -->
                 <div class="modal-body">
+                             <div class="row">
+                                <div class=col-md-2>
+                                    <label for="">Approver:</label><span class="req">*</span>
+                                </div>
+                                <div class="col-md-10">                 
+                                    <h5><?php  echo $n_appr; ?></h5>
+                                </div>
+                            </div> 
                 <input type="text" name="e_req" id="e_req" value="<?php echo $e_req; ?>" hidden>  
                 <input type="text" name="n_req" id="n_req" value="<?php echo $n_req; ?>" hidden>
                 <input type="text" name="e_appr" id="e_appr" value="<?php echo $e_appr; ?>" hidden>
                 <input type="text" name="n_appr" id="n_appr" value="<?php  echo $n_appr; ?>" hidden>
                      <?php $leaveApp->GetLeaveType(); ?>
-                        <div id="leavepay">
+                        <div id="leavepay">                           
                             <div class="row">
                                 <div class=col-md-2>
                                     <label for="">Leave Pay:</label><span class="req">*</span>
@@ -534,12 +542,18 @@ function cancelLeave(lvid,empcd)
                                         <input type="text" id="appdays" name="appdays" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="leavedesc">Description</label>
                                         <input type="text" id="leavedesc" name="leavedesc" class="form-control" readonly>
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="leavedesc">Approver</label>
+                                        <input type="text" id="appr_over" name="appr_over" class="form-control" readonly>
+                                    </div>
+                                </div>                                
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="remark">Remarks</label>

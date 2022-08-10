@@ -52,7 +52,7 @@ $(function(){
                         url: "../overtime/overtime-approval-process.php",
                         data: {data:param} ,
                         success: function (data){
-                            console.log("success: "+ data);
+                            // console.log("success: "+ data);
                             swal({
                             title: "Approved!", 
                             text: "Successfully approved overtime!", 
