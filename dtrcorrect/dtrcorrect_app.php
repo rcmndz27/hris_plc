@@ -260,7 +260,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,* FROM dbo.tr_dtrcorrect where emp_code = :emp_code ORDER BY dtrc_date DESC";
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid as rowdy,b.firstname+' '+b.lastname as approver, * FROM dbo.tr_dtrcorrect a
+        left join employee_profile b on a.reporting_to = b.emp_code where a.emp_code = :emp_code ORDER BY dtrc_date DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -276,8 +277,9 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 $timeout = "'".$t_out."'";
                 $rmrks = "'".$result['remarks']."'";
                 $stts = "'".$result['stats']."'";
-                $dtrcid = "'".$result['rowid']."'";
+                $dtrcid = "'".$result['rowdy']."'";
                 $empcode = "'".$result['emp_code']."'";
+                $appr_over = "'".$result['approver']."'";
 
                 echo '
                 <tr>
@@ -285,10 +287,10 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <td>'.$t_in.'</td>
                 <td>'.$t_out.'</td>
                 <td>'.$result['remarks'] .'</td>
-                <td id="st'.$result['rowid'].'">'.$result['stats'].'</td>';
+                <td id="st'.$result['rowdy'].'">'.$result['stats'].'</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
+                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
                     <i class="fas fa-binoculars"></i>
                 </button>
                 <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
@@ -300,7 +302,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
+                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
                         <i class="fas fa-binoculars"></i>
                     </button>
                     <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">

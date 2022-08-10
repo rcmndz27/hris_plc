@@ -275,7 +275,9 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,* FROM dbo.tr_overtime where emp_code = :emp_code ORDER BY ot_date DESC";
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid as rowdy,b.firstname+' '+b.lastname as approver,* FROM dbo.tr_overtime a
+                    left join employee_profile b on a.reporting_to = b.emp_code
+                    where a.emp_code = :emp_code ORDER BY ot_date DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -290,9 +292,10 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 $remark = "'".(isset($result['remarks']) ? $result['remarks'] : 'n/a')."'";
                 $otreqhrs = "'".$result['ot_req_hrs']."'";
                 $otrenhrs = "'".$result['ot_ren_hrs']."'";
+                $appr_over = "'".$result['approver']."'";
                 $rejectreason = "'".(isset($result['reject_reason']) ? $result['reject_reason'] : 'n/a')."'";
                 $stats = "'".$result['stats']."'";
-                $otid = "'".$result['rowid']."'";
+                $otid = "'".$result['rowdy']."'";
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
@@ -303,10 +306,10 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td>' . round($result['ot_req_hrs'],2) . '</td> 
                 <td>' . round($result['ot_ren_hrs'],2) . '</td>
                 <td>' . $result['remarks'] . '</td>
-                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
+                <td id="st'.$result['rowdy'].'">' . $result['stats'] . '</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
@@ -318,7 +321,7 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                             </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">

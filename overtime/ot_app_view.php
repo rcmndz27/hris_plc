@@ -53,7 +53,7 @@
 
 <script type="text/javascript">
     
-    function viewOtModal(otdate,ottype,otstartdtime,otenddtime,remark,otreqhrs,otrenhrs,rejectreason,stats){
+    function viewOtModal(otdate,ottype,otstartdtime,otenddtime,remark,otreqhrs,otrenhrs,rejectreason,stats,approver){
         $('#viewOtModal').modal('toggle');
         document.getElementById('otdatev').value =  otdate;   
         document.getElementById('ottypev').value =  ottype;  
@@ -63,7 +63,8 @@
         document.getElementById('otreqhrsv').value =  otreqhrs;  
         document.getElementById('otrenhrsv').value =  otrenhrs;  
         document.getElementById('rejectreasonv').value =  rejectreason;    
-        document.getElementById('statsv').value =  stats;                                     
+        document.getElementById('statsv').value =  stats;
+        document.getElementById('approver').value =  approver;                                     
     }
 
     function viewOtHistoryModal(lvlogid)
@@ -304,12 +305,18 @@
                                         <input type="text" id="otrenhrsv" name="otrenhrsv" class="form-control" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="remarkv">Description</label>
                                         <input type="text" id="remarkv" name="remarkv" class="form-control" readonly>
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="remarkv">Approver</label>
+                                        <input type="text" id="approver" name="approver" class="form-control" readonly>
+                                    </div>
+                                </div>                                
                                 <div class="col-lg-8">
                                     <div class="form-group">
                                         <label class="control-label" for="rejectreasonv">Reject Reason</label>

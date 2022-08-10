@@ -53,14 +53,15 @@
 <script type="text/javascript">
     
 
-    function viewObModal(obdestination,obdate,obtime,obpurpose,obpercmp,stats){
+    function viewObModal(obdestination,obdate,obtime,obpurpose,obpercmp,stats,approver){
             $('#viewObModal').modal('toggle');
             document.getElementById('obdestination').value =  obdestination;   
             document.getElementById('obdate').value =  obdate;  
             document.getElementById('obtime').value =  obtime;  
             document.getElementById('obpurpose').value =  obpurpose;  
             document.getElementById('obpercmp').value =  obpercmp;  
-            document.getElementById('stats').value =  stats;                                         
+            document.getElementById('stats').value =  stats;   
+            document.getElementById('approver').value =  approver;                                         
     }
 
     function viewObHistoryModal(lvlogid)
@@ -300,7 +301,13 @@
                                         <label class="control-label" for="obpurpose">Purpose</label>
                                         <input type="text" id="obpurpose" name="obpurpose" class="form-control" readonly>
                                     </div>
-                                </div>         
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="approver">Approver</label>
+                                        <input type="text" id="approver" name="approver" class="form-control" readonly>
+                                    </div>
+                                </div>                                            
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">

@@ -261,7 +261,8 @@ Class ObApp{
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,* FROM dbo.tr_offbusiness where emp_code = :emp_code ORDER BY date_filed DESC";
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid as rowdy,b.firstname+' '+b.lastname as approver,* FROM dbo.tr_offbusiness 
+                    a left join employee_profile b on a.ob_reporting = b.emp_code where a.emp_code = :emp_code ORDER BY date_filed DESC";
         $param = array(':emp_code' => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -276,7 +277,8 @@ Class ObApp{
                 $obpurpose = "'".$result['ob_purpose']."'";
                 $obpercmp = "'".$result['ob_percmp']."'";
                 $stats = "'".$result['stats']."'";
-                $obid = "'".$result['rowid']."'";
+                $obid = "'".$result['rowdy']."'";
+                $appr_over = "'".$result['approver']."'";
                 $empcode = "'".$result['emp_code']."'";
                 echo '
                 <tr>
@@ -285,10 +287,10 @@ Class ObApp{
                 <td>' . date('h:i a', strtotime($result['ob_time'])) . '</td>
                 <td>' . $result['ob_purpose'] . '</td>
                 <td>' . $result['ob_percmp'] . '</td>
-                <td id="st'.$result['rowid'].'">' . $result['stats'] . '</td>';
+                <td id="st'.$result['rowdy'].'">' . $result['stats'] . '</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewObHistoryModal('.$obid.')" title="View Logs">
@@ -300,7 +302,7 @@ Class ObApp{
                             </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="hactv" onclick="viewObModal('.$obdestination.','.$obdate.','.$obtime.','.$obpurpose.','.$obpercmp.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewObHistoryModal('.$obid.')" title="View Logs">

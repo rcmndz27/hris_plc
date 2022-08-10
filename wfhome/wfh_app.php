@@ -288,8 +288,9 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
         $query = "SELECT (CASE when status = 1 then 'PENDING'
                     when   status = 2 then 'APPROVED'
                     when   status = 3 then 'REJECTED'
-                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+                    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,c.firstname+' '+c.lastname as approver,* 
                     FROM dbo.tr_workfromhome a
+                    left join employee_profile c on a.reporting_to = c.emp_code
                     left join employee_attendance b
                     on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
                     and a.wfh_date = b.punch_date where a.emp_code = :emp_code ORDER BY wfh_date DESC";
@@ -308,6 +309,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                 $wfhpercentage = "'".$result['wfh_percentage']."'";
                 $wfhstats = "'".$result['stats']."'";
                 $wfhid = "'".$result['wfhid']."'";
+                $appr_over = "'".$result['approver']."'";
                 $empcode = "'".$result['empcd']."'";
                 $attid = "'".$result['attid']."'";
                 echo "
@@ -322,7 +324,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                 <td id='st".$result['wfhid']."'>" . $result['stats']."</td>";
                 if($result['stats'] == 'PENDING'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.','.$appr_over.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
@@ -334,7 +336,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             </td>';
                 }else if($result['stats'] == 'APPROVED'and $result['wfh_date'] == date('Y-m-d')){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.','.$appr_over.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
@@ -358,7 +360,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             }
                 }else if($result['stats'] == 'APPROVED' and $result['wfh_date'] <> date('Y-m-d') and !isset($result['timein']) and !isset($result['timeout'])){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.','.$appr_over.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
@@ -370,7 +372,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
 
                 }else if($result['stats'] == 'CANCELLED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.','.$appr_over.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">
@@ -379,7 +381,7 @@ public function GetAllWfhRepHistory($date_from,$date_to,$empCode){
                             </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.')" title="View Work From Home">
+                <td><button type="button" class="hactv" onclick="viewWfhModal('.$wfhdate.','.$wfhtask.','.$wfhoutput.','.$wfhoutput2.','.$wfhpercentage.','.$wfhstats.','.$appr_over.')" title="View Work From Home">
                                 <i class="fas fa-binoculars"></i>
                             </button>
                             <button type="button" class="hdeactv" onclick="viewWfhHistoryModal('.$wfhid.')" title="View Logs">

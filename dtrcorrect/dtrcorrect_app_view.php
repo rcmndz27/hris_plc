@@ -51,14 +51,15 @@
 <script type="text/javascript">
 
 
-    function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts){
+    function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts,approver){
    
     $('#viewdtrcorrectModal').modal('toggle');
         document.getElementById('dtrcdate').value =  dtrcdate;   
         document.getElementById('timein').value =  timein;  
         document.getElementById('timeout').value =  timeout;  
         document.getElementById('rmrks').value =  rmrks;  
-        document.getElementById('stts').value =  stts;                          
+        document.getElementById('stts').value =  stts; 
+        document.getElementById('approver').value =  approver;                          
     }
 
     function viewdtrcorrectHistoryModal(lvlogid)
@@ -310,7 +311,13 @@
                                         <label class="control-label" for="rmrks">Reason</label>
                                         <input type="text" id="rmrks" name="rmrks" class="form-control" readonly>
                                     </div>
-                                </div>         
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="approver">Approver</label>
+                                        <input type="text" id="approver" name="approver" class="form-control" readonly>
+                                    </div>
+                                </div>                                             
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">

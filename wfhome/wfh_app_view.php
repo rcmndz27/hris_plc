@@ -51,7 +51,7 @@
 <script type="text/javascript">
     
 
-        function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhoutput2,wfhpercentage,wfhstats){
+        function viewWfhModal(wfhdate,wfhtask,wfhoutput,wfhoutput2,wfhpercentage,wfhstats,approver){
    
         $('#viewWfhModal').modal('toggle');
         document.getElementById('wfhdates').value =  wfhdate;   
@@ -59,7 +59,8 @@
         document.getElementById('wfhoutput').value =  wfhoutput;  
         document.getElementById('wfhoutput2').value =  wfhoutput2;  
         document.getElementById('wfhpercentage').value =  wfhpercentage;  
-        document.getElementById('wfhstats').value =  wfhstats;                          
+        document.getElementById('wfhstats').value =  wfhstats;  
+        document.getElementById('approver').value =  approver;                          
     }
 
     function viewWfhHistoryModal(lvlogid)
@@ -520,7 +521,13 @@ function timeOutModal(lvid,empcd,attid){
                                         <label class="control-label" for="wfhoutput2">Output</label>
                                         <input type="text" id="wfhoutput2" name="wfhoutput2" class="form-control" readonly>                                        
                                     </div>
-                                </div>                                         
+                                </div>  
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Approver">Approver</label>
+                                        <input type="text" id="approver" name="approver" class="form-control" readonly>                                        
+                                    </div>
+                                </div>                                                                        
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
