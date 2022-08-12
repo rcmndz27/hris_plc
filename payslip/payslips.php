@@ -32,6 +32,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                 $totslvl_amt = ($r['sl']+$r['vl'])*$r['daily_pay'];
                 $others = $r['salary_allowance']+$r['oot_allowance']+$r['inc_allowance']+$r['disc_allowance'];
                 $bscamount = $totworkamt+$totslvl_amt-$r['absences']-$r['late']-$r['undertime'];
+                $tdwork = $r['tot_days_work'] + $r['att_offbusiness'] + $r['att_wfhome'];
 
                 echo "<tr>".
                     "<th colspan='3' class='erdc'>EARNINGS</th>".
@@ -45,7 +46,7 @@ function GetPayslipsList($action, $dtFrom, $dtTo,$empCode){
                     "</tr>
                     <tr>".
                         "<td>Total Days:</td>".
-                        "<td class='cnto'>".number_format($r['tot_days_work'],2,".", ",")."</td>".
+                        "<td class='cnto'>".number_format($tdwork,2,".", ",")."</td>".
                         "<td class='camt'>₱ ".number_format($totworkamt,2,".", ",")."</td>".
                         "<td colspan='2' class='erdc'>Witholding Tax:</td>". 
                         "<td colspan='1' class='cnto'>₱ ".number_format($r['witholding_tax'],2,".", ",")."</td>". 
