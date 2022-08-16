@@ -120,28 +120,11 @@ require '../vendor/autoload.php';
     function ViewLeaveSummaryList($employee){
         global $connL;
 
-        $query = 'SELECT 
-        view_employee.emp_code, 
-        view_employee.employee,
-        10 leavebegbal, 
-        used, 
-        pending, 
-        earned_sl, 
-        earned_vl,
-        pending_sum
-        FROM view_employee
-        INNER JOIN LeaveCount leavecount ON leavecount.emp_code = view_employee.emp_code  
-        INNER JOIN tr_leave ON view_employee.emp_code = tr_leave.emp_code  
-        WHERE tr_leave.approval = :reporting_to
-        GROUP BY view_employee.emp_code, 
-        view_employee.employee,  
-        used, 
-        pending, 
-        earned_sl, 
-        earned_vl,
-        pending_sum
-        ORDER BY view_employee.emp_code
-        ';
+        $query = 'SELECT count(a.rowid) as pending,a.emp_code,a.employee,COALESCE(b.earned_vl,0) as earned_vl,COALESCE(b.earned_sl,0) as earned_sl 
+        FROM tr_leave a left join employee_leave b
+        on a.emp_code = b.emp_code
+        WHERE a.approval = :reporting_to and a.approved  =  1
+        GROUP by a.emp_code,a.employee,b.earned_sl,b.earned_vl';
 
         $param = array(':reporting_to' => $employee);
         $stmt =$connL->prepare($query);
@@ -156,8 +139,6 @@ require '../vendor/autoload.php';
                 </tr>
                 <tr>
                     <th class="text-center">Employee</th>
-                    <th class="text-center">Beginning</th>
-                    <th class="text-center">Used</th>
                     <th class="text-center">Pending</th>
                     <th class="text-center">Sick Leave</th>
                     <th class="text-center">Vacation Leave</th>
@@ -173,17 +154,14 @@ require '../vendor/autoload.php';
                 $begbal = (isset($result['leavebegbal']) ? $result['leavebegbal'] : 0);
                 $used = (isset($result['used']) ? $result['used'] : 0);
                 $pending = (isset($result['pending']) ? floatval($result['pending']) : 0);
-                $pending_sum = (isset($result['pending_sum']) ? floatval($result['pending_sum']) : 0);
                 $earned_sl = (isset($result['earned_sl']) ? $result['earned_sl'] : 0);
                 $earned_vl = (isset($result['earned_vl']) ? $result['earned_vl'] : 0);
 
-                $totalPending = $pending+$pending_sum;
+                $totalPending = $pending;
 
                 echo'
                 <tr>
                     <td>'.$result['employee'].'</td>'.
-                    '<td class="text-center">'. round($begbal,2) .'</td>'.
-                    '<td class="text-center">'. round($used,2) .'</td>'.
                     '<td><button class="penLeave btnPending" id="'.$result['emp_code'].'" type="submit">'. $totalPending .'</button>
                     <button id="alertleave" value="'. $totalPending .'" hidden></button></td></td>'.
                     '<td class="text-center">'. round($earned_sl,2) .'</td>'.
