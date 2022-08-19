@@ -129,7 +129,7 @@
     $spstmt =$connL->prepare($spquery);
     $spstmt->execute($spparam);
     $spresult = $spstmt->fetch();
-    $wfhd =  (isset($spresult['wfh_date'])) ? $spresult['wfh_date'] : null ;
+    $wfhd =  $spresult['wfh_date']  ;
     $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
     $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
     $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
@@ -519,6 +519,8 @@ function timeOutModal(lvid,empcd,attid){
                                 <i class="fas fa-hand-paper"> Time-Out </i>
                             </button>                            
                             </td>';
+
+                            }else{
 
                             }
                     }else{
