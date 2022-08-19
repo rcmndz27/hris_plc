@@ -205,7 +205,7 @@
     $spstmt =$connL->prepare($spquery);
     $spstmt->execute($spparam);
     $spresult = $spstmt->fetch();
-    $wfhd =  $spresult['wfh_date'];
+    $wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : null ;
     $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
     $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
     $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
