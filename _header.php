@@ -121,7 +121,7 @@ rel="stylesheet">
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-  <!-- <script type="text/javascript" src='../js/script.js'></script> -->
+<!-- <script type="text/javascript" src='../js/script.js'></script> -->
   </head>
 <body>
 <div id = "myDiv" style="display:none;" class="loader"></div>

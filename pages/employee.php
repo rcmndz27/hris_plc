@@ -10,12 +10,18 @@
     {
       include_once('../_header.php');
 
-      $empInfo = new EmployeeInformation();
-      $empInfo->SetEmployeeInformation($_SESSION['userid']);
-      $empCode = $empInfo->GetEmployeeCode();
+    $empInfo = new EmployeeInformation();
+    $empInfo->SetEmployeeInformation($_SESSION['userid']);
+    $empCode = $empInfo->GetEmployeeCode();
 
     global $connL;
     global $dbConnection;
+
+    //BIRTHDAY CELEBRANTS
+    $queryu = "SELECT * from employee_profile where month(birthdate) = month(GETDATE())";
+    $stmtu =$connL->prepare($queryu);
+    $stmtu->execute();
+    $resultu = $stmtu->fetch();
 
 
     //GET COMPANY
@@ -199,14 +205,11 @@
     $spstmt =$connL->prepare($spquery);
     $spstmt->execute($spparam);
     $spresult = $spstmt->fetch();
-    $wfhd = $spresult['wfh_date'];
+    $wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : '' ;
     $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
     $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
     $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
     }
-
-    
-    
 
 ?>
 <script type="text/javascript">
@@ -604,37 +607,37 @@ function timeOutModal(lvid,empcd,attid){
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">LATE - UNDERTIME - OVERTIME <?php echo date("Y") ?> </h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Late
-                                            <button id='late' value="<?php echo $latepct; ?>" hidden></button>
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Undertime
-                                            <button id='udtime' value="<?php echo $udpct; ?>" hidden></button>
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Overtime
-                                            <button id='ottime' value="<?php echo $otpct; ?>" hidden></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">BIRTHDAY CELEBRANTS <?php echo strtoupper(date("M Y")) ?> </h6>
+        </div>
+        <!-- Card Body -->
+
+        <div class="card-body">
+              <?php  
+                if($resultu){
+                    $ppic = (isset($resultu['emp_pic_loc'])) ? $resultu['emp_pic_loc'] : 'nophoto.jpg' ;
+
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:40px;height:40px;" src="../img/'.$ppic.'"></h6>
                     </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                      '.$resultu['firstname'].' '.$resultu['lastname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultu = $stmtu->fetch());
+                     }
+                                                        
+                ?>             
+            </div>
+        </div>
+    </div>
+</div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -648,10 +651,11 @@ function timeOutModal(lvid,empcd,attid){
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
+
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
 <?php include('../_footer.php');  ?>
 
     <!-- Bootstrap core JavaScript-->
