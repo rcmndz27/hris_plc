@@ -272,10 +272,6 @@ rel="stylesheet">
                  }else{
                    $apprf = '';
                  }   
-// <li><a href='../overtimeadjustment/overtimeadjustmentlist_view.php' onclick='show()'>Overtime Adjustment Management</a></li> 
-// <li><a href='../allowancesadjustment/allowancesadjustmentlist_view.php' onclick='show()'>Allowances Adjustment Management</a></li>  
-// <li><a href='../payroll/payroll_view_report.php' onclick='show()'>Payroll Register Report</a></li>                         
-                            
                 switch(trim($empUserType)){
                     case "Admin":
                     case "President":

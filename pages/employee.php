@@ -337,15 +337,8 @@ function timeOutModal(lvid,empcd,attid){
 
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <body id="page-top" style="background-color: #f8f9fc;height:100%;overflow: hidden;">
-
-
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
 
 <div class="modal fade" id="timeInModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
