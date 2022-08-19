@@ -18,7 +18,7 @@
     global $dbConnection;
 
     //BIRTHDAY CELEBRANTS
-    $queryu = "SELECT * from employee_profile where month(birthdate) = month(GETDATE())";
+    $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
     $stmtu =$connL->prepare($queryu);
     $stmtu->execute();
     $resultu = $stmtu->fetch();
