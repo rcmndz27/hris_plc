@@ -611,7 +611,7 @@ function timeOutModal(lvid,empcd,attid){
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">BIRTHDAY CELEBRANTS <?php echo strtoupper(date("M Y")) ?> </h6>
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-birthday-cake"></i> BIRTHDAY CELEBRANTS <?php echo strtoupper(date("M Y")) ?> </h6>
         </div>
         <!-- Card Body -->
 
