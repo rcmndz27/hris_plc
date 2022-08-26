@@ -20,7 +20,26 @@
     $stmtu =$connL->prepare($queryu);
     $stmtu->execute();
     $resultu = $stmtu->fetch();
-    
+
+    //NO TIME-IN
+    $queryl = "SELECT lastname+','+firstname as [fullname],emp_pic_loc from employee_profile where ranking = 1 and emp_status = 'Active' and badgeno not in (SELECT a.emp_code from employee_attendance a left join employee_profile b on a.emp_code = b.badgeno where a.punch_date = CONVERT(date, GETDATE()) and b.emp_status = 'Active')";
+    $stmtl =$connL->prepare($queryl);
+    $stmtl->execute();
+    $resultl = $stmtl->fetch();    
+
+    //LATES TODAY
+    $queryp = 'EXEC hrissys_test.dbo.xp_attendance_portal_late_admin';
+    $stmtp =$connL->prepare($queryp);
+    $stmtp->execute();
+    $resultp = $stmtp->fetch();    
+
+
+    //SCHED TODAY
+    $queryy = 'EXEC hrissys_test.dbo.xp_attendance_portal_schedtoday';
+    $stmty =$connL->prepare($queryy);
+    $stmty->execute();
+    $resulty = $stmty->fetch();       
+
     //GET COMPANY
     $query = "SELECT * from employee_profile where emp_code = :empcode";
     $stmt =$connL->prepare($query);
@@ -378,126 +397,126 @@ function timeOutModal(lvid,empcd,attid){
     <!-- end time out wfh -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-md-12 pt-5">
+        <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12 pt-5">
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-md-12 pt-5">
+                </div>
+            </div>                    
+
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- All Act Emp-->
+                 <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All Active Employee
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $empcnt; ?></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar allact" role="progressbar"
+                                                    style="width: <?php echo $empcntpct; ?>%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                      <div class="row">
-                        <div class="col-md-12 pt-5">
-                        </div>
-                    </div>                    
+                </div>                        
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- All Act Emp-->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
+                <!-- All Inact Emp-->
+                 <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">All Inactive Employee
+                                    </div>
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All Active Employee
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $empcnt; ?></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar allact" role="progressbar"
-                                                            style="width: <?php echo $empcntpct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $empcnti; ?></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar allinact" role="progressbar"
+                                                    style="width: <?php echo $empcntipct; ?>%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>                        
-
-                        <!-- All Inact Emp-->
-                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">All Inactive Employee
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $empcnti; ?></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar allinact" role="progressbar"
-                                                            style="width: <?php echo $empcntipct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-users-slash fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users-slash fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!--Male-->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Male
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $male; ?></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: <?php echo $malepct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-male fa-2x text-gray-300"></i>
-                                        </div>
+                <!--Male-->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Male
                                     </div>
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Female
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $female; ?></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar female" role="progressbar"
-                                                            style="width: <?php echo $femalepct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-female fa-2x text-gray-300"></i>
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $male; ?></div>
                                         </div>
-                                    </div>                                    
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width: <?php echo $malepct; ?>%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-male fa-2x text-gray-300"></i>
                                 </div>
                             </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Female
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $female; ?></div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar female" role="progressbar"
+                                                    style="width: <?php echo $femalepct; ?>%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-female fa-2x text-gray-300"></i>
+                                </div>
+                            </div>                                    
                         </div>
+                    </div>
+                </div>
                         
     <!-- time in -->
      <div class="col-xl-3 col-md-6 mb-4">
@@ -512,7 +531,6 @@ function timeOutModal(lvid,empcd,attid){
                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $timeinf; ?>
 
                     <?php  
-
                     if(isset($wfhd)){
                             if(empty($spresult['timein']) && empty($spresult['timeout'])){
                                 echo'
@@ -538,7 +556,7 @@ function timeOutModal(lvid,empcd,attid){
                         </div>
                     </div>
                     <div class="col-auto py-2">
-                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                        <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                     </div>
                 </div>
 
@@ -551,34 +569,103 @@ function timeOutModal(lvid,empcd,attid){
 
                     <!-- Content Row -->
 
-                    <div class="row">
+<div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">ACTIVE EMPLOYEE SUMMARY</h6>
-                                    <button id='allemp' value="<?php echo $empcnt; ?>" hidden></button>
-                                    <button id='leave' value="<?php echo $leave; ?>" hidden></button>
-                                    <button id='otf' value="<?php echo $ot; ?>" hidden></button>
-                                    <button id='wfht' value="<?php echo $wfh; ?>" hidden></button>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myBarChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-birthday-cake"></i> BIRTHDAY CELEBRANTS <?php echo strtoupper(date("M Y")) ?> </h6>
+            <h6 class="m-0 font-weight-bold text-primary">NO TIME-IN : <?php echo strtoupper(date("F d, Y")) ?> <i class="fas fa-clock"></i></h6>
+        </div>
+        <!-- Card Body -->
+
+        <div class="card-body">
+              <?php  
+                if($resultl){
+                    $ppic = (isset($resultl['emp_pic_loc'])) ? $resultl['emp_pic_loc'] : 'nophoto.jpg' ;
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/'.$ppic.'"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                      '.$resultl['fullname'].'</b>  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultl = $stmtl->fetch());
+                     }                                                        
+                ?>            
+            </div>
+        </div>
+    </div>      
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">SCHEDULE TODAY: <?php echo strtoupper(date("F d, Y")) ?> <i class="fas fa-calendar"></i>  </h6>
+        </div>
+        <!-- Card Body -->
+
+        <div class="card-body">
+              <?php  
+                if($resulty){
+                    $ppic = (isset($resulty['emp_pic_loc'])) ? $resulty['emp_pic_loc'] : 'nophoto.jpg' ;
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/'.$ppic.'"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                     '.$resulty['fullname'].'</b><br>Schedule: '.$resulty['remarks'].'  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resulty = $stmty->fetch());
+                     }                                                        
+                ?>                        
+        </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">TOTAL LATES : <?php echo strtoupper(date("M Y")) ?> <i class="fas fa-calendar"></i>  </h6>
+        </div>
+        <!-- Card Body -->
+
+        <div class="card-body">
+              <?php  
+                if($resultp){
+                    $ppic = (isset($resultp['emppic'])) ? $resultp['emppic'] : 'nophoto.jpg' ;
+
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                      '.$resultp['fullname'].'</b><br>Late (Hrs): '.number_format($resultp['tot_late'],2,".", ",").'  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultp = $stmtp->fetch());
+                     }
+                                                        
+                ?>            
+        </div>
+        </div>
+    </div>
+  
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">BIRTHDAY CELEBRANTS : <?php echo strtoupper(date("M Y")) ?>  <i class="fas fa-birthday-cake"></i>  </h6>
         </div>
         <!-- Card Body -->
 
@@ -590,10 +677,10 @@ function timeOutModal(lvid,empcd,attid){
                     do { 
                 echo ' <div class="row">
                     <div class="col-sm-1">
-                      <h6 class="mb-0"><img class="rounded-circle" style="width:40px;height:40px;" src="../img/'.$ppic.'"></h6>
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
                     </div>
                     <div class="col-sm-9 text-secondary"><b>
-                      '.$resultu['firstname'].' '.$resultu['lastname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
+                      '.$resultu['lastname'].', '.$resultu['firstname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
                     </div>
                   </div><hr style="margin:5;">  ';
                         
