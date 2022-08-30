@@ -15,30 +15,30 @@
 
     global $connL;
 
-    //BIRTHDAY CELEBRANTS
-    $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
-    $stmtu =$connL->prepare($queryu);
-    $stmtu->execute();
-    $resultu = $stmtu->fetch();
+//BIRTHDAY CELEBRANTS
+$queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
+$stmtu =$connL->prepare($queryu);
+$stmtu->execute();
+$resultu = $stmtu->fetch();
 
-    //NO TIME-IN
-    $queryl = "SELECT lastname+','+firstname as [fullname],emp_pic_loc from employee_profile where ranking = 1 and emp_status = 'Active' and badgeno not in (SELECT a.emp_code from employee_attendance a left join employee_profile b on a.emp_code = b.badgeno where a.punch_date = CONVERT(date, GETDATE()) and b.emp_status = 'Active')";
-    $stmtl =$connL->prepare($queryl);
-    $stmtl->execute();
-    $resultl = $stmtl->fetch();    
+//NO TIME-IN
+$queryl = "SELECT lastname+','+firstname as [fullname],emp_pic_loc from employee_profile where ranking = 1 and emp_status = 'Active' and badgeno not in (SELECT a.emp_code from employee_attendance a left join employee_profile b on a.emp_code = b.badgeno where a.punch_date = CONVERT(date, GETDATE()) and b.emp_status = 'Active')";
+$stmtl =$connL->prepare($queryl);
+$stmtl->execute();
+$resultl = $stmtl->fetch();    
 
-    //LATES TODAY
-    $queryp = 'EXEC hrissys_test.dbo.xp_attendance_portal_late_admin';
-    $stmtp =$connL->prepare($queryp);
-    $stmtp->execute();
-    $resultp = $stmtp->fetch();    
+//LATES TODAY
+$queryp = 'EXEC hrissys_test.dbo.xp_attendance_portal_late_admin';
+$stmtp =$connL->prepare($queryp);
+$stmtp->execute();
+$resultp = $stmtp->fetch();    
 
 
-    //SCHED TODAY
-    $queryy = 'EXEC hrissys_test.dbo.xp_attendance_portal_schedtoday';
-    $stmty =$connL->prepare($queryy);
-    $stmty->execute();
-    $resulty = $stmty->fetch();       
+//SCHED TODAY
+$queryy = 'EXEC hrissys_test.dbo.xp_attendance_portal_schedtoday';
+$stmty =$connL->prepare($queryy);
+$stmty->execute();
+$resulty = $stmty->fetch();       
 
     //GET COMPANY
     $query = "SELECT * from employee_profile where emp_code = :empcode";
@@ -580,7 +580,7 @@ function timeOutModal(lvid,empcd,attid){
         </div>
         <!-- Card Body -->
 
-        <div class="card-body">
+        <div class="card-body cdbody">
               <?php  
                 if($resultl){
                     $ppic = (isset($resultl['emp_pic_loc'])) ? $resultl['emp_pic_loc'] : 'nophoto.jpg' ;
@@ -609,7 +609,7 @@ function timeOutModal(lvid,empcd,attid){
         </div>
         <!-- Card Body -->
 
-        <div class="card-body">
+        <div class="card-body cdbody">
               <?php  
                 if($resulty){
                     $ppic = (isset($resulty['emp_pic_loc'])) ? $resulty['emp_pic_loc'] : 'nophoto.jpg' ;
@@ -636,8 +636,7 @@ function timeOutModal(lvid,empcd,attid){
             <h6 class="m-0 font-weight-bold text-primary">TOTAL LATES : <?php echo strtoupper(date("M Y")) ?> <i class="fas fa-calendar"></i>  </h6>
         </div>
         <!-- Card Body -->
-
-        <div class="card-body">
+        <div class="card-body cdbody">
               <?php  
                 if($resultp){
                     $ppic = (isset($resultp['emppic'])) ? $resultp['emppic'] : 'nophoto.jpg' ;
@@ -669,7 +668,7 @@ function timeOutModal(lvid,empcd,attid){
         </div>
         <!-- Card Body -->
 
-        <div class="card-body">
+        <div class="card-body cdbody">
               <?php  
                 if($resultu){
                     $ppic = (isset($resultu['emp_pic_loc'])) ? $resultu['emp_pic_loc'] : 'nophoto.jpg' ;

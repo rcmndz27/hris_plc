@@ -65,30 +65,6 @@ if (!empty($_POST['loginSubmit']))
                 $url = 'pages/index.php';
                 $url_2 = 'pages/index.php';
 
-
-                // $query_pay = $dbConnection->prepare('EXEC hrissys_dev.dbo.LoadEmployeeDTRDetails');
-                // $query_pay->execute(); 
-
-                // if ($userid == 'PMI12000001' || $userid == 'PMI18000072')
-                // {
-                //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
-                //     $ins->bindParam(":id", $userid, PDO::PARAM_STR);
-                //     $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
-                //     $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
-                //     $ins->execute();
-
-                //     header("Location: $url");
-                // }
-                // else
-                // {
-            //     $ins = $connL->prepare(@"INSERT INTO dbo.logs VALUES(:id, :act, :date)");
-                //     $ins->bindParam(":id", $userid, PDO::PARAM_STR);
-                //     $ins->bindParam(":act", $action_s, PDO::PARAM_STR);
-                //     $ins->bindParam(":date", $dateatt, PDO::PARAM_STR);
-                //     $ins->execute();
-                    
-                //     header("Location: $url");
-                // }
             }
             else
             {

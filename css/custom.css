@@ -17,6 +17,12 @@ table   {
     color: red;
 }
 
+.cdbody{
+
+    height: 300px;
+    overflow: auto;
+}
+
 .chart-area {
   position: relative;
   height: 10rem;
