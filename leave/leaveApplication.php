@@ -26,28 +26,28 @@ Class LeaveApplication{
         $stmt->execute($param);
         $result = $stmt->fetch();  
 
-        $querys = "SELECT count(rowid) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
+        $querys = "SELECT count(actl_cnt) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
         and leavetype in ('Sick Leave')";
         $stmts =$connL->prepare($querys);
         $params = array(":empCode" => $this->employeeCode);
         $stmts->execute($params);
         $results = $stmts->fetch();
 
-        $queryv = "SELECT count(rowid) as cnt_vl from tr_leave where approved = 2 and emp_code  = :empCode 
+        $queryv = "SELECT count(actl_cnt) as cnt_vl from tr_leave where approved = 2 and emp_code  = :empCode 
         and leavetype in ('Vacation Leave','Emergency Leave')";
         $stmtv =$connL->prepare($queryv);
         $paramv = array(":empCode" => $this->employeeCode);
         $stmtv->execute($paramv);
         $resultv = $stmtv->fetch(); 
 
-        $querysw = "SELECT count(rowid) as cnt_slw from tr_leave where approved = 2 and emp_code  = :empCode 
+        $querysw = "SELECT count(actl_cnt) as cnt_slw from tr_leave where approved = 2 and emp_code  = :empCode 
         and leavetype in ('Sick Leave without Pay')";
         $stmtsw =$connL->prepare($querysw);
         $paramsw = array(":empCode" => $this->employeeCode);
         $stmtsw->execute($paramsw);
         $resultsw = $stmtsw->fetch();
 
-        $queryvw = "SELECT count(rowid) as cnt_vlw from tr_leave where approved = 2 and emp_code  = :empCode 
+        $queryvw = "SELECT count(actl_cnt) as cnt_vlw from tr_leave where approved = 2 and emp_code  = :empCode 
         and leavetype in ('Vacation Leave without Pay')";
         $stmtvw =$connL->prepare($queryvw);
         $paramvw = array(":empCode" => $this->employeeCode);
