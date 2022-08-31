@@ -21,18 +21,47 @@ Class LeaveApplication{
         global $connL;
 
         $query = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
-        
-                $stmt =$connL->prepare($query);
-                $param = array(":empCode" => $this->employeeCode);
-                $stmt->execute($param);
-                $result = $stmt->fetch();  
+        $stmt =$connL->prepare($query);
+        $param = array(":empCode" => $this->employeeCode);
+        $stmt->execute($param);
+        $result = $stmt->fetch();  
 
-                $used_vl = (isset($result['earned_vl']) ? round(10.00,1) - round($result['earned_vl'],1) : 0);
-                $used_sl = (isset($result['earned_sl']) ? round(10.00,1) - round($result['earned_sl'],1) : 0);
-                $pending_vl = (isset($result['pending_vl']) ? $result['pending_vl'] : 0);
-                $pending_sl = (isset($result['pending_sl']) ? $result['pending_sl'] : 0);
-                $earned_vl = (isset($result['earned_vl']) ? round($result['earned_vl'],2) : 0);
-                $earned_sl = (isset($result['earned_sl']) ? round($result['earned_sl'],2) : 0);
+        $querys = "SELECT count(rowid) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
+        and leavetype in ('Sick Leave')";
+        $stmts =$connL->prepare($querys);
+        $params = array(":empCode" => $this->employeeCode);
+        $stmts->execute($params);
+        $results = $stmts->fetch();
+
+        $queryv = "SELECT count(rowid) as cnt_vl from tr_leave where approved = 2 and emp_code  = :empCode 
+        and leavetype in ('Vacation Leave','Emergency Leave')";
+        $stmtv =$connL->prepare($queryv);
+        $paramv = array(":empCode" => $this->employeeCode);
+        $stmtv->execute($paramv);
+        $resultv = $stmtv->fetch(); 
+
+        $querysw = "SELECT count(rowid) as cnt_slw from tr_leave where approved = 2 and emp_code  = :empCode 
+        and leavetype in ('Sick Leave without Pay')";
+        $stmtsw =$connL->prepare($querysw);
+        $paramsw = array(":empCode" => $this->employeeCode);
+        $stmtsw->execute($paramsw);
+        $resultsw = $stmtsw->fetch();
+
+        $queryvw = "SELECT count(rowid) as cnt_vlw from tr_leave where approved = 2 and emp_code  = :empCode 
+        and leavetype in ('Vacation Leave without Pay')";
+        $stmtvw =$connL->prepare($queryvw);
+        $paramvw = array(":empCode" => $this->employeeCode);
+        $stmtvw->execute($paramvw);
+        $resultvw = $stmtvw->fetch();                       
+
+        $used_vl = $resultv['cnt_vl'];
+        $used_sl = $results['cnt_sl'];
+        $used_vlw = $resultvw['cnt_vlw'];
+        $used_slw = $resultsw['cnt_slw'];        
+        $pending_vl = (isset($result['pending_vl']) ? $result['pending_vl'] : 0);
+        $pending_sl = (isset($result['pending_sl']) ? $result['pending_sl'] : 0);
+        $earned_vl = (isset($result['earned_vl']) ? round($result['earned_vl'],2) : 0);
+        $earned_sl = (isset($result['earned_sl']) ? round($result['earned_sl'],2) : 0);
 
         echo '
         <table id="earnedLeave" class="table table-striped table-sm">
@@ -41,17 +70,19 @@ Class LeaveApplication{
                     <th colspan="8" class ="text-center">Earned Leaves as of '. date('F Y') .'</th>
                 </tr>
                 <tr>
-                    <th colspan="3" class ="text-center ">Vacation Leave</th>
-                    <th colspan="3" class ="text-center ">Sick Leave</th>
+                    <th colspan="4" class ="text-center ">Vacation Leave</th>
+                    <th colspan="4" class ="text-center ">Sick Leave</th>
                 </tr>
                
                 <tr>
 
-                    <th class="text-center">Used</th>
+                    <th class="text-center">Used with Pay</th>
+                    <th class="text-center">Used without Pay</th>
                     <th class="text-center">Pending</th>
                     <th class="text-center">Balance</th>
 
-                    <th class="text-center">Used</th>
+                    <th class="text-center">Used with Pay</th>
+                    <th class="text-center">Used without Pay</th>
                     <th class="text-center">Pending</th>
                     <th class="text-center">Balance</th>
         
@@ -62,10 +93,12 @@ Class LeaveApplication{
             <tbody>
                 <tr>
                     <td class="text-center ">'.$used_vl.'</td>
+                    <td class="text-center ">'.$used_vlw.'</td>
                     <td class="text-center ">'. $pending_vl.'</td>
                     <td class="text-center ">'.$earned_vl.'</td>
                     
                     <td class="text-center ">'.$used_sl.'</td>
+                    <td class="text-center ">'.$used_slw.'</td>
                     <td class="text-center ">'. $pending_sl .'</td>
                     <td class="text-center ">'.$earned_sl.'</td>
                 </tr>
