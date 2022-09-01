@@ -23,6 +23,9 @@ else
     $mf = new MasterFile();
     $dd = new DropDown();
 
+
+];   
+
     if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
     }else{

@@ -1,6 +1,10 @@
 \<?php
 session_start();
-
+class data
+{
+    public $start;
+    public $title;
+}
 if (empty($_SESSION['userid']))
 {
     include_once('../loginfirst.php');
@@ -16,6 +20,96 @@ else
 
   global $connL;
   global $dbConnection;
+
+
+//GET HOLIDAYS
+$queryq = "SELECT * from mf_holiday where YEAR(holidaydate) = YEAR(GETDATE())";
+$stmtq =$connL->prepare($queryq);
+$stmtq->execute();
+$resultq = $stmtq->fetch();
+
+if(!empty($resultq)){
+    $totalVal = array();
+    $i = 0;
+    do { 
+        $d = new data();
+        $d->start = $resultq['holidaydate'];
+        $d->title = $resultq['holidaydescs'];
+        $d->color = '#F3340B';
+        $d->textColor = '#FFFFFF';
+        $totalVal[$i] = $d;  
+        $i++;
+    } while ($resultq = $stmtq->fetch());                     
+    }else{
+        $totalVal = [];
+    }
+
+//GET LEAVE
+$queryg = "SELECT * from tr_leave where approved = 2 and emp_code = :empcode";
+$stmtg =$connL->prepare($queryg);
+$paramg = array(":empcode" => $empCode);
+$stmtg->execute($paramg);
+$resultg = $stmtg->fetch();
+
+if(!empty($resultg)){
+    do { 
+        $d = new data();
+        $d->start = date('Y-m-d',strtotime($resultg['date_from']));
+        $d->title = $resultg['leavetype'];
+        $d->color = '#0C47FF';
+        $d->textColor = '#FFFFFF';
+        $totalVal[$i] = $d;  
+        $i++;
+} while ($resultg = $stmtg->fetch());                     
+}else{
+    $totalVal = [];
+}
+
+//GET ATTENDANCE
+$queryd = "SELECT * from employee_attendance where emp_code = :empcode";
+$stmtd =$connL->prepare($queryd);
+$paramd = array(":empcode" => substr($empCode,3));
+$stmtd->execute($paramd);
+$resultd = $stmtd->fetch();
+
+if(!empty($resultd)){
+    do { 
+    $tin = (isset($resultd['timein'])) ? date('h:i A',strtotime($resultd['timein'])) : 'NO IN';
+    $tout = (isset($resultd['timeout'])) ? date('h:i A',strtotime($resultd['timeout'])) : 'NO OUT';
+        $d = new data();
+        $d->start = date('Y-m-d',strtotime($resultd['punch_date']));
+        $d->title = $tin." - ".$tout;
+        $d->color = '#00DE25';
+        $d->textColor = '#FFFFFF';
+        $totalVal[$i] = $d;  
+        $i++;
+} while ($resultd = $stmtd->fetch());                     
+}else{
+    $totalVal = [];
+}
+
+
+// //GET SCHEDULE
+// $queryd = "SELECT * from employee_attendance where emp_code = :empcode";
+// $stmtd =$connL->prepare($queryd);
+// $paramd = array(":empcode" => substr($empCode,3));
+// $stmtd->execute($paramd);
+// $resultd = $stmtd->fetch();
+
+// if(!empty($resultd)){
+//     do { 
+
+//         $d = new data();
+//         $d->start = date('Y-m-d',strtotime($resultd['punch_date']));
+//         $d->title = $tin." - ".$tout;
+//         $d->color = '#00DE25';
+//         $d->textColor = '#FFFFFF';
+//         $totalVal[$i] = $d;  
+//         $i++;
+// } while ($resultd = $stmtd->fetch());                     
+// }else{
+//     $totalVal = [];
+// }
 
     //BIRTHDAY CELEBRANTS
   $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
@@ -334,9 +428,9 @@ else
 
 }    
 </script>
-
+<link rel="stylesheet" href="../css/fullcalendar/fullcalendar.min.css">
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<body id="page-top" style="background-color: #f8f9fc;height:100%;overflow: hidden;">
+<body id="page-top" style="background-color: #f8f9fc;overflow: auto;">
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
@@ -568,91 +662,105 @@ else
 </div>
 </div>     
 <!-- Content Row -->
-
 <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <div id="calendar" class="full-calendar"></div>
+        </div>
+      </div>
+    </div>
+<!--     <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow mb-4">
 
-    <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-7">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">TOTAL LATES : <?php echo strtoupper(date("M Y")) ?> <i class="fas fa-calendar"></i>  </h6>
+        </div>
+
+        <div class="card-body cdbody">
+              <?php  
+                if($resultp){
+                    $ppic = (isset($resultp['emppic'])) ? $resultp['emppic'] : 'nophoto.jpg' ;
+
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                      '.$resultp['fullname'].'</b><br>Late (Hrs): '.number_format($resultp['tot_late'],2,".", ",").'  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultp = $stmtp->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No lates recorded for this month.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                     } 
+                                                        
+                ?>            
+        </div>
+        </div>
+    </div>
+   -->
+
+    <div class="col-xl-4 col-md-6 mb-4">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
-            <div
-            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">ATTENDANCE SUMMARY <?php echo date("Y") ?>  </h6>
-            <button id='jan' value="<?php echo $jancnt; ?>" hidden></button>
-            <button id='feb' value="<?php echo $febcnt; ?>" hidden></button>
-            <button id='mar' value="<?php echo $marcnt; ?>" hidden></button>
-            <button id='apr' value="<?php echo $aprcnt; ?>" hidden></button>
-            <button id='may' value="<?php echo $maycnt; ?>" hidden></button>
-            <button id='jun' value="<?php echo $juncnt; ?>" hidden></button>
-            <button id='jul' value="<?php echo $julcnt; ?>" hidden></button>
-            <button id='aug' value="<?php echo $augcnt; ?>" hidden></button>
-            <button id='sep' value="<?php echo $sepcnt; ?>" hidden></button>
-            <button id='oct' value="<?php echo $octcnt; ?>" hidden></button>
-            <button id='nov' value="<?php echo $novcnt; ?>" hidden></button>
-            <button id='dec' value="<?php echo $deccnt; ?>" hidden></button>                                
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">BIRTHDAY CELEBRANTS : <?php echo strtoupper(date("M Y")) ?>  <i class="fas fa-birthday-cake"></i>  </h6>
         </div>
         <!-- Card Body -->
-        <div class="card-body">
-            <div class="chart-area">
-                <canvas id="myAreaChart"></canvas>
+
+        <div class="card-body cdbody">
+              <?php  
+                if($resultu){
+                    $ppic = (isset($resultu['emp_pic_loc'])) ? $resultu['emp_pic_loc'] : 'nophoto.jpg' ;
+
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>
+                      '.$resultu['lastname'].', '.$resultu['firstname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultu = $stmtu->fetch());
+                     }
+                                                        
+                ?>             
             </div>
         </div>
     </div>
-</div>
-<div class="col-xl-4 col-lg-5">
-    <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-birthday-cake"></i> BIRTHDAY CELEBRANTS <?php echo strtoupper(date("M Y")) ?> </h6>
-        </div>
-        <!-- Card Body -->
-
-        <div class="card-body">
-            <?php  
-            if($resultu){
-                $ppic = (isset($resultu['emp_pic_loc'])) ? $resultu['emp_pic_loc'] : 'nophoto.jpg' ;
-
-                do { 
-                    echo ' <div class="row">
-                    <div class="col-sm-1">
-                    <h6 class="mb-0"><img class="rounded-circle" style="width:40px;height:40px;" src="../img/'.$ppic.'"></h6>
+                     
                     </div>
-                    <div class="col-sm-9 text-secondary"><b>
-                    '.$resultu['firstname'].' '.$resultu['lastname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
-                    </div>
-                    </div><hr style="margin:5;">  ';
 
-                } while ($resultu = $stmtu->fetch());
-            }
+                </div>
+                <!-- /.container-fluid -->
 
-            ?>             
+            </div>
+            <!-- End of Main Content -->
+
         </div>
+        <!-- End of Content Wrapper -->
     </div>
-</div>                   
-</div>
-
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- End of Main Content -->
-</div>
-<!-- End of Content Wrapper -->,
-</div>
-<!-- End of Page Wrapper -->
+    <!-- End of Page Wrapper -->
 
     <?php include('../_footer.php');  ?>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-    <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-employee.js"></script>
+
+    <script type="text/javascript">  
+     let holidays = <?php echo json_encode($totalVal) ;?>;
+    </script>
+    <script src="../js/moment/moment.min.js"></script>
+    <script src="../js/fullcalendar/fullcalendar.min.js"></script>
+    <script src="../js/calendar/calendar.js"></script>
     
 </body>
 
