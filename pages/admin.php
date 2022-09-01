@@ -618,7 +618,7 @@ function timeOutModal(lvid,empcd,attid){
                       <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/'.$ppic.'"></h6>
                     </div>
                     <div class="col-sm-9 text-secondary"><b>
-                     '.$fname.'safasfas</b><br>Schedule: '.$resulty['remarks'].'  
+                     '.$fname.'</b><br>Schedule: '.$resulty['remarks'].'  
                     </div>
                   </div><hr style="margin:5;">  ';
                         
