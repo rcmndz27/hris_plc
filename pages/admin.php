@@ -659,7 +659,15 @@ function timeOutModal(lvid,empcd,attid){
                   </div><hr style="margin:5;">  ';
                         
                         } while ($resultp = $stmtp->fetch());
-                     }
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No lates recorded for this month.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                     } 
                                                         
                 ?>            
         </div>
