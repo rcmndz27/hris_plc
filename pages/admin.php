@@ -40,126 +40,124 @@ $stmty =$connL->prepare($queryy);
 $stmty->execute();
 $resulty = $stmty->fetch();       
 
-    //GET COMPANY
-    $query = "SELECT * from employee_profile where emp_code = :empcode";
-    $stmt =$connL->prepare($query);
-    $param = array(":empcode" => $empCode);
-    $stmt->execute($param);
-    $result = $stmt->fetch();
-    $cmp = $result['company'];
-    $bdno = $result['badgeno'];
-    $subemp = strlen($cmp);
+//GET COMPANY
+$query = "SELECT * from employee_profile where emp_code = :empcode";
+$stmt =$connL->prepare($query);
+$param = array(":empcode" => $empCode);
+$stmt->execute($param);
+$result = $stmt->fetch();
+$cmp = $result['company'];
+$bdno = $result['badgeno'];
+$subemp = strlen($cmp);
 
-    //GET LAST TIME IN
-    $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
-    $ystmt =$connL->prepare($yquery);
-    $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
-    $ystmt->execute($yparam);
-    $yresult = $ystmt->fetch();
-    $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
-    // $start = $yresult['timein'];
-    $timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+//GET LAST TIME IN
+$yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
+$ystmt =$connL->prepare($yquery);
+$yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
+$ystmt->execute($yparam);
+$yresult = $ystmt->fetch();
+$timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
+// $start = $yresult['timein'];
+$timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
-    // GET ACTIVE EMPLOYEES
-    $qry = "SELECT count(emp_code) as empcnt,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntpct  from employee_profile where emp_status = 'Active'" ;
-    $stm =$connL->prepare($qry);
-    $stm->execute();
-    $resul = $stm->fetch();
-    $empcnt = (isset($resul['empcnt'])) ? $resul['empcnt'] : '0' ;
-    $empcntpct = (isset($resul['empcntpct'])) ? $resul['empcntpct'] : '0' ;
+// GET ACTIVE EMPLOYEES
+$qry = "SELECT count(emp_code) as empcnt,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntpct  from employee_profile where emp_status = 'Active'" ;
+$stm =$connL->prepare($qry);
+$stm->execute();
+$resul = $stm->fetch();
+$empcnt = (isset($resul['empcnt'])) ? $resul['empcnt'] : '0' ;
+$empcntpct = (isset($resul['empcntpct'])) ? $resul['empcntpct'] : '0' ;
 
-    // GET INACTIVE EMPLOYEES
-    $qrys = "SELECT count(emp_code) as empcnti,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntipct from employee_profile where emp_status <> 'Active'" ;
-    $stms =$connL->prepare($qrys);
-    $stms->execute();
-    $resuls = $stms->fetch();
-    $empcnti = (isset($resuls['empcnti'])) ? $resuls['empcnti'] : '0' ;
-    $empcntipct = (isset($resuls['empcntipct'])) ? $resuls['empcntipct'] : '0' ;
+// GET INACTIVE EMPLOYEES
+$qrys = "SELECT count(emp_code) as empcnti,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntipct from employee_profile where emp_status <> 'Active'" ;
+$stms =$connL->prepare($qrys);
+$stms->execute();
+$resuls = $stms->fetch();
+$empcnti = (isset($resuls['empcnti'])) ? $resuls['empcnti'] : '0' ;
+$empcntipct = (isset($resuls['empcntipct'])) ? $resuls['empcntipct'] : '0' ;
 
-    // MALES
-    $qryt = "SELECT count(emp_code) as male,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as malepct
-      FROM employee_profile where sex = 'Male'" ;
-    $stmt =$connL->prepare($qryt);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    $male = (isset($result['male'])) ? $result['male'] : '0' ;
-    $malepct = (isset($result['malepct'])) ? $result['malepct'] : '0' ;
+// MALES
+$qryt = "SELECT count(emp_code) as male,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as malepct
+  FROM employee_profile where sex = 'Male'" ;
+$stmt =$connL->prepare($qryt);
+$stmt->execute();
+$result = $stmt->fetch();
+$male = (isset($result['male'])) ? $result['male'] : '0' ;
+$malepct = (isset($result['malepct'])) ? $result['malepct'] : '0' ;
 
-    // FEMALES
-    $qryst = "SELECT count(emp_code) as female,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as femalepct from employee_profile where sex = 'Female' " ;
-    $stmst =$connL->prepare($qryst);
-    $stmst->execute();
-    $resulst = $stmst->fetch();
-    $female = (isset($resulst['female'])) ? $resulst['female'] : '0' ;
-    $femalepct = (isset($resulst['femalepct'])) ? $resulst['femalepct'] : '0' ;
+// FEMALES
+$qryst = "SELECT count(emp_code) as female,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as femalepct from employee_profile where sex = 'Female' " ;
+$stmst =$connL->prepare($qryst);
+$stmst->execute();
+$resulst = $stmst->fetch();
+$female = (isset($resulst['female'])) ? $resulst['female'] : '0' ;
+$femalepct = (isset($resulst['femalepct'])) ? $resulst['femalepct'] : '0' ;
 
-    // REGULAR
-    $qrysta = "SELECT count(emp_code) as reg,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as regpct from employee_profile where emp_type = 'Regular' " ;
-    $stmsta =$connL->prepare($qrysta);
-    $stmsta->execute();
-    $resulsta = $stmsta->fetch();
-    $reg = (isset($resulsta['reg'])) ? $resulsta['reg'] : '0' ;
-    $regpct = (isset($resulsta['regpct'])) ? $resulsta['regpct'] : '0' ;
+// REGULAR
+$qrysta = "SELECT count(emp_code) as reg,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as regpct from employee_profile where emp_type = 'Regular' " ;
+$stmsta =$connL->prepare($qrysta);
+$stmsta->execute();
+$resulsta = $stmsta->fetch();
+$reg = (isset($resulsta['reg'])) ? $resulsta['reg'] : '0' ;
+$regpct = (isset($resulsta['regpct'])) ? $resulsta['regpct'] : '0' ;
 
-    // PROBATIONARY
-    $qrystab = "SELECT count(emp_code) as prob,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as probpct from employee_profile where emp_type = 'Probationary' " ;
-    $stmstab =$connL->prepare($qrystab);
-    $stmstab->execute();
-    $resulstab = $stmstab->fetch();
-    $prob = (isset($resulstab['prob'])) ? $resulstab['prob'] : '0' ;
-    $probpct = (isset($resulstab['probpct'])) ? $resulstab['probpct'] : '0' ;
-
-
-    // PROJECT BASED
-    $rystab = "SELECT count(emp_code) as proj,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as projpct from employee_profile where emp_type = 'Project Based' " ;
-    $tmstab =$connL->prepare($rystab);
-    $tmstab->execute();
-    $esulstab = $tmstab->fetch();
-    $proj = (isset($esulstab['proj'])) ? $esulstab['proj'] : '0' ;
-    $projpct = (isset($esulstab['projpct'])) ? $esulstab['projpct'] : '0' ;
+// PROBATIONARY
+$qrystab = "SELECT count(emp_code) as prob,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as probpct from employee_profile where emp_type = 'Probationary' " ;
+$stmstab =$connL->prepare($qrystab);
+$stmstab->execute();
+$resulstab = $stmstab->fetch();
+$prob = (isset($resulstab['prob'])) ? $resulstab['prob'] : '0' ;
+$probpct = (isset($resulstab['probpct'])) ? $resulstab['probpct'] : '0' ;
 
 
-    // LEAVE
-    $rysta = "SELECT sum(actl_cnt) as leave from tr_leave" ;
-    $tmsta =$connL->prepare($rysta);
-    $tmsta->execute();
-    $esulsta = $tmsta->fetch();
-    $leave = (isset($esulsta['leave'])) ? $esulsta['leave'] : '0' ;
+// PROJECT BASED
+$rystab = "SELECT count(emp_code) as proj,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as projpct from employee_profile where emp_type = 'Project Based' " ;
+$tmstab =$connL->prepare($rystab);
+$tmstab->execute();
+$esulstab = $tmstab->fetch();
+$proj = (isset($esulstab['proj'])) ? $esulstab['proj'] : '0' ;
+$projpct = (isset($esulstab['projpct'])) ? $esulstab['projpct'] : '0' ;
 
-    // OVERTIME
-    $frysta = "SELECT CAST(sum(ot_req_hrs) AS INT) as ot from tr_overtime" ;
-    $ftmsta =$connL->prepare($frysta);
-    $ftmsta->execute();
-    $fesulsta = $ftmsta->fetch();
-    $ot = (isset($fesulsta['ot'])) ? $fesulsta['ot'] : '0' ;
+// LEAVE
+$rysta = "SELECT sum(actl_cnt) as leave from tr_leave" ;
+$tmsta =$connL->prepare($rysta);
+$tmsta->execute();
+$esulsta = $tmsta->fetch();
+$leave = (isset($esulsta['leave'])) ? $esulsta['leave'] : '0' ;
 
-    // WORK FROM HOME
-    $fryst = "SELECT CAST(count(wfh_date) AS INT) as wfh from tr_workfromhome" ;
-    $ftmst =$connL->prepare($fryst);
-    $ftmst->execute();
-    $fesulst = $ftmst->fetch();
-    $wfh = (isset($fesulst['wfh'])) ? $fesulst['wfh'] : '0' ;
+// OVERTIME
+$frysta = "SELECT CAST(sum(ot_req_hrs) AS INT) as ot from tr_overtime" ;
+$ftmsta =$connL->prepare($frysta);
+$ftmsta->execute();
+$fesulsta = $ftmsta->fetch();
+$ot = (isset($fesulsta['ot'])) ? $fesulsta['ot'] : '0' ;
 
-    //wfh login
+// WORK FROM HOME
+$fryst = "SELECT CAST(count(wfh_date) AS INT) as wfh from tr_workfromhome" ;
+$ftmst =$connL->prepare($fryst);
+$ftmst->execute();
+$fesulst = $ftmst->fetch();
+$wfh = (isset($fesulst['wfh'])) ? $fesulst['wfh'] : '0' ;
 
-     $spquery = "SELECT (CASE when status = 1 then 'PENDING'
-                when   status = 2 then 'APPROVED'
-                when   status = 3 then 'REJECTED'
-                when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
-                FROM dbo.tr_workfromhome a
-                left join employee_attendance b
-                on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
-                and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
-    $spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
-    $spstmt =$connL->prepare($spquery);
-    $spstmt->execute($spparam);
-    $spresult = $spstmt->fetch();
-    $wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : null ;
-    $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
-    $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
-    $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
-    }
-    
+//wfh login
+ $spquery = "SELECT (CASE when status = 1 then 'PENDING'
+            when   status = 2 then 'APPROVED'
+            when   status = 3 then 'REJECTED'
+            when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+            FROM dbo.tr_workfromhome a
+            left join employee_attendance b
+            on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
+            and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
+$spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
+$spstmt =$connL->prepare($spquery);
+$spstmt->execute($spparam);
+$spresult = $spstmt->fetch();
+$wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : null ;
+$wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
+$wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
+$attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
+}
+
             if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President') {
 
             }else{
@@ -613,17 +611,26 @@ function timeOutModal(lvid,empcd,attid){
               <?php  
                 if($resulty){
                     $ppic = (isset($resulty['emp_pic_loc'])) ? $resulty['emp_pic_loc'] : 'nophoto.jpg' ;
+                    $fname =$resulty['fullname'] ;
                     do { 
                 echo ' <div class="row">
                     <div class="col-sm-1">
                       <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/'.$ppic.'"></h6>
                     </div>
                     <div class="col-sm-9 text-secondary"><b>
-                     '.$resulty['fullname'].'</b><br>Schedule: '.$resulty['remarks'].'  
+                     '.$fname.'safasfas</b><br>Schedule: '.$resulty['remarks'].'  
                     </div>
                   </div><hr style="margin:5;">  ';
                         
                         } while ($resulty = $stmty->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No filed leave,work from home and ob.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
                      }                                                        
                 ?>                        
         </div>
