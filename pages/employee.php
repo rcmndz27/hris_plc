@@ -35,7 +35,7 @@ do {
 $d = new data();
 $d->start = date('Y-m-d',strtotime($resultq['holidaydate']));
 $d->title = $resultq['holidaydescs'];
-$d->color = '#F3340B';
+$d->color = '#FFE800';
 $d->textColor = '#FFFFFF';
 array_push($totalVal,$d);  
 $i++;
@@ -77,36 +77,50 @@ $tout = (isset($resultd['timeout'])) ? date('h:i A',strtotime($resultd['timeout'
 $d = new data();
 $d->start = date('Y-m-d',strtotime($resultd['punch_date']));
 $d->title = $tin." - ".$tout;
-$d->color = '#00DE25';
-$d->textColor = '#FFFFFF';
+if($tin == 'NO IN' or $tout == 'NO OUT'){
+    $d->color = '#FD0A27';
+    $d->textColor = '#FFFFFF';    
+}else{
+    $d->color = '#00DE25'; 
+    $d->textColor = '#FFFFFF';    
+}
 array_push($totalVal,$d);  
 $i++;
 } while ($resultd = $stmtd->fetch());                     
 }else{
 }
 
+// GET SCHEDULE
+$queryb = "exec xp_attendance_portal_admin :empcode";
+$stmtb =$connL->prepare($queryb);
+$paramb = array(":empcode" => substr($empCode,3));
+$stmtb->execute($paramb);
+$resultb = $stmtb->fetch();
 
-// //GET SCHEDULE
-// $queryd = "SELECT * from employee_attendance where emp_code = :empcode";
-// $stmtd =$connL->prepare($queryd);
-// $paramd = array(":empcode" => substr($empCode,3));
-// $stmtd->execute($paramd);
-// $resultd = $stmtd->fetch();
+if(!empty($resultb)){
+do { 
+$rmrks = $resultb['remarks'];
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultb['punch_date']));
+if($rmrks  == 'ONSITE'){
+    $d->title = $rmrks;
+    $d->color = '#FD9D0A';
+    $d->textColor = '#FFFFFF';    
+}else if($rmrks  == 'WORK FROM HOME'){
+    $d->title = $rmrks;
+    $d->color = '#0AFDC9';
+    $d->textColor = '#FFFFFF';    
+}else{
+    $d->title = $rmrks;
+    $d->color = '#FD0A84';
+    $d->textColor = '#FFFFFF';  
+}
+array_push($totalVal,$d);  
+$i++;
+} while ($resultb = $stmtb->fetch());                     
+}else{
+}
 
-// if(!empty($resultd)){
-//     do { 
-
-//         $d = new data();
-//         $d->start = date('Y-m-d',strtotime($resultd['punch_date']));
-//         $d->title = $tin." - ".$tout;
-//         $d->color = '#00DE25';
-//         $d->textColor = '#FFFFFF';
-//         $totalVal[$i] = $d;  
-//         $i++;
-// } while ($resultd = $stmtd->fetch());                     
-// }else{
-//     $totalVal = [];
-// }
 
 //BIRTHDAY CELEBRANTS
 $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
