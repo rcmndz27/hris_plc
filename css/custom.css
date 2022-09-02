@@ -126,6 +126,60 @@ table   {
   border-bottom: 1px solid #e3e6f0;
 }
 
+.ilgnd{
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.onsite {
+    background-color: #FD9D0A;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
+.wfhome {
+    background-color: #0afdc9;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
+.obsched {
+    background-color: #FD0A84;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
+.leaveschd {
+    background-color: #0C47FF;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
+.holisched {
+    background-color: #FFE800;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
+
+.noinnout {
+    background-color: #FD0A27;
+    width: 15px;
+    height: 15px;
+    /*border: 10px solid red;*/
+    display: inline-block;
+}
+
 .card-header:first-child {
   border-radius: calc(0.35rem - 1px) calc(0.35rem - 1px) 0 0;
 }
