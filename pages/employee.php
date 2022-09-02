@@ -14,12 +14,12 @@ else
 {
   include_once('../_header.php');
 
-  $empInfo = new EmployeeInformation();
-  $empInfo->SetEmployeeInformation($_SESSION['userid']);
-  $empCode = $empInfo->GetEmployeeCode();
+$empInfo = new EmployeeInformation();
+$empInfo->SetEmployeeInformation($_SESSION['userid']);
+$empCode = $empInfo->GetEmployeeCode();
 
-  global $connL;
-  global $dbConnection;
+global $connL;
+global $dbConnection;
 
 
 //GET HOLIDAYS
@@ -27,22 +27,21 @@ $queryq = "SELECT * from mf_holiday where YEAR(holidaydate) = YEAR(GETDATE())";
 $stmtq =$connL->prepare($queryq);
 $stmtq->execute();
 $resultq = $stmtq->fetch();
-
+$totalVal = array();
 if(!empty($resultq)){
-    $totalVal = array();
-    $i = 0;
-    do { 
-        $d = new data();
-        $d->start = $resultq['holidaydate'];
-        $d->title = $resultq['holidaydescs'];
-        $d->color = '#F3340B';
-        $d->textColor = '#FFFFFF';
-        $totalVal[$i] = $d;  
-        $i++;
-    } while ($resultq = $stmtq->fetch());                     
-    }else{
-        $totalVal = [];
-    }
+ 
+$i = 0;
+do { 
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultq['holidaydate']));
+$d->title = $resultq['holidaydescs'];
+$d->color = '#F3340B';
+$d->textColor = '#FFFFFF';
+array_push($totalVal,$d);  
+$i++;
+} while ($resultq = $stmtq->fetch());                     
+}else{
+}
 
 //GET LEAVE
 $queryg = "SELECT * from tr_leave where approved = 2 and emp_code = :empcode";
@@ -52,40 +51,38 @@ $stmtg->execute($paramg);
 $resultg = $stmtg->fetch();
 
 if(!empty($resultg)){
-    do { 
-        $d = new data();
-        $d->start = date('Y-m-d',strtotime($resultg['date_from']));
-        $d->title = $resultg['leavetype'];
-        $d->color = '#0C47FF';
-        $d->textColor = '#FFFFFF';
-        $totalVal[$i] = $d;  
-        $i++;
+do { 
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultg['date_from']));
+$d->title = $resultg['leavetype'];
+$d->color = '#0C47FF';
+$d->textColor = '#FFFFFF';
+array_push($totalVal,$d);  
+$i++;
 } while ($resultg = $stmtg->fetch());                     
 }else{
-    $totalVal = [];
 }
 
 //GET ATTENDANCE
-$queryd = "SELECT * from employee_attendance where emp_code = :empcode";
+$queryd = "exec xp_attendance_portal_admin :empcode";
 $stmtd =$connL->prepare($queryd);
 $paramd = array(":empcode" => substr($empCode,3));
 $stmtd->execute($paramd);
 $resultd = $stmtd->fetch();
 
 if(!empty($resultd)){
-    do { 
-    $tin = (isset($resultd['timein'])) ? date('h:i A',strtotime($resultd['timein'])) : 'NO IN';
-    $tout = (isset($resultd['timeout'])) ? date('h:i A',strtotime($resultd['timeout'])) : 'NO OUT';
-        $d = new data();
-        $d->start = date('Y-m-d',strtotime($resultd['punch_date']));
-        $d->title = $tin." - ".$tout;
-        $d->color = '#00DE25';
-        $d->textColor = '#FFFFFF';
-        $totalVal[$i] = $d;  
-        $i++;
+do { 
+$tin = (isset($resultd['timein'])) ? date('h:i A',strtotime($resultd['timein'])) : 'NO IN';
+$tout = (isset($resultd['timeout'])) ? date('h:i A',strtotime($resultd['timeout'])) : 'NO OUT';
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultd['punch_date']));
+$d->title = $tin." - ".$tout;
+$d->color = '#00DE25';
+$d->textColor = '#FFFFFF';
+array_push($totalVal,$d);  
+$i++;
 } while ($resultd = $stmtd->fetch());                     
 }else{
-    $totalVal = [];
 }
 
 
@@ -111,198 +108,198 @@ if(!empty($resultd)){
 //     $totalVal = [];
 // }
 
-    //BIRTHDAY CELEBRANTS
-  $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
-  $stmtu =$connL->prepare($queryu);
-  $stmtu->execute();
-  $resultu = $stmtu->fetch();
+//BIRTHDAY CELEBRANTS
+$queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
+$stmtu =$connL->prepare($queryu);
+$stmtu->execute();
+$resultu = $stmtu->fetch();
 
 
-    //GET COMPANY
-  $query = "SELECT * from employee_profile where emp_code = :empcode";
-  $stmt =$connL->prepare($query);
-  $param = array(":empcode" => $empCode);
-  $stmt->execute($param);
-  $result = $stmt->fetch();
-  $cmp = $result['company'];
-  $bdno = $result['badgeno'];
-  $subemp = strlen($cmp);
+//GET COMPANY
+$query = "SELECT * from employee_profile where emp_code = :empcode";
+$stmt =$connL->prepare($query);
+$param = array(":empcode" => $empCode);
+$stmt->execute($param);
+$result = $stmt->fetch();
+$cmp = $result['company'];
+$bdno = $result['badgeno'];
+$subemp = strlen($cmp);
 
-    //GET LAST TIME IN
-  $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
-  $ystmt =$connL->prepare($yquery);
-  $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
-  $ystmt->execute($yparam);
-  $yresult = $ystmt->fetch();
-  $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
-    // $start = $yresult['timein'];
-  $timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+//GET LAST TIME IN
+$yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
+$ystmt =$connL->prepare($yquery);
+$yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
+$ystmt->execute($yparam);
+$yresult = $ystmt->fetch();
+$timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
+// $start = $yresult['timein'];
+$timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
-    // GET CUT OFF
-  $qry = "SELECT * from payroll_cutoff WHERE GETDATE() between cutoff_from and cutoff_to" ;
-  $stm =$connL->prepare($qry);
-  $stm->execute();
-  $resul = $stm->fetch();
-  $cutoff_from = (isset($resul['cutoff_from'])) ? $resul['cutoff_from'] : date("Y/m/d") ;;
-  $cutoff_to = (isset($resul['cutoff_to'])) ? $resul['cutoff_to'] : date("Y/m/d") ;
-
-
-    // LEAVE BALANCE
-  $query = "SELECT  earned_vl,earned_sl,round(earned_vl * 100 / 10,0) as vlpct,round(earned_sl * 100 / 10,0) as slpct from employee_leave where emp_code = :empcode" ;
-  $stmt =$connL->prepare($query);
-  $param = array(":empcode" => $empCode);
-  $stmt->execute($param);
-  $result = $stmt->fetch();
-  $earned_vl = (isset($result['earned_vl'])) ? round($result['earned_vl'],2) : 0 ;
-  $earned_sl = (isset($result['earned_sl'])) ? round($result['earned_sl'],2) : 0 ;
-  $vlpct = (isset($result['vlpct'])) ? round($result['vlpct'],2) : 0 ;
-  $slpct = (isset($result['slpct'])) ? round($result['slpct'],2) : 0 ;
+// GET CUT OFF
+$qry = "SELECT * from payroll_cutoff WHERE GETDATE() between cutoff_from and cutoff_to" ;
+$stm =$connL->prepare($qry);
+$stm->execute();
+$resul = $stm->fetch();
+$cutoff_from = (isset($resul['cutoff_from'])) ? $resul['cutoff_from'] : date("Y/m/d") ;;
+$cutoff_to = (isset($resul['cutoff_to'])) ? $resul['cutoff_to'] : date("Y/m/d") ;
 
 
-    // TOTAL APPLIED LEAVE
-  $querys = "SELECT sum(app_days) as app_leave from tr_leave where emp_code = :empcode and
-  date_from between :cutoff_from and :cutoff_to and
-  date_to between :cutoff_from2 and :cutoff_to2" ;
-  $stmts =$connL->prepare($querys);
-  $params= array(":empcode" => $empCode,":cutoff_from" => $cutoff_from,":cutoff_to" => $cutoff_to,
-      ":cutoff_from2" => $cutoff_from,":cutoff_to2" => $cutoff_to);
-  $stmts->execute($params);
-  $results = $stmts->fetch();
-  $app_leave =  (isset($results['app_leave'])) ? $results['app_leave'] : 0 ;
+// LEAVE BALANCE
+$query = "SELECT  earned_vl,earned_sl,round(earned_vl * 100 / 10,0) as vlpct,round(earned_sl * 100 / 10,0) as slpct from employee_leave where emp_code = :empcode" ;
+$stmt =$connL->prepare($query);
+$param = array(":empcode" => $empCode);
+$stmt->execute($param);
+$result = $stmt->fetch();
+$earned_vl = (isset($result['earned_vl'])) ? round($result['earned_vl'],2) : 0 ;
+$earned_sl = (isset($result['earned_sl'])) ? round($result['earned_sl'],2) : 0 ;
+$vlpct = (isset($result['vlpct'])) ? round($result['vlpct'],2) : 0 ;
+$slpct = (isset($result['slpct'])) ? round($result['slpct'],2) : 0 ;
 
 
-    // TOTAL WORK HRS
-  $queryrenot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_work :emp_code,:startDate,:endDate';
-  $paramrenot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
-  $stmtrenot =$dbConnection->prepare($queryrenot);
-  $stmtrenot->execute($paramrenot);
-  $resultrenot = $stmtrenot->fetch();
-  $workhrs = (isset($resultrenot['workhrs'])) ? round($resultrenot['workhrs'],2) : 0 ;
+// TOTAL APPLIED LEAVE
+$querys = "SELECT sum(app_days) as app_leave from tr_leave where emp_code = :empcode and
+date_from between :cutoff_from and :cutoff_to and
+date_to between :cutoff_from2 and :cutoff_to2" ;
+$stmts =$connL->prepare($querys);
+$params= array(":empcode" => $empCode,":cutoff_from" => $cutoff_from,":cutoff_to" => $cutoff_to,
+":cutoff_from2" => $cutoff_from,":cutoff_to2" => $cutoff_to);
+$stmts->execute($params);
+$results = $stmts->fetch();
+$app_leave =  (isset($results['app_leave'])) ? $results['app_leave'] : 0 ;
 
 
-    //JAN 
-  $queryjan = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramjan = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-01-31") );
-  $stmtjan =$dbConnection->prepare($queryjan);
-  $stmtjan->execute($paramjan);
-  $resultjan = $stmtjan->fetch();
-  $jancnt = $resultjan['cnt'];
+// TOTAL WORK HRS
+$queryrenot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_work :emp_code,:startDate,:endDate';
+$paramrenot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
+$stmtrenot =$dbConnection->prepare($queryrenot);
+$stmtrenot->execute($paramrenot);
+$resultrenot = $stmtrenot->fetch();
+$workhrs = (isset($resultrenot['workhrs'])) ? round($resultrenot['workhrs'],2) : 0 ;
 
-    //FEB 
-  $queryfeb = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramfeb = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-02-01"), ":endDate" => date("Y-02-28") );
-  $stmtfeb =$dbConnection->prepare($queryfeb);
-  $stmtfeb->execute($paramfeb);
-  $resultfeb = $stmtfeb->fetch();
-  $febcnt = $resultfeb['cnt'];
 
-    //MAR 
-  $querymar = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $parammar = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-03-01"), ":endDate" => date("Y-03-31") );
-  $stmtmar =$dbConnection->prepare($querymar);
-  $stmtmar->execute($parammar);
-  $resultmar = $stmtmar->fetch();
-  $marcnt = $resultmar['cnt'];
+//JAN 
+$queryjan = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramjan = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-01-31") );
+$stmtjan =$dbConnection->prepare($queryjan);
+$stmtjan->execute($paramjan);
+$resultjan = $stmtjan->fetch();
+$jancnt = $resultjan['cnt'];
 
-    //APR 
-  $queryapr = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramapr = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-04-01"), ":endDate" => date("Y-04-30") );
-  $stmtapr =$dbConnection->prepare($queryapr);
-  $stmtapr->execute($paramapr);
-  $resultapr = $stmtapr->fetch();
-  $aprcnt = $resultapr['cnt'];
+//FEB 
+$queryfeb = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramfeb = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-02-01"), ":endDate" => date("Y-02-28") );
+$stmtfeb =$dbConnection->prepare($queryfeb);
+$stmtfeb->execute($paramfeb);
+$resultfeb = $stmtfeb->fetch();
+$febcnt = $resultfeb['cnt'];
 
-    //MAY 
-  $querymay = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $parammay = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-05-01"), ":endDate" => date("Y-05-31") );
-  $stmtmay =$dbConnection->prepare($querymay);
-  $stmtmay->execute($parammay);
-  $resultmay = $stmtmay->fetch();
-  $maycnt = $resultmay['cnt'];    
+//MAR 
+$querymar = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$parammar = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-03-01"), ":endDate" => date("Y-03-31") );
+$stmtmar =$dbConnection->prepare($querymar);
+$stmtmar->execute($parammar);
+$resultmar = $stmtmar->fetch();
+$marcnt = $resultmar['cnt'];
 
-    //jun 
-  $queryjun = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramjun = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-06-01"), ":endDate" => date("Y-06-30") );
-  $stmtjun =$dbConnection->prepare($queryjun);
-  $stmtjun->execute($paramjun);
-  $resultjun = $stmtjun->fetch();
-  $juncnt = $resultjun['cnt'];
+//APR 
+$queryapr = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramapr = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-04-01"), ":endDate" => date("Y-04-30") );
+$stmtapr =$dbConnection->prepare($queryapr);
+$stmtapr->execute($paramapr);
+$resultapr = $stmtapr->fetch();
+$aprcnt = $resultapr['cnt'];
 
-    //jul 
-  $queryjul = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramjul = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-07-01"), ":endDate" => date("Y-07-31") );
-  $stmtjul =$dbConnection->prepare($queryjul);
-  $stmtjul->execute($paramjul);
-  $resultjul = $stmtjul->fetch();
-  $julcnt = $resultjul['cnt'];
+//MAY 
+$querymay = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$parammay = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-05-01"), ":endDate" => date("Y-05-31") );
+$stmtmay =$dbConnection->prepare($querymay);
+$stmtmay->execute($parammay);
+$resultmay = $stmtmay->fetch();
+$maycnt = $resultmay['cnt'];    
 
-    //aug 
-  $queryaug = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramaug = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-08-01"), ":endDate" => date("Y-08-31") );
-  $stmtaug =$dbConnection->prepare($queryaug);
-  $stmtaug->execute($paramaug);
-  $resultaug = $stmtaug->fetch();
-  $augcnt = $resultaug['cnt'];    
+//jun 
+$queryjun = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramjun = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-06-01"), ":endDate" => date("Y-06-30") );
+$stmtjun =$dbConnection->prepare($queryjun);
+$stmtjun->execute($paramjun);
+$resultjun = $stmtjun->fetch();
+$juncnt = $resultjun['cnt'];
 
-    //sep 
-  $querysep = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramsep = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-09-01"), ":endDate" => date("Y-09-30") );
-  $stmtsep =$dbConnection->prepare($querysep);
-  $stmtsep->execute($paramsep);
-  $resultsep = $stmtsep->fetch();
-  $sepcnt = $resultsep['cnt'];
+//jul 
+$queryjul = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramjul = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-07-01"), ":endDate" => date("Y-07-31") );
+$stmtjul =$dbConnection->prepare($queryjul);
+$stmtjul->execute($paramjul);
+$resultjul = $stmtjul->fetch();
+$julcnt = $resultjul['cnt'];
 
-    //OCT 
-  $queryoct = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramoct = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-10-01"), ":endDate" => date("Y-10-31") );
-  $stmtoct =$dbConnection->prepare($queryoct);
-  $stmtoct->execute($paramoct);
-  $resultoct = $stmtoct->fetch();
-  $octcnt = $resultoct['cnt'];
+//aug 
+$queryaug = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramaug = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-08-01"), ":endDate" => date("Y-08-31") );
+$stmtaug =$dbConnection->prepare($queryaug);
+$stmtaug->execute($paramaug);
+$resultaug = $stmtaug->fetch();
+$augcnt = $resultaug['cnt'];    
 
-    //nov 
-  $querynov = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramnov = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-11-01"), ":endDate" => date("Y-11-30") );
-  $stmtnov =$dbConnection->prepare($querynov);
-  $stmtnov->execute($paramnov);
-  $resultnov = $stmtnov->fetch();
-  $novcnt = $resultnov['cnt'];    
+//sep 
+$querysep = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramsep = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-09-01"), ":endDate" => date("Y-09-30") );
+$stmtsep =$dbConnection->prepare($querysep);
+$stmtsep->execute($paramsep);
+$resultsep = $stmtsep->fetch();
+$sepcnt = $resultsep['cnt'];
 
-    //dec 
-  $querydec = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
-  $paramdec = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-12-01"), ":endDate" => date("Y-12-31") );
-  $stmtdec =$dbConnection->prepare($querydec);
-  $stmtdec->execute($paramdec);
-  $resultdec = $stmtdec->fetch();
-  $deccnt = $resultdec['cnt'];  
+//OCT 
+$queryoct = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramoct = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-10-01"), ":endDate" => date("Y-10-31") );
+$stmtoct =$dbConnection->prepare($queryoct);
+$stmtoct->execute($paramoct);
+$resultoct = $stmtoct->fetch();
+$octcnt = $resultoct['cnt'];
 
-    //laudot 
-  $querylaudot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_sum :emp_code,:startDate,:endDate';
-  $paramlaudot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
-  $stmtlaudot =$dbConnection->prepare($querylaudot);
-  $stmtlaudot->execute($paramlaudot);
-  $resultlaudot = $stmtlaudot->fetch();
-  $latepct = (isset($resultlaudot['latepct'])) ? round($resultlaudot['latepct'],2) : 0 ;
-  $udpct =  (isset($resultlaudot['udpct'])) ? round($resultlaudot['udpct'],2) : 0 ;
-  $otpct = (isset($resultlaudot['otpct'])) ? round($resultlaudot['otpct'],2) : 0 ;
+//nov 
+$querynov = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramnov = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-11-01"), ":endDate" => date("Y-11-30") );
+$stmtnov =$dbConnection->prepare($querynov);
+$stmtnov->execute($paramnov);
+$resultnov = $stmtnov->fetch();
+$novcnt = $resultnov['cnt'];    
 
-    //wfh login
-  $spquery = "SELECT (CASE when status = 1 then 'PENDING'
-    when   status = 2 then 'APPROVED'
-    when   status = 3 then 'REJECTED'
-    when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
-  FROM dbo.tr_workfromhome a
-  left join employee_attendance b
-  on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
-  and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
-  $spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
-  $spstmt =$connL->prepare($spquery);
-  $spstmt->execute($spparam);
-  $spresult = $spstmt->fetch();
-  $wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : null ;
-  $wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
-  $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
-  $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
+//dec 
+$querydec = 'EXEC hrissys_dev.dbo.xp_attendance_portal_count :emp_code,:startDate,:endDate';
+$paramdec = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-12-01"), ":endDate" => date("Y-12-31") );
+$stmtdec =$dbConnection->prepare($querydec);
+$stmtdec->execute($paramdec);
+$resultdec = $stmtdec->fetch();
+$deccnt = $resultdec['cnt'];  
+
+//laudot 
+$querylaudot = 'EXEC hrissys_dev.dbo.xp_attendance_portal_sum :emp_code,:startDate,:endDate';
+$paramlaudot = array(":emp_code" => substr($empCode,$subemp), ":startDate" => date("Y-01-01"), ":endDate" => date("Y-12-31") );
+$stmtlaudot =$dbConnection->prepare($querylaudot);
+$stmtlaudot->execute($paramlaudot);
+$resultlaudot = $stmtlaudot->fetch();
+$latepct = (isset($resultlaudot['latepct'])) ? round($resultlaudot['latepct'],2) : 0 ;
+$udpct =  (isset($resultlaudot['udpct'])) ? round($resultlaudot['udpct'],2) : 0 ;
+$otpct = (isset($resultlaudot['otpct'])) ? round($resultlaudot['otpct'],2) : 0 ;
+
+//wfh login
+$spquery = "SELECT (CASE when status = 1 then 'PENDING'
+when   status = 2 then 'APPROVED'
+when   status = 3 then 'REJECTED'
+when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+FROM dbo.tr_workfromhome a
+left join employee_attendance b
+on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
+and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
+$spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
+$spstmt =$connL->prepare($spquery);
+$spstmt->execute($spparam);
+$spresult = $spstmt->fetch();
+$wfhd =  (isset($spresult['wfh_date'])) ? "'".$spresult['wfh_date']."'" : null ;
+$wfhid = (isset($spresult['wfhid'])) ? "'".$spresult['wfhid']."'" : '' ;
+$wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
+$attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 }
 
 ?>
@@ -716,12 +713,10 @@ if(!empty($resultd)){
             <h6 class="m-0 font-weight-bold text-primary">BIRTHDAY CELEBRANTS : <?php echo strtoupper(date("M Y")) ?>  <i class="fas fa-birthday-cake"></i>  </h6>
         </div>
         <!-- Card Body -->
-
         <div class="card-body cdbody">
               <?php  
                 if($resultu){
                     $ppic = (isset($resultu['emp_pic_loc'])) ? $resultu['emp_pic_loc'] : 'nophoto.jpg' ;
-
                     do { 
                 echo ' <div class="row">
                     <div class="col-sm-1">
@@ -730,11 +725,9 @@ if(!empty($resultd)){
                     <div class="col-sm-9 text-secondary"><b>
                       '.$resultu['lastname'].', '.$resultu['firstname'].'</b><br>'.$resultu['department'].'<br>'.date('F d', strtotime($resultu['birthdate'])).'  
                     </div>
-                  </div><hr style="margin:5;">  ';
-                        
+                  </div><hr style="margin:5;">  ';                        
                         } while ($resultu = $stmtu->fetch());
                      }
-                                                        
                 ?>             
             </div>
         </div>
@@ -743,18 +736,15 @@ if(!empty($resultd)){
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
 
         </div>
-        <!-- End of Content Wrapper -->
+
     </div>
-    <!-- End of Page Wrapper -->
+
 
     <?php include('../_footer.php');  ?>
-
     <script type="text/javascript">  
      let holidays = <?php echo json_encode($totalVal) ;?>;
     </script>
