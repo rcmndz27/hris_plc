@@ -139,6 +139,14 @@ $cmp = $result['company'];
 $bdno = $result['badgeno'];
 $subemp = strlen($cmp);
 
+//GET TOTAL LATES
+$bquery = "EXEC xp_attendance_portal_late_emp :empcode";
+$bstmt =$connL->prepare($bquery);
+$bparam = array(":empcode" => $empCode);
+$bstmt->execute($bparam);
+$bresult = $bstmt->fetch();
+$totlate = (isset($bresult['tot_late'])) ? $bresult['tot_late'] : 0 ;
+
 //GET LAST TIME IN
 $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
 $ystmt =$connL->prepare($yquery);
@@ -612,16 +620,16 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Applied Leave <?php echo date("Y") ?> 
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TOTAL LATES <?php echo date("F Y") ?> 
                     </div>
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $app_leave; ?></div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totlate; ?> hr/s</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-car fa-2x text-gray-300"></i>
+                    <i class="fas fa-stopwatch fa-2x text-gray-300"></i>
                 </div>
             </div>
         </div>
@@ -674,53 +682,27 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 </div>     
 <!-- Content Row -->
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="card">
         <div class="card-body">
           <div id="calendar" class="full-calendar"></div>
         </div>
       </div>
     </div>
-<!--     <div class="col-xl-3 col-md-6 mb-4">
+  <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow mb-4">
 
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">TOTAL LATES : <?php echo strtoupper(date("M Y")) ?> <i class="fas fa-calendar"></i>  </h6>
+            <h6 class="m-0 font-weight-bold text-primary">ANNOUNCEMENTS <?php echo strtoupper(date("Y")) ?> <i class="fas fa-calendar"></i>  </h6>
         </div>
 
         <div class="card-body cdbody">
-              <?php  
-                if($resultp){
-                    $ppic = (isset($resultp['emppic'])) ? $resultp['emppic'] : 'nophoto.jpg' ;
-
-                    do { 
-                echo ' <div class="row">
-                    <div class="col-sm-1">
-                      <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary"><b>
-                      '.$resultp['fullname'].'</b><br>Late (Hrs): '.number_format($resultp['tot_late'],2,".", ",").'  
-                    </div>
-                  </div><hr style="margin:5;">  ';
-                        
-                        } while ($resultp = $stmtp->fetch());
-                     }else{
-                    echo ' <div class="row">
-                    <div class="col-sm-1">
-                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary"><b>No lates recorded for this month.</b>
-                    </div>
-                  </div><hr style="margin:5;">  ';
-                     } 
-                                                        
-                ?>            
+             
         </div>
         </div>
     </div>
-   -->
 
-    <div class="col-xl-4 col-md-6 mb-4">
+    <div class="col-md-3">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
