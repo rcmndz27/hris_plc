@@ -14,18 +14,29 @@
             document.getElementById("time_in").style.display="block";
             document.getElementById("ltimeout").style.display="none";
             document.getElementById("time_out").style.display="none";
+            document.getElementById('time_out').value =  null;
             console.log('Time-in Only');
         }else{
             document.getElementById("ltimein").style.display="none";
             document.getElementById("time_in").style.display="none";
             document.getElementById("ltimeout").style.display="block";
             document.getElementById("time_out").style.display="block";
+            document.getElementById('time_out').value =  null;
             console.log('Time-out Only');
         }
 
 
     
 });
+
+
+$('#dtrc_date').change(function(){
+document.getElementById('time_in').value =  null;     
+document.getElementById('time_out').value =  null; 
+
+});
+
+
     function CheckInput() {
 
         var inputValues = [];
@@ -67,8 +78,8 @@ $('#Submit').click(function(){
                 
                 param = JSON.stringify(param);
 
-                // console.log(param);
-                // return false;
+                console.log(param);
+                return false;
                     
                     swal({
                       title: "Are you sure?",
