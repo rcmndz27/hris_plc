@@ -21,10 +21,7 @@ else
     $empUserType = $empInfo->GetEmployeeUserType();
     $empInfo = new EmployeeInformation();
     $mf = new MasterFile();
-    $dd = new DropDown();
-
-
-];   
+    $dd = new DropDown(); 
 
     if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 

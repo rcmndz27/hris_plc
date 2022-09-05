@@ -1,20 +1,99 @@
 <?php
-    session_start();
+session_start();
+class data
+{
+    public $start;
+    public $title;
+}
+if (empty($_SESSION['userid']))
+{
+    include_once('../loginfirst.php');
+    exit();
+}
+else
+{
+  include_once('../_header.php');
+$empInfo = new EmployeeInformation();
+$empInfo->SetEmployeeInformation($_SESSION['userid']);
+$empCode = $empInfo->GetEmployeeCode();
 
-    if (empty($_SESSION['userid']))
-    {
-        include_once('../loginfirst.php');
-        exit();
-    }
-    else
-    {
-        include_once('../_header.php');
-      $empInfo = new EmployeeInformation();
-      $empInfo->SetEmployeeInformation($_SESSION['userid']);
-      $empCode = $empInfo->GetEmployeeCode();
+global $connL;
 
-    global $connL;
 
+//GET HOLIDAYS
+$queryq = "SELECT * from mf_holiday where YEAR(holidaydate) = YEAR(GETDATE())";
+$stmtq =$connL->prepare($queryq);
+$stmtq->execute();
+$resultq = $stmtq->fetch();
+$totalVal = array();
+if(!empty($resultq)){
+ 
+$i = 0;
+do { 
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultq['holidaydate']));
+$d->title = $resultq['holidaydescs'];
+$d->color = '#FFE800';
+$d->textColor = '#FFFFFF';
+array_push($totalVal,$d);  
+$i++;
+} while ($resultq = $stmtq->fetch());                     
+}else{
+}
+
+//GET LEAVE
+$queryg = "SELECT * from tr_leave where approved = 2 and emp_code = :empcode";
+$stmtg =$connL->prepare($queryg);
+$paramg = array(":empcode" => $empCode);
+$stmtg->execute($paramg);
+$resultg = $stmtg->fetch();
+
+if(!empty($resultg)){
+do { 
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultg['date_from']));
+$d->title = $resultg['leavetype'];
+$d->color = '#0C47FF';
+$d->textColor = '#FFFFFF';
+array_push($totalVal,$d);  
+$i++;
+} while ($resultg = $stmtg->fetch());                     
+}else{
+}
+
+//GET ATTENDANCE
+$queryd = "exec xp_attendance_portal_admin :empcode";
+$stmtd =$connL->prepare($queryd);
+$paramd = array(":empcode" => substr($empCode,3));
+$stmtd->execute($paramd);
+$resultd = $stmtd->fetch();
+
+if(!empty($resultd)){
+do { 
+$rmrks = $resultd['remarks'];
+$tin = (isset($resultd['timein'])) ? date('h:i A',strtotime($resultd['timein'])) : 'NO IN';
+$tout = (isset($resultd['timeout'])) ? date('h:i A',strtotime($resultd['timeout'])) : 'NO OUT';
+$d = new data();
+$d->start = date('Y-m-d',strtotime($resultd['punch_date']));
+$d->title = $tin." - ".$tout;
+if($tin == 'NO IN' or $tout == 'NO OUT'){
+    $d->color = '#FD0A27';
+    $d->textColor = '#FFFFFF';    
+}else if($rmrks  == 'ONSITE'){
+    $d->color = '#FD9D0A';
+    $d->textColor = '#FFFFFF';    
+}else if($rmrks  == 'WORK FROM HOME'){
+    $d->color = '#0AFDC9';
+    $d->textColor = '#FFFFFF';    
+}else{
+    $d->color = '#FD0A84';
+    $d->textColor = '#FFFFFF';  
+}
+array_push($totalVal,$d);  
+$i++;
+} while ($resultd = $stmtd->fetch());                     
+}else{
+}
 //BIRTHDAY CELEBRANTS
 $queryu = "SELECT * from employee_profile where emp_status = 'Active' AND month(birthdate) = month(GETDATE())";
 $stmtu =$connL->prepare($queryu);
@@ -289,6 +368,7 @@ function timeOutModal(lvid,empcd,attid){
       
     }    
 </script>
+<link rel="stylesheet" href="../css/fullcalendar/fullcalendar.min.css">
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top" style="background-color: #f8f9fc;height:100%;overflow-y:auto;overflow-x: hidden;">
@@ -563,7 +643,8 @@ function timeOutModal(lvid,empcd,attid){
        
                     </div>
                 </div>
-            </div>                        
+            </div>     
+</div>
 
                     <!-- Content Row -->
 
@@ -705,8 +786,30 @@ function timeOutModal(lvid,empcd,attid){
             </div>
         </div>
     </div>
-                     
-                    </div>
+ </div> <!--end of row -->
+
+ <div class="row">
+    <div class="col-md-4">
+    <div class="card">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+            <h5 class="m-0 font-weight-bold">Legend: 
+                <div class="onsite"></div><i class="ilgnd">Onsite</i>
+                <div class="wfhome"></div><i class="ilgnd">WFH</i>
+                <div class="obsched"></div><i class="ilgnd">OB</i>
+                <div class="leaveschd"></div><i class="ilgnd">Leave</i>
+                <div class="holisched"></div><i class="ilgnd">Holiday</i>
+                <div class="noinnout"></div><i class="ilgnd">No In/No Out</i>
+            </h5>
+              
+        </div>
+    </div>
+      <div class="card mt-2">
+        <div class="card-body">
+          <div id="calendar" class="full-calendar"></div>
+        </div>
+      </div>
+    </div>
+</div><!--end of row -->
 
                 </div>
                 <!-- /.container-fluid -->
@@ -721,22 +824,12 @@ function timeOutModal(lvid,empcd,attid){
 
 <?php include('../_footer.php');  ?>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-bar-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script>
+    <script type="text/javascript">  
+     let holidays = <?php echo json_encode($totalVal) ;?>;
+    </script>
+    <script src="../js/moment/moment.min.js"></script>
+    <script src="../js/fullcalendar/fullcalendar.min.js"></script>
+    <script src="../js/calendar/calendar.js"></script>
     
 </body>
 

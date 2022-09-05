@@ -657,8 +657,6 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 </div>     
 <!-- Content Row -->
 
-
-
 <div class="row">
     <div class="col-md-4">
     <div class="card">
