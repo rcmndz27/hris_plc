@@ -130,7 +130,7 @@ $otstmt =$connL->prepare($otquery);
 $otparam = array(":empcode" => $empCode);
 $otstmt->execute($otparam);
 $otresult = $otstmt->fetch();
-$totot = (isset($otresult['tot_ot'])) ? $otresult['tot_ot'] : 0 ;
+$totot = (isset($otresult['tot_ot'])) ? round($otresult['tot_ot'],2) : 0 ;
 
 //GET TOTAL UT
 $utquery = "EXEC xp_attendance_portal_totut :empcode";
@@ -138,7 +138,7 @@ $utstmt =$connL->prepare($utquery);
 $utparam = array(":empcode" => substr($empCode,3));
 $utstmt->execute($utparam);
 $utresult = $utstmt->fetch();
-$totut = (isset($utresult['tot_ut'])) ? $utbresult['tot_ut'] : 0 ;
+$totut = (isset($utresult['tot_ut'])) ? round($utresult['tot_ut'],2) : 0 ;
 
 //GET TOTAL WORK
 $twquery = "EXEC xp_attendance_portal_totwork :empcode";
