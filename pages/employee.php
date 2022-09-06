@@ -537,7 +537,6 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 
         <!-- end timein wfh -->
 
-
         <!-- start time out wfh  -->
 
         <div class="modal fade" id="timeOutModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
@@ -633,7 +632,7 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                         </div>
                         <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totwork; ?> hr/s</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totwork; ?> day/s</div>
                         </div>
                     </div>
                     </div>
