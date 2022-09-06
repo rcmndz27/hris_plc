@@ -143,7 +143,7 @@ $totut = (isset($utresult['tot_ut'])) ? $utbresult['tot_ut'] : 0 ;
 //GET TOTAL WORK
 $twquery = "EXEC xp_attendance_portal_totwork :empcode";
 $twstmt =$connL->prepare($twquery);
-$twparam = array(":empcode" => $empCode);
+$twparam = array(":empcode" => substr($empCode,3));
 $twstmt->execute($twparam);
 $twresult = $twstmt->fetch();
 $totwork = (isset($twresult['tot_work'])) ? $twresult['tot_work'] : 0 ;
