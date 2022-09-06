@@ -135,7 +135,7 @@ $totot = (isset($otresult['tot_ot'])) ? $otresult['tot_ot'] : 0 ;
 //GET TOTAL UT
 $utquery = "EXEC xp_attendance_portal_totut :empcode";
 $utstmt =$connL->prepare($utquery);
-$utparam = array(":empcode" => $empCode);
+$utparam = array(":empcode" => substr($empCode,3));
 $utstmt->execute($utparam);
 $utresult = $utstmt->fetch();
 $totut = (isset($utresult['tot_ut'])) ? $utbresult['tot_ut'] : 0 ;
