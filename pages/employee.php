@@ -156,8 +156,7 @@ $yparam = array(":empcode" => $bdno,":todate" => date('Y-m-d'));
 $ystmt->execute($yparam);
 $yresult = $ystmt->fetch();
 $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
-// $start = $yresult['timein'];
-$timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+$timeoutf =  (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
 //LEAVE BALANCES IN PROFILE EMP
 $jquery = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
@@ -750,7 +749,17 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
         </div>
     </div>
                 <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
-                <span class="text-success small pt-1 fw-bold"><?php echo $timeoutf; ?></span> 
+                <?php 
+
+                if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) < 7 ){
+                    echo'<span class="text-success small pt-1 fw-bold">05:30 PM</span> ';
+                }else if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) > 10 ){
+                    echo'<span class="text-success small pt-1 fw-bold">08:30 PM</span> ';
+                }else{
+                    echo'<span class="text-success small pt-1 fw-bold">'.$timeoutf.'</span> ';
+                }
+                
+                ?>
             </div>
         </div>
     </div>   

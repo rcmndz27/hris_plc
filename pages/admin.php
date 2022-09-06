@@ -639,7 +639,17 @@ function timeOutModal(lvid,empcd,attid){
                 </div>
 
         <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
-          <span class="text-success small pt-1 fw-bold"><?php echo $timeoutf; ?></span> 
+                <?php 
+
+                if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) < 7 ){
+                    echo'<span class="text-success small pt-1 fw-bold">05:30 PM</span> ';
+                }else if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) > 10 ){
+                    echo'<span class="text-success small pt-1 fw-bold">08:30 PM</span> ';
+                }else{
+                    echo'<span class="text-success small pt-1 fw-bold">'.$timeoutf.'</span> ';
+                }
+                
+                ?>
        
                     </div>
                 </div>
