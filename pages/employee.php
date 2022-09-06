@@ -122,6 +122,33 @@ $bstmt->execute($bparam);
 $bresult = $bstmt->fetch();
 $totlate = (isset($bresult['tot_late'])) ? $bresult['tot_late'] : 0 ;
 
+//GET TOTAL OT
+$otquery = "SELECT SUM(ot_apprv_hrs) as tot_ot from tr_overtime where emp_code = :empcode 
+and month(ot_date) = MONTH(GETDATE()) 
+and YEAR(ot_date) = YEAR(GETDATE())";
+$otstmt =$connL->prepare($otquery);
+$otparam = array(":empcode" => $empCode);
+$otstmt->execute($otparam);
+$otresult = $otstmt->fetch();
+$totot = (isset($otresult['tot_ot'])) ? $otresult['tot_ot'] : 0 ;
+
+//GET TOTAL UT
+$utquery = "EXEC xp_attendance_portal_totut :empcode";
+$utstmt =$connL->prepare($utquery);
+$utparam = array(":empcode" => $empCode);
+$utstmt->execute($utparam);
+$utresult = $utstmt->fetch();
+$totut = (isset($utresult['tot_ut'])) ? $utbresult['tot_ut'] : 0 ;
+
+//GET TOTAL WORK
+$twquery = "EXEC xp_attendance_portal_totwork :empcode";
+$twstmt =$connL->prepare($twquery);
+$twparam = array(":empcode" => $empCode);
+$twstmt->execute($twparam);
+$twresult = $twstmt->fetch();
+$totwork = (isset($twresult['tot_work'])) ? $twresult['tot_work'] : 0 ;
+
+
 //GET LAST TIME IN
 $yquery = "SELECT timein from employee_attendance where emp_code = :empcode and punch_date = :todate";
 $ystmt =$connL->prepare($yquery);
@@ -131,6 +158,48 @@ $yresult = $ystmt->fetch();
 $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
 // $start = $yresult['timein'];
 $timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+
+//LEAVE BALANCES IN PROFILE EMP
+$jquery = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
+$jstmt =$connL->prepare($jquery);
+$jparam = array(":empCode" => $empCode);
+$jstmt->execute($jparam);
+$jresult = $jstmt->fetch();  
+
+$queryxc = "SELECT count(actl_cnt) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
+and leavetype in ('Sick Leave')";
+$stmtxc =$connL->prepare($queryxc);
+$paramxc = array(":empCode" => $empCode);
+$stmtxc->execute($paramxc);
+$resultxc = $stmtxc->fetch();
+
+$queryv = "SELECT count(actl_cnt) as cnt_vl from tr_leave where approved = 2 and emp_code  = :empCode 
+and leavetype in ('Vacation Leave','Emergency Leave')";
+$stmtv =$connL->prepare($queryv);
+$paramv = array(":empCode" => $empCode);
+$stmtv->execute($paramv);
+$resultv = $stmtv->fetch(); 
+
+$querysw = "SELECT count(actl_cnt) as cnt_slw from tr_leave where approved = 2 and emp_code  = :empCode 
+and leavetype in ('Sick Leave without Pay')";
+$stmtsw =$connL->prepare($querysw);
+$paramsw = array(":empCode" => $empCode);
+$stmtsw->execute($paramsw);
+$resultsw = $stmtsw->fetch();
+
+$queryvw = "SELECT count(actl_cnt) as cnt_vlw from tr_leave where approved = 2 and emp_code  = :empCode 
+and leavetype in ('Vacation Leave without Pay')";
+$stmtvw =$connL->prepare($queryvw);
+$paramvw = array(":empCode" => $empCode);
+$stmtvw->execute($paramvw);
+$resultvw = $stmtvw->fetch();                       
+
+$used_vl = $resultv['cnt_vl'];
+$used_sl = $resultxc['cnt_sl'];
+$used_vlw = $resultvw['cnt_vlw'];
+$used_slw = $resultsw['cnt_slw'];        
+$pending_vl = (isset($jresult['pending_vl']) ? $jresult['pending_vl'] : 0);
+$pending_sl = (isset($jresult['pending_sl']) ? $jresult['pending_sl'] : 0);     
 
 // GET CUT OFF
 $qry = "SELECT * from payroll_cutoff WHERE GETDATE() between cutoff_from and cutoff_to" ;
@@ -531,57 +600,89 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 <!-- Content Row -->
 <div class="row">  
     <!-- All Act Emp-->
-    <div class="col-xl-3 col-md-3 mb-4">
+    <div class="col-xl-2 col-md-3 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">SICK LEAVE BALANCE
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">EMPLOYE HANDBOOK
                             <?php echo date("Y") ?> </div>
                             <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $earned_sl; ?></div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar allact" role="progressbar"
-                                        style="width: <?php echo $slpct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
-                                    </div>
-                                </div>
+                                  <a href="../uploads/COD_HANDBOOK.pdf" target="_blank">
+                                    <button type="button" class="btn btn-outline-primary">View Handbook
+                                    </button>
+                                </a>
+                                <span class="text-muted small pt-2 ps-1">Handbook updated 08.05.22</span>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-head-side-cough fa-2x text-gray-300"></i>
+                            <i class="fas fa-book fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>                        
 
-        <!-- All Inact Emp-->
-        <div class="col-xl-3 col-md-6 mb-4">
+           <!--Total Work Days-->
+        <div class="col-xl-2 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Vacation Leave Balance <?php echo date("Y") ?> 
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Work Days <br><?php echo date("F Y") ?> 
                         </div>
                         <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $earned_vl; ?></div>
-                            </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar allinact" role="progressbar"
-                                    style="width: <?php echo $vlpct; ?>%" aria-valuenow="50" aria-valuemin="0"
-                                    aria-valuemax="100"></div>
-                                </div>
-                            </div>
+                        <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totwork; ?> hr/s</div>
                         </div>
                     </div>
+                    </div>
                     <div class="col-auto">
-                        <i class="fas fa-plane fa-2x text-gray-300"></i>
+                        <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+              <!--Total OT-->
+            <div class="col-xl-2 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Total Overtime <br><?php echo date("F Y") ?> 
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totot; ?> hr/s</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!--UNDERTIME-->
+        <div class="col-xl-2 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Undertime <br><?php echo date("F Y") ?> 
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totut; ?> hr/s</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-bell-slash fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -589,12 +690,12 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
     </div>
 
     <!--Male-->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-2 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">TOTAL LATES <?php echo date("F Y") ?> 
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Lates <br><?php echo date("F Y") ?> 
                     </div>
                     <div class="row no-gutters align-items-center">
                         <div class="col-auto">
@@ -611,12 +712,12 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 </div>
 
 <!-- time in -->
-<div class="col-xl-3 col-md-6 mb-4">
+<div class="col-xl-2 col-md-6 mb-4">
     <div class="card border-left-warning shadow h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <?php echo date("F d, Y");  if(isset($wfhd)){echo': WFH';}   ?> 
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Today's Time-In: <br><?php echo date("F d, Y");  if(isset($wfhd)){echo': WFH';}   ?> 
                 </div>
                 <div class="row no-gutters align-items-center">
                     <div class="col-auto">
@@ -681,10 +782,39 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
   <div class="col-md-3">
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">EMPLOYEE HANDBOOK <i class="fas fa-book"></i></h6>
+            <h6 class="m-0 font-weight-bold text-primary">EMPLOYEE'S LEAVE <i class="fas fa-suitcase fa-fw">
+                        </i></h6>
         </div>
-        <div class="card-body cdbody">  
-        </div>
+        <div class="card-body cdbody">
+                  <div class="table-responsive">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th class="ps-0  pb-2 border-bottom">Leave Type</th>
+                          <th class="border-bottom pb-2">Balance</th>
+                          <th class="border-bottom pb-2">Pending</th>
+                          <th class="border-bottom pb-2">Used</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="ps-0">Vacation Leave</td>
+                          <td><p class="mb-0"><span class="font-weight-bold me-2"><?php echo $earned_vl;?></span></p></td>
+                          <td class="text-muted"><?php echo $pending_vl; ?></td>
+                          <td class="text-muted"><?php echo $used_vl?>: with Pay<br>
+                                                <?php echo $used_vlw?>: without Pay<br></td>
+                        </tr>
+                        <tr>
+                          <td class="ps-0">Sick Leave</td>
+                          <td><p class="mb-0"><span class="font-weight-bold me-2"><?php echo $earned_sl;?></span></p></td>
+                          <td class="text-muted"><?php echo $pending_sl; ?></td>
+                          <td class="text-muted"><?php echo $used_sl?> : with Pay<br>
+                                                <?php echo $used_slw?> : without Pay<br></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
     </div>
 </div>      
     <div class="col-md-3">
