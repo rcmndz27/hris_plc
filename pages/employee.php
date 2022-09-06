@@ -120,7 +120,7 @@ $bstmt =$connL->prepare($bquery);
 $bparam = array(":empcode" => $empCode);
 $bstmt->execute($bparam);
 $bresult = $bstmt->fetch();
-$totlate = (isset($bresult['tot_late'])) ? $bresult['tot_late'] : 0 ;
+$totlate = (isset($bresult['tot_late'])) ? round($bresult['tot_late'],2) : 0 ;
 
 //GET TOTAL OT
 $otquery = "SELECT SUM(ot_apprv_hrs) as tot_ot from tr_overtime where emp_code = :empcode 
