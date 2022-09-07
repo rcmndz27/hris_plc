@@ -21,6 +21,12 @@ $empCode = $empInfo->GetEmployeeCode();
 global $connL;
 global $dbConnection;
 
+//ANNOUNCEMENT
+$queryan = "SELECT * from logs_events where status = 1 or (date_to >= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) and status = 0)";
+$stmtan =$connL->prepare($queryan);
+$stmtan->execute();
+$resultan = $stmtan->fetch();    
+
 
 //GET HOLIDAYS
 $queryq = "SELECT * from mf_holiday where YEAR(holidaydate) = YEAR(GETDATE())";
@@ -606,7 +612,7 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">EMPLOYE HANDBOOK
                             <?php echo date("Y") ?> </div>
                             <div class="row no-gutters align-items-center">
-                                  <a href="../uploads/COD_HANDBOOK.pdf" target="_blank">
+                                <a href="../uploads/COD_HANDBOOK.pdf" target="_blank">
                                     <button type="button" class="btn btn-outline-primary">View Handbook
                                     </button>
                                 </a>
@@ -846,20 +852,51 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                     </div>
                   </div><hr style="margin:5;">  ';                        
                         } while ($resultu = $stmtu->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No birthday celebrant this month.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
                      }
                 ?>             
             </div>
         </div>
     </div>
-  <div class="col-md-2">
+<div class="col-md-2">
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">ANNOUNCEMENTS <?php echo strtoupper(date("Y")) ?> <i class="fas fa-paste"></i></h6>
         </div>
-        <div class="card-body cdbody">  
+        <div class="card-body cdbody">
+              <?php  
+                if($resultan){
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><a href="../uploads/'.$resultan['filename'].'" target="_blank"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/expdf.png"></a></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><a href="../uploads/'.$resultan['filename'].'" target="_blank"><b>
+                      '.$resultan['description'].'</b></a>  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultan = $stmtan->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No announcement recorded.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                     }                                                        
+                ?>            
         </div>
     </div>
-</div>    
+</div>     
                      
                     </div>
 

@@ -159,7 +159,6 @@ function cancelLeave(lvid,empcd)
 <link rel="stylesheet" type="text/css" href="../leave/leave_view.css">
 <script type='text/javascript' src='../leave/leaveApplication.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
-<script type="text/javascript"></script>
 <script src="../leave/moment2.min.js"></script>
 <script src="../leave/moment-range.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>

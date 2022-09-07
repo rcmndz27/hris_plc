@@ -106,12 +106,17 @@ $stmtl =$connL->prepare($queryl);
 $stmtl->execute();
 $resultl = $stmtl->fetch();    
 
+//ANNOUNCEMENT
+$queryan = "SELECT * from logs_events where status = 1 or (date_to >= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) and status = 0)";
+$stmtan =$connL->prepare($queryan);
+$stmtan->execute();
+$resultan = $stmtan->fetch();    
+
 //LATES TODAY
 $queryp = 'EXEC hrissys_test.dbo.xp_attendance_portal_late_admin';
 $stmtp =$connL->prepare($queryp);
 $stmtp->execute();
 $resultp = $stmtp->fetch();    
-
 
 //SCHED TODAY
 $queryy = 'EXEC hrissys_test.dbo.xp_attendance_portal_schedtoday';
@@ -137,7 +142,7 @@ $ystmt->execute($yparam);
 $yresult = $ystmt->fetch();
 $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timein'])) : 'NO TIME-IN');
 // $start = $yresult['timein'];
-$timeoutf =      (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
+$timeoutf = (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
 // GET ACTIVE EMPLOYEES
 $qry = "SELECT count(emp_code) as empcnt,round(count(emp_code) * 100 / (SELECT count(*) from employee_profile),0) as empcntpct  from employee_profile where emp_status = 'Active'" ;
@@ -368,19 +373,89 @@ function timeOutModal(lvid,empcd,attid){
       
     }    
 </script>
+<script type='text/javascript' src='../pages/add_ancmnt.js'></script>
+<script type='text/javascript' src='../js/validator.js'></script>
 <link rel="stylesheet" href="../css/fullcalendar/fullcalendar.min.css">
 <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body id="page-top" style="background-color: #f8f9fc;height:100%;overflow-y:auto;overflow-x: hidden;">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+<div id="content">
+
+
+<div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">ADD ANNOUNCEMENT <i class="fas fa-paste fa-fw">
+                        </i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                <div class="modal-body">                    
+
+                        <div class="form-row mb-2">
+                            <div class="col-md-2 d-inline">
+                                <label for='subject'>Subject:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-10 d-inline">
+                                <input class="form-control inputtext" id="description" type="text" placeholder="Memo/Announcement Subject">
+                            </div>
+                        </div>
+                        <div class="form-row mb-2">
+                            <div class="col-md-2 d-inline">
+                                <label for='status'>Status:</label><span class="req">*</span>
+                            </div>
+                            <div class="col-md-4 d-inline">
+                                <select type="select" class="form-select" id="status" name="status" >
+                                    <option value="1">Permanent</option>
+                                    <option value="0">Temporary</option>
+                                </select>   
+                            </div>
+                        </div>                        
+                        <div class="form-row align-items-center mb-2" id="dateancmnt">
+                            <div class="col-md-2 d-inline">
+                                <label for="datefrom" id="dfrom">Date From:<span class="req">*</span></label>
+                            </div>
+                            <div class="col-md-3 d-inline">
+                                <input type="date" id="date_from" name="date_from" class="form-control inputtext" value="<?php echo date('h:i a');?>">
+                            </div>
+                            <div class="col-md-1 d-inline">
+                                <label for="" id="dto"> To: <span class="req">*</span></label>
+                            </div>
+                            <div class="col-md-3 d-inline">
+                                <input type="date" id="date_to" name="date_to" class="form-control inputtext">
+                            </div>
+                        </div>
+                         <div class="row pb-2">
+                            <div class="col-md-2">
+                                <label for="Attachment" id="LabelAttachment">Attachment:<span class="req">*</span></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="file" name="medicalfiles" id="medicalfiles" accept=".pdf" onChange="GetMedFile()">
+                            </div>
+                        </div>                                                                                            
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="subbut" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="timeInModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -686,7 +761,7 @@ function timeOutModal(lvid,empcd,attid){
                         } while ($resultl = $stmtl->fetch());
                      }                                                        
                 ?>            
-            </div>
+        </div>
         </div>
     </div>      
 
@@ -790,6 +865,14 @@ function timeOutModal(lvid,empcd,attid){
                   </div><hr style="margin:5;">  ';
                         
                         } while ($resultu = $stmtu->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No birthday celebrant this month.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
                      }
                                                         
                 ?>             
@@ -799,7 +882,7 @@ function timeOutModal(lvid,empcd,attid){
  </div> <!--end of row -->
 
  <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
     <div class="card">
         <div class="d-flex flex-row align-items-center justify-content-between">
             <h5 class="m-0 font-weight-bold">Legend: 
@@ -819,6 +902,40 @@ function timeOutModal(lvid,empcd,attid){
         </div>
       </div>
     </div>
+
+    <div class="col-md-3">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">ANNOUNCEMENTS <?php echo strtoupper(date("Y")) ?> <i class="fas fa-paste"></i></h6>
+            <button class="btn btn-info"  id="addAncmnt"><i class="fas fa-plus-square"></i> Announcement</button>
+        </div>
+        <div class="card-body cdbody">
+              <?php  
+                if($resultan){
+                    do { 
+                echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><a href="../uploads/'.$resultan['filename'].'" target="_blank"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/expdf.png"></a></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><a href="../uploads/'.$resultan['filename'].'" target="_blank"><b>
+                      '.$resultan['description'].'</b></a>  
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                        
+                        } while ($resultan = $stmtan->fetch());
+                     }else{
+                    echo ' <div class="row">
+                    <div class="col-sm-1">
+                      <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/iconx.png"></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary"><b>No announcement recorded.</b>
+                    </div>
+                  </div><hr style="margin:5;">  ';
+                     }                                                        
+                ?>            
+        </div>
+    </div>
+</div>      
 </div><!--end of row -->
 
                 </div>
