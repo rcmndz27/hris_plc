@@ -11,14 +11,17 @@
         $rsth = $stmh->fetch();
         $ltype = $rsth['leavetype'];
         $lstat = $rsth['approved'];
+        $lvcnt = $rsth['actl_cnt'];
 
         if($ltype == 'Vacation Leave'){    
-            $cmdr = $connL->prepare("UPDATE dbo.employee_leave SET earned_vl = earned_vl + 1 where emp_code = :emp_code");
+            $cmdr = $connL->prepare("UPDATE dbo.employee_leave SET earned_vl = earned_vl + :lvcnt where emp_code = :emp_code");
             $cmdr->bindValue('emp_code',$emp_code);
+            $cmdr->bindValue('lvcnt',$lvcnt);
             $cmdr->execute();
         }else if($ltype == 'Sick Leave'){
-            $cmdr = $connL->prepare("UPDATE dbo.employee_leave SET earned_sl = earned_sl + 1 where emp_code = :emp_code");
+            $cmdr = $connL->prepare("UPDATE dbo.employee_leave SET earned_sl = earned_sl + :lvcnt where emp_code = :emp_code");
             $cmdr->bindValue('emp_code',$emp_code);
+            $cmdr->bindValue('lvcnt',$lvcnt);
             $cmdr->execute();
         }   
 
