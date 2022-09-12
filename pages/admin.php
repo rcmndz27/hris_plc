@@ -776,9 +776,9 @@ function timeOutModal(lvid,empcd,attid){
         <div class="card-body cdbody">
               <?php  
                 if($resulty){
-                    $ppic = (isset($resulty['emp_pic_loc'])) ? $resulty['emp_pic_loc'] : 'nophoto.jpg' ;
-                    $fname =$resulty['fullname'] ;
                     do { 
+                    $ppic = (isset($resulty['emp_pic_loc'])) ? $resulty['emp_pic_loc'] : 'nophoto.jpg' ;
+                    $fname =$resulty['fullname'] ;                        
                 echo ' <div class="row">
                     <div class="col-sm-1">
                       <h6 class="mb-0"><img class="rounded-circle" style="width:25px;height:25px;" src="../img/'.$ppic.'"></h6>
