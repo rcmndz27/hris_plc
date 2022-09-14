@@ -425,7 +425,7 @@
                 $data = [];
                
 
-                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,(a.lastname +','+a.firstname+' '+a.middlename) as fullname from employee_profile a where a.emp_status = 'Active' and a.emp_type = 'Regular' and NOT EXISTS (SELECT * FROM dbo.employee_leave b where a.emp_code = b.emp_code) order by a.lastname asc");
+                $sql = $connL->prepare(@"SELECT a.rowid,a.emp_code,(a.lastname +','+a.firstname+' '+a.middlename) as fullname from employee_profile a where a.emp_status = 'Active' and NOT EXISTS (SELECT * FROM dbo.employee_leave b where a.emp_code = b.emp_code) order by a.lastname asc");
                 $sql->execute();
 
                 if ($type == "leavebalc")
