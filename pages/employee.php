@@ -165,11 +165,35 @@ $timeinf =  (isset($yresult['timein']) ? date('h:i A', strtotime($yresult['timei
 $timeoutf =  (isset($yresult['timein']) ? date('h:i A',strtotime('+10 hour 30 minute',strtotime($yresult['timein']))): 'n/a');
 
 //LEAVE BALANCES IN PROFILE EMP
-$jquery = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
+$jquery = "SELECT a.earned_sl,a.earned_vl,a.earned_fl FROM employee_leave a where a.emp_code =:empCode";
 $jstmt =$connL->prepare($jquery);
 $jparam = array(":empCode" => $empCode);
 $jstmt->execute($jparam);
 $jresult = $jstmt->fetch();  
+
+// PENDING FLEAVE
+$querypf = "SELECT count(actl_cnt) as cnt_pf from tr_leave where approved = 1 and emp_code = :empCode 
+and leavetype in ('Floating Leave')";
+$stmtpf =$connL->prepare($querypf);
+$parampf = array(":empCode" => $empCode);
+$stmtpf->execute($parampf);
+$resultpf = $stmtpf->fetch();
+
+// PENDING SL
+$queryps = "SELECT count(actl_cnt) as cnt_ps from tr_leave where approved = 1 and emp_code  = :empCode 
+and leavetype in ('Sick Leave')";
+$stmtps =$connL->prepare($queryps);
+$paramps = array(":empCode" => $empCode);
+$stmtps->execute($paramps);
+$resultps = $stmtps->fetch();
+
+//PENDING VL
+$querypv = "SELECT count(actl_cnt) as cnt_pv from tr_leave where approved = 1 and emp_code  = :empCode 
+and leavetype in ('Vacation Leave','Emergency Leave')";
+$stmtpv =$connL->prepare($querypv);
+$parampv = array(":empCode" => $empCode);
+$stmtpv->execute($parampv);
+$resultpv = $stmtpv->fetch();     
 
 $queryxc = "SELECT count(actl_cnt) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
 and leavetype in ('Sick Leave')";
@@ -184,6 +208,13 @@ $stmtv =$connL->prepare($queryv);
 $paramv = array(":empCode" => $empCode);
 $stmtv->execute($paramv);
 $resultv = $stmtv->fetch(); 
+
+$queryfl = "SELECT count(actl_cnt) as cnt_fl from tr_leave where approved = 2 and emp_code  = :empCode 
+and leavetype in ('Floating Leave')";
+$stmtfl =$connL->prepare($queryfl);
+$paramfl = array(":empCode" => $empCode);
+$stmtfl->execute($paramfl);
+$resultfl = $stmtfl->fetch(); 
 
 $querysw = "SELECT count(actl_cnt) as cnt_slw from tr_leave where approved = 2 and emp_code  = :empCode 
 and leavetype in ('Sick Leave without Pay')";
@@ -201,10 +232,15 @@ $resultvw = $stmtvw->fetch();
 
 $used_vl = $resultv['cnt_vl'];
 $used_sl = $resultxc['cnt_sl'];
+$used_fl = $resultfl['cnt_fl'];        
 $used_vlw = $resultvw['cnt_vlw'];
-$used_slw = $resultsw['cnt_slw'];        
-$pending_vl = (isset($jresult['pending_vl']) ? $jresult['pending_vl'] : 0);
-$pending_sl = (isset($jresult['pending_sl']) ? $jresult['pending_sl'] : 0);     
+$used_slw = $resultsw['cnt_slw'];   
+$pending_vl = (isset($resultpv['cnt_pv']) ? round($resultpv['cnt_pv'],2) : 0);
+$pending_sl = (isset($resultps['cnt_ps']) ? round($resultps['cnt_ps'],2) : 0);
+$pending_fl = (isset($resultpf['cnt_pf']) ? round($resultpf['cnt_pf'],2) : 0); 
+$earned_vl = (isset($jresult['earned_vl'])) ? round($jresult['earned_vl'],2) : 0 ;
+$earned_sl = (isset($jresult['earned_sl'])) ? round($jresult['earned_sl'],2) : 0 ; 
+$earned_fl = (isset($jresult['earned_fl'])) ? round($jresult['earned_fl'],2) : 0 ; 
 
 // GET CUT OFF
 $qry = "SELECT * from payroll_cutoff WHERE GETDATE() between cutoff_from and cutoff_to" ;
@@ -221,8 +257,8 @@ $stmt =$connL->prepare($query);
 $param = array(":empcode" => $empCode);
 $stmt->execute($param);
 $result = $stmt->fetch();
-$earned_vl = (isset($result['earned_vl'])) ? round($result['earned_vl'],2) : 0 ;
-$earned_sl = (isset($result['earned_sl'])) ? round($result['earned_sl'],2) : 0 ;
+// $earned_vl = (isset($result['earned_vl'])) ? round($result['earned_vl'],2) : 0 ;
+// $earned_sl = (isset($result['earned_sl'])) ? round($result['earned_sl'],2) : 0 ;
 $vlpct = (isset($result['vlpct'])) ? round($result['vlpct'],2) : 0 ;
 $slpct = (isset($result['slpct'])) ? round($result['slpct'],2) : 0 ;
 
@@ -825,6 +861,12 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                           <td class="text-muted"><?php echo $used_sl?> : with Pay<br>
                                                 <?php echo $used_slw?> : without Pay<br></td>
                         </tr>
+                        <tr>
+                          <td class="ps-0">Floating Leave</td>
+                          <td><p class="mb-0"><span class="font-weight-bold me-2"><?php echo $earned_fl;?></span></p></td>
+                          <td class="text-muted"><?php echo $pending_fl; ?></td>
+                          <td class="text-muted"><?php echo $used_fl?> : with Pay<br></td>
+                        </tr>                        
                       </tbody>
                     </table>
                   </div>
