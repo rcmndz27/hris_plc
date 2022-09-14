@@ -43,7 +43,9 @@ Class LeaveBalanceList{
         <tbody>';
 
         $query = "SELECT c.lastname+', '+c.firstname as [fullname],a.emp_code,a.earned_sl,a.earned_vl,a.earned_fl,
-        a.earned_sl_bank,a.status from dbo.employee_leave a left join dbo.employee_profile c  on a.emp_code = c.emp_code ORDER by c.lastname ASC";
+        a.earned_sl_bank,a.status from dbo.employee_leave a left join dbo.employee_profile c  on a.emp_code = c.emp_code 
+        where status = 'Active'
+        ORDER by c.lastname ASC";
         $stmt =$connL->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch();
