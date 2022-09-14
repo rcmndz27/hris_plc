@@ -597,8 +597,8 @@ swal({
                 
                 param = JSON.stringify(param);
 
-                // alert(param);
-                // exit();
+                // console.log(param);
+                // return false;
 
                     if($('#dateTo').val() >= $('#dateFrom').val()){
                         swal({

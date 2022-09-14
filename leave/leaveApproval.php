@@ -120,11 +120,11 @@ require '../vendor/autoload.php';
     function ViewLeaveSummaryList($employee){
         global $connL;
 
-        $query = 'SELECT count(a.rowid) as pending,a.emp_code,a.employee,COALESCE(b.earned_vl,0) as earned_vl,COALESCE(b.earned_sl,0) as earned_sl 
+        $query = 'SELECT count(a.rowid) as pending,a.emp_code,a.employee,COALESCE(b.earned_vl,0) as earned_vl,COALESCE(b.earned_sl,0) as earned_sl ,COALESCE(b.earned_fl,0) as earned_fl 
         FROM tr_leave a left join employee_leave b
         on a.emp_code = b.emp_code
         WHERE a.approval = :reporting_to and a.approved  =  1
-        GROUP by a.emp_code,a.employee,b.earned_sl,b.earned_vl';
+        GROUP by a.emp_code,a.employee,b.earned_sl,b.earned_vl,b.earned_fl';
 
         $param = array(':reporting_to' => $employee);
         $stmt =$connL->prepare($query);
@@ -142,6 +142,7 @@ require '../vendor/autoload.php';
                     <th class="text-center">Pending</th>
                     <th class="text-center">Sick Leave</th>
                     <th class="text-center">Vacation Leave</th>
+                    <th class="text-center">Floating Leave</th>
                     <th class="text-center">History</th>
                 </tr>
             </thead>
@@ -156,6 +157,7 @@ require '../vendor/autoload.php';
                 $pending = (isset($result['pending']) ? floatval($result['pending']) : 0);
                 $earned_sl = (isset($result['earned_sl']) ? $result['earned_sl'] : 0);
                 $earned_vl = (isset($result['earned_vl']) ? $result['earned_vl'] : 0);
+                $earned_fl = (isset($result['earned_fl']) ? $result['earned_fl'] : 0);
 
                 $totalPending = $pending;
 
@@ -166,6 +168,7 @@ require '../vendor/autoload.php';
                     <button id="alertleave" value="'. $totalPending .'" hidden></button></td></td>'.
                     '<td class="text-center">'. round($earned_sl,2) .'</td>'.
                     '<td class="text-center">'. round($earned_vl,2) .'</td>'.
+                    '<td class="text-center">'. round($earned_fl,2) .'</td>'.
                     '<td class="text-center"><button class="hstry btnViewing" id="'.$result['emp_code'].'" type="submit"><i class="fas fa-search"></button></td>'.
                 '</tr>';
                 
@@ -340,8 +343,10 @@ require '../vendor/autoload.php';
 
         if($leavetype === 'Vacation Leave without Pay' || $leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $column = 'earned_vl = ';
-        }elseif(leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
+        }else if(leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
             $column = 'earned_sl = ';
+        }else if(leavetype === 'Floating Leave'){
+            $column = 'earned_fl = ';
         }
 
         if($bal === 10 ? $bal = 0 : $bal);
@@ -402,8 +407,10 @@ require '../vendor/autoload.php';
 
         if($leavetype === 'Vacation Leave without Pay' || $leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $balanceCount = $earned_vl;
-        }elseif($leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
+        }else if($leavetype === 'Sick Leave without Pay' || $leavetype === 'Sick Leave' ){
             $balanceCount = $earned_sl;
+        }else if($leavetype === 'Floating Leave'){
+            $balanceCount = $earned_fl;
         }
 
         return $balanceCount;

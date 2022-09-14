@@ -2,13 +2,13 @@
 
 Class LeaveBalanceEnt{
 
-public function InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_vl,$earned_sl_bank)
+public function InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_vl,$earned_fl,$earned_sl_bank)
     {
         global $connL;
 
-            $query = "INSERT INTO employee_leave (emp_code,earned_sl,earned_vl,earned_sl_bank,status,audituser,auditdate) 
+            $query = "INSERT INTO employee_leave (emp_code,earned_sl,earned_vl,earned_fl,earned_sl_bank,status,audituser,auditdate) 
 
-                VALUES(:emp_code,:earned_sl,:earned_vl,:earned_sl_bank,:status,:audituser,:auditdate)";
+                VALUES(:emp_code,:earned_sl,:earned_vl,:earned_fl,:earned_sl_bank,:status,:audituser,:auditdate)";
     
                 $stmt =$connL->prepare($query);
 
@@ -16,6 +16,7 @@ public function InsertLeaveBalanceEnt($eMplogName,$emp_code,$earned_sl,$earned_v
                     ":emp_code"=> $emp_code,
                     ":earned_sl" => $earned_sl,
                     ":earned_vl" => $earned_vl,
+                    ":earned_fl" => $earned_fl,
                     ":earned_sl_bank"=> $earned_sl_bank,
                     ":status"=> 'Active',
                     ":audituser" => $eMplogName,

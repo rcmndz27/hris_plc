@@ -64,7 +64,7 @@
 
     <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">LEAVE BALANCE ENTRY <i class="fas fa-money-check"></i> </h5>
@@ -86,19 +86,25 @@
                                         <?php $dd->GenerateSingleDropDown("emp_code", $mf->GetAllEmployeeLeaveBalance("leavebalc")); ?> 
                                     </div>
                                 </div> 
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earned_sl">Sick Leave</label>
                                         <input class="form-control inputtext" type="number"  id="earned_sl" name="earned_sl" placeholder="0">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earned_vl">Vacation Leave</label>
                                         <input class="form-control inputtext" type="number"  id="earned_vl" name="earned_vl" placeholder="0">
                                     </div>
                                 </div>  
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="earned_vl">Floating Leave</label>
+                                        <input class="form-control inputtext" type="number"  id="earned_fl" name="earned_fl" placeholder="0">
+                                    </div>
+                                </div>                                  
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earned_sl_bank">Sick Leave Bank</label>
                                         <input class="form-control" type="number"  id="earned_sl_bank" name="earned_sl_bank" placeholder="0">
@@ -120,7 +126,7 @@
 
     <div class="modal fade" id="updateLvBal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title bb" id="popUpModalTitle">UPDATE LEAVE BALANCE <i class="fas fa-money-check"></i> </h5>
@@ -143,25 +149,31 @@
                                         <input type="text" class="form-control" name="empname" id="empname" disabled>
                                     </div>
                                 </div>                                  
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earnedsl">Sick Leave</label>
                                         <input class="form-control inputtext" type="number"  id="earnedsl" name="earnedsl" placeholder="0">
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earnedvl">Vacation Leave</label>
                                         <input class="form-control inputtext" type="number"  id="earnedvl" name="earnedvl" placeholder="0">
                                     </div>
                                 </div>  
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="earnedvl">Floating Leave</label>
+                                        <input class="form-control inputtext" type="number"  id="earnedfl" name="earnedfl" placeholder="0">
+                                    </div>
+                                </div>                                  
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="earnedslbank">Sick Leave Bank</label>
                                         <input class="form-control" type="number"  id="earnedslbank" name="earnedslbank" placeholder="0">
                                     </div>
                                 </div>    
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label" for="status">Status<span class="req">*</span></label>
                                         <select type="select" class="form-select" id="stts" name="stts" >
@@ -206,6 +218,7 @@
         document.getElementById('empname').value =  empnm;   
         document.getElementById('earnedsl').value =  document.getElementById('sl'+empcd).innerHTML;  
         document.getElementById('earnedvl').value =  document.getElementById('vl'+empcd).innerHTML;   
+        document.getElementById('earnedfl').value =  document.getElementById('fl'+empcd).innerHTML;   
         document.getElementById('earnedslbank').value =  document.getElementById('slb'+empcd).innerHTML;  
         document.getElementById('stts').value =  document.getElementById('st'+empcd).innerHTML;        
     }
@@ -218,6 +231,7 @@
         var emp_code = document.getElementById("empcode").value;
         var earned_sl = document.getElementById("earnedsl").value;
         var earned_vl = document.getElementById("earnedvl").value;
+        var earned_fl = document.getElementById("earnedfl").value;
         var earned_sl_bank = document.getElementById("earnedslbank").value;
         var status = document.getElementById("stts").value;
 
@@ -238,6 +252,7 @@
                                         emp_code: emp_code ,
                                         earned_sl: earned_sl,
                                         earned_vl: earned_vl,
+                                        earned_fl: earned_fl,
                                         earned_sl_bank: earned_sl_bank,               
                                         status: status 
                                         
@@ -251,6 +266,7 @@
                                             $('#updateLvBal').modal('hide');
                                             document.getElementById('sl'+emp_code).innerHTML = earned_sl;
                                             document.getElementById('vl'+emp_code).innerHTML = earned_vl;
+                                            document.getElementById('fl'+emp_code).innerHTML = earned_fl;
                                             document.getElementById('slb'+emp_code).innerHTML = earned_sl_bank;
                                             document.getElementById('st'+emp_code).innerHTML = status;
                                         }); 

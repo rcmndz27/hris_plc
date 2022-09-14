@@ -20,11 +20,39 @@ Class LeaveApplication{
     public function GetLeaveSummary(){
         global $connL;
 
-        $query = "SELECT b.used_sl,b.used_vl,b.pending_sl,b.pending_vl,a.earned_sl,a.earned_vl FROM employee_leave a left join LeaveCount b on a.emp_code = b.emp_code  where a.emp_code =:empCode";
-        $stmt =$connL->prepare($query);
+        $query = "SELECT earned_vl,earned_sl,earned_fl FROM employee_leave where emp_code =:empCode";
+        $stmt = $connL->prepare($query);
         $param = array(":empCode" => $this->employeeCode);
         $stmt->execute($param);
         $result = $stmt->fetch();  
+
+        $querypf = "SELECT count(actl_cnt) as cnt_pf from tr_leave where approved = 1 and emp_code = :empCode 
+        and leavetype in ('Floating Leave')";
+        $stmtpf =$connL->prepare($querypf);
+        $parampf = array(":empCode" => $this->employeeCode);
+        $stmtpf->execute($parampf);
+        $resultpf = $stmtpf->fetch();
+
+        $queryps = "SELECT count(actl_cnt) as cnt_ps from tr_leave where approved = 1 and emp_code  = :empCode 
+        and leavetype in ('Sick Leave')";
+        $stmtps =$connL->prepare($queryps);
+        $paramps = array(":empCode" => $this->employeeCode);
+        $stmtps->execute($paramps);
+        $resultps = $stmtps->fetch();
+
+        $querypv = "SELECT count(actl_cnt) as cnt_pv from tr_leave where approved = 1 and emp_code  = :empCode 
+        and leavetype in ('Vacation Leave','Emergency Leave')";
+        $stmtpv =$connL->prepare($querypv);
+        $parampv = array(":empCode" => $this->employeeCode);
+        $stmtpv->execute($parampv);
+        $resultpv = $stmtpv->fetch();         
+
+        $queryfl = "SELECT count(actl_cnt) as cnt_fl from tr_leave where approved = 2 and emp_code  = :empCode 
+        and leavetype in ('Floating Leave')";
+        $stmtfl =$connL->prepare($queryfl);
+        $paramfl = array(":empCode" => $this->employeeCode);
+        $stmtfl->execute($paramfl);
+        $resultfl = $stmtfl->fetch();
 
         $querys = "SELECT count(actl_cnt) as cnt_sl from tr_leave where approved = 2 and emp_code  = :empCode 
         and leavetype in ('Sick Leave')";
@@ -58,20 +86,24 @@ Class LeaveApplication{
         $used_sl = $results['cnt_sl'];
         $used_vlw = $resultvw['cnt_vlw'];
         $used_slw = $resultsw['cnt_slw'];        
-        $pending_vl = (isset($result['pending_vl']) ? $result['pending_vl'] : 0);
-        $pending_sl = (isset($result['pending_sl']) ? $result['pending_sl'] : 0);
+        $used_fl = $resultfl['cnt_fl'];
+        $pending_vl = (isset($resultpv['cnt_pv']) ? round($resultpv['cnt_pv'],2) : 0);
+        $pending_sl = (isset($resultps['cnt_ps']) ? round($resultps['cnt_ps'],2) : 0);
+        $pending_fl = (isset($resultpf['cnt_pf']) ? round($resultpf['cnt_pf'],2) : 0);
         $earned_vl = (isset($result['earned_vl']) ? round($result['earned_vl'],2) : 0);
         $earned_sl = (isset($result['earned_sl']) ? round($result['earned_sl'],2) : 0);
+        $earned_fl = (isset($result['earned_fl']) ? round($result['earned_fl'],2) : 0);
 
         echo '
         <table id="earnedLeave" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th colspan="8" class ="text-center">Earned Leaves as of '. date('F Y') .'</th>
+                    <th colspan="12" class ="text-center">Earned Leaves as of '. date('F Y') .'</th>
                 </tr>
                 <tr>
                     <th colspan="4" class ="text-center ">Vacation Leave</th>
                     <th colspan="4" class ="text-center ">Sick Leave</th>
+                    <th colspan="4" class ="text-center ">Floating Leave</th>
                 </tr>
                
                 <tr>
@@ -85,6 +117,10 @@ Class LeaveApplication{
                     <th class="text-center">Used without Pay</th>
                     <th class="text-center">Pending</th>
                     <th class="text-center">Balance</th>
+
+                    <th class="text-center">Used with Pay</th>
+                    <th class="text-center">Pending</th>
+                    <th class="text-center">Balance</th>             
         
                     
                 </tr>
@@ -101,6 +137,10 @@ Class LeaveApplication{
                     <td class="text-center ">'.$used_slw.'</td>
                     <td class="text-center ">'. $pending_sl .'</td>
                     <td class="text-center ">'.$earned_sl.'</td>
+
+                    <td class="text-center ">'.$used_fl.'</td>
+                    <td class="text-center ">'. $pending_fl .'</td>
+                    <td class="text-center ">'.$earned_fl.'</td>                    
                 </tr>
             </tbody>
         </table>';
@@ -499,7 +539,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         $count = 0;
 
-        $query = 'SELECT earned_vl, earned_sl FROM employee_leave WHERE emp_code = :emp_code';
+        $query = 'SELECT earned_vl,earned_sl,earned_fl FROM employee_leave WHERE emp_code = :emp_code';
         $param = array(":emp_code" =>$empId);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -508,11 +548,14 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
         
         $earned_vl = (isset($result['earned_vl']) ? (float)$result['earned_vl'] : 0);
         $earned_sl = (isset($result['earned_sl']) ? (float)$result['earned_sl'] : 0);
+        $earned_fl = (isset($result['earned_fl']) ? (float)$result['earned_fl'] : 0);
 
         if($leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $count = $earned_vl;
-        }elseif($leavetype === 'Sick Leave'){
+        }else if($leavetype === 'Sick Leave'){
             $count = $earned_sl;
+        }else if($leavetype === 'Floating Leave'){
+            $count = $earned_fl;
         }
 
         return $count;
@@ -522,7 +565,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         global $connL;
 
-        $query = 'SELECT earned_vl, earned_sl FROM employee_leave WHERE emp_code = :emp_code';
+        $query = 'SELECT earned_vl,earned_sl,earned_fl FROM employee_leave WHERE emp_code = :emp_code';
         $param = array(":emp_code" => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -530,6 +573,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         $earned_vl = (isset($result['earned_vl']) ? (float)$result['earned_vl'] : 0);
         $earned_sl = (isset($result['earned_sl']) ? (float)$result['earned_sl'] : 0);
+        $earned_fl = (isset($result['earned_fl']) ? (float)$result['earned_fl'] : 0);
 
         
 
@@ -617,7 +661,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         global $connL;
 
-        $query = 'SELECT earned_vl, earned_sl FROM employee_leave WHERE emp_code = :emp_code';
+        $query = 'SELECT earned_vl,earned_sl,earned_fl FROM employee_leave WHERE emp_code = :emp_code';
         $param = array(":emp_code" => $this->employeeCode);
         $stmt =$connL->prepare($query);
         $stmt->execute($param);
@@ -625,6 +669,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         $earned_vl = (isset($result['earned_vl']) ? (float)$result['earned_vl'] : 0);
         $earned_sl = (isset($result['earned_sl']) ? (float)$result['earned_sl'] : 0);
+        $earned_fl = (isset($result['earned_fl']) ? (float)$result['earned_fl'] : 0);
 
         
 
@@ -756,8 +801,10 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         if($leavetype === 'Vacation Leave' || $leavetype === 'Bereavement Leave' || $leavetype === 'Emergency Leave'){
             $column = 'earned_vl = ';
-        }elseif($leavetype === 'Sick Leave' ){
+        }else if($leavetype === 'Sick Leave' ){
             $column = 'earned_sl = ';
+        }else if($leavetype === 'Floating Leave' ){
+            $column = 'earned_fl = ';
         }
 
         if($bal === 10 ? $bal = 0 : $bal);
@@ -872,7 +919,7 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
 
         $allowedDays = 0;
 
-        if($leaveType === "Vacation Leave" || $leaveType === "Bereavement Leave" || $leaveType === "Sick Leave" || $leaveType === "Emergency Leave"){
+        if($leaveType === "Vacation Leave" || $leaveType === "Bereavement Leave" || $leaveType === "Floating Leave" || $leaveType === "Sick Leave" || $leaveType === "Emergency Leave"){
 
             $balanceCount = $this->GetBalanceCount($empCode, $leaveType);
 
@@ -889,8 +936,6 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
            
 
         }else if($leaveType === "Sick Leave without Pay" || $leaveType === "Vacation Leave without Pay" ){
-
-
 
             $this->InsertAppliedLeave($empCode, $empName, $empDept, $empReportingTo, $leaveType, $medicalFile,$dateBirth,$dateStartMaternity,$leaveDate,$leaveDesc, $leaveCount,$e_req,$n_req,$e_appr,$n_appr);
 

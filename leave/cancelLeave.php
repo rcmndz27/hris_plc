@@ -23,7 +23,12 @@
             $cmdr->bindValue('emp_code',$emp_code);
             $cmdr->bindValue('lvcnt',$lvcnt);
             $cmdr->execute();
-        }   
+        }else if($ltype == 'Floating Leave'){
+            $cmdr = $connL->prepare("UPDATE dbo.employee_leave SET earned_fl = earned_fl + :lvcnt where emp_code = :emp_code");
+            $cmdr->bindValue('emp_code',$emp_code);
+            $cmdr->bindValue('lvcnt',$lvcnt);
+            $cmdr->execute();
+        }     
 
         $cmd = $connL->prepare("UPDATE dbo.tr_leave SET approved = 4 where rowid = :leaveid");
         $cmd->bindValue('leaveid',$leaveid);
