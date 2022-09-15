@@ -393,7 +393,7 @@ else
 
 <div class="modal fade" id="viewAllAttendanceEmp" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
 aria-hidden="true">
-<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title bb" id="popUpModalTitle">VIEW ATTENDANCE LOGS   <i class="fas fa-suitcase"></i></h5>
@@ -482,9 +482,6 @@ aria-hidden="true">
             $("#s30th").show();
         }
     });
-
-
-
 
 
     $('#usersEntry').click(function(e){
@@ -1111,25 +1108,26 @@ function updateAtt()
             }
 
 
-
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("payrollList");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("payrollList");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td");
+        if(td.length > 0){ // to avoid th
+        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
         tr[i].style.display = "";
-    } else {
+        } else {
         tr[i].style.display = "none";
+            }
+        }
+        }
     }
-}       
-}
-}  
+
 
 function ApprovePayView()
 {   

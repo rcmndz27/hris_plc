@@ -1,6 +1,6 @@
 <?php
 
-    include('../mf_deduction/updatemfdeduction.php');
+    include('../payroll/updatenotes.php');
     include('../config/db.php');
 
     $action = $_POST["action"];

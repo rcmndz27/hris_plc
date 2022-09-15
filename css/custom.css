@@ -13,6 +13,22 @@ table   {
         font-family: "Dosis", sans-serif;
 }
 
+.addNoteBut {
+    width: 150;
+    padding: 5px;
+    background-color: #fbec1e;
+    border-color: #fbec1e;
+    font-weight: bolder;
+    color: #ed6200;
+    font-size: 18px;
+    border-radius: 1rem;
+    margin-left: 10px;
+}
+
+.addNoteBut:hover {
+    opacity: 0.5;
+}
+
 .req{
     color: red;
 }

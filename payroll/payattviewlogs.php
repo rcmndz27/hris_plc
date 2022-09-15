@@ -35,7 +35,9 @@
         <table id='empDtrList' class='table table-striped table-sm'>
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th colspan='8' class='text-center'>".$result['name']."</th>
+                </tr>
+                <tr>
                     <th>Date</th>
                     <th>Time In</th>
                     <th>Time Out</th>
@@ -55,7 +57,6 @@
                     $timeOut = (isset($result['timeout']) ? GetTime($result['timeout']) : '');
 
                     echo    "<tr>".
-                                "<td>" . $result['name'] . "</td>".
                                 "<td>" . date('F d, Y', strtotime($result['punch_date'])) . "</td>".
                                 "<td>" . $timeIn . "</td>".
                                 "<td>" . $timeOut . "</td>".
@@ -78,11 +79,12 @@
             </tbody>
             <tfoot>
                 <tr>".
-                    "<td colspan='4' class='text-right bg-success'><b>Total</b></td>".
+                    "<td colspan='3' class='text-right bg-success'><b>Total</b></td>".
                     "<td class='bg-success'><b>" . $totalWork . "</b></td>".
                     "<td class='bg-success'><b>" . $totalLate . "</b></td>".
                     "<td class='bg-success'><b>" . $totalUndertime . "</b></td>".
                     "<td class='bg-success'><b>" . $totalOvertime . "</b></td>".
+                    "<td class='bg-success'><b></b></td>".
                 "</tr>
             </tfoot>
         </table>";

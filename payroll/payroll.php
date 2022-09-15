@@ -262,10 +262,10 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "</tr><tr>";
             if($dtf_l == $dtFrom and $dtt_l == $dtTo and 
                 ucwords(strtolower($loc_l)) == ucwords(strtolower($location))){
-                echo"<td colspan='15' class='paytop'>".
+                echo"<td colspan='17' class='paytop'>".
                 "</tr></tfoot>";   
             }else{
-                echo"<td colspan='15' class='paytop'>".
+                echo"<td colspan='17' class='paytop'>".
                 "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
                 "</tr></tfoot>";  
             }
@@ -309,7 +309,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td class='bg-success'><b>" . $slnp . "</b></td>".
             "<td class='bg-success' colspan='2'><b>" . $vlnp . "</b></td>".
             "</tr><tr>";  
-            echo"<td colspan='15' class='paytop'>".
+            echo"<td colspan='17' class='paytop'>".
             "<div class='mt-3 d-flex justify-content-center'><button class='svepyrll' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button></div></td>".
             "</tr></tfoot>";  
 
@@ -317,7 +317,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
 
 
     }else { 
-        echo '<tfoot><tr><td colspan="15" class="paytop">No Results Found</td></tr></tfoot>'; 
+        echo '<tfoot><tr><td colspan="17" class="paytop">No Results Found</td></tr></tfoot>'; 
     }
 
     echo"</table>"; 
