@@ -124,7 +124,7 @@
               </select>
                 
             </div>           
-            <button type="button" id="search" class="delGenPay" onclick="generateEmpStatus();">
+            <button type="button" id="search" class="btn btn-warning" onclick="generateEmpStatus();">
               <i class="fas fa-search-plus"></i> GENERATE                      
             </button>                                      
         </div>
@@ -366,8 +366,8 @@
                             </div> <!-- form row closing -->
                     </fieldset>   
                             <div class="modal-footer">
-                                <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                <button type="button" class="subbut" id="Submit" onclick="updateEmpHired()"><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                                <button type="button" class="btn btn-success" id="Submit" onclick="updateEmpHired()"><i class="fas fa-check-circle"></i> SUBMIT</button>
                             </div>
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -426,7 +426,7 @@
                         </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

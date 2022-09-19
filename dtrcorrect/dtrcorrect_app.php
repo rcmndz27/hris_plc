@@ -335,25 +335,64 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
       </div>';
     }
 
-    public function InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$remarks,$e_req,$n_req,$e_appr,$n_appr){
+    public function InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$dtrc_type,$remarks,$e_req,$n_req,$e_appr,$n_appr){
 
             global $connL;
 
-           if($time_in == ''){
-            $timi = null;
-           }else{
-            $timi = date('m-d-Y H:i:s', strtotime($time_in));
-           }
+            $yquery = "SELECT timein,timeout from employee_attendance where emp_code = :empcode and punch_date = :todate";
+            $ystmt =$connL->prepare($yquery);
+            $yparam = array(":empcode" => substr($empCode,3),":todate" => $dtrc_date);
+            $ystmt->execute($yparam);
+            $yresult = $ystmt->fetch();  
+            $emp_ti = (isset($yresult['timein']) ?  date('H:i', strtotime($yresult['timein'])) : null);
+            $emp_to = (isset($yresult['timeout']) ?  date('H:i', strtotime($yresult['timeout'])) : null);
 
-           if($time_out == ''){
-            $timo = null;
-           }else{
-            $timo = date('m-d-Y H:i:s', strtotime($time_out));
-           }
+            if($dtrc_type == 'Both'){
+                if($time_in > $time_out){
+                    $dtrcdt1 = date('Y-m-d', strtotime($dtrc_date. ' + 1 day'));
+                    $dtsd_tmp = $dtrc_date.'T'.$time_in;
+                    $dtend_tmp = $dtrcdt1.'T'.$time_out;
+                    $dtsd_d = date('m-d-Y H:i:s', strtotime($dtsd_tmp));
+                    $dtend_d = date('m-d-Y H:i:s', strtotime($dtend_tmp));
+                }else{
+                    $dtsd_tmp = $dtrc_date.'T'.$time_in;
+                    $dtend_tmp = $dtrc_date.'T'.$time_out;
+                    $dtsd_d = date('m-d-Y H:i:s', strtotime($dtsd_tmp));
+                    $dtend_d = date('m-d-Y H:i:s', strtotime($dtend_tmp));
+                }
+            }else if($dtrc_type == 'Time-in'){
+                if($time_in > $emp_to){
+                    $dtrcdt1 = date('Y-m-d', strtotime($dtrc_date. ' + 1 day'));
+                    $dtsd_tmp = $dtrc_date.'T'.$time_in;
+                    $dtend_tmp = $dtrcdt1.'T'.$emp_to;
+                    $dtsd_d = date('m-d-Y H:i:s', strtotime($dtsd_tmp));
+                    $dtend_d = null;
+                }else{
+                    $dtsd_tmp = $dtrc_date.'T'.$time_in;
+                    $dtend_tmp = $dtrc_date.'T'.$emp_to;
+                    $dtsd_d = date('m-d-Y H:i:s', strtotime($dtsd_tmp));
+                    $dtend_d = null;
+                }                
+            }else{
+                if($emp_ti > $time_out){
+                    $dtrcdt1 = date('Y-m-d', strtotime($dtrc_date. ' + 1 day'));
+                    $dtsd_tmp = $dtrc_date.'T'.$emp_ti;
+                    $dtend_tmp = $dtrcdt1.'T'.$time_out;
+                    $dtsd_d = null;
+                    $dtend_d = date('m-d-Y H:i:s', strtotime($dtend_tmp));
+                }else{
+                    $dtsd_tmp = $dtrc_date.'T'.$emp_ti;
+                    $dtend_tmp = $dtrc_date.'T'.$time_out;
+                    $dtsd_d = null;
+                    $dtend_d = date('m-d-Y H:i:s', strtotime($dtend_tmp));
+                }                
 
-            // echo $timi;
+            }
+                    
+            // echo $emp_to;
             // echo nl2br('\r \n');
-            // echo $timo;
+            // echo $time_out;
+            // exit();
        
 
             $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,reporting_to,audituser,auditdate) 
@@ -366,8 +405,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                     ":dtrc_date" => $dtrc_date,
                     ":date_filed"=>date('m-d-Y'),
                     ":empReportingTo" => $empReportingTo,
-                    ":time_in"=> $timi,
-                    ":time_out"=> $timo,
+                    ":time_in"=> $dtsd_d,
+                    ":time_out"=> $dtend_d,
                     ":remarks"=> $remarks,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y H:i:s')

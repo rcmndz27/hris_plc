@@ -87,41 +87,37 @@
                 <td class="thw">Expiry Date:</td>
                 <td colspan ="2">' . ($result['expirydate_non'] <> '1900-01-01' ? $result['expirydate_non'] : 'n/a') . '</td></tr>
                 <tr><th class="thw">Date Hired:</th>
-                <td >' . ($result['datehired'] <> '1900-01-01' ? date('F d, Y', strtotime($result['datehired'])) : 'n/a') . '</td>
-                <td class="thw">Monthly Salary:</td>
-                <td colspan="2">' . (isset($result['amount']) ?  '&#8369; '.number_format($result['amount'],2,'.',',') : 0.00) . '</td>                
-                </tr> 
-                <tr><th class="thw" colspan="5">&nbsp;</th></tr> 
-                <tr><th class="thw" colspan="5">Allowances:</th></tr>                ';
+                <td >' . ($result['datehired'] <> '1900-01-01' ? date('F d, Y', strtotime($result['datehired'])) : 'n/a') . '</td>            
+                </tr> ';
 
-                // allowances
-                $queryz = "SELECT b.benefit_name,a.amount from dbo.employee_allowances_management a left join 
-                dbo.mf_benefits b on a.benefit_id = b.rowid
-                where emp_code = ".$emp_code."";
-                $stmtz =$connL->prepare($queryz);
-                $stmtz->execute();
-                $resultz = $stmtz->fetch();
-                $dataz = array();
+                // // allowances <tr><th class="thw" colspan="5">Allowances:</th></tr>                
+                // $queryz = "SELECT b.benefit_name,a.amount from dbo.employee_allowances_management a left join 
+                // dbo.mf_benefits b on a.benefit_id = b.rowid
+                // where emp_code = ".$emp_code."";
+                // $stmtz =$connL->prepare($queryz);
+                // $stmtz->execute();
+                // $resultz = $stmtz->fetch();
+                // $dataz = array();
                 
-                if($resultz){
-                    echo'
-                    <tr><th class="thw" colspan="5">&nbsp;</th></tr>
-                    <tr><th colspan="3">Allowance Name:</th><th colspan="2">Amount:</th></tr>';
-                do { 
-                    array_push($dataz,$resultz['amount']);
-                    $amtalw = $resultz['amount'];
-                    array_push($dataz,$resultz['benefit_name']);
-                    $nmealw = $resultz['benefit_name'];                  
+                // if($resultz){
+                //     echo'
+                //     <tr><th class="thw" colspan="5">&nbsp;</th></tr>
+                //     <tr><th colspan="3">Allowance Name:</th><th colspan="2">Amount:</th></tr>';
+                // do { 
+                //     array_push($dataz,$resultz['amount']);
+                //     $amtalw = $resultz['amount'];
+                //     array_push($dataz,$resultz['benefit_name']);
+                //     $nmealw = $resultz['benefit_name'];                  
 
-                 echo'
-                <tr><td colspan="3">'.$nmealw.'</td><td colspan="2">'.$amtalw.'</td></tr>';
+                //  echo'
+                // <tr><td colspan="3">'.$nmealw.'</td><td colspan="2">'.$amtalw.'</td></tr>';
                     
-                }
-                while ($resultz = $stmtz->fetch());
+                // }
+                // while ($resultz = $stmtz->fetch());
 
-                }else{
-                    echo '<tr><td colspan="5" class="thc">-- No Data Found --</td></tr>';
-                } 
+                // }else{
+                //     echo '<tr><td colspan="5" class="thc">-- No Data Found --</td></tr>';
+                // } 
 
 
                 echo'

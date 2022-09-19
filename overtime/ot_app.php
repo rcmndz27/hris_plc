@@ -357,13 +357,25 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
 
         global $connL;
 
-        $otsd_d = date('m-d-Y H:i:s', strtotime($otStartDtime));
-        $otend_d = date('m-d-Y H:i:s', strtotime($otEndDtime));
-        $otsd = strtotime($otStartDtime);
-        $otend = strtotime($otEndDtime);
-        $total = round(($otend - $otsd)/3600,2);
+        if($otStartDtime > $otEndDtime){
+            $otenddate1 = date('Y-m-d', strtotime($otDate. ' + 1 day'));
+            $otsd_tmp = $otDate.'T'.$otStartDtime;
+            $otend_tmp = $otenddate1.'T'.$otEndDtime;
+            $otsd_d = date('m-d-Y H:i:s', strtotime($otsd_tmp));
+            $otend_d = date('m-d-Y H:i:s', strtotime($otend_tmp));
+            $otsd = strtotime($otsd_tmp);
+            $otend = strtotime($otend_tmp);
+            $total = round(($otend - $otsd)/3600,2);
+        }else{
+            $otsd_tmp = $otDate.'T'.$otStartDtime;
+            $otend_tmp = $otDate.'T'.$otEndDtime;
+            $otsd_d = date('m-d-Y H:i:s', strtotime($otsd_tmp));
+            $otend_d = date('m-d-Y H:i:s', strtotime($otend_tmp));
+            $otsd = strtotime($otsd_tmp);
+            $otend = strtotime($otend_tmp);
+            $total = round(($otend - $otsd)/3600,2);
+        }
 
-        // echo $otsd_d;
         // echo $otend_d;
         // exit();
 

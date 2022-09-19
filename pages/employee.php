@@ -568,8 +568,8 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 
 
                      <div class="modal-footer">
-                        <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                        <button type="button" class="subbut" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                        <button type="button" class="btn btn-success" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                     </div>
 
                 </div>
@@ -620,7 +620,7 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 
 
             <div class="modal-footer">
-                <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                 <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
             </div>
 
@@ -767,12 +767,12 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                         if(isset($wfhd)){
                             if(empty($spresult['timein']) && empty($spresult['timeout'])){
                                 echo'
-                                <button type="button"  class="startIn" onclick="timeInModal('.$wfhid.','.$wfhempcd.')" title="Time In">
+                                <button type="button"  class="btn btn-primary" onclick="timeInModal('.$wfhid.','.$wfhempcd.')" title="Time In">
                                 <i class="fas fa-play"> Time-In </i>
                                 </button>                            
                                 </td>';
                             }else if(!empty($spresult['timein']) && empty($spresult['timeout'])){
-                                echo'<button type="button"  class="startOut" onclick="timeOutModal('.$wfhid.','.$wfhempcd.','.$attid.')" title="Time Out">
+                                echo'<button type="button"  class="btn btn-danger" onclick="timeOutModal('.$wfhid.','.$wfhempcd.','.$attid.')" title="Time Out">
                                 <i class="fas fa-hand-paper"> Time-Out </i>
                                 </button>                            
                                 </td>';

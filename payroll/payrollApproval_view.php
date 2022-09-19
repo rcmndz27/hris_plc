@@ -29,14 +29,14 @@
 <link rel="stylesheet" type="text/css" href="../payroll/payroll_appreg.css">
 <div class="container">
     <div class="section-title">
-          <h1>PAYROLL APPROVAL</h1>
+          <h1>PAYROLL LIST</h1>
         </div>
     <div class="main-body mbt">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-money-check fa-fw'>
-                        </i>&nbsp;PAYROLL APPROVAL</b></li>
+                        </i>&nbsp;PAYROLL LIST</b></li>
             </ol>
           </nav>
 

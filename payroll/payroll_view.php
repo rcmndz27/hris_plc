@@ -23,6 +23,25 @@ else
     $mf = new MasterFile();
     $dd = new DropDown(); 
 
+    $query = "SELECT max(period_to) AS ptmax,max(period_from) as pfmax from att_summary";
+    $stmt =$connL->prepare($query);
+    $stmt->execute();
+    $r = $stmt->fetch();
+    $rto = $r['ptmax'];
+    $rfrom = $r['pfmax'];
+
+    $queryp = 'EXEC hrissys_test.dbo.xp_pending_forms :date_from,:date_to';
+    $stmtp =$connL->prepare($queryp);
+    $paramp = array(":date_from" => $rfrom,":date_to" => $rto);
+    $stmtp->execute($paramp);
+    $resultp = $stmtp->fetch();  
+
+    $querypf = 'EXEC hrissys_test.dbo.xp_pending_forms :date_from,:date_to';
+    $stmtpf =$connL->prepare($querypf);
+    $parampf = array(":date_from" => $rfrom,":date_to" => $rto);
+    $stmtpf->execute($parampf);
+    $resultpf = $stmtpf->fetch();            
+
     if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
     }else{
@@ -41,7 +60,7 @@ else
 <body  onload="javascript:generatePayrll();">
     <div class="container-fluid">
         <div class="section-title">
-          <h1>PAYROLL VIEW</h1>
+          <h1>PAYROLL TIMEKEEPING VIEW</h1>
       </div>
       <div class="main-body mbt">
 
@@ -49,7 +68,7 @@ else
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-money-check fa-fw'>
-              </i>&nbsp;PAYROLL VIEW</b></li>
+              </i>&nbsp;PAYROLL TIMEKEEPING VIEW</b></li>
           </ol>
       </nav>
 
@@ -68,15 +87,26 @@ else
         <div class='col-md-2' id="s30th">
             <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetAllCutoffPay("payview")); ?>
         </div>                    
-        <button type="button" id="search" class="genpyrll" onmousedown="javascript:generatePayrll()">
+        <button type="button" id="search" class="btn btn-success" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
-        </button>
-        <button type="button" class="gotopay" >
-            <a href="../payroll/payroll_view_register.php" class="payreggoto" onclick="show()">
-                <i class="far fa-arrow-alt-circle-right"></i> PAYROLL REGISTER</a>
-            </button>   &nbsp;&nbsp;
-                <button type="button" class="genpyrll" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>                                                      
-        </div>
+        </button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-warning" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>
+
+    <?php   
+        $totalPending = 0;
+            if($resultp){
+                do {
+                    $totalPending += $resultp['pending'];     
+
+                } while ($resultp = $stmtp->fetch());     
+                echo'<button type="button" class="addNoteBut" id="pendingEntry"><i class="fas fa-sticky-note"></i> PENDING FOR APPROVAL ('.$totalPending.') </button>';
+            }else{
+
+            }
+?>
+  
+
+    </div>
    
         <div class="row pt-5">
             <div class="col-md-12 mbot"><br> 
@@ -337,14 +367,81 @@ else
                         </div> <!-- form row closing -->
                     </fieldset> 
                     <div class="modal-footer">                                  
-                        <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                        <button type="button" class="subbut" onclick="updateAtt()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                        <button type="button" class="btn btn-success" onclick="updateAtt()" ><i class="fas fa-check-circle"></i> SUBMIT</button>                                      
                     </div> 
                 </div> <!-- main body closing -->
             </div> <!-- modal body closing -->
         </div> <!-- modal content closing -->
     </div> <!-- modal dialog closing -->
 </div><!-- modal fade closing -->
+
+<div class="modal fade" id="pendingModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">PENDING FORMS  <i class="fas fa-minus-circle"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+<div class="modal-body">
+    <div class="main-body">
+        <fieldset class="fieldset-border">
+                <div class="form-row">
+<?php   
+        $totalPendings = 0;
+        echo "
+        <table class='table table-striped table-sm'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Pending</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>";
+
+            if($resultpf){
+                do {
+                    echo    "<tr>".
+                                "<td>" . $resultpf['name']. "</td>".
+                                "<td>" . round($resultpf['pending'],2) . "</td>".
+                                "<td>" . $resultpf['remarks']. "</td>".
+                            "</tr>";
+
+                    $totalPendings += $resultpf['pending'];     
+
+                } while ($resultpf = $stmtpf->fetch());     
+            }else{
+
+            }
+
+        echo"
+            </tbody>
+            <tfoot>
+                <tr>".
+                    "<td class='text-right bg-success'><b>Total</b></td>".
+                    "<td class='bg-success'><b>" . $totalPendings . "</b></td>".
+                    "<td class='bg-success'><b></b></td>".
+                "</tr>
+            </tfoot>
+        </table>";
+
+?>
+                        
+                    </div> <!-- form row closing -->
+            </fieldset> 
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                        </div> 
+                        </div> <!-- main body closing -->
+                    </div> <!-- modal body closing -->
+                </div> <!-- modal content closing -->
+            </div> <!-- modal dialog closing -->
+        </div><!-- modal fade closing -->
 
 <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
         aria-hidden="true">
@@ -382,8 +479,8 @@ else
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -422,7 +519,7 @@ aria-hidden="true">
                 </fieldset> 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                 </div> 
             </div> <!-- main body closing -->
         </div> <!-- modal body closing -->
@@ -461,7 +558,7 @@ aria-hidden="true">
                 </fieldset> 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                 </div> 
             </div> <!-- main body closing -->
         </div> <!-- modal body closing -->
@@ -483,6 +580,11 @@ aria-hidden="true">
         }
     });
 
+    $('#pendingEntry').click(function(e){
+        e.preventDefault();
+        $('#pendingModal').modal('toggle');
+
+    });
 
     $('#usersEntry').click(function(e){
         e.preventDefault();
@@ -1163,7 +1265,7 @@ function ApprovePayView()
                         pto: dates[1],
                         ppay:ppay
                     },
-                    function(data) {window.location.replace("../payroll/payroll_view_register.php"); }
+                    function(data) {window.location.replace("../payroll/payroll_view.php"); }
                     );
 
             } else {
@@ -1205,7 +1307,7 @@ function ApprovePayView()
                         ppay:ppay
                     },
                     function(data) {
-                        window.location.replace("../payroll/payroll_view_register.php"); 
+                        window.location.replace("../payroll/payroll_view.php"); 
                     }
                     );
 

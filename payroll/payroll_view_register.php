@@ -20,7 +20,7 @@
         $dd = new DropDown();
         $payrollApplication = new PayrollRegApplication();
 
-            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'Finance') {
+            if($empUserType == 'Admin' || $empUserType == 'Group Head' || $empUserType == 'Finance' || $empUserType == 'Finance2') {
 
             }else{
                         echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';

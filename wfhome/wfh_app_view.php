@@ -22,7 +22,6 @@
         $e_req = $r['emailaddress'];
         $n_req = $r['firstname'].' '.$r['lastname'];
 
-
         $aquery = 'SELECT * FROM dbo.employee_profile WHERE emp_code = :empcode ';
         $aparam = array(":empcode" => $r['reporting_to']);
         $astmt =$connL->prepare($aquery);
@@ -82,45 +81,45 @@
         );
     }
 
-        function cancelWfh(lvid,empcd)
+    function cancelWfh(lvid,empcd)
         {
 
-             var url = "../wfhome/cancelWfhProcess.php";  
-             var wfhid = lvid;   
-             var emp_code = empcd;   
-                swal({
-                      title: "Are you sure?",
-                      text: "You want to cancel this work from home?",
-                      icon: "warning",
-                      buttons: true,
-                      dangerMode: true,
-                    })
-                    .then((cnclOT) => {
-                      if (cnclOT) {
-                        $.post (
-                        url,
-                        {
-                            choice: 1,
-                            wfhid:wfhid,
-                            emp_code:emp_code
-                        },
-                        function(data) { 
-                            // console.log(data);
-                                swal({
-                                title: "Oops!", 
-                                text: "Successfully cancelled work from home!", 
-                                type: "info",
-                                icon: "info",
-                                }).then(function() {
-                                    document.getElementById('st'+wfhid).innerHTML = 'CANCELLED';
-                                    document.querySelector('#clv').remove();
-                                });  
-                        }
-                    );
-                      } else {
-                        swal({text:"You stop the cancellation of your work from home.",icon:"error"});
-                      }
-                    });
+     var url = "../wfhome/cancelWfhProcess.php";  
+     var wfhid = lvid;   
+     var emp_code = empcd;   
+        swal({
+              title: "Are you sure?",
+              text: "You want to cancel this work from home?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((cnclOT) => {
+              if (cnclOT) {
+                $.post (
+                url,
+                {
+                    choice: 1,
+                    wfhid:wfhid,
+                    emp_code:emp_code
+                },
+                function(data) { 
+                    // console.log(data);
+                        swal({
+                        title: "Oops!", 
+                        text: "Successfully cancelled work from home!", 
+                        type: "info",
+                        icon: "info",
+                        }).then(function() {
+                            document.getElementById('st'+wfhid).innerHTML = 'CANCELLED';
+                            document.querySelector('#clv').remove();
+                        });  
+                }
+            );
+              } else {
+                swal({text:"You stop the cancellation of your work from home.",icon:"error"});
+              }
+            });
       
     }
 
@@ -266,7 +265,7 @@ function timeOutModal(lvid,empcd,attid){
 <div class="pt-3">
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="appWfh" id="applyWfh"><i class="fas fa-plus-circle"></i> APPLY WORK FROM HOME </button>
+                <button type="button" class="btn btn-warning" id="applyWfh"><i class="fas fa-plus-circle"></i> APPLY WORK FROM HOME </button>
             </div>
         </div>
 
@@ -358,8 +357,8 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -400,7 +399,7 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                     <button type="button" class="subbut" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
@@ -454,7 +453,7 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
                     <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
@@ -531,7 +530,7 @@ function timeOutModal(lvid,empcd,attid){
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -570,7 +569,7 @@ function timeOutModal(lvid,empcd,attid){
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

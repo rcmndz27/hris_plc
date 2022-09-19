@@ -148,7 +148,7 @@
 
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="appOt" id="applyOvertime"><i class="fas fa-plus-circle"></i> APPLY OVERTIME</button>
+                <button type="button" class="btn btn-warning" id="applyOvertime"><i class="fas fa-plus-circle"></i> APPLY OVERTIME</button>
             </div>
         </div>
 
@@ -195,40 +195,31 @@
                                     <div class="col-md-3 d-inline">
                                         <input type="date" id="otdate" name="otdate" class="form-control inputtext">
                                     </div>
-            <!--                         <div class="col-md-2 d-inline">
-                                        <label for="">OT Date To:</label><span class="req">*</span>
-                                    </div>
-                                    <div class="col-md-3 d-inline">
-                                        <input type="date" id="otdateto" name="otdateto" class="form-control">
-                                    </div> -->
                             </div>
-
-
                         <div class="form-row align-items-center mb-2">
-
                             <div class="col-md-2 d-inline">
                                 <label for="">OT Start Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="datetime-local" id="otstartdtime" name="otstartdtime" class="form-control inputtext" value="<?php echo date('h:i a');?>">
+                                <input type="time" id="otstartdtime" name="otstartdtime" class="form-control inputtext" value="<?php echo date('h:i a');?>">
                             </div>
                             <div class="col-md-2 d-inline">
                                 <label for="">OT End Time:</label><span class="req">*</span>
                             </div>
                             <div class="col-md-3 d-inline">
-                                <input type="datetime-local" id="otenddtime" name="otenddtime" class="form-control inputtext">
+                                <input type="time" id="otenddtime" name="otenddtime" class="form-control inputtext">
                             </div>
                         </div>
-<!-- 
-                                    <div class="form-row align-items-center mb-2" id="planot">
-                                       <div class="col-md-2 d-inline">
-                                            <label for="">Plan OT(hrs):</label><span class="req">*</span>
-                                        </div>
-                                        <div class="col-md-3 d-inline">
-                                              <input class="form-control" type="number" name="otreqhrs" id="otreqhrs"  min="1" max="10" onkeypress="return false" onchange="myChangeFunction()" placeholder="0">              
-                                        </div>
-                                    </div> -->
-
+                        <!-- 
+                        <div class="form-row align-items-center mb-2" id="planot">
+                        <div class="col-md-2 d-inline">
+                        <label for="">Plan OT(hrs):</label><span class="req">*</span>
+                        </div>
+                        <div class="col-md-3 d-inline">
+                        <input class="form-control" type="number" name="otreqhrs" id="otreqhrs"  min="1" max="10" onkeypress="return false" onchange="myChangeFunction()" placeholder="0">              
+                        </div>
+                        </div> 
+                        -->
                         <div class="form-row mb-2">
                             <div class="col-md-2 d-inline">
                                 <label for='leaveDesc'>Remarks:</label><span class="req">*</span>
@@ -243,8 +234,8 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -332,7 +323,7 @@
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -371,7 +362,7 @@
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

@@ -186,7 +186,7 @@ function cancelLeave(lvid,empcd)
         </div>
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="appLv" id="applyLeave"><i class="fas fa-plus-circle"></i> APPLY LEAVE</button>
+                <button type="button" class="btn btn-warning" id="applyLeave"><i class="fas fa-plus-circle"></i> APPLY LEAVE</button>
             </div>
         </div>
 
@@ -437,8 +437,8 @@ function cancelLeave(lvid,empcd)
                         
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
                 </div> <!-- main body closing -->
             </div> <!-- modal body closing -->
@@ -568,7 +568,7 @@ function cancelLeave(lvid,empcd)
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -607,7 +607,7 @@ function cancelLeave(lvid,empcd)
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

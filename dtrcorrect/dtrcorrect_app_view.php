@@ -51,73 +51,73 @@
 <script type="text/javascript">
 
 
-    function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts,approver){
-   
-    $('#viewdtrcorrectModal').modal('toggle');
-        document.getElementById('dtrcdate').value =  dtrcdate;   
-        document.getElementById('timein').value =  timein;  
-        document.getElementById('timeout').value =  timeout;  
-        document.getElementById('rmrks').value =  rmrks;  
-        document.getElementById('stts').value =  stts; 
-        document.getElementById('approver').value =  approver;                          
-    }
+function viewdtrcorrectModal(dtrcdate,timein,timeout,rmrks,stts,approver){
 
-    function viewdtrcorrectHistoryModal(lvlogid)
-    {
-       $('#viewdtrcorrectHistoryModal').modal('toggle');
-        var url = "../dtrcorrect/dtrcorrect_viewlogs.php";
-        var lvlogid = lvlogid;
+$('#viewdtrcorrectModal').modal('toggle');
+document.getElementById('dtrcdate').value =  dtrcdate;   
+document.getElementById('timein').value =  timein;  
+document.getElementById('timeout').value =  timeout;  
+document.getElementById('rmrks').value =  rmrks;  
+document.getElementById('stts').value =  stts; 
+document.getElementById('approver').value =  approver;                          
+}
 
-        $.post (
-            url,
-            {
-                _action: 1,
-                lvlogid: lvlogid             
-            },
-            function(data) { $("#contents2").html(data).show(); }
-        );
-    }
+function viewdtrcorrectHistoryModal(lvlogid)
+{
+$('#viewdtrcorrectHistoryModal').modal('toggle');
+var url = "../dtrcorrect/dtrcorrect_viewlogs.php";
+var lvlogid = lvlogid;
 
-    function canceldtrcorrect(lvid,empcd)
-    {
+$.post (
+url,
+{
+_action: 1,
+lvlogid: lvlogid             
+},
+function(data) { $("#contents2").html(data).show(); }
+);
+}
 
-     var url = "../dtrcorrect/canceldtrcorrectProcess.php";  
-     var dtrcorrectid = lvid;   
-     var emp_code = empcd;   
-        swal({
-              title: "Are you sure?",
-              text: "You want to cancel this dtr correction?",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-            })
-            .then((cnclDTR) => {
-              if (cnclDTR) {
-                $.post (
-                        url,
-                        {
-                            choice: 1,
-                            dtrcorrectid:dtrcorrectid,
-                            emp_code:emp_code
-                        },
-                        function(data) { 
-                            // console.log(data);
-                            swal({
-                            title: "Oops!", 
-                            text: "Successfully cancelled dtr correction!", 
-                            type: "info",
-                            icon: "info",
-                            }).then(function() {
-                                document.getElementById('st'+dtrcorrectid).innerHTML = 'CANCELLED';
-                                document.querySelector('#clv').remove();
-                            });  
-                        }
-                    );
-              } else {
-                swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
-              }
-            });
-    }
+function canceldtrcorrect(lvid,empcd)
+{
+
+var url = "../dtrcorrect/canceldtrcorrectProcess.php";  
+var dtrcorrectid = lvid;   
+var emp_code = empcd;   
+swal({
+title: "Are you sure?",
+text: "You want to cancel this dtr correction?",
+icon: "warning",
+buttons: true,
+dangerMode: true,
+})
+.then((cnclDTR) => {
+if (cnclDTR) {
+$.post (
+url,
+{
+choice: 1,
+dtrcorrectid:dtrcorrectid,
+emp_code:emp_code
+},
+function(data) { 
+// console.log(data);
+swal({
+title: "Oops!", 
+text: "Successfully cancelled dtr correction!", 
+type: "info",
+icon: "info",
+}).then(function() {
+document.getElementById('st'+dtrcorrectid).innerHTML = 'CANCELLED';
+document.querySelector('#clv').remove();
+});  
+}
+);
+} else {
+swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
+}
+});
+}
 
 </script>
 <link rel="stylesheet" type="text/css" href="../dtrcorrect/dtrc_view.css">
@@ -141,7 +141,7 @@
 <div class="pt-3">
         <div class="row align-items-end justify-content-end">
             <div class="col-md-12 mb-3">
-                <button type="button" class="appWfh" id="applydtrcorrect"><i class="fas fa-plus-circle"></i> APPLY DTR CORRECTION </button>
+                <button type="button" class="btn btn-warning" id="applydtrcorrect"><i class="fas fa-plus-circle"></i> APPLY DTR CORRECTION </button>
             </div>
         </div>
 
@@ -229,7 +229,7 @@
                                     <label id="ltimein">Time-In:<span class="req">*</span></label>
                                 </div>
                                 <div class="col-md-4 d-inline" id="itimein">
-                                    <input type="datetime-local" id="time_in" name="time_in" class="form-control inputtext">
+                                    <input type="time" id="time_in" name="time_in" class="form-control inputtext">
                                 </div>
                         </div>                                                   
                             <!-- timeout -->
@@ -238,7 +238,7 @@
                                     <label id="ltimeout">Time-Out:<span class="req">*</span></label>
                                 </div>
                                 <div class="col-md-4 d-inline" id="itimeout">
-                                    <input type="datetime-local" id="time_out" name="time_out" class="form-control inputtext">
+                                    <input type="time" id="time_out" name="time_out" class="form-control inputtext">
                                 </div>   
                     </div>                                                                  
                    
@@ -255,8 +255,8 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -321,7 +321,7 @@
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -360,7 +360,7 @@
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -372,47 +372,6 @@
 </div><!-- container closing -->
 
 <script type="text/javascript">
-
-$('#time_in').change(function(){
-
-    var dte = $('#time_in').val();
-    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
-
-    if(disableDates.includes(dte)){
-        document.getElementById('time_in').value = '';
-    }
-
-            if($('#time_in').val() > $('#time_out').val()){
-                var input2 = document.getElementById('time_out');
-                document.getElementById("time_out").min = $('#time_in').val();
-                input2.value = '';
-            }
-
-});
-
- $('#time_out').change(function(){
-
-    var dte_to = $('#time_out').val();
-    var disableDates  =  <?php echo json_encode($totalVal) ;?>;
-
-
-    if(disableDates.includes(dte_to)){
-        document.getElementById('time_out').value = '';
-    }
-
-
-        if($('#time_out').val() < $('#time_in').val()){
-
-            swal({text:"DATETIME TO must be greater than DATETIM FROM!",icon:"error"});
-
-            var input2 = document.getElementById('time_out');
-            input2.value = '';               
-
-        } 
-
-});    
-
-
 
 
     $('#dtrc_date').change(function(){

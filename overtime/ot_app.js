@@ -19,45 +19,6 @@
     }
 
 
-            $('#otenddtime').change(function(){
-
-                if($('#otenddtime').val() < $('#otstartdtime').val()){
-
-                    swal({text:"OT End time must be greater than OT start time!",icon:"error"});
-
-                    var input2 = document.getElementById('otenddtime');
-                    input2.value = '';               
-
-                }   
-
-            });
-
-
-            $('#otstartdtime').change(function(){
-
-                var otstartdtime = $('#otstartdtime').val();
-                var otdate = $('#otdate').val();
-                var dt = otstartdtime.slice(0,-6);
-
-                if(dt == otdate){
-                }else{
-                    document.getElementById('otstartdtime').value =''
-                }
-
-                var input2 = document.getElementById('otenddtime');
-                document.getElementById("otenddtime").min = $('#otstartdtime').val();
-                input2.value = '';
-
-            });
-
-
-            // $('#otstartdtime').change(function(){
-            //     $('#planot').show();
-            //     document.getElementById('otenddtime').value = ''; 
-            //     document.getElementById('otreqhrs').value = 0; 
-            // });
-
-
 $('#Submit').click(function(){
 
     
@@ -74,7 +35,6 @@ $('#Submit').click(function(){
                     "otdate": $('#otdate').val(),
                     "otstartdtime": $('#otstartdtime').val(),
                     "otenddtime": $('#otenddtime').val(),
-                    // "otreqhrs": $('#otreqhrs').val(),
                     "remarks": $('#remarks').val(),
                     "e_req": e_req,
                     "n_req": n_req,

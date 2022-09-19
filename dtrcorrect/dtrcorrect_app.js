@@ -68,6 +68,7 @@ $('#Submit').click(function(){
                     "dtrc_date": $('#dtrc_date').val(),
                     "time_in": $('#time_in').val(),
                     "time_out": $('#time_out').val(),
+                    "dtrc_type": $('#dtrtype').val(),
                     "remarks": $('#remarks').val(),
                     "e_req": e_req,
                     "n_req": n_req,
