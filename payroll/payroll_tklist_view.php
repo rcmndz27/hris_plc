@@ -50,7 +50,7 @@ else
     $tkstat = $rtk['remarks'];       
 
 
-    if($empUserType == 'Admin' || $empUserType == 'Finance' || $empUserType == 'Finance2' || $empUserType == 'Group Head' || 
+    if($empUserType == 'Admin' || $empUserType == 'HR Generalist' || $empUserType == 'HR Manager' || $empUserType == 'Group Head' || 
         $empUserType == 'Group Head') {
 
     }else{
