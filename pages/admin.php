@@ -820,7 +820,7 @@ function timeOutModal(lvid,empcd,attid){
                       <h6 class="mb-0"><img class="rounded-circle" style="width:30px;height:30px;" src="../img/'.$ppic.'"></h6>
                     </div>
                     <div class="col-sm-9 text-secondary"><b>
-                      '.$resultp['fullname'].'</b><br>Late (Hrs): '.number_format($resultp['tot_late'],2,".", ",").'  
+                      '.$resultp['fullname'].'</b><br>Late: '.round($resultp['tot_late']*60).' Min/s 
                     </div>
                   </div><hr style="margin:5;">  ';
                         
