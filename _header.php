@@ -313,7 +313,8 @@ rel="stylesheet">
                                   <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View ".$apprf."</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
                                   <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li> 
-                                    <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll List</a></li> 
+                                  <li><a href='../payroll/payroll_tklist_view.php' onclick='show()'>Payroll Timekeeping List</a></li> 
+                                    <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll Register List</a></li> 
                                   </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
@@ -394,7 +395,7 @@ rel="stylesheet">
                                   <li><a href='../payroll/payroll_view_finance.php' onclick='show()'>Payroll Timekeeping View ".$tkappr."</a></li>                                
                                   <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View ".$apprf."</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
-                                    <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll List</a></li> 
+                                    <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll Register List</a></li> 
                                   </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_tmf.")</span> 
@@ -426,6 +427,7 @@ rel="stylesheet">
                               <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
                                 <ul>
                                   <li><a href='../payroll/payroll_view.php' onclick='show()'>Payroll Timekeeping View</a></li>
+                                  <li><a href='../payroll/payroll_tklist_view.php' onclick='show()'>Payroll Timekeeping List</a></li> 
                                   </ul>
                               </li>
                               <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 

@@ -101,6 +101,33 @@
             }
         }
 
+        public function GetTKList($type)
+        {
+            global $connL;
+
+            try
+            {
+                $data = [];
+
+
+                $sql = $connL->prepare(@"SELECT location,period_from,period_to from att_summary WHERE period_from in (SELECT date_from from payroll) group by location,period_from,period_to ORDER BY period_to desc");
+                $sql->execute();
+
+                if ($type == "tkview")
+                {
+                    while ($r = $sql->fetch(PDO::FETCH_ASSOC))
+                    {
+                    array_push( $data, array($r["location"], date("m/d/Y", strtotime($r["period_from"])) . " - " . date("m/d/Y", strtotime($r["period_to"]))) );
+                    }
+                }
+
+                return $data;
+            }
+            catch (Exception $e)
+            {
+                echo $e->getMessage();
+            }
+        }
 
         public function GetAllCutoffPay($type)
         {

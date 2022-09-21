@@ -57,7 +57,7 @@
             </select>
            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllPayCutoffReg("paycutreg")); ?>
         </div>           
-        <button type="button" id="search" class="delGenPay" onmousedown="javascript:deletePayReg()">
+        <button type="button" id="search" class="btn btn-danger" onmousedown="javascript:deletePayReg()">
             <i class="fas fa-backspace"></i> DELETE                      
         </button>                                      
         </div>

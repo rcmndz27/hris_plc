@@ -77,7 +77,7 @@ else
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page"><b><i class='fas fa-money-check fa-fw'>
-              </i>&nbsp;PAYROLL TIMEKEEPING VIEW</b></li>
+              </i>&nbsp;PAYROLL TIMEKEEPING LIST VIEW</b></li>
           </ol>
       </nav>
 
@@ -91,17 +91,14 @@ else
             </select>
         </div>
         <div class='col-md-2' id="s15th">
-            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
+            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetTKList("tkview")); ?>
         </div>
         <div class='col-md-2' id="s30th">
-            <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetAllCutoffPay("payview")); ?>
+            <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetTKList("tkview")); ?>
         </div>                    
         <button type="button" id="search" class="btn btn-success" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
         </button>
-        &nbsp;&nbsp;
-        <button type="button" class="btn btn-warning" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>
-        &nbsp;&nbsp;
 
         <?php 
         if($tkstat == 'SAVED') {

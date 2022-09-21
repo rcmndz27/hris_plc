@@ -12,6 +12,20 @@
             $query_pay->execute();
             // $q = $query_pay->fetch();
 
+            $qins = 'INSERT INTO dbo.logs_timekeep (pay_from,pay_to,remarks,audituser,auditdate) 
+            VALUES (:pay_from,:pay_to,:remarks,:audituser,:auditdate)';
+            $stmt_ins =$connL->prepare($qins);                                 
+            $params = array(
+                ":pay_from" => $pfrom,
+                ":pay_to" => $pto,
+                ":remarks" => 'GENERATED',
+                ":audituser" => $empCode,
+                ":auditdate" => date('Y-m-d H:i:s'),
+            );                                
+            $result = $stmt_ins->execute($params);
+
+            echo $result;            
+
     }
 
    function ApprovePayView30($empCode,$pfrom,$pto,$pfrom30,$pto30,$ppay)
@@ -27,6 +41,20 @@
             $query_pay->bindValue(':emp_code',$empCode);
             $query_pay->execute();
             // $q = $query_pay->fetch();
+
+            $qins = 'INSERT INTO dbo.logs_timekeep (pay_from,pay_to,remarks,audituser,auditdate) 
+            VALUES (:pay_from,:pay_to,:remarks,:audituser,:auditdate)';
+            $stmt_ins =$connL->prepare($qins);                                 
+            $params = array(
+                ":pay_from" => $pfrom,
+                ":pay_to" => $pto,
+                ":remarks" => 'GENERATED',
+                ":audituser" => $empCode,
+                ":auditdate" => date('Y-m-d H:i:s'),
+            );                                
+            $result = $stmt_ins->execute($params);
+
+            echo $result;              
 
     }    
 

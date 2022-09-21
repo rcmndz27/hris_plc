@@ -158,7 +158,9 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='slh".$r['badge_no']."'>" . round($r['sick_leave'],2) . "</td>".
             "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>".
             "<td id='slhnp".$r['badge_no']."'>" . round($r['sick_leave_nopay'],2) . "</td>".
-            "<td id='vlhnp".$r['badge_no']."'>" . round($r['vacation_leave_nopay'],2) . "</td></tr>'";
+            "<td id='vlhnp".$r['badge_no']."'>" . round($r['vacation_leave_nopay'],2) . "</td>";
+            echo'<td>                            
+            </td></tr>';
 
 
             $totalDaysAbsent += round($r['tot_days_absent'], 2);
@@ -195,6 +197,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             $vlnp += round($r['vacation_leave_nopay'] , 2);            
 
         } while($r = $stmt->fetch(PDO::FETCH_ASSOC));
+
 
             echo"</tbody>";
             echo "<tfoot>
