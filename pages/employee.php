@@ -126,7 +126,7 @@ $bstmt =$connL->prepare($bquery);
 $bparam = array(":empcode" => $empCode);
 $bstmt->execute($bparam);
 $bresult = $bstmt->fetch();
-$totlate = (isset($bresult['tot_late'])) ? round($bresult['tot_late'],2)*60 : 0 ;
+$totlate = (isset($bresult['tot_late'])) ? round($bresult['tot_late']*60,2) : 0 ;
 
 //GET TOTAL OT
 $otquery = "SELECT SUM(ot_apprv_hrs) as tot_ot from tr_overtime where emp_code = :empcode 
@@ -144,7 +144,7 @@ $utstmt =$connL->prepare($utquery);
 $utparam = array(":empcode" => substr($empCode,3));
 $utstmt->execute($utparam);
 $utresult = $utstmt->fetch();
-$totut = (isset($utresult['tot_ut'])) ? round($utresult['tot_ut'],2) : 0 ;
+$totut = (isset($utresult['tot_ut'])) ? round($utresult['tot_ut']*60,2) : 0 ;
 
 //GET TOTAL WORK
 $twquery = "EXEC xp_attendance_portal_totwork :empcode";
@@ -717,7 +717,7 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
                         </div>
                         <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totut; ?> hr/s</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totut; ?> min/s</div>
                         </div>
                     </div>
                     </div>
