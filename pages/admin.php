@@ -716,9 +716,9 @@ function timeOutModal(lvid,empcd,attid){
         <span class="text-muted small pt-2 ps-1">Estimated Time-Out:</span>
                 <?php 
 
-                if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) < 7 ){
+                if($timeinf <> 'NO TIME-IN' && date('H.m', strtotime($yresult['timein'])) < 7 ){
                     echo'<span class="text-success small pt-1 fw-bold">05:30 PM</span> ';
-                }else if($timeinf <> 'NO TIME-IN' && date('H', strtotime($yresult['timein'])) > 10 ){
+                }else if($timeinf <> 'NO TIME-IN' && date('H.m', strtotime($yresult['timein'])) > 10 ){
                     echo'<span class="text-success small pt-1 fw-bold">08:30 PM</span> ';
                 }else{
                     echo'<span class="text-success small pt-1 fw-bold">'.$timeoutf.'</span> ';
@@ -949,7 +949,10 @@ function timeOutModal(lvid,empcd,attid){
     </div>
     <!-- End of Page Wrapper -->
 
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <?php include('../_footer.php');  ?>
+
 
     <script type="text/javascript">  
      let holidays = <?php echo json_encode($totalVal) ;?>;

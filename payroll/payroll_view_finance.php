@@ -105,7 +105,7 @@ else
 
         <?php 
         if($tkstat == 'SAVED') {
-                echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
+            echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
         }else{            
         }
         ?>        

@@ -114,31 +114,27 @@ else
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
-
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet">
-
 <!-- Vendor CSS Files -->
 <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-
 <!-- Template Main CSS File -->
 <link href="../assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link type='text/css' rel='stylesheet' href="<?= constant('FONTAWESOME_CSS'); ?>">
 <link rel="stylesheet" href="../css/header.css">
 <link rel="stylesheet" href="../css/custom.css">
+<link rel="stylesheet" href="../css/style.css"/>
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 rel="stylesheet">
-<link href="../css/styles.css" rel="stylesheet" />
 <script type='text/javascript' src='../js/jquery.min.js'></script>
 <script type='text/javascript' src="<?= constant('BOOTSTRAP_JS'); ?>"></script>
 <script src="../js/sweetalert.min.js"></script>
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<!-- <script type="text/javascript" src='../js/script.js'></script> -->
+<script type="text/javascript" src='../js/script.js'></script>
   </head>
 <body>
 <div id = "myDiv" style="display:none;" class="loader"></div>

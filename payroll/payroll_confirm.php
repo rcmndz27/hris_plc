@@ -62,8 +62,8 @@ function DeletePayReg($date_from,$date_to,$empCode)
             VALUES (:pay_from,:pay_to,:remarks,:audituser,:auditdate)';
             $stmt_ins =$connL->prepare($qins);                                 
             $params = array(
-                ":pay_from" => $pfrom,
-                ":pay_to" => $pto,
+                ":pay_from" => $date_from,
+                ":pay_to" => $date_to,
                 ":remarks" => 'DELETED',
                 ":audituser" => $empCode,
                 ":auditdate" => date('Y-m-d H:i:s'),

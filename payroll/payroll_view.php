@@ -67,7 +67,7 @@ else
 <body  onload="javascript:generatePayrll();">
     <div class="container-fluid">
         <div class="section-title">
-          <h1>PAYROLL TIMEKEEPING VIEW</h1>
+          <h6>&nbsp;</h6>
       </div>
       <div class="main-body mbt">
 
@@ -393,46 +393,6 @@ else
     <div class="main-body">
         <fieldset class="fieldset-border">
                 <div class="form-row">
-<?php   
-        $totalPendings = 0;
-        echo "
-        <table class='table table-striped table-sm'>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Pending</th>
-                    <th>Remarks</th>
-                </tr>
-            </thead>
-            <tbody>";
-
-            if($resultpf){
-                do {
-                    echo    "<tr>".
-                                "<td>" . $resultpf['name']. "</td>".
-                                "<td>" . round($resultpf['pending'],2) . "</td>".
-                                "<td>" . $resultpf['remarks']. "</td>".
-                            "</tr>";
-
-                    $totalPendings += $resultpf['pending'];     
-
-                } while ($resultpf = $stmtpf->fetch());     
-            }else{
-
-            }
-
-        echo"
-            </tbody>
-            <tfoot>
-                <tr>".
-                    "<td class='text-right bg-success'><b>Total</b></td>".
-                    "<td class='bg-success'><b>" . $totalPendings . "</b></td>".
-                    "<td class='bg-success'><b></b></td>".
-                "</tr>
-            </tfoot>
-        </table>";
-
-?>
                         
                     </div> <!-- form row closing -->
             </fieldset> 

@@ -69,7 +69,7 @@ else
 <body  onload="javascript:generatePayrll();">
     <div class="container-fluid">
         <div class="section-title">
-          <h1><br></h1>
+          <h6><br></h6>
       </div>
       <div class="main-body mbt">
 
