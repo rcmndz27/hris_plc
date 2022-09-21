@@ -111,7 +111,7 @@
                 $data = [];
 
 
-                $sql = $connL->prepare(@"select location,period_from,period_to from att_summary group by location,period_from,period_to ORDER BY period_to desc");
+                $sql = $connL->prepare(@"SELECT location,period_from,period_to from att_summary WHERE period_from not in (SELECT date_from from payroll) group by location,period_from,period_to ORDER BY period_to desc");
                 $sql->execute();
 
                 if ($type == "payview")

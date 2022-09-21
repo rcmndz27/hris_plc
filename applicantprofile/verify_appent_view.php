@@ -99,13 +99,13 @@ width: 30px;
   height: 20px;
 }
 
-.backbut{
+.btn btn-danger{
     background-color: #fbec1e;
     border-color: #fbec1e;
     border-radius: 1rem;
 }
 
-.backbut:hover{
+.btn btn-danger:hover{
     opacity: 0.5;
 }
 
@@ -246,7 +246,7 @@ color: #d64747;
                             <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup subbut" onmousedown="javascript:filterAtt()">
                             VERIFY
                             </button>
-                            <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup backbut">
+                            <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup btn btn-danger">
                                 <a href="../applicantprofile/applicantlist_view.php" class="backtxt">BACK</a>
                             </button>
                             

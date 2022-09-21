@@ -621,7 +621,7 @@ $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                <button type="button" class="btn btn-success" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
             </div>
 
         </div>

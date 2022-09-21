@@ -30,7 +30,6 @@ else
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
-<!-- <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script> -->
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <div class="container">
     <div class="section-title">
@@ -67,8 +66,8 @@ else
         <div class="col-md-2">
             <input type="date" id="dateTo" class="form-control" name="dateTo" value="<?php echo date('Y-m-d'); ?>" onkeydown="return false" required>
         </div>
-        <div class="col-md-1">
-            <button type="submit" id="search" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+        <div class="col-md-2">
+            <button type="submit" id="search" class="btn btn-warning"><i class="fas fa-search-plus"></i> GENERATE
                 </button>
         </div>
     </div>

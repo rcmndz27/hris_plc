@@ -21,7 +21,7 @@
         $dd = new DropDown();
         $empCode = $_SESSION['userid'];
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
+        if ($empUserType == 'Admin' || $empUserType == 'Finance' || $empUserType == 'Group Head' || $empUserType == 'President')
         {
   
         }else{
@@ -64,7 +64,7 @@
 
 
                 <div class="col-md-2 d-flex">
-                        <button type="button" id="search" class="genpyrll" onclick="filterAtt()">
+                        <button type="button" id="search" class="btn btn-warning" onclick="filterAtt()">
                             <i class="fas fa-search-plus"></i>GENERATE                       
                         </button>
                         <a href='javascript:generatePDF()'><img src="../img/expdf.png" height="40" class="pdfimg" id='expdf'></a>                        

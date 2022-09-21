@@ -474,7 +474,9 @@ for (i = 0; i < tr.length; i++) {
    td = tr[i].getElementsByTagName("td");
     if(td.length > 0){ // to avoid th
        if (td[0].innerHTML.toUpperCase().indexOf(filter) > -1 || td[1].innerHTML.toUpperCase().indexOf(filter) > -1 
-        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        || td[2].innerHTML.toUpperCase().indexOf(filter) > -1  || td[3].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[4].innerHTML.toUpperCase().indexOf(filter) > -1  || td[5].innerHTML.toUpperCase().indexOf(filter) > -1 
+        || td[6].innerHTML.toUpperCase().indexOf(filter) > -1  ) {
          tr[i].style.display = "";
        } else {
          tr[i].style.display = "none";

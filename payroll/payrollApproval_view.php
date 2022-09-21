@@ -15,7 +15,7 @@
         include('../payroll/payrollApproval.php');
         include('../payroll/payrollapp_reg.php');
 
-        if ($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President')
+        if ($empUserType == 'Admin' || $empUserType == 'Finance' ||  $empUserType == 'Group Head' || $empUserType == 'President')
         {
   
         }else{
@@ -80,7 +80,7 @@
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->

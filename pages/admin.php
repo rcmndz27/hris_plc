@@ -448,8 +448,8 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" onclick="uploadFile();"  ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -485,8 +485,8 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" onclick="timeIn()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -539,8 +539,8 @@ function timeOutModal(lvid,empcd,attid){
 
 
                 <div class="modal-footer">
-                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="subbut" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
+                    <button type="button" class="btn btn-success" id="Submit" onclick="timeOut()" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -907,7 +907,7 @@ function timeOutModal(lvid,empcd,attid){
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">ANNOUNCEMENTS <?php echo strtoupper(date("Y")) ?> <i class="fas fa-paste"></i></h6>
-            <button class="btn btn-info"  id="addAncmnt"><i class="fas fa-plus-square"></i> Announcement</button>
+            <button class="btn btn-primary"  id="addAncmnt"><i class="fas fa-plus-circle"></i> Announcement</button>
         </div>
         <div class="card-body cdbody">
               <?php  

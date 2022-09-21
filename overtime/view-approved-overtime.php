@@ -147,7 +147,7 @@
                     <label for="status" class="col-form-label pad">NAME:</label><div class="col-md-3">';
                     $dd->GenerateSingleRepDropDown("empCode",$mf->GetAttEmployeeNamesRep("allemprepnames",$empCode));
                     echo '</div>
-                    <button type="submit" id="searchOtRep" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    <button type="submit" id="searchOtRep" class="btn btn-warning"><i class="fas fa-search-plus"></i> GENERATE
                     </button>';
                 }else{
                     echo '
@@ -160,7 +160,7 @@
                             <option value="4">CANCELLED</option>
                         </select>
                     </div>
-                    <button type="submit" id="searchOtApp" class="genpyrll"><i class="fas fa-search-plus"></i> GENERATE
+                    <button type="submit" id="searchOtApp" class="btn btn-warning"><i class="fas fa-search-plus"></i> GENERATE
                     </button>';
                 }
             ?>                                                  
@@ -259,7 +259,7 @@
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
@@ -298,7 +298,7 @@
                     </fieldset> 
 
                                 <div class="modal-footer">
-                                    <button type="button" class="backbut" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
                                 </div> 
                         </div> <!-- main body closing -->
                     </div> <!-- modal body closing -->
