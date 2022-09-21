@@ -40,7 +40,14 @@ else
     $stmtpf =$connL->prepare($querypf);
     $parampf = array(":date_from" => $rfrom,":date_to" => $rto);
     $stmtpf->execute($parampf);
-    $resultpf = $stmtpf->fetch();            
+    $resultpf = $stmtpf->fetch();   
+
+    $querytk = 'SELECT remarks from logs_timekeep where pay_from = :dfrom and pay_to = :dto AND rowid = (SELECT MAX(rowid) from logs_timekeep)';
+    $stmttk = $connL->prepare($querytk);
+    $paramtk = array(":dfrom" => $rfrom,":dto" => $rto);
+    $stmttk->execute($paramtk);
+    $rtk = $stmttk->fetch();
+    $tkstat = $rtk['remarks'];                 
 
     if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
@@ -94,13 +101,11 @@ else
         <button type="button" class="btn btn-warning" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>
         &nbsp;&nbsp;
 
-        <?php if($empUserType == 'Finance') {
-            echo "<button class='btn btn-success' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
-        }else{
-            echo '<button type="button" class="btn btn-primary" id="saveTimekeep"><i class="fas fa-save"></i> SAVE TIMEKEEPING </button>';
+        <?php 
+        if($tkstat == 'READY' || $tkstat == 'DELETED') {
+            echo '<button type="button" class="btn btn-primary" onclick="savetk()"><i class="fas fa-save"></i> SAVE TIMEKEEPING </button>';
+        }else{            
         }
-
-
         ?>
         
   
@@ -1229,25 +1234,20 @@ function updateAtt()
     }
 
 
-function ApprovePayView()
+function savetk()
 {   
     $("body").css("cursor", "progress");
-    var empCode = $('#empCode').children("option:selected").val();
-    var url = "../payroll/payrollViewProcess.php";
-
-    if($('#spay').val() == '15th'){    
+    var empCode = $('#empCode').val();
+    var url = "../payroll/payrollSaveTkProcess.php";
+  
         var cutoff = $('#ddcutoff').children("option:selected").val();
         var dates = cutoff.split(" - ");
         var ppay =  $('#spay').val();
 
-        // console.log(dates[0]);
-        // console.log(dates[1]);
-        // return false;
-
             $('#contents').html('');
             swal({
               title: "Are you sure?",
-              text: "You want to save this payroll for "+ppay+'?\n'+dates[0]+' to '+dates[1],
+              text: "You want to save this timekeeping for "+ppay+'?\n'+dates[0]+' to '+dates[1],
               icon: "info",
               buttons: true,
               dangerMode: true,
@@ -1268,52 +1268,9 @@ function ApprovePayView()
 
             } else {
                 swal({text:"You cancel the saving of payroll!",icon:"error"});
+                location.reload();
             }
         });        
-    }else{ 
-        var cutoff = $('#ddcutoff').children("option:selected").val();
-        var dates = cutoff.split(" - ");
-        var cutoff30 = $('#ddcutoff30').children("option:selected").val();
-        var dates30 = cutoff30.split(" - ");
-        var ppay =  $('#spay').val();
-
-        // console.log(dates[0]);
-        // console.log(dates[1]);
-        // console.log(dates30[0]);
-        // console.log(dates30[1]);
-        // return false;
-
-            $('#contents').html('');
-            swal({
-              title: "Are you sure?",
-              text: "You want to generate this payroll for "+ppay+'?\n'+dates30[0]+' to '+dates30[1],
-              icon: "info",
-              buttons: true,
-              dangerMode: true,
-          })
-            .then((savePayroll) => {
-              if (savePayroll) {
-                $.post (
-                    url,
-                    {
-                        choice: 2,
-                        emp_code: empCode,
-                        pfrom:dates30[0],
-                        pto: dates30[1],
-                        pfrom30:dates[0],
-                        pto30: dates[1],                        
-                        ppay:ppay
-                    },
-                    function(data) {
-                        window.location.replace("../payroll/payroll_view.php"); 
-                    }
-                    );
-
-            } else {
-                swal({text:"You cancel the saving of payroll!",icon:"error"});
-            }
-        });        
-    }
 
     
 }

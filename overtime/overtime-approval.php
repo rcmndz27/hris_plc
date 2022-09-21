@@ -12,8 +12,9 @@ require '../vendor/autoload.php';
         function GetOTSummary($empCode){
 
             global $connL;
+
             
-            $query = "SELECT SUM(a.ot_req_hrs) as ot_req_hrs,b.firstname,b.middlename,b.lastname,a.emp_code,a.rowid as otrid from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code,a.rowid";
+            $query = "SELECT  SUM(a.ot_req_hrs) as ot_req_hrs,max(a.rowid) as otrid,b.firstname,b.middlename,b.lastname,a.emp_code from tr_overtime a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to and status = 1 GROUP BY b.firstname,b.middlename,b.lastname,a.emp_code";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empCode);
             $stmt->execute($param);
@@ -36,7 +37,7 @@ require '../vendor/autoload.php';
                     echo"
                         <tr>
                             <td>".$result['lastname'].",".$result['firstname']." ".$result['middlename']."</td>
-                            <td>"."<button style='width: 9.375rem;' class='penLeave btnPending ".$result['otrid']." ' id='".$result['emp_code']."' type='submit'>".$otFiled."</button>
+                            <td>"."<button style='width: 9.375rem;' class='penLeave btnPending ".$result['otrid']." ' id='".$result['emp_code']."' type='submit'>".$result['ot_req_hrs']."</button>
                             <button id='alertot".$result['otrid']."' value='".$otFiled."' hidden></button></td>
                         </tr>";
                 } while($result = $stmt->fetch());

@@ -75,6 +75,23 @@ else
     $smtf->execute();
     $rstf = $smtf->fetch();
 
+
+    $tquery = "SELECT max(period_to) AS ptmax,max(period_from) as pfmax from att_summary";
+    $tstmt =$connL->prepare($tquery);
+    $tstmt->execute();
+    $r = $tstmt->fetch();
+    $rto = $r['ptmax'];
+    $rfrom = $r['pfmax'];
+
+    $querytk = 'SELECT remarks from logs_timekeep where pay_from = :dfrom and pay_to = :dto AND rowid = (SELECT MAX(rowid) from logs_timekeep)';
+    $stmttk = $connL->prepare($querytk);
+    $paramtk = array(":dfrom" => $rfrom,":dto" => $rto);
+    $stmttk->execute($paramtk);
+    $rtk = $stmttk->fetch();
+    $tkstat = (isset($rtk['remarks'])) ? $rtk['remarks'] :'';     
+
+
+
 }
 
 ?>
@@ -251,9 +268,18 @@ rel="stylesheet">
                 <button id='pyrllf' value='".$pyrllf."' hidden></button>
                 <button id='ob' value='".$ob."' hidden></button>"; 
 
+                if($tkstat == 'SAVED') {
+                    $tkcnt = 1;
+                    $tkappr = "&nbsp;<span class='badge badge-danger badge-counter'>1</span>";
+                }else{   
+                    $tkcnt = 0;  
+                    $tkappr = '';     
+                }
+
 
                 $approval_adm = $lv + $ot + $wfh + $dtrc + $ob;
                 $approval_tm = $lv + $ot + $wfh + $dtrc + $ob;
+                $approval_tmf = $lv + $ot + $wfh + $dtrc + $ob + $tkcnt;
                 $approval_f = $pyrllf;
                 if ($approval_adm > 0) {
                   $apprm = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_adm."</span>";
@@ -261,7 +287,9 @@ rel="stylesheet">
                    $apprm = '';
                  }
 
-                if ($approval_tm > 0) {
+                if($approval_tmf > 0 and $empUserType == 'Finance') {
+                  $appr = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_tmf."</span>";
+                 }else if($approval_tm > 0 and $empUserType <> 'Finance') {
                   $appr = "&nbsp;<span class='badge badge-danger badge-counter'>".$approval_tm."</span>";
                  }else{
                    $appr = '';
@@ -350,7 +378,7 @@ rel="stylesheet">
                     case "Finance":
                     case "Finance2":
                         echo "                      
-                        <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$apprm."<i class='bi bi-chevron-down'></i></a>
+                        <li class='dropdown'><a href='#' class='".$admintools."'><i class='fas fa-toolbox fa-fw'></i>&nbsp;FINANCE TOOLS ".$appr."<i class='bi bi-chevron-down'></i></a>
                             <ul>
                               <li class='dropdown'><a href='#'><i class='fa fa-id-badge fa-fw'></i></i><span>Finance Tools</span> 
                                 <i class='bi bi-chevron-right'></i></a>
@@ -361,15 +389,15 @@ rel="stylesheet">
                                   <li><a href='../salaryadjustment/salaryadjustmentlist_view.php' onclick='show()'>Salary Adjustment Management</a></li>           
                                 </ul>
                               </li>                            
-                              <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll</span><i class='bi bi-chevron-right'></i></a>
+                              <li class='dropdown'><a href='#'><i class='fas fa-money-check fa-fw'></i><span>Payroll ".$tkappr."</span><i class='bi bi-chevron-right'></i></a>
                                 <ul>
-                                  <li><a href='../payroll/payroll_view_finance.php' onclick='show()'>Payroll Timekeeping View </a></li>                                
+                                  <li><a href='../payroll/payroll_view_finance.php' onclick='show()'>Payroll Timekeeping View ".$tkappr."</a></li>                                
                                   <li><a href='../payroll/payroll_view_register.php' onclick='show()'>Payroll Register View ".$apprf."</a></li>
                                   <li><a href='../payslip/payslip_viewall.php' onclick='show()'>Payslip All Employee</a></li>
                                     <li><a href='../payroll/payrollApproval_view.php' onclick='show()'>Payroll List</a></li> 
                                   </ul>
                               </li>
-                              <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_adm.")</span> 
+                              <li class='dropdown'><a href='#'><i class='fas fa-thumbs-up fa-fw'></i> <span>Approvals (".$approval_tmf.")</span> 
                                 <i class='bi bi-chevron-right'></i></a>
                                 <ul>
                                   <li><a href='../leave/leaveApproval_view.php' onclick='show()'>Leave (".$lv.")</a></li>

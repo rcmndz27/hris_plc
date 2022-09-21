@@ -42,6 +42,14 @@ else
     $stmtpf->execute($parampf);
     $resultpf = $stmtpf->fetch();            
 
+    $querytk = 'SELECT remarks from logs_timekeep where pay_from = :dfrom and pay_to = :dto AND rowid = (SELECT MAX(rowid) from logs_timekeep)';
+    $stmttk = $connL->prepare($querytk);
+    $paramtk = array(":dfrom" => $rfrom,":dto" => $rto);
+    $stmttk->execute($paramtk);
+    $rtk = $stmttk->fetch();
+    $tkstat = $rtk['remarks'];       
+
+
     if($empUserType == 'Admin' || $empUserType == 'Finance' || $empUserType == 'Finance2' || $empUserType == 'Group Head' || 
         $empUserType == 'Group Head') {
 
@@ -95,14 +103,12 @@ else
         <button type="button" class="btn btn-warning" id="usersEntry"><i class="fas fa-plus-circle"></i> ADD USER </button>
         &nbsp;&nbsp;
 
-        <?php if($empUserType == 'Finance') {
-            echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
-        }else{
-            echo '<button type="button" class="btn btn-primary" id="saveTimekeep"><i class="fas fa-save"></i> SAVE TIMEKEEPING </button>';
+        <?php 
+        if($tkstat == 'SAVED') {
+                echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
+        }else{            
         }
-
-
-        ?>  
+        ?>        
 
     </div>
    
@@ -717,7 +723,7 @@ aria-hidden="true">
 function ApprovePayView()
 {   
     $("body").css("cursor", "progress");
-    var empCode = $('#empCode').children("option:selected").val();
+    var empCode = $('#empCode').val();
     var url = "../payroll/payrollViewProcess.php";
 
     if($('#spay').val() == '15th'){    
