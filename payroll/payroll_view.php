@@ -95,7 +95,7 @@ else
         &nbsp;&nbsp;
 
         <?php if($empUserType == 'Finance') {
-            echo "<button class='btn btn-success' onclick='ApprovePayView()'><i class='fas fa-save'></i> SAVE PAYROLL</button>";
+            echo "<button class='btn btn-success' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
         }else{
             echo '<button type="button" class="btn btn-primary" id="saveTimekeep"><i class="fas fa-save"></i> SAVE TIMEKEEPING </button>';
         }
@@ -103,21 +103,7 @@ else
 
         ?>
         
-
-    <?php   
-        $totalPending = 0;
-            if($resultp){
-                do {
-                    $totalPending += $resultp['pending'];     
-
-                } while ($resultp = $stmtp->fetch());     
-                echo'<button type="button" class="addNoteBut" id="pendingEntry"><i class="fas fa-sticky-note"></i> PENDING FOR APPROVAL ('.$totalPending.') </button>';
-            }else{
-
-            }
-?>
   
-
     </div>
    
         <div class="row pt-5">

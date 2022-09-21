@@ -102,22 +102,7 @@ else
         }
 
 
-        ?>
-        
-
-    <?php   
-        $totalPending = 0;
-            if($resultp){
-                do {
-                    $totalPending += $resultp['pending'];     
-
-                } while ($resultp = $stmtp->fetch());     
-                echo'<button type="button" class="addNoteBut" id="pendingEntry"><i class="fas fa-sticky-note"></i> PENDING FOR APPROVAL ('.$totalPending.') </button>';
-            }else{
-
-            }
-?>
-  
+        ?>  
 
     </div>
    
