@@ -153,7 +153,7 @@ function ViewPyReg(perfrom,perto,stats)
                     RTL: false,
                     sheetname: 'Payroll Register View'
                 });
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i> ');
             }
        );
     }

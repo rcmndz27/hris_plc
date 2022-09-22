@@ -134,7 +134,7 @@ rel="stylesheet">
 <script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
 <script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
 <script src="<?= constant('NODE'); ?>tableexport/dist/js/tableexport.min.js"></script>
-<script type="text/javascript" src='../js/script.js'></script>
+<!-- <script type="text/javascript" src='../js/script.js'></script> -->
   </head>
 <body>
 <div id = "myDiv" style="display:none;" class="loader"></div>
@@ -250,19 +250,6 @@ rel="stylesheet">
                 $dtrc = (isset($besult['dtrc_count'])) ? $besult['dtrc_count'] : '0' ;
                 $pyrll = (isset($rst['pyrll_count'])) ? $rst['pyrll_count'] : '0' ;
                 $pyrllf = (isset($rstf['pyrll_countf'])) ? $rstf['pyrll_countf'] : '0' ;
-                echo"<button id='lv_count' value='You have ".$lv." leave approval!' hidden></button>
-                <button id='ot_count' value='You have ".$ot." overtime approval!' hidden></button>
-                <button id='ob_count' value='You have ".$ob." official business approval!' hidden></button>
-                <button id='wfh_count' value='You have ".$wfh." work from home approval!' hidden></button>
-                <button id='dtrc_count' value='You have ".$dtrc." dtr correction approval!' hidden></button>
-                <button id='pyrll_count' value='You have ".$pyrll." payroll approval!' hidden></button>
-                <button id='lv' value='".$lv."' hidden></button>
-                <button id='ot' value='".$ot."' hidden></button>
-                <button id='wfh' value='".$wfh."' hidden></button>
-                <button id='dtrc' value='".$dtrc."' hidden></button>
-                <button id='pyrll' value='".$pyrll."' hidden></button>
-                <button id='pyrllf' value='".$pyrllf."' hidden></button>
-                <button id='ob' value='".$ob."' hidden></button>"; 
 
                 if($tkstat == 'SAVED') {
                     $tkcnt = 1;

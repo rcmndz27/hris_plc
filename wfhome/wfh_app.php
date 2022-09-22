@@ -41,7 +41,7 @@ Class WfhApp{
                         </div>                     
                 </div>   ';
                 echo"    
-        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>  ";
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='btn btn-primary'><i class='fas fa-file-export'></i>Export</button>  ";
         echo'        
         <table id="WfhListTab" class="table table-striped table-sm">
         <thead>

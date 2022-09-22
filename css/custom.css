@@ -13,6 +13,8 @@ table   {
         font-family: "Dosis", sans-serif;
 }
 
+
+
 .addNoteBut {
     width: 150;
     padding: 5px;
@@ -534,7 +536,7 @@ color: #d64747;
 }
 
 
-.xprtxcl {
+.btn btn-primary {
     width: 200px;
     background-color: #fbec1e;
     border-color: #fbec1e;
@@ -544,7 +546,7 @@ color: #d64747;
     border-radius: 1rem;
 }
 
-.xprtxcl:hover{
+.btn btn-primary:hover{
     opacity: 0.5;
 }
 

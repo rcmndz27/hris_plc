@@ -20,7 +20,7 @@ $(function(){
 
     $("#search").click(function(e){
              XLSXExport();
-             $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+             $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i> ');
         });
 });
 

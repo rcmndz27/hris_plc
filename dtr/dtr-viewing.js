@@ -1,21 +1,5 @@
 $(function(){
 
-    // function XLSXExport(){
-    //     $("#empDtrList").tableExport({
-    //         headers: true,
-    //         footers: true,
-    //         formats: ['xlsx'],
-    //         filename: 'employeedtr',
-    //         bootstrap: false,
-    //         exportButtons: true,
-    //         position: 'top',
-    //         ignoreRows: null,
-    //         ignoreCols: null,
-    //         trimWhitespace: true,
-    //         RTL: false,
-    //         sheetname: 'Attendance List'
-    //     });
-    // }
 
 $('#search').click(function(e){
     e.preventDefault();

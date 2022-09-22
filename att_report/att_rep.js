@@ -57,7 +57,7 @@ $(function(){
                 $("#attRepListTab").html(data);
                 XLSXExport();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
                 document.getElementById("myDiv").style.display="none";
                 document.getElementById('pfromt').innerHTML = 'from '+dfrmM+' '+dfrmD;
                 document.getElementById('ptot').innerHTML = ' to '+dtoM+' '+dtoD+', '+dtoY;
@@ -128,7 +128,7 @@ $(function(){
                 $("#lateListTab").html(data);
                 XLSXExportLate();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
                 document.getElementById("myDiv").style.display="none";
                 document.getElementById('Lpfromt').innerHTML = 'from '+dfrmM+' '+dfrmD;
                 document.getElementById('Lptot').innerHTML = ' to '+dtoM+' '+dtoD+', '+dtoY;
@@ -199,7 +199,7 @@ $("#searchUT").click(function(e){
                 $("#utListTab").html(data);
                 XLSXExportUT();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
                 document.getElementById("myDiv").style.display="none";
                 document.getElementById('Upfromt').innerHTML = 'from '+dfrmM+' '+dfrmD;
                 document.getElementById('Uptot').innerHTML = ' to '+dtoM+' '+dtoD+', '+dtoY;
@@ -267,7 +267,7 @@ $("#searchUT").click(function(e){
                 $("#nListTab").html(data);
                 XLSXExportN();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
                 document.getElementById("myDiv").style.display="none";
                 document.getElementById('Npfromt').innerHTML = 'from '+dfrmM+' '+dfrmD;
                 document.getElementById('Nptot').innerHTML = ' to '+dtoM+' '+dtoD+', '+dtoY;

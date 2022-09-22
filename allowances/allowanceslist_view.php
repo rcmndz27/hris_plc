@@ -421,7 +421,7 @@ function viewAlwLogs(empcd)
                 sheetname: 'Allowances Logs'
             });
             $(".fa-file-export").remove();
-            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+            $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
         }
         );
  }    

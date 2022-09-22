@@ -651,7 +651,7 @@ aria-hidden="true">
                     RTL: false,
                     sheetname: 'Payroll Attendance'
                 });
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
                 document.getElementById("myDiv").style.display="none"; 
             }
             );
@@ -690,7 +690,7 @@ aria-hidden="true">
                 sheetname: 'Attendace_Logs'
             });
             $(".fa-file-export").remove();
-            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+            $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
         }
         );
  }
@@ -728,7 +728,7 @@ aria-hidden="true">
                 sheetname: 'Attendace_Audit_Logs'
             });
             $(".fa-file-export").remove();
-            $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');                
+            $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
         }
         );
  }

@@ -87,14 +87,14 @@
 
 jQuery(function(){
    jQuery('#search').click();
-   $(".xprtxcl").prepend('<i class="fas fa-file-export"></i> ');
+   $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i> ');
 });
 
 function deletePayReg()
 {
  
   $(".fa-file-export").remove();
-  $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');    
+  $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');    
   var empCode = $('#empCode').children("option:selected").val();
   var url = "../payroll/payrollRegViewProcess.php";
   var cutoff = $('#ddcutoff').children("option:selected").val();

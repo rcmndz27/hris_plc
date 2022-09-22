@@ -48,7 +48,7 @@ $(function(){
                 $("#LeaveListTab").html(data);
                 // XLSXExport();
                 // $(".fa-file-export").remove();
-                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -108,7 +108,7 @@ $(function(){
                 $("#LeaveListRepTab").html(data);
                 XLSXExportRep();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -166,7 +166,7 @@ $(function(){
                 $("#OtListTab").html(data);
                 // XLSXExportOt();
                 // $(".fa-file-export").remove();
-                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -222,7 +222,7 @@ $(function(){
                 $("#OtListRepTab").html(data);
                 XLSXExportOtRep();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -278,7 +278,7 @@ $(function(){
                 $("#WfhListTab").html(data);
                 // XLSXExportWfh();
                 // $(".fa-file-export").remove();
-                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -334,7 +334,7 @@ function XLSXExportWfhRep(){
                 $("#WfhListRepTab").html(data);
                 XLSXExportWfhRep();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -391,7 +391,7 @@ function XLSXExportOb(){
                 $("#ObListTab").html(data);
                 // XLSXExportOb();
                 // $(".fa-file-export").remove();
-                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){              
                 document.getElementById("myDiv").style.display="none"; 
@@ -446,7 +446,7 @@ function XLSXExportObRep(){
                 $("#ObListRepTab").html(data);
                 XLSXExportObRep();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){              
                 document.getElementById("myDiv").style.display="none"; 
@@ -501,7 +501,7 @@ function XLSXExportDtrc(){
                 $("#DtrcListTab").html(data);
                 // XLSXExportDtrc();
                 // $(".fa-file-export").remove();
-                // $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                // $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 
@@ -557,7 +557,7 @@ function XLSXExportDtrcRep(){
                 $("#DtrcListRepTab").html(data);
                 XLSXExportDtrcRep();
                 $(".fa-file-export").remove();
-                $(".xprtxcl").prepend('<i class="fas fa-file-export"></i>');
+                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
             },
             error: function (data){
                 

@@ -40,7 +40,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                         </div>                     
                 </div>  ';
                 echo"    
-        <button id='btnExport' onclick='exportReportToExcel(this)' class='xprtxcl'><i class='fas fa-file-export'></i>EXPORT TO EXCEL</button>  ";
+        <button id='btnExport' onclick='exportReportToExcel(this)' class='btn btn-primary'><i class='fas fa-file-export'></i>Export</button>  ";
         echo'         
         <table id="DtrcListTab" class="table table-striped table-sm">
         <thead>
