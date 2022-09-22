@@ -4,6 +4,52 @@
     {
             global $connL;
 
+            $queryr  = "SELECT * from employee_profile where emp_code = :empcode";
+            $stmtr =$connL->prepare($queryr);
+            $paramr = array(":empcode" => $rowid);
+            $stmtr->execute($paramr);
+            $resultr = $stmtr->fetch();
+            $oldemp_type = $resultr['emp_type'];
+
+
+            $queryg = "SELECT * from employee_leave where emp_code = :empcode";
+            $stmtg =$connL->prepare($queryg);
+            $paramg = array(":empcode" => $rowid);
+            $stmtg->execute($paramg);
+            $resultg = $stmtg->fetch();
+            $empc = (isset($resultg['emp_code'])) ? $resultg['emp_code'] : 'none' ;
+
+
+            if($emp_type == 'Regular' and $oldemp_type == 'Probationary'){
+            if($empc == 'none'){
+            $query = "INSERT INTO dbo.employee_leave (emp_code,earned_vl,earned_sl,earned_sl_bank,earned_fl,status,audituser,auditdate) 
+                VALUES(:emp_code,:earned_vl,:earned_sl,:earned_sl_bank,:earned_fl,:status,:audituser,:auditdate) ";
+                $stmt =$connL->prepare($query);
+                $param = array(
+                    ":emp_code"=> $rowid,
+                    ":earned_vl" => 10,
+                    ":earned_sl" => 10,
+                    ":earned_sl_bank"=> 0,
+                    ":earned_fl"=> 0,
+                    ":status"=> 'Active',
+                    ":audituser" => 'system',
+                    ":auditdate"=>date('m-d-Y H:i:s')
+                );
+
+                $result = $stmt->execute($param);
+
+            }else{
+                $cmf = $connL->prepare("UPDATE dbo.employee_leave SET earned_sl = :sl,earned_vl = :vl where emp_code = :emp_code ");
+                $cmf->bindValue('sl',10);
+                $cmf->bindValue('vl',10);
+                $cmf->bindValue('emp_code', $rowid);
+                $cmf->execute();                    
+            }
+
+        }else{
+
+        }            
+
             $cmd = $connL->prepare("UPDATE dbo.employee_profile SET 
                 lastname = :lastname,
                 firstname = :firstname,
@@ -65,7 +111,9 @@
             $cmd->bindValue('emp_pic_loc',$emp_pic_loc);
             $cmd->bindValue('emp_code', $rowid);
             $cmd->execute();
-    }
+
+   
+}
 
 
 ?>

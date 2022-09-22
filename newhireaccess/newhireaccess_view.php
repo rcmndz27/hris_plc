@@ -559,6 +559,9 @@ function GetEmpImgFile() {
         }
 
 
+        // console.log(rowid);
+        // return false;
+
             var files = document.getElementById("empimgpic").files;
 
                    if(files.length > 0 ){
