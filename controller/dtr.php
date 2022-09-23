@@ -78,8 +78,8 @@
                                 "</tr>";
     
                         $totalWork += $result['workhours'];
-                        $totalLate += $result['late']*60;
-                        $totalUndertime += $result['undertime']*60;
+                        $totalLate += round($result['late']*60);
+                        $totalUndertime += round($result['undertime']*60);
                         $totalOvertime += $result['overtime'];
     
                     } while ($result = $stmt->fetch()); 	
