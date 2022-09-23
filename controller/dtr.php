@@ -49,8 +49,8 @@
                         <th>Time In</th>
                         <th>Time Out</th>
                         <th>Work (Hrs)</th>
-                        <th>Lates (Hrs)</th>
-                        <th>Undertime (Hrs)</th>
+                        <th>Late (Min/s)</th>
+                        <th>Undertime (Min/s)</th>
                         <th>Overtime (Hrs)</th>
                         <th>Remarks</th>
                     </tr>
@@ -68,8 +68,8 @@
                                 "<td>" . $timeIn . "</td>".
                                 "<td>" . $timeOut . "</td>".
                                 "<td>" . round($result['workhours'],2) . "</td>".
-                                "<td>" . round($result['late'],2) . "</td>".
-                                "<td>" . round($result['undertime'],2) . "</td>".
+                                "<td>" . round($result['late']*60) . "</td>".
+                                "<td>" . round($result['undertime']*60) . "</td>".
                                 "<td>" . round($result['overtime'],2) . "</td>".
                                 "<td>" . $result['remarks'] . "</td>".
                                 "</tr>";
