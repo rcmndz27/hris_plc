@@ -42,7 +42,7 @@
             <table id='dtrList' class='table table-striped table-sm'>
                 <thead>
                     <tr>
-                        <th colspan='7' class='text-center'>My Attendance</th>
+                        <th colspan='8' class='text-center'>My Attendance</th>
                     </tr>
                     <tr>
                         <th>Date</th>
