@@ -62,21 +62,24 @@
     
                         $timeIn = (isset($result['timein']) ? $this->GetTime($result['timein']): '');
                         $timeOut = (isset($result['timeout']) ? $this->GetTime($result['timeout']) : '');
+                        $late = ($result['late'] > 0) ? round($result['late']*60).'Min/s'  : 0);
+                        $undertime = ($result['undertime'] > 0) ? round($result['undertime']*60).'Min/s': 0);
+                        $overtime = ($result['overtime'] > 0) ? round($result['overtime'],2).'Hr/s': 0);
     
                         echo    "<tr>".
                                 "<td>" . date('F d, Y', strtotime($result['punch_date'])) . "</td>".
                                 "<td>" . $timeIn . "</td>".
                                 "<td>" . $timeOut . "</td>".
                                 "<td>" . round($result['workhours'],2) . "</td>".
-                                "<td>" . round($result['late']*60) . " Min/s</td>".
-                                "<td>" . round($result['undertime']*60) . "Min/s</td>".
-                                "<td>" . round($result['overtime'],2) . "Hr/s</td>".
+                                "<td>" . $late."</td>".
+                                "<td>" . $overtime."</td>".
+                                "<td>" . $overtime."</td>".
                                 "<td>" . $result['remarks'] . "</td>".
                                 "</tr>";
     
                         $totalWork += $result['workhours'];
-                        $totalLate += $result['late'];
-                        $totalUndertime += $result['undertime'];
+                        $totalLate += $result['late']*60;
+                        $totalUndertime += $result['undertime']*60;
                         $totalOvertime += $result['overtime'];
     
                     } while ($result = $stmt->fetch()); 	
