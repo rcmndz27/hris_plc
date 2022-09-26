@@ -57,6 +57,7 @@ require '../vendor/autoload.php';
                     <th colspan="8" class="text-center">List of Pending Leave Request</th>';
         echo '</tr>
                 <tr>
+                    <th><input type="checkbox" id="selectAll" name="selectAll" /></th>
                     <th>Date Filed</th>
                     <th>Leave Date</th>
                     <th>Leave Type</th>
@@ -73,7 +74,8 @@ require '../vendor/autoload.php';
 			do { 
                 $mf = $result['medicalfile'];
                 echo "
-        <tr id='clv".$result['rowid']."'>
+            <tr>
+            <td><input type='checkbox' class='checkboxAll' value='cb".$result['rowid']."' /></td>
             <td>" . date('Y-m-d',strtotime($result['datefiled'])) . "</td>
             <td>" . date('Y-m-d',strtotime($result['date_from'])) . "</td>
             <td class='text-left text-info'>" . $result['leavetype'] . "</td>

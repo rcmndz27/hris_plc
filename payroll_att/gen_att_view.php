@@ -62,10 +62,10 @@ else
                         <a class="nav-link" id="offb-tab" name="offb-tab" data-toggle="tab" href="#offb"
                             role="tab" aria-controls="offb" aria-selected="false">OFFICIAL BUSINESS</a>
                     </li>                                            
-                    <li class="nav-item" role="presentation">
+<!--                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="correct-tab" name="correct-tab" data-toggle="tab" href="#correct"
                             role="tab" aria-controls="correct" aria-selected="false">DTR Correction</a>
-                    </li>                    
+                    </li>    -->                 
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" id="leave-tab" name="leave-tab" data-toggle="tab" href="#leave"
                             role="tab" aria-controls="leave" aria-selected="false">Leave</a>
@@ -168,7 +168,7 @@ else
                     </fieldset>
                 </div>                                    
                 <!-- DTRC -->
-                <div class="tab-pane fade" id="correct" role="tabpanel" aria-labelledby="correct-tab">
+<!--                 <div class="tab-pane fade" id="correct" role="tabpanel" aria-labelledby="correct-tab">
                     <fieldset class="fieldset-border">
                         <div class="d-flex justify-content-center">
                             <legend class="fieldset-border pad">
@@ -196,7 +196,7 @@ else
                             </div>
                         </div>      
                     </fieldset>
-                </div>                
+                </div>  -->               
                 <!-- leave -->
                 <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
                     <fieldset class="fieldset-border">
@@ -322,7 +322,7 @@ else
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
+                        location.href = '../payroll_att/gen_att_view.php';
                     });  
                 });
         } else {
@@ -372,7 +372,7 @@ else
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
+                        location.href = '../payroll_att/gen_att_view.php';
                     });  
                 });
         } else {
@@ -384,54 +384,54 @@ else
     }
 
 
-    function genDtrcPay()
-    {
+    // function genDtrcPay()
+    // {
 
-        var url = "../payroll_att/gen_dtrc_process.php";
-        var date = $('#ungendtrc').children("option:selected").val();
-        var dates = date.split(" - ");
-        var eMplogName = $('#eMplogName').val();
+    //     var url = "../payroll_att/gen_dtrc_process.php";
+    //     var date = $('#ungendtrc').children("option:selected").val();
+    //     var dates = date.split(" - ");
+    //     var eMplogName = $('#eMplogName').val();
 
-        // console.log(dates[0]);  
-        // console.log(dates[1]);  
-        // console.log(eMplogName);
-        // return false;
+    //     // console.log(dates[0]);  
+    //     // console.log(dates[1]);  
+    //     // console.log(eMplogName);
+    //     // return false;
 
-        swal({
-          title: "Are you sure?",
-          text: "You want to generate this dtr correction to attendance?",
-          icon: "success",
-          buttons: true,
-          dangerMode: true,
-      })
-        .then((genAttPay) => {
-          document.getElementById("myDiv").style.display="block";
-          if (genAttPay) {
-            $.post (
-                url,
-                {
-                    action: 1,
-                    pyrollco_from: dates[0] ,
-                    pyrollco_to: dates[1] ,
-                    eMplogName: eMplogName                           
-                },
-                function(data) {                 
-                    swal({
-                        title: "Success!", 
-                        text: "Successfully generated dtr correction to attendance!", 
-                        type: "success",
-                        icon: "success",
-                    }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
-                    });  
-                });
-        } else {
-            document.getElementById("myDiv").style.display="none";
-            swal({text:"You cancel the generation of dtr correction to attendance!",icon:"error"});
-        }
-    });
+    //     swal({
+    //       title: "Are you sure?",
+    //       text: "You want to generate this dtr correction to attendance?",
+    //       icon: "success",
+    //       buttons: true,
+    //       dangerMode: true,
+    //   })
+    //     .then((genAttPay) => {
+    //       document.getElementById("myDiv").style.display="block";
+    //       if (genAttPay) {
+    //         $.post (
+    //             url,
+    //             {
+    //                 action: 1,
+    //                 pyrollco_from: dates[0] ,
+    //                 pyrollco_to: dates[1] ,
+    //                 eMplogName: eMplogName                           
+    //             },
+    //             function(data) {                 
+    //                 swal({
+    //                     title: "Success!", 
+    //                     text: "Successfully generated dtr correction to attendance!", 
+    //                     type: "success",
+    //                     icon: "success",
+    //                 }).then(function() {                        
+    //                     location.href = '../payroll_att/gen_att_view.php';
+    //                 });  
+    //             });
+    //     } else {
+    //         document.getElementById("myDiv").style.display="none";
+    //         swal({text:"You cancel the generation of dtr correction to attendance!",icon:"error"});
+    //     }
+    // });
 
-    }
+    // }
 
 
      function genObPay()
@@ -472,7 +472,7 @@ else
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
+                        location.href = '../payroll_att/gen_att_view.php';
                     });  
                 });
         } else {
@@ -520,7 +520,7 @@ else
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
+                        location.href = '../payroll_att/gen_att_view.php';
                     });  
                 });
         } else {
@@ -570,7 +570,7 @@ else
                         type: "success",
                         icon: "success",
                     }).then(function() {                        
-                        location.href = '../payroll/payroll_view.php';
+                        location.href = '../payroll_att/gen_att_view.php';
                     });  
                 });
         } else {

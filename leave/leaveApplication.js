@@ -82,8 +82,18 @@ $(function(){
     $('#halfdayset').hide();
 
 
-    
-    
+    $(document).on('click','#selectAll',function(e){
+        if(this.checked){
+            $('.checkboxAll').each(function(){
+                $(".checkboxAll").prop('checked', true);
+            })
+        }else{
+            $('.checkboxAll').each(function(){
+                $(".checkboxAll").prop('checked', false);
+            })
+        }
+    });
+
     function CheckInput() {
 
         var inputValues = [];
