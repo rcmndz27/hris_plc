@@ -105,7 +105,8 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
     <th>Sick Leave (Days)</th> 
     <th>Vacation Leave (Days)</th>  
     <th>Sick Leave No Pay (Days)</th> 
-    <th>Vacation Leave No Pay (Days)</th>                                      
+    <th>Vacation Leave No Pay (Days)</th>  
+    <th>Action</th>                                      
     </tr>
     </thead>
     <tbody>";
@@ -159,8 +160,12 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>".
             "<td id='slhnp".$r['badge_no']."'>" . round($r['sick_leave_nopay'],2) . "</td>".
             "<td id='vlhnp".$r['badge_no']."'>" . round($r['vacation_leave_nopay'],2) . "</td>";
-            echo'<td>                            
+            echo'<td>
+            <button type="button" class="hactv" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Logs">
+            <i class="fas fa-clock"></i>
+            </button>                            
             </td></tr>';
+
 
 
             $totalDaysAbsent += round($r['tot_days_absent'], 2);

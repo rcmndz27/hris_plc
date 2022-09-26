@@ -99,13 +99,7 @@ else
         <button type="button" id="search" class="btn btn-success" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
         </button>
-
-        <?php 
-        if($tkstat == 'SAVED') {
-                echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>";
-        }else{            
-        }
-        ?>        
+  
 
     </div>
    
@@ -805,6 +799,44 @@ function ApprovePayView()
 
     
 }
+
+function viewAllAttendanceEmp(bdno,pfrom,pto)
+    {
+     $('#viewAllAttendanceEmp').modal('toggle');
+     var url = "../payroll/payatt_viewlogs.php";
+     var emp_code = bdno;
+     var dateFrom = pfrom;
+     var dateTo = pto;
+
+     $.post (
+        url,
+        {
+            _action: 1,
+            emp_code: emp_code,
+            dateFrom: dateFrom,
+            dateTo: dateTo             
+        },
+        function(data) { 
+            $("#contents2").html(data).show(); 
+            $("#empDtrList").tableExport({
+                headers: true,
+                footers: true,
+                formats: ['xlsx'],
+                filename: 'id',
+                bootstrap: false,
+                exportButtons: true,
+                position: 'top',
+                ignoreRows: null,
+                ignoreCols: null,
+                trimWhitespace: true,
+                RTL: false,
+                sheetname: 'Attendace_Logs'
+            });
+            $(".fa-file-export").remove();
+            $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
+        }
+        );
+ }
 
 
 
