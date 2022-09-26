@@ -104,7 +104,11 @@ else
         <?php 
         if($tkstat == 'READY' || $tkstat == 'DELETED') {
             echo '<button type="button" class="btn btn-primary" onclick="savetk()"><i class="fas fa-save"></i> SAVE TIMEKEEPING </button>';
-        }else{            
+        }else if($tkstat == 'SAVED' && $empUserType == 'Admin') {
+            echo "<button class='btn btn-primary' onclick='ApprovePayView()'><i class='fas fa-save'></i> GENERATE PAYROLL</button>"; 
+
+        }else{
+
         }
         ?>
         
