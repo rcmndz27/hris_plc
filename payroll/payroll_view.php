@@ -1242,6 +1242,97 @@ function savetk()
 
 
 
+function ApprovePayView()
+{   
+    $("body").css("cursor", "progress");
+    var empCode = $('#empCode').val();
+    var url = "../payroll/payrollViewProcess.php";
+
+    if($('#spay').val() == '15th'){    
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var dates = cutoff.split(" - ");
+        var ppay =  $('#spay').val();
+
+        // console.log(dates[0]);
+        // console.log(dates[1]);
+        // return false;
+
+            $('#contents').html('');
+            swal({
+              title: "Are you sure?",
+              text: "You want to save this payroll for "+ppay+'?\n'+dates[0]+' to '+dates[1],
+              icon: "info",
+              buttons: true,
+              dangerMode: true,
+          })
+            .then((savePayroll) => {
+              if (savePayroll) {
+                $.post (
+                    url,
+                    {
+                        choice: 1,
+                        emp_code: empCode,
+                        pfrom:dates[0],
+                        pto: dates[1],
+                        ppay:ppay
+                    },
+                    function(data) {window.location.replace("../payroll/payroll_view.php"); }
+                    );
+
+            } else {
+                swal({text:"You cancel the saving of payroll!",icon:"error"});
+            }
+        });        
+    }else{ 
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        var dates = cutoff.split(" - ");
+        var cutoff30 = $('#ddcutoff30').children("option:selected").val();
+        var dates30 = cutoff30.split(" - ");
+        var ppay =  $('#spay').val();
+
+        // console.log(dates[0]);
+        // console.log(dates[1]);
+        // console.log(dates30[0]);
+        // console.log(dates30[1]);
+        // return false;
+
+            $('#contents').html('');
+            swal({
+              title: "Are you sure?",
+              text: "You want to generate this payroll for "+ppay+'?\n'+dates30[0]+' to '+dates30[1],
+              icon: "info",
+              buttons: true,
+              dangerMode: true,
+          })
+            .then((savePayroll) => {
+              if (savePayroll) {
+                $.post (
+                    url,
+                    {
+                        choice: 2,
+                        emp_code: empCode,
+                        pfrom:dates30[0],
+                        pto: dates30[1],
+                        pfrom30:dates[0],
+                        pto30: dates[1],                        
+                        ppay:ppay
+                    },
+                    function(data) {
+                        window.location.replace("../payroll/payroll_view.php"); 
+                    }
+                    );
+
+            } else {
+                swal({text:"You cancel the saving of payroll!",icon:"error"});
+            }
+        });        
+    }
+
+    
+}
+
+
+
 </script>
 
 
