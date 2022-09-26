@@ -838,6 +838,44 @@ function viewAllAttendanceEmp(bdno,pfrom,pto)
         );
  }
 
+ function viewPayrollLogs(bdno,pfrom,pto)
+ {
+     $('#viewPayrollLogs').modal('toggle');
+     var url = "../payroll/audit_payattviewlogs_process.php";
+     var emp_code = bdno;
+     var dateFrom = pfrom;
+     var dateTo = pto;
+
+     $.post (
+        url,
+        {
+            _action: 1,
+            emp_code: emp_code,
+            dateFrom: dateFrom,
+            dateTo: dateTo             
+        },
+        function(data) { 
+            $("#contents3").html(data).show(); 
+            $("#AuditPayAttViewLogs").tableExport({
+                headers: true,
+                footers: true,
+                formats: ['xlsx'],
+                filename: 'id',
+                bootstrap: false,
+                exportButtons: true,
+                position: 'top',
+                ignoreRows: null,
+                ignoreCols: null,
+                trimWhitespace: true,
+                RTL: false,
+                sheetname: 'Attendace_Audit_Logs'
+            });
+            $(".fa-file-export").remove();
+            $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
+        }
+        );
+ }
+
 
 
 
