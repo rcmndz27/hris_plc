@@ -91,8 +91,9 @@ else
         <div class='col-md-2' id="s15th">
             <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
         </div>
+        
         <div class='col-md-2' id="s30th">
-            <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetAllCutoffPay("payview")); ?>
+            <?php $dd->GenerateDropDown("ddcutoff30", $mf->GetTKList("tkview")); ?>
         </div>                    
         <button type="button" id="search" class="btn btn-success" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> GENERATE                      
