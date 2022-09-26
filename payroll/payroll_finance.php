@@ -163,7 +163,10 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             echo'<td>
             <button type="button" class="hactv" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Logs">
             <i class="fas fa-clock"></i>
-            </button>                            
+            </button> 
+            <button type="button" class="voidBut" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
+            <i class="fas fa-history"></i>
+            </button>                                       
             </td></tr>';
 
 
