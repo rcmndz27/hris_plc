@@ -19,7 +19,7 @@ body {
   background-image:  url('../img/loginbg.jpg');
 }
 
-.deactv {
+.debtn btn-info {
   width: 100%;
   background-color: #fbec1e;
   border-color: #fbec1e;
@@ -29,7 +29,7 @@ body {
   border-radius: 1rem;
 }
 
-.deactv:hover {
+.debtn btn-info:hover {
   opacity: 0.5;
 }
 .btn {

@@ -53,7 +53,7 @@ Class MfholidayList{
                 <td id="ht'.$result['rowid'].'">'.$result['holidaytype'].'</td>
                 <td id="hn'.$result['rowid'].'">'.$result['holidaydescs'].'</td>
                 <td id="st'.$result['rowid'].'">'.$result['status'].'</td>';
-                echo'<td><button type="button" class="actv" 
+                echo'<td><button type="button" class="btn btn-info" 
                 onclick="editMfholidayModal('.$rowd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';

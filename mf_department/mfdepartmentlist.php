@@ -51,7 +51,7 @@ Class MfdepartmentList{
                 <td id="dc'.$result['rowid'].'">' . $result['code']. '</td>
                 <td id="dn'.$result['rowid'].'">' . $result['descs']. '</td>
                 <td id="st'.$result['rowid'].'">' . $result['status']. '</td>';
-                echo'<td><button type="button" class="actv" 
+                echo'<td><button type="button" class="btn btn-info" 
                 onclick="editMfdepartmentModal('.$rowd.','.$cde.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';

@@ -53,7 +53,7 @@ Class MfpyrollcoList{
                 <td id="cot'.$result['rowid'].'">'.$result['cotype'].'</td>
                 <td id="cor'.$result['rowid'].'" hidden>'.$result['co_type'].'</td>
                 <td id="st'.$result['rowid'].'">'.$result['status'].'</td>';
-                echo'<td><button type="button" class="actv" 
+                echo'<td><button type="button" class="btn btn-info" 
                 onclick="editMfpyrollcoModal('.$rowd.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';

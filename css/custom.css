@@ -707,7 +707,7 @@ color: #d64747;
     opacity: 0.5;
 }
 
-.actv {
+.btn btn-info {
 
     width: 110px;
     background-color: #fbec1e;
@@ -718,7 +718,7 @@ color: #d64747;
     border-radius:1rem;
 }
 
-.actv:hover{
+.btn btn-info:hover{
     opacity: 0.5;
 }
 
@@ -762,7 +762,7 @@ color: #d64747;
 }
 
 
-.deactv{
+.debtn btn-info{
     width: 130px; 
     background-color: #ffaa00;
     border-color: #ffaa00;
@@ -772,7 +772,7 @@ color: #d64747;
     border-radius:1rem;;
 }
 
-.deactv:hover{
+.debtn btn-info:hover{
     opacity: 0.5;
 }
 

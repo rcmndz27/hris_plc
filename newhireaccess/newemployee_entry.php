@@ -810,7 +810,7 @@ id="expected_salary" placeholder="P 00,000.00">
                           
                                                                       
                             <div class="mt-3 d-flex justify-content-center">
-                                <button type="button" class="empappbut" id="Submit"><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                <button type="button" class="btn btn-success" id="Submit"><i class="fas fa-check-circle"></i> SUBMIT</button>
                             </div>       
                                
                         </fieldset><!-- JobHistory  -->

@@ -52,7 +52,7 @@ Class MfallowancesList{
                 <td id="ac'.$result['rowid'].'">'.$result['benefit_code'].'</td>
                 <td id="an'.$result['rowid'].'">'.$result['benefit_name'].'</td>
                 <td id="st'.$result['rowid'].'">' . $result['status']. '</td>';
-                echo'<td><button type="button" class="actv" 
+                echo'<td><button type="button" class="btn btn-info" 
                 onclick="editMfallowancesModal('.$rowd.','.$benefitcode.')">
                                 <i class="fas fa-edit"></i> UPDATE
                             </button></td>';
