@@ -223,15 +223,44 @@ $ftmst->execute();
 $fesulst = $ftmst->fetch();
 $wfh = (isset($fesulst['wfh'])) ? $fesulst['wfh'] : '0' ;
 
+//rank and file
+$queryv = "SELECT count(emp_code) as cnt_rank from employee_profile where ranking = 1 and emp_status = 'Active' ";
+$stmtv =$connL->prepare($queryv);
+$stmtv->execute();
+$resultv = $stmtv->fetch(); 
+$cnt_rank = (isset($resultv['cnt_rank'])) ? $resultv['cnt_rank'] : 0 ;
+
+//supervisory
+$queryfl = "SELECT count(emp_code) as cnt_sup from employee_profile where ranking = 2 and emp_status = 'Active' ";
+$stmtfl =$connL->prepare($queryfl);
+$stmtfl->execute();
+$resultfl = $stmtfl->fetch(); 
+$cnt_sup = (isset($resultfl['cnt_sup'])) ? $resultfl['cnt_sup'] : 0 ;
+
+//managerial
+$querysw = "SELECT count(emp_code) as cnt_man from employee_profile where ranking = 3 and emp_status = 'Active'";
+$stmtsw =$connL->prepare($querysw);
+$stmtsw->execute();
+$resultsw = $stmtsw->fetch();
+$cnt_man = (isset($resultsw['cnt_man'])) ? $resultsw['cnt_man'] : 0 ;
+
+//executive
+$queryvw = "SELECT count(emp_code) as cnt_exe from employee_profile where ranking = 4 and emp_status = 'Active'";
+$stmtvw =$connL->prepare($queryvw);
+$stmtvw->execute();
+$resultvw = $stmtvw->fetch();  
+$cnt_exe = (isset($resultsw['cnt_exe'])) ? $resultsw['cnt_exe'] : 0 ;
+
+
 //wfh login
- $spquery = "SELECT (CASE when status = 1 then 'PENDING'
-            when   status = 2 then 'APPROVED'
-            when   status = 3 then 'REJECTED'
-            when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
-            FROM dbo.tr_workfromhome a
-            left join employee_attendance b
-            on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
-            and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
+$spquery = "SELECT (CASE when status = 1 then 'PENDING'
+when   status = 2 then 'APPROVED'
+when   status = 3 then 'REJECTED'
+when   status = 4 then 'CANCELLED' ELSE 'N/A' END) as stats,a.rowid  as wfhid,a.emp_code as empcd,b.rowid as attid,* 
+FROM dbo.tr_workfromhome a
+left join employee_attendance b
+on RIGHT(A.emp_code, LEN(A.emp_code) - 3) = b.emp_code
+and a.wfh_date = b.punch_date where a.emp_code = :emp_code and a.wfh_date = :wfh_date and status = 2 ORDER BY wfh_date DESC";
 $spparam = array(':emp_code' => $empCode,':wfh_date' => date('Y-m-d'));
 $spstmt =$connL->prepare($spquery);
 $spstmt->execute($spparam);
@@ -903,7 +932,7 @@ function timeOutModal(lvid,empcd,attid){
       </div>
     </div>
 
-    <div class="col-md-3">
+<div class="col-md-3">
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">ANNOUNCEMENTS <?php echo strtoupper(date("Y")) ?> <i class="fas fa-paste"></i></h6>
@@ -935,7 +964,50 @@ function timeOutModal(lvid,empcd,attid){
                 ?>            
         </div>
     </div>
-</div>      
+</div>  
+
+<div class="col-md-3">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">NO. OF EMPLOYEES PER LEVEL <i class="fas fa-users"></i></h6>
+        </div>
+        <div class="card-body cdbody">
+                  <div class="table-responsive">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th class="ps-0  pb-2 border-bottom">Level Type</th>
+                          <th class="border-bottom pb-2">Count</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="ps-0"><span class="font-weight-bold me-2">Rank and File</td>
+                          <td><p class="mb-0"><?php echo $cnt_rank;?></span></p></td>
+                        </tr>
+                        <tr>
+                          <td class="ps-0"><span class="font-weight-bold me-2">Supervisory</td>
+                          <td><p class="mb-0"><?php echo $cnt_sup;?></span></p></td>
+                        </tr>
+                        <tr>
+                          <td class="ps-0"><span class="font-weight-bold me-2">Managerial</td>
+                          <td><p class="mb-0"><?php echo $cnt_man;?></span></p></td>
+                        </tr>
+                        <tr class="border-bottom pb-2">
+                          <td class="ps-0"><span class="font-weight-bold me-2">Executive</td>
+                          <td><p class="mb-0"><?php echo $cnt_exe;?></span></p></td>
+                        </tr> 
+                        <tr>
+                          <td class="ps-0"><span class="font-weight-bold me-2"></td>
+                          <td><p class="mb-0"><?php echo $cnt_exe+$cnt_rank+$cnt_man+$cnt_sup;?></span></p></td>
+                        </tr>                                                                          
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+    </div>
+</div> 
+
 </div><!--end of row -->
 
                 </div>
