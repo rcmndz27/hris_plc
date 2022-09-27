@@ -10,7 +10,7 @@ caption > button{
     
 }
 table   {
-        font-family: "Dosis", sans-serif;
+ font-family: "Dosis", sans-serif;
 }
 
 
@@ -677,7 +677,7 @@ color: #d64747;
     opacity: 0.5;
 }
 
-.hactv {
+.btn btn-info btn-sm {
 
     width: 10;
     background-color: #fbec1e;
@@ -688,12 +688,12 @@ color: #d64747;
     border-radius:1rem;
 }
 
-.hactv:hover{
+.btn btn-info btn-sm:hover{
     opacity: 0.5;
 }
 
 
-.hdeactv{
+.btn btn-warning btn-sm{
     width: 10; 
     background-color: #ffaa00;
     border-color: #ffaa00;
@@ -703,7 +703,7 @@ color: #d64747;
     border-radius:1rem;;
 }
 
-.hdeactv:hover{
+.btn btn-warning btn-sm:hover{
     opacity: 0.5;
 }
 
@@ -722,7 +722,7 @@ color: #d64747;
     opacity: 0.5;
 }
 
-.voidBut{
+.btn btn-danger btn-sm{
     width: 10; 
     background-color: #970606;
     border-color: #970606;
@@ -732,7 +732,7 @@ color: #d64747;
     border-radius:1rem;;
 }
 
-.voidBut:hover{
+.btn btn-danger btn-sm:hover{
     opacity: 0.5;
 }
 

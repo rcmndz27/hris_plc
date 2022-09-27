@@ -88,10 +88,10 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <td>'.$result['remarks'] . '</td>
                 <td id="st'.$result['dtrc_id'].'">'.$result['stats'].'</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                       
                             </td>';                                
@@ -187,10 +187,10 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <td>'.$result['remarks'] . '</td>
                 <td id="st'.$result['dtrc_id'].'">'.$result['stats'].'</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.')" title="View DTR Correction">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                       
                             </td>';                                
@@ -290,22 +290,22 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                 <td id="st'.$result['rowdy'].'">'.$result['stats'].'</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
                     <i class="fas fa-binoculars"></i>
                 </button>
-                <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                <button type="button" class="btn btn-warning btn-sm" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
                     <i class="fas fa-history"></i>
                 </button>                           
-                <button type="button" id="clv" class="voidBut" onclick="canceldtrcorrect('.$dtrcid.','.$empcode.')" title="Cancel DTR Correction">
+                <button type="button" id="clv" class="btn btn-danger btn-sm" onclick="canceldtrcorrect('.$dtrcid.','.$empcode.')" title="Cancel DTR Correction">
                     <i class="fas fa-ban"></i>
                 </button>
                 </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewdtrcorrectModal('.$dtrcdate.','.$timein.','.$timeout.','.$rmrks.','.$stts.','.$appr_over.')" title="View DTR Correction">
                         <i class="fas fa-binoculars"></i>
                     </button>
-                    <button type="button" class="hdeactv" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
+                    <button type="button" class="btn btn-warning btn-sm" onclick="viewdtrcorrectHistoryModal('.$dtrcid.')" title="View Logs">
                         <i class="fas fa-history"></i>
                     </button>                       
                     </td>';

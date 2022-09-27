@@ -160,15 +160,19 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             "<td id='vlh".$r['badge_no']."'>" . round($r['vacation_leave'],2) . "</td>".
             "<td id='slhnp".$r['badge_no']."'>" . round($r['sick_leave_nopay'],2) . "</td>".
             "<td id='vlhnp".$r['badge_no']."'>" . round($r['vacation_leave_nopay'],2) . "</td>";
-            echo'<td><button type="button"class="hdeactv" 
+            echo'<td><button type="button"class="btn btn-warning btn-sm" 
             onclick="editAttModal('.$empn.','.$badgeno.','.$rwd.')" title="Edit Attendance"><i class="fas fa-edit"></i>
             </button>
-            <button type="button" class="hactv" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Logs">
+            <button type="button" class="btn btn-info btn-sm" onclick="viewAllAttendanceEmp('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Logs">
             <i class="fas fa-clock"></i>
             </button>
-            <button type="button" class="voidBut" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
+            <button type="button" class="btn btn-danger btn-sm" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
             <i class="fas fa-history"></i>
-            </button>                            
+            </button>  
+        </button>`
+            <button type="button" class="bt btn-info" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
+            <i class="fas fa-history"></i>
+            </button>                                       
             </td></tr>';
 
 

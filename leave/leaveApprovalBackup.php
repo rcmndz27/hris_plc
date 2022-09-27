@@ -54,9 +54,14 @@ require '../vendor/autoload.php';
         echo '<table id="employeeLeaveList" class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th colspan="8" class="text-center">List of Pending Leave Request</th>';
+                    <button class="btn btn-success btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-danger btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-info btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <th colspan="8" class="text-center">List of Pending Leave Request List
+                    </th>';
         echo '</tr>
                 <tr>
+                    <th><input type="checkbox" id="selectAll" name="selectAll" /></th>
                     <th>Date Filed</th>
                     <th>Leave Date</th>
                     <th>Leave Type</th>
@@ -74,6 +79,7 @@ require '../vendor/autoload.php';
                 $mf = $result['medicalfile'];
                 echo "
             <tr>
+            <td><input type='checkbox' class='checkboxAll' value='cb".$result['rowid']."' /></td>
             <td>" . date('Y-m-d',strtotime($result['datefiled'])) . "</td>
             <td>" . date('Y-m-d',strtotime($result['date_from'])) . "</td>
             <td class='text-left text-info'>" . $result['leavetype'] . "</td>
@@ -91,14 +97,14 @@ require '../vendor/autoload.php';
                 }  
                 if($result['approval'] == 'OBN20000205' and $logEmpCode == 'OBN20000205')  {         
                 echo'
-                    <button class="btn btn-success btn-sm btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
-                    <button class="btn btn-danger btn-sm btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-success btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-danger btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     </td>';
                 }else if($result['approval'] == $logEmpCode and $logEmpCode <> 'OBN20000205' ){
                     echo'
-                    <button class="btn btn-success btn-sm btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
-                    <button class="btn btn-danger btn-sm btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
-                    <button class="btn btn-warning btn-sm btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-success btnApproved" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-check"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-danger btnRejectd" id="'.$result['emp_code'].' '.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-times"></i></button><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
+                    <button class="btn btn-info btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>
                     </td>';
                 }else {
                     echo 'Waiting for other approver.';

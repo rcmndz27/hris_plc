@@ -65,10 +65,10 @@ Class DeductionList{
                 <td id="amtn'.$result['deduction_emp_id'].'">₱ ' . number_format($result['amount'],2,'.',',').'</td>
                 <td id="ed'.$result['deduction_emp_id'].'">' . date('Y-m-d', strtotime($result['effectivity_date'])) . '</td>
                 <td id="st'.$result['deduction_emp_id'].'">' . $result['status']. '</td>';
-                echo'<td><button type="button" class="hactv" onclick="editDedModal('.$empcd.','.$dedcid.','.$flname.')" title="Update Deduction">
+                echo'<td><button type="button" class="btn btn-info btn-sm" onclick="editDedModal('.$empcd.','.$dedcid.','.$flname.')" title="Update Deduction">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="voidBut" onclick="viewDedLogs('.$empcd.')" title="Deduction  Logs">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="viewDedLogs('.$empcd.')" title="Deduction  Logs">
                                 <i class="fas fa-history"></i>
                             </button>                            
                             </td>';

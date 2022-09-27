@@ -61,13 +61,13 @@ Class NewHireAccess{
                 <td>' . $result['location'] . '</td>
                 <td>' . $result['emp_type'] . '</td>
                 <td>' . $result['emp_status'] . '</td>';
-                echo '<td><button type="button" class="hactv" onclick="viewEmpModal('.$empcd.','.$emppicloc.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
-                            </button><button type="button" class="hdeactv" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
+                echo '<td><button type="button" class="btn btn-info btn-sm" onclick="viewEmpModal('.$empcd.','.$emppicloc.')" title="View Employee Profile"><i class="fas fa-binoculars"></i>
+                            </button><button type="button" class="btn btn-warning btn-sm" onclick="updateEmpModal('.$empcd.')" title="Update Employee Profile">
                                 <i class="fas fa-edit"></i>
                             </button></td>
                             ';
     
-                // <button type="button" class="hactv" onclick="viewEmpHistoryModal()" title="View Employee Logs">
+                // <button type="button" class="btn btn-info btn-sm" onclick="viewEmpHistoryModal()" title="View Employee Logs">
                 //                 <i class="fas fa-history"></i>
                 //             </button>
 

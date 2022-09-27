@@ -247,9 +247,7 @@ function cancelLeave(lvid,empcd)
                                 </div>
                             </div>
                         </div> 
-                        <input type='text' id='emptype' name='emptype' class='form-control'
-                                            value=<?php echo $r['emp_type']; ?> hidden>                                               
-                        
+                        <input type='text' id='emptype' name='emptype' class='form-control' value=<?php echo $r['emp_type']; ?> hidden>                                                                   
                                 <?php 
                                 $emp_type = $r['emp_type'];
                                 $sl = isset($rs['earned_sl']) ? $rs['earned_sl'] : 0; 
@@ -269,9 +267,7 @@ function cancelLeave(lvid,empcd)
                                 }else{
                                 }
                                  ?>                                            
-
                          <!-- sick leave advance filing  -->
-
                         <div id="advancefiling">
                             <div class="row">
                                 <div class=col-md-2>

@@ -95,10 +95,10 @@ Class OtApp{
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['ot_rowid'].'">' . $result['stats'] . '</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';
@@ -202,10 +202,10 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td>' . $result['remarks'] . '</td>
                 <td id="st'.$result['ot_rowid'].'">' . $result['stats'] . '</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';
@@ -309,22 +309,22 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td id="st'.$result['rowdy'].'">' . $result['stats'] . '</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                           
-                            <button type="button" id="clv" class="voidBut" onclick="cancelOvertime('.$otid.','.$empcode.')" title="Cancel Overtime">
+                            <button type="button" id="clv" class="btn btn-danger btn-sm" onclick="cancelOvertime('.$otid.','.$empcode.')" title="Cancel Overtime">
                                 <i class="fas fa-ban"></i>
                             </button>
                             </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewOtModal('.$otdate.','.$ottype.','.$otstartdtime.','.$otenddtime.','.$remark.','.$otreqhrs.','.$otrenhrs.','.$rejectreason.','.$stats.','.$appr_over.')" title="View Overtime">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewOtHistoryModal('.$otid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';

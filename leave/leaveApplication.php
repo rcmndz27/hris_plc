@@ -226,10 +226,10 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                 <td id="lc'.$result['lv_rowid'].'">' . $result['actl_cnt'] . '</td>
                 <td id="st'.$result['lv_rowid'].'">' . $result['approved'] . '</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';
@@ -332,10 +332,10 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
                 <td id="lc'.$result['lv_rowid'].'">' . $result['actl_cnt'] . '</td>
                 <td id="st'.$result['lv_rowid'].'">' . $result['approved'] . '</td>';
                 echo'
-                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';
@@ -443,22 +443,22 @@ public function GetAllLeaveHistory($date_from,$date_to,$status){
     
                 if($result['approved'] == 'PENDING' || $result['approved'] == 'APPROVED'){
                 echo'
-                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.','.$appr_over.')" title="View Leave">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.','.$appr_over.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                           
-                            <button type="button" id="clv" class="voidBut" onclick="cancelLeave('.$leaveid.','.$empcode.')" title="Cancel Leave">
+                            <button type="button" id="clv" class="btn btn-danger btn-sm" onclick="cancelLeave('.$leaveid.','.$empcode.')" title="Cancel Leave">
                                 <i class="fas fa-ban"></i>
                             </button>
                             </td>';
                 }else{
                 echo'
-                <td><button type="button" class="hactv" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.','.$appr_over.')" title="View Leave">
+                <td><button type="button" class="btn btn-info btn-sm" onclick="viewLeaveModal('.$datefl.','.$leavedesc.','.$leavetyp.','.$datefr.','.$dateto.','.$remark.','.$appdays.','.$appr_oved.','.$actlcnt.','.$appr_over.')" title="View Leave">
                                 <i class="fas fa-binoculars"></i>
                             </button>
-                            <button type="button" class="hdeactv" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="viewLeaveHistoryModal('.$leaveid.')" title="View Logs">
                                 <i class="fas fa-history"></i>
                             </button>                        
                             </td>';
