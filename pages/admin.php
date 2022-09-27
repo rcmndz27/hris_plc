@@ -286,6 +286,11 @@ $stmtvw->execute();
 $resultvw = $stmtvw->fetch();  
 $cnt_exe = (isset($resultsw['cnt_exe'])) ? $resultsw['cnt_exe'] : 0 ;
 
+$totperlvl = $cnt_rank+$cnt_sup+$cnt_man+$cnt_exe;
+$pct_rank = round($cnt_rank*100/$totperlvl);
+$pct_sup = round($cnt_sup*100/$totperlvl);
+$pct_man = round($cnt_man*100/$totperlvl);
+$pct_exe = round($cnt_exe*100/$totperlvl);
 
 //active
 $queryact = "SELECT count(emp_code) as cnt_act from employee_profile where emp_status = 'Active' ";
@@ -315,6 +320,13 @@ $stmtter->execute();
 $resultter = $stmtter->fetch();  
 $cnt_ter = (isset($resultter['cnt_ter'])) ? $resultter['cnt_ter'] : 0 ;
 
+$totperstat = $cnt_act+$cnt_res+$cnt_sep+$cnt_ter;
+$pct_act = round($cnt_act*100/$totperstat);
+$pct_res = round($cnt_res*100/$totperstat);
+$pct_sep = round($cnt_sep*100/$totperstat);
+$pct_ter = round($cnt_ter*100/$totperstat);
+
+
 
 //wfh login
 $spquery = "SELECT (CASE when status = 1 then 'PENDING'
@@ -335,136 +347,136 @@ $wfhempcd = (isset($spresult['empcd'])) ? "'".$spresult['empcd']."'" : '' ;
 $attid = (isset($spresult['attid'])) ? "'".$spresult['attid']."'" : '' ;
 }
 
-            if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President') {
+if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'President') {
 
-            }else{
-                        echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
-                        echo "window.location.href = '../index.php';";
-                        echo "</script>";
-            }
+}else{
+echo '<script type="text/javascript">swal({text:"You do not have access here!",icon:"error"});';
+echo "window.location.href = '../index.php';";
+echo "</script>";
+}
 
 ?>
 <script type="text/javascript">
     
-    function timeInModal(lvid,empcd){
-          
-        $('#timeInModal').modal('toggle');
-        document.getElementById('empcd').value =  empcd;   
-        document.getElementById('lvid').value =  lvid;   
-  
+function timeInModal(lvid,empcd){
+
+$('#timeInModal').modal('toggle');
+document.getElementById('empcd').value =  empcd;   
+document.getElementById('lvid').value =  lvid;   
+
 }
 
-  function timeIn()
-        {
+function timeIn()
+{
 
-            var url = "../wfhome/timeInProcess.php";  
-            var wfhid = document.getElementById("lvid").value; 
-            var emp_code = document.getElementById("empcd").value;
-            var wfh_output = document.getElementById("wfh_output").value;  
+var url = "../wfhome/timeInProcess.php";  
+var wfhid = document.getElementById("lvid").value; 
+var emp_code = document.getElementById("empcd").value;
+var wfh_output = document.getElementById("wfh_output").value;  
 
-            if(wfh_output){
-                swal({
-                      title: "Are you sure?",
-                      text: "You want to time in now?",
-                      icon: "success",
-                      buttons: true,
-                      dangerMode: true,
-                    })
-                    .then((timeIn) => {
-                      if (timeIn) {
-                        $.post (
-                        url,
-                        {
-                            choice: 1,
-                            wfhid:wfhid,
-                            emp_code:emp_code,
-                            wfh_output:wfh_output
-                        },
-                        function(data) { 
-                            console.log(data);
-                                swal({
-                                title: "Success!", 
-                                text: "Successfully time in!", 
-                                type: "info",
-                                icon: "info",
-                                }).then(function() {
-                                    location.href = '../pages/admin.php';
-                                });  
-                        }
-                            );
-                      } else {
-                        swal({text:"You cancel your time in!",icon:"warning"});
-                      }
-                    });
-                }else{
-                    swal({text:"Kindly fill up blank details!",icon:"warning"});
-                }
+if(wfh_output){
+swal({
+title: "Are you sure?",
+text: "You want to time in now?",
+icon: "success",
+buttons: true,
+dangerMode: true,
+})
+.then((timeIn) => {
+if (timeIn) {
+$.post (
+url,
+{
+choice: 1,
+wfhid:wfhid,
+emp_code:emp_code,
+wfh_output:wfh_output
+},
+function(data) { 
+console.log(data);
+swal({
+title: "Success!", 
+text: "Successfully time in!", 
+type: "info",
+icon: "info",
+}).then(function() {
+location.href = '../pages/admin.php';
+});  
+}
+);
+} else {
+swal({text:"You cancel your time in!",icon:"warning"});
+}
+});
+}else{
+swal({text:"Kindly fill up blank details!",icon:"warning"});
+}
 
-      
-    }    
+
+}    
 
 function timeOutModal(lvid,empcd,attid){
-          
-        $('#timeOutModal').modal('toggle');
-        document.getElementById('empcd').value =  empcd;   
-        document.getElementById('lvid').value =  lvid;   
-        document.getElementById('attid').value =  attid;   
-  
+
+$('#timeOutModal').modal('toggle');
+document.getElementById('empcd').value =  empcd;   
+document.getElementById('lvid').value =  lvid;   
+document.getElementById('attid').value =  attid;   
+
 }
 
-  function timeOut()
-        {
+function timeOut()
+{
 
-            var url = "../wfhome/timeInProcess.php";  
-            var wfhid = document.getElementById("lvid").value; 
-            var emp_code = document.getElementById("empcd").value;
-            var wfh_output2 = document.getElementById("wfh_output2").value;  
-            var wfh_percentage = document.getElementById("wfh_percentage").value;  
-            var attid = document.getElementById("attid").value;  
+var url = "../wfhome/timeInProcess.php";  
+var wfhid = document.getElementById("lvid").value; 
+var emp_code = document.getElementById("empcd").value;
+var wfh_output2 = document.getElementById("wfh_output2").value;  
+var wfh_percentage = document.getElementById("wfh_percentage").value;  
+var attid = document.getElementById("attid").value;  
 
 
-            if(!wfh_output2 || !wfh_percentage){
-                  swal({text:"Kindly fill up blank details!",icon:"warning"});  
-            }else{
-                swal({
-                  title: "Are you sure?",
-                  text: "You want to time out now?",
-                  icon: "success",
-                  buttons: true,
-                  dangerMode: true,
-                })
-                .then((timeIn) => {
-                  if (timeIn) {
-                    $.post (
-                            url,
-                            {
-                                choice: 2,
-                                wfhid:wfhid,
-                                emp_code:emp_code,
-                                wfh_output2:wfh_output2,
-                                wfh_percentage:wfh_percentage,
-                                attid:attid
+if(!wfh_output2 || !wfh_percentage){
+swal({text:"Kindly fill up blank details!",icon:"warning"});  
+}else{
+swal({
+title: "Are you sure?",
+text: "You want to time out now?",
+icon: "success",
+buttons: true,
+dangerMode: true,
+})
+.then((timeIn) => {
+if (timeIn) {
+$.post (
+url,
+{
+choice: 2,
+wfhid:wfhid,
+emp_code:emp_code,
+wfh_output2:wfh_output2,
+wfh_percentage:wfh_percentage,
+attid:attid
 
-                            },
-                            function(data) { 
-                                console.log(data);
-                                    swal({
-                                    title: "Success!", 
-                                    text: "Successfully time out!", 
-                                    type: "info",
-                                    icon: "info",
-                                    }).then(function() {
-                                        location.href = '../wfhome/wfh_app_view.php';
-                                    });  
-                            }
-                        );
-                  } else {
-                    swal({text:"You cancel your time out!",icon:"warning"});
-                  }
-                });                
-            }
-      
-    }    
+},
+function(data) { 
+console.log(data);
+swal({
+title: "Success!", 
+text: "Successfully time out!", 
+type: "info",
+icon: "info",
+}).then(function() {
+location.href = '../wfhome/wfh_app_view.php';
+});  
+}
+);
+} else {
+swal({text:"You cancel your time out!",icon:"warning"});
+}
+});                
+}
+
+}    
 </script>
 <script type='text/javascript' src='../pages/add_ancmnt.js'></script>
 <script type='text/javascript' src='../js/validator.js'></script>
@@ -1039,7 +1051,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Rank in File</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $cnt_rank; ?>%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $pct_rank; ?>%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_rank; ?></h5></td>
@@ -1048,7 +1060,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Supervisory</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $cnt_sup; ?>%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $pct_sup; ?>%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_sup; ?></h5></td>
@@ -1057,7 +1069,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Managerial</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $cnt_man; ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $pct_man; ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_man; ?></h5></td>
@@ -1066,7 +1078,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Executive</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $cnt_exe; ?>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-secondary" role="progressbar" style="width: <?php echo $pct_exe; ?>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_exe; ?></h5></td>
@@ -1087,7 +1099,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Active</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-primary" role="progressbar" style="width: <?php echo $cnt_act; ?>%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-primary" role="progressbar" style="width: <?php echo $pct_act; ?>%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_act; ?></h5></td>
@@ -1096,7 +1108,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Resigned</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $cnt_res; ?>%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $pct_res; ?>%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_res; ?></h5></td>
@@ -1105,7 +1117,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Separated</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $cnt_sep; ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $pct_sep; ?>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_sep; ?></h5></td>
@@ -1114,7 +1126,7 @@ function timeOutModal(lvid,empcd,attid){
       <td class="text-muted">Terminated</td>
       <td class="w-100 px-0">
         <div class="progress progress-md mx-4">
-          <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $cnt_ter; ?>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar bg-warning" role="progressbar" style="width: <?php echo $pct_ter; ?>%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </td>
       <td><h5 class="font-weight-bold mb-0"><?php echo $cnt_ter; ?></h5></td>
