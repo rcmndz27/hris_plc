@@ -11,33 +11,30 @@
 
         public function GetAttendanceList($dateStart, $dateEnd, $empcode){
 
-            global $connL;
-            global $dbConnection;
+        global $connL;
+        global $dbConnection;
 
-            $totalWork = 0;
-            $totalLate = 0;
-            $totalUndertime = 0;
-            $totalOvertime = 0;
+        $totalWork = 0;
+        $totalLate = 0;
+        $totalUndertime = 0;
+        $totalOvertime = 0;
 
-            $queryy = "SELECT * from employee_profile where emp_code = :empcode";
-            $stmty =$connL->prepare($queryy);
-            $paramy = array(":empcode" => $empcode);
-            $stmty->execute($paramy);
-            $resulty = $stmty->fetch();
-            $cmp = $resulty['company'];
-            $subemp = strlen($cmp);
-
-            // var_dump($dateStart);
-            // exit();
-            
-            $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_code,:startDate,:endDate';
-            $param = array(":emp_code" => substr($empcode,$subemp), ":startDate" => $dateStart, ":endDate" => $dateEnd );
-            $stmt =$connL->prepare($query);
-            $stmt->execute($param);
-            $result = $stmt->fetch();
-            $nm = (isset($result['name'])) ? $result['name'] : '' ;
-            // $name=str_replace('.',', ',$nm);
-            echo "
+        $queryy = "SELECT * from employee_profile where emp_code = :empcode";
+        $stmty =$connL->prepare($queryy);
+        $paramy = array(":empcode" => $empcode);
+        $stmty->execute($paramy);
+        $resulty = $stmty->fetch();
+        $cmp = $resulty['company'];
+        $subemp = strlen($cmp);
+        
+        $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_code,:startDate,:endDate';
+        $param = array(":emp_code" => substr($empcode,$subemp), ":startDate" => $dateStart, ":endDate" => $dateEnd );
+        $stmt =$connL->prepare($query);
+        $stmt->execute($param);
+        $result = $stmt->fetch();
+        $nm = (isset($result['name'])) ? $result['name'] : '' ;
+        // $name=str_replace('.',', ',$nm);
+        echo "
         <button id='btnExport' onclick='exportReportToExcel(this)' class='btn btn-primary'><i class='fas fa-file-export'></i> Export </button>
             <table id='dtrList' class='table table-striped table-sm'>
                 <thead>

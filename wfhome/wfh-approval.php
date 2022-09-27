@@ -92,13 +92,13 @@ require '../vendor/autoload.php';
                             <td hidden>"."<input type='text' class='form-control' 
                             value='".$result['reporting_to']."' >"."</td>
                             <td>".
-                                "<button class='chckbt btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp;".
-                                "<button class='rejbt btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button> &nbsp;";
+                                "<button class='btn btn-success btn-sm btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp;".
+                                "<button class='btn btn-danger btn-sm btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button> &nbsp;";
 
                           if($result['reporting_to'] == 'OBN20000205') {
 
                            }else{
-                            echo '<button class="fwdAppr btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>';
+                            echo '<button class="btn btn-warning btn-sm btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>';
                          } 
                          
                         "</td></tr>";                                

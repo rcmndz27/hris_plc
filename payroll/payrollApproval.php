@@ -45,8 +45,8 @@
                         <td>";               
 
                     if($r["payroll_status"] == 'N'){
-                        // echo "<button class='chckbt'  onclick='ApprovePayroll()' title='Approve Payroll'><i class='fas fa-check'></i></button>";
-                        // echo "<button class='rejbt'  onclick='RejectPayroll()' title='Reject Payroll'><i class='fas fa-times'></i></button>";
+                        // echo "<button class='btn btn-success btn-sm'  onclick='ApprovePayroll()' title='Approve Payroll'><i class='fas fa-check'></i></button>";
+                        // echo "<button class='btn btn-danger btn-sm'  onclick='RejectPayroll()' title='Reject Payroll'><i class='fas fa-times'></i></button>";
                         echo'<button title="View Payroll Register" type="button" class="vwPyReg" onclick="ViewPyReg('.$datefrom.','. $dateto.','.$stats.')"><i class="fas fa-search-dollar"></i></button>';                        
                     }else if($r["payroll_status"] == 'A'){
                         echo "<p style='color:green; font-weight:bold; vertical-align:middle; display:inline;'>APPROVED</p>";

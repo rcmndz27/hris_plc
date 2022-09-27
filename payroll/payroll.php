@@ -168,11 +168,7 @@ function GetPayrollList($action, $dtFrom, $dtTo,$location,$empCode){
             </button>
             <button type="button" class="btn btn-danger btn-sm" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
             <i class="fas fa-history"></i>
-            </button>  
-        </button>`
-            <button type="button" class="bt btn-info" onclick="viewPayrollLogs('.$badgeno.','.$pfrom.','.$pto.')" title="View Attendance Audit Logs">
-            <i class="fas fa-history"></i>
-            </button>                                       
+            </button>                                      
             </td></tr>';
 
 
