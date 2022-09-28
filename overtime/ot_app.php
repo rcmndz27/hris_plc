@@ -305,7 +305,7 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
                 <td>' . date('h:i A', strtotime($result['ot_end_dtime'])) . '</td>
                 <td>' . round($result['ot_req_hrs'],2) . '</td> 
                 <td>' . round($result['ot_ren_hrs'],2) . '</td>
-                <td>' . $result['remarks'] . '</td>
+                <td>' . wordwrap($result['remarks'], 20, "<br>", true) . '</td>
                 <td id="st'.$result['rowdy'].'">' . $result['stats'] . '</td>';
                 if($result['stats'] == 'PENDING' || $result['stats'] == 'APPROVED'){
                 echo'

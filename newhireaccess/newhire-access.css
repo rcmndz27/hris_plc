@@ -5,7 +5,7 @@ body {
 table,th{
 
                 border: 1px solid #dee2e6;
-                /*font-weight: 700;*/
+                /*font-weight: 600;*/
                 font-size: 14px;
                 font-family: "Dosis", sans-serif;
  }   
@@ -105,7 +105,7 @@ table {
 .thw{
         width: 180px;
         text-align: left;
-        font-weight: 700;
+        font-weight: 600;
 }
 
 .thc{
