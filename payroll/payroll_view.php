@@ -47,7 +47,7 @@ else
     $paramtk = array(":dfrom" => $rfrom,":dto" => $rto);
     $stmttk->execute($paramtk);
     $rtk = $stmttk->fetch();
-    $tkstat = $rtk['remarks'];                 
+    $tkstat = (isset($rtk['remarks'])) ? $rtk['remarks'] : 'n/a' ;         
 
     if($empUserType == 'Admin' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head' || $empUserType == 'HR Generalist' ||$empUserType == 'HR Manager' || $empUserType == 'Group Head') {
 
@@ -623,9 +623,13 @@ aria-hidden="true">
 
     function generatePayrll()
     {
+
+        var cutoff = $('#ddcutoff').children("option:selected").val();
+        if(typeof(cutoff) != "undefined" && cutoff !== null) {
+
         document.getElementById("myDiv").style.display="block";
         var url = "../payroll/payrollrep_process.php";
-        var cutoff = $('#ddcutoff').children("option:selected").val();
+        // var cutoff = $('#ddcutoff').children("option:selected").val();
         var dates = cutoff.split(" - ");
         var empCode = $('#empCode').val();
         document.getElementById('pfromt').innerHTML = dates[0];
@@ -660,6 +664,17 @@ aria-hidden="true">
                 document.getElementById("myDiv").style.display="none"; 
             }
             );
+        }else{
+
+               swal({
+                    title: "Warning!", 
+                    text: "No generated timekeeping logs.", 
+                    icon: "warning",
+                }).then(function() {
+                    window.location.replace("../pages/admin.php"); 
+                }); 
+
+        }
     }
 
     function viewAllAttendanceEmp(bdno,pfrom,pto)
@@ -929,46 +944,46 @@ function updateAtt()
                     vacation_leave_nopay: vacation_leave_nopay                    
                 },
                 function(data) {   
-                console.log(data);                                        
-                    swal({
-                        title: "Success!", 
-                        text: "Successfully updated the attendance details!", 
-                        type: "success",
-                        icon: "success",
-                    }).then(function() {
-                        $('#updateAtt').modal('hide');
-                        document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
-                        document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
-                        document.getElementById('tol'+badge_no).innerHTML = tot_lates;
-                        document.getElementById('tou'+badge_no).innerHTML = total_undertime;
-                        document.getElementById('toad'+badge_no).innerHTML = total_adjstmenthrs;
-                        document.getElementById('reg_ot'+badge_no).innerHTML = tot_overtime_reg ;
-                        document.getElementById('reg_ns'+badge_no).innerHTML = night_differential;
-                        document.getElementById('reg_ns_ot'+badge_no).innerHTML = night_differential_ot;
-                        document.getElementById('rh'+badge_no).innerHTML = tot_regholiday;
-                        document.getElementById('rh_ot'+badge_no).innerHTML = tot_overtime_regholiday;
-                        document.getElementById('rh_ns'+badge_no).innerHTML = tot_regholiday_nightdiff;
-                        document.getElementById('rh_ns_ot'+badge_no).innerHTML = tot_overtime_regholiday_nightdiff;
-                        document.getElementById('sh'+badge_no).innerHTML = tot_spholiday;
-                        document.getElementById('sh_ot'+badge_no).innerHTML = tot_overtime_spholiday;
-                        document.getElementById('sh_ns'+badge_no).innerHTML = tot_spholiday_nightdiff;
-                        document.getElementById('sh_ns_ot'+badge_no).innerHTML = tot_overtime_spholiday_nightdiff;
-                        document.getElementById('rd'+badge_no).innerHTML = tot_rest;
-                        document.getElementById('rd_ot'+badge_no).innerHTML = tot_overtime_rest;
-                        document.getElementById('rd_ns'+badge_no).innerHTML = night_differential_rest;
-                        document.getElementById('rd_ns_ot'+badge_no).innerHTML = night_differential_ot_rest;
-                        document.getElementById('rd_rh_ot'+badge_no).innerHTML = tot_overtime_rest_regholiday;
-                        document.getElementById('rd_rh_ns'+badge_no).innerHTML = night_differential_rest_regholiday;
-                        document.getElementById('rd_rh_ns_ot'+badge_no).innerHTML = tot_overtime_night_diff_rest_regholiday;
-                        document.getElementById('rd_sh_ot'+badge_no).innerHTML = tot_overtime_sprestholiday;
-                        document.getElementById('rd_sh_ns'+badge_no).innerHTML = tot_sprestholiday_nightdiff;
-                        document.getElementById('rd_sh_ns_ot'+badge_no).innerHTML = tot_overtime_sprestholiday_nightdiff;
-                        document.getElementById('wfh'+badge_no).innerHTML = workfromhome;
-                        document.getElementById('ob'+badge_no).innerHTML = offbusiness;
-                        document.getElementById('slh'+badge_no).innerHTML = sick_leave;
-                        document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
-                        document.getElementById('slhnp'+badge_no).innerHTML = sick_leave_nopay;
-                        document.getElementById('vlhnp'+badge_no).innerHTML = vacation_leave_nopay;                        
+    console.log(data);                                        
+        swal({
+            title: "Success!", 
+            text: "Successfully updated the attendance details!", 
+            type: "success",
+            icon: "success",
+        }).then(function() {
+            $('#updateAtt').modal('hide');
+            document.getElementById('toa'+badge_no).innerHTML = tot_days_absent;
+            document.getElementById('tow'+badge_no).innerHTML = tot_days_work;
+            document.getElementById('tol'+badge_no).innerHTML = tot_lates;
+            document.getElementById('tou'+badge_no).innerHTML = total_undertime;
+            document.getElementById('toad'+badge_no).innerHTML = total_adjstmenthrs;
+            document.getElementById('reg_ot'+badge_no).innerHTML = tot_overtime_reg ;
+            document.getElementById('reg_ns'+badge_no).innerHTML = night_differential;
+            document.getElementById('reg_ns_ot'+badge_no).innerHTML = night_differential_ot;
+            document.getElementById('rh'+badge_no).innerHTML = tot_regholiday;
+            document.getElementById('rh_ot'+badge_no).innerHTML = tot_overtime_regholiday;
+            document.getElementById('rh_ns'+badge_no).innerHTML = tot_regholiday_nightdiff;
+            document.getElementById('rh_ns_ot'+badge_no).innerHTML = tot_overtime_regholiday_nightdiff;
+            document.getElementById('sh'+badge_no).innerHTML = tot_spholiday;
+            document.getElementById('sh_ot'+badge_no).innerHTML = tot_overtime_spholiday;
+            document.getElementById('sh_ns'+badge_no).innerHTML = tot_spholiday_nightdiff;
+            document.getElementById('sh_ns_ot'+badge_no).innerHTML = tot_overtime_spholiday_nightdiff;
+            document.getElementById('rd'+badge_no).innerHTML = tot_rest;
+            document.getElementById('rd_ot'+badge_no).innerHTML = tot_overtime_rest;
+            document.getElementById('rd_ns'+badge_no).innerHTML = night_differential_rest;
+            document.getElementById('rd_ns_ot'+badge_no).innerHTML = night_differential_ot_rest;
+            document.getElementById('rd_rh_ot'+badge_no).innerHTML = tot_overtime_rest_regholiday;
+            document.getElementById('rd_rh_ns'+badge_no).innerHTML = night_differential_rest_regholiday;
+            document.getElementById('rd_rh_ns_ot'+badge_no).innerHTML = tot_overtime_night_diff_rest_regholiday;
+            document.getElementById('rd_sh_ot'+badge_no).innerHTML = tot_overtime_sprestholiday;
+            document.getElementById('rd_sh_ns'+badge_no).innerHTML = tot_sprestholiday_nightdiff;
+            document.getElementById('rd_sh_ns_ot'+badge_no).innerHTML = tot_overtime_sprestholiday_nightdiff;
+            document.getElementById('wfh'+badge_no).innerHTML = workfromhome;
+            document.getElementById('ob'+badge_no).innerHTML = offbusiness;
+            document.getElementById('slh'+badge_no).innerHTML = sick_leave;
+            document.getElementById('vlh'+badge_no).innerHTML = vacation_leave;
+            document.getElementById('slhnp'+badge_no).innerHTML = sick_leave_nopay;
+            document.getElementById('vlhnp'+badge_no).innerHTML = vacation_leave_nopay;                        
 
             if(tot_days_absent !== old_tot_days_absent){
             action = 'Change';

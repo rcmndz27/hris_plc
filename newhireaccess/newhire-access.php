@@ -1,16 +1,4 @@
 <?php
-                //     <div class="col-lg-1">
-                //         <select class="form-select" name="state" id="maxRows">
-                //              <option value="5000">ALL</option>
-                //              <option value="5">5</option>
-                //              <option value="10">10</option>
-                //              <option value="15">15</option>
-                //              <option value="20">20</option>
-                //              <option value="50">50</option>
-                //              <option value="70">70</option>
-                //              <option value="100">100</option>
-                //         </select> 
-                // </div>  
 
 Class NewHireAccess{
 
@@ -66,10 +54,6 @@ Class NewHireAccess{
                                 <i class="fas fa-edit"></i>
                             </button></td>
                             ';
-    
-                // <button type="button" class="btn btn-info btn-sm" onclick="viewEmpHistoryModal()" title="View Employee Logs">
-                //                 <i class="fas fa-history"></i>
-                //             </button>
 
             } while ($result = $stmt->fetch());
             $name = json_encode($day);
