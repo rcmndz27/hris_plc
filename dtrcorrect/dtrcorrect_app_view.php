@@ -326,8 +326,6 @@ swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
                                         <input type="text" id="approver" name="approver" class="form-control" readonly>
                                     </div>
                                 </div> 
-
-
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">
