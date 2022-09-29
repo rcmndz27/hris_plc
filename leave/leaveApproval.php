@@ -86,7 +86,7 @@ require '../vendor/autoload.php';
                 echo "<td>";
                 if(empty($mf)){
                 }else {
-                    echo"<button type='button' class='btnView atch'><a title='Attachment' href='../uploads/".$result['medicalfile']."' style='color:#ffff;font-weight:bold;'  
+                    echo"<button type='button' class='btn btn-primary btn-sm'><a title='Attachment' href='../uploads/".$result['medicalfile']."' style='color:#ffff;font-weight:bold;'  
                                 target='popup' onclick='window.open('../uploads/".$result['medicalfile']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>";  
                 }  
                 if($result['approval'] == 'OBN20000205' and $logEmpCode == 'OBN20000205')  {         

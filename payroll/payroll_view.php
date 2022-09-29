@@ -89,7 +89,7 @@ else
             </select>
         </div>
         <div class='col-md-2' id="s15th">
-            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetAllCutoffPay("payview")); ?>
+            <?php $dd->GenerateDropDown("ddcutoff", $mf->GetTKList("tkview")); ?>
         </div>
         
         <div class='col-md-2' id="s30th">
@@ -534,6 +534,47 @@ aria-hidden="true">
 </div> <!-- modal dialog closing -->
 </div><!-- modal fade closing -->   
 
+
+
+<div class="modal fade" id="viewApprovedForms" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title bb" id="popUpModalTitle">VIEW APPROVED FORMS  <i class="fas fa-money-bill"></i></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times; </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="main-body">
+                <fieldset class="fieldset-border">
+                    <div class="d-flex justify-content-center">
+                        <legend class="fieldset-border pad">
+                        </legend>
+                    </div>
+                    <div class="form-row">
+                        <div class="row pt-3">
+                            <div class="col-md-12">
+                                <div class="panel-body">
+                                    <div id="contents4" class="table-responsive-sm table-body">
+                                        <button type="button" id="search" hidden>GENERATE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                               
+                    </div> <!-- form row closing -->
+                </fieldset> 
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CLOSE</button>
+                </div> 
+            </div> <!-- main body closing -->
+        </div> <!-- modal body closing -->
+    </div> <!-- modal content closing -->
+</div> <!-- modal dialog closing -->
+</div><!-- modal fade closing -->   
+
 </div>
 </div>
 </body>
@@ -583,35 +624,35 @@ aria-hidden="true">
 
         // console.log(param);
         // return false;
-        
-                     swal({
-                          title: "Are you sure?",
-                          text: "You want to add this user to the payroll list?",
-                          icon: "success",
-                          buttons: true,
-                          dangerMode: true,
-                        })
-                        .then((appEnt) => {
-                          if (appEnt) {
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '../payroll/usersatt_process.php',
-                                        data: {
-                                            data: param
-                                        },
-                                        success: function (result) {
-                                            console.log('success: ' + result);
-                                            swal({text:"Successfully added employee in payroll!",icon:"success"});
-                                            location.reload();
-                                        },
-                                        error: function (result) {
-                                            console.log('error: ' + result);
-                                        }
-                                    }); //ajax
-                          } else {
-                            swal({text:"You cancel the addition of your employee in payroll!",icon:"error"});
-                          }
-                        });
+    
+                 swal({
+                      title: "Are you sure?",
+                      text: "You want to add this user to the payroll list?",
+                      icon: "success",
+                      buttons: true,
+                      dangerMode: true,
+                    })
+                    .then((appEnt) => {
+                      if (appEnt) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '../payroll/usersatt_process.php',
+                                data: {
+                                    data: param
+                                },
+                                success: function (result) {
+                                    console.log('success: ' + result);
+                                    swal({text:"Successfully added employee in payroll!",icon:"success"});
+                                    location.reload();
+                                },
+                                error: function (result) {
+                                    console.log('error: ' + result);
+                                }
+                            }); //ajax
+                      } else {
+                        swal({text:"You cancel the addition of your employee in payroll!",icon:"error"});
+                      }
+                    });
 
             });
 
@@ -626,44 +667,42 @@ aria-hidden="true">
 
         var cutoff = $('#ddcutoff').children("option:selected").val();
         if(typeof(cutoff) != "undefined" && cutoff !== null) {
-
-        document.getElementById("myDiv").style.display="block";
-        var url = "../payroll/payrollrep_process.php";
-        // var cutoff = $('#ddcutoff').children("option:selected").val();
-        var dates = cutoff.split(" - ");
-        var empCode = $('#empCode').val();
-        document.getElementById('pfromt').innerHTML = dates[0];
-        document.getElementById('ptot').innerHTML = dates[1];
-        $.post (
-            url,
-            {
-                _action: 1,
-                _from: dates[0],
-                _to: dates[1],
-                _location: 'Makati',
-                _empCode: empCode
-                
-            },
-            function(data) { 
-                $("#contents").html(data).show();
-                $("#payrollList").tableExport({
-                    headers: true,
-                    footers: true,
-                    formats: ['xlsx'],
-                    filename: 'id',
-                    bootstrap: false,
-                    exportButtons: true,
-                    position: 'top',
-                    ignoreRows: null,
-                    ignoreCols: null,
-                    trimWhitespace: true,
-                    RTL: false,
-                    sheetname: 'Payroll Attendance'
-                });
-                $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
-                document.getElementById("myDiv").style.display="none"; 
-            }
-            );
+            document.getElementById("myDiv").style.display="block";
+            var url = "../payroll/payrollrep_process.php";
+            var dates = cutoff.split(" - ");
+            var empCode = $('#empCode').val();
+            document.getElementById('pfromt').innerHTML = dates[0];
+            document.getElementById('ptot').innerHTML = dates[1];
+            $.post (
+                url,
+                {
+                    _action: 1,
+                    _from: dates[0],
+                    _to: dates[1],
+                    _location: 'Makati',
+                    _empCode: empCode
+                    
+                },
+                function(data) { 
+                    $("#contents").html(data).show();
+                    $("#payrollList").tableExport({
+                        headers: true,
+                        footers: true,
+                        formats: ['xlsx'],
+                        filename: 'id',
+                        bootstrap: false,
+                        exportButtons: true,
+                        position: 'top',
+                        ignoreRows: null,
+                        ignoreCols: null,
+                        trimWhitespace: true,
+                        RTL: false,
+                        sheetname: 'Payroll Attendance'
+                    });
+                    $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
+                    document.getElementById("myDiv").style.display="none"; 
+                }
+                );
         }else{
 
                swal({
@@ -749,6 +788,28 @@ aria-hidden="true">
             });
             $(".fa-file-export").remove();
             $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');                
+        }
+        );
+ }
+
+  function viewApprovedForms(bdno,pfrom,pto)
+ {
+     $('#viewApprovedForms').modal('toggle');
+     var url = "../payroll/approvedforms_process.php";
+     var emp_code = bdno;
+     var dateFrom = pfrom;
+     var dateTo = pto;
+
+     $.post (
+        url,
+        {
+            _action: 1,
+            emp_code: emp_code,
+            dateFrom: dateFrom,
+            dateTo: dateTo             
+        },
+        function(data) { 
+            $("#contents4").html(data).show();            
         }
         );
  }
@@ -1251,8 +1312,6 @@ function savetk()
                 location.reload();
             }
         });        
-
-    
 }
 
 

@@ -24,6 +24,16 @@ table,th,td{
     overflow-y: auto;
     overflow-x: auto;
 }
+
+.table4 {
+    text-align: left;
+    /* width: 1070px; */
+    /* height: 600px; */
+    display: block;
+    font-size: 15px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
   
 table {
         border: 1px solid #dee2e6;

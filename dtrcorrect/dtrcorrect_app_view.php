@@ -249,14 +249,22 @@ swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
                             <div class="col-md-10 d-inline">
                                 <input type="text" id="remarks" name="remarks" class="form-control inputtext">
                             </div>
-                    </div>                            
+                    </div>   
+                     <div class="row pb-2">
+                        <div class="col-md-2">
+                            <label for="Attachment" id="LabelAttachment">Attachment: <span class="req">*</span></label>
+                        </div>
+                        <div class="col-md-10">
+                            <input class="inputtext" type="file" name="attachment" id="attachment" accept=".pdf,.jpg,.png" onChange="GetAttachFile()">
+                        </div>
+                    </div>                                             
             </div>
         </div>
 
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-success" id="Submit" onclick="uploadFile();" ><i class="fas fa-check-circle"></i> SUBMIT</button>
                 </div>
 
             </div>
@@ -317,7 +325,9 @@ swal({text:"You stop the cancellation of your dtr correction.",icon:"error"});
                                         <label class="control-label" for="approver">Approver</label>
                                         <input type="text" id="approver" name="approver" class="form-control" readonly>
                                     </div>
-                                </div>                                             
+                                </div> 
+
+
                             </div> <!-- form row closing -->
                     </fieldset> 
                                 <div class="modal-footer">

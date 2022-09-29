@@ -55,7 +55,7 @@ require '../vendor/autoload.php';
 
             global $connL;
 
-            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.dtrc_date,a.time_in,a.time_out,a.remarks,a.date_filed,a.status,a.reporting_to from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
+            $query = "SELECT a.rowid,b.firstname,b.middlename,b.lastname,a.emp_code,a.dtrc_date,a.time_in,a.time_out,a.remarks,a.date_filed,a.status,a.reporting_to,a.attachment from tr_dtrcorrect a left join employee_profile b on a.emp_code = b.emp_code WHERE a.reporting_to = :reporting_to AND a.emp_code = :emp_code and status = 1";
             $stmt =$connL->prepare($query);
             $param = array(":reporting_to" => $empReportingTo , ":emp_code" => $empId );
             $stmt->execute($param);
@@ -82,10 +82,9 @@ require '../vendor/autoload.php';
                 do{
                     $t_in = (isset($result['time_in'])) ? date('h:i A', strtotime($result['time_in'])) : 'n/a';
                     $t_out = (isset($result['time_out'])) ? date('h:i A', strtotime($result['time_out'])) : 'n/a';
+                    $attchmnt = $result['attachment'];
                     echo"
-
-
-                        <tr id='clv".$result['rowid']."'>
+                             <tr id='clv".$result['rowid']."'>
                             <td>".date('m-d-Y',strtotime($result['date_filed']))."</td>
                             <td>".date('F d, Y', strtotime($result['dtrc_date']))."</td>
                             <td>".$t_in."</td>
@@ -94,15 +93,21 @@ require '../vendor/autoload.php';
                             <td hidden>"."<input type='text' class='form-control' 
                             value='".$result['reporting_to']."' >"."</td>
 
-                            <td>".
-                                "<button class='btn btn-success btn-sm btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
+                            <td>";
+
+                            if(empty($attchmnt)){
+                            }else {
+                            echo"<button type='button' class='btn btn-primary btn-sm'><a title='Attachment' href='../uploads/dtrc/".$result['attachment']."' style='color:#ffff;font-weight:bold;'  
+                            target='popup' onclick='window.open('../uploads/dtrc/".$result['attachment']."' ','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;'><i class='fas fa-paperclip'></i></a></button>&nbsp;";  
+                            }  
+                            echo"<button class='btn btn-success btn-sm btnApproved' id='".$result['rowid']."'><i class='fas fa-check'></i></button> &nbsp".
                                 "<button class='btn btn-danger btn-sm btnRejectd' id='".$result['rowid']."'><i class='fas fa-times'></i></button>&nbsp;";
 
-                        if($result['reporting_to'] == 'OBN20000205') {
+                            if($result['reporting_to'] == 'OBN20000205') {
 
-                           }else{
+                            }else{
                             echo '<button class="btn btn-warning btn-sm btnFwd" id="'.$result['rowid'].'" value="'.$result['rowid'].'"><i class="fas fa-arrow-right"></i><button id="empcode" value="'.$result['emp_code'].'" hidden></button>';
-                         }
+                            }
 
 
                                 echo "</td></tr>";                                

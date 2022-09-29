@@ -433,8 +433,9 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
 
             echo $results;
 
-        $query_pay = $connL->prepare('EXEC hrissys_test.dbo.GenerateOTType :ot_date');
+        $query_pay = $connL->prepare('EXEC hrissys_test.dbo.GenerateOTType :ot_date,:empCode');
         $query_pay->bindValue(':ot_date',$otDate);
+        $query_pay->bindValue(':empCode',$empCode);
         $query_pay->execute();
 
         $erequester = $e_req;

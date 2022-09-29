@@ -1,4 +1,61 @@
 
+var pdfFile;
+
+function GetAttachFile() {
+    var selectedfile = document.getElementById("attachment").files;
+    if (selectedfile.length > 0) {
+        var uploadedFile = selectedfile[0];
+        var fileReader = new FileReader();
+        var fl = uploadedFile.name;
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result;
+            pdfFile =  fl;
+        }
+        fileReader.readAsDataURL(uploadedFile);
+    }
+}
+
+
+function uploadFile() {
+
+   var files = document.getElementById("attachment").files;
+
+   if(files.length > 0 ){
+
+      var formData = new FormData();
+      formData.append("file", files[0]);
+
+      var xhttp = new XMLHttpRequest();
+
+      // Set POST method and ajax file path
+      xhttp.open("POST", "ajaxfile.php", true);
+
+      // call on request changes state
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+
+           var response = this.responseText;
+           if(response == 1){
+              // alert("Upload successfully.");
+           }else{
+              // alert("File not uploaded.");
+           }
+         }
+      };
+
+      // Send request with data
+      xhttp.send(formData);
+
+   }else{
+      swal({text:"Please upload a file!",icon:"warning"});
+   }
+
+}
+
+    
+  
+
  $(function(){
 
     $('#dtrtype').change(function(){
@@ -45,7 +102,7 @@ document.getElementById('time_out').value =  null;
             
             $('#dtrc_date'),
             // $('#time_in'),
-            // $('#time_out'),
+            $('#attachment'),
             $('#remarks')
             
         ];
@@ -73,7 +130,8 @@ $('#Submit').click(function(){
                     "e_req": e_req,
                     "n_req": n_req,
                     "e_appr": e_appr,
-                    "n_appr": n_appr                      
+                    "n_appr": n_appr,
+                    "attachment": pdfFile                   
                     
                };
                 

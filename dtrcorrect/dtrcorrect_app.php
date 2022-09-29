@@ -335,7 +335,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
       </div>';
     }
 
-    public function InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$dtrc_type,$remarks,$e_req,$n_req,$e_appr,$n_appr){
+    public function InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$dtrc_type,$remarks,$e_req,$n_req,$e_appr,$n_appr,$attchmnt){
 
             global $connL;
 
@@ -395,8 +395,8 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
             // exit();
        
 
-            $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,reporting_to,audituser,auditdate) 
-                VALUES(:emp_code,:dtrc_date,:date_filed,:time_in,:time_out,:remarks,:empReportingTo,:audituser,:auditdate) ";
+            $query = "INSERT INTO tr_dtrcorrect(emp_code,dtrc_date,date_filed,time_in,time_out,remarks,attachment,reporting_to,audituser,auditdate) 
+                VALUES(:emp_code,:dtrc_date,:date_filed,:time_in,:time_out,:remarks,:attachment,:empReportingTo,:audituser,:auditdate) ";
     
                 $stmt =$connL->prepare($query);
 
@@ -408,6 +408,7 @@ public function GetAlldtrcorrectAppHistory($date_from,$date_to,$status){
                     ":time_in"=> $dtsd_d,
                     ":time_out"=> $dtend_d,
                     ":remarks"=> $remarks,
+                    ":attachment"=> $attchmnt,
                     ":audituser" => $empCode,
                     ":auditdate"=>date('m-d-Y H:i:s')
                 );

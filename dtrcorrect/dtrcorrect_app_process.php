@@ -28,7 +28,8 @@
         $n_req = $dtrcApplication->{"n_req"} ;
         $e_appr = $dtrcApplication->{"e_appr"} ;
         $n_appr = $dtrcApplication->{"n_appr"} ;
-        $dtrcApp->InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$dtrc_type,$remarks,$e_req,$n_req,$e_appr,$n_appr);
+        $attchmnt = (isset($dtrcApplication->{"attachment"}) ? $dtrcApplication->{"attachment"} : '' );
+        $dtrcApp->InsertAppliedDtrCorrectApp($empCode,$empReportingTo,$dtrc_date,$time_in,$time_out,$dtrc_type,$remarks,$e_req,$n_req,$e_appr,$n_appr,$attchmnt);
 
     }
        
