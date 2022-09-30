@@ -92,6 +92,29 @@ else
 
 
 
+    $zquery = "SELECT * from employee_profile where emp_code = :empcode";
+    $zstmt =$connL->prepare($zquery);
+    $zparam = array(":empcode" => $empCode);
+    $zstmt->execute($zparam);
+    $zresult = $zstmt->fetch();
+    $rptto = $zresult['reporting_to'];
+    $reportingto = ($rptto === false) ? 'none' : $rptto;
+
+    if($reportingto == 'none'){
+        $repname = 'n/a';
+    }else{
+
+    $zquerys = "SELECT * from employee_profile where emp_code = :reportingto";
+    $zstmts =$connL->prepare($zquerys);
+    $zparams = array(":reportingto" => $reportingto);
+    $zstmts->execute($zparams);
+    $zresults = $zstmts->fetch();
+          if(isset($zresults['emp_code'])){
+            $repname = $zresults['lastname'].",".$zresults['firstname']." ".$zresults['middlename'];
+          }else{                       
+            $repname = 'n/a';
+          }
+    }
 }
 
 ?>
@@ -497,7 +520,33 @@ rel="stylesheet">
                             ?> 
                  <!-- MY PROFILE TOOLS -->
 
-          <li class="dropdown"><a href="#" class='<?php echo $myprofile_view; ?>'><span><i class='fas fa-user-circle fa-fw'></i><?php echo $empName; ?></span> <i class="bi bi-chevron-down"></i></a>
+          <?php  
+              $sex = $zresult['sex'];
+              $up_avatar = $zresult['up_avatar'];
+              $up_sign = $zresult['up_sign'];
+
+              if($sex == 'Male' AND empty($up_avatar)){
+                  $avatar = 'avatar2.png';
+              }else if($sex == 'Female' AND empty($up_avatar)){
+                  $avatar = 'avatar8.png';
+              }else if($sex == 'Male' AND !empty($up_avatar)){
+                  $avatar = $up_avatar;
+              }else if($sex == 'Female' AND !empty($up_avatar)){
+                  $avatar = $up_avatar;
+              }else{
+                  $avatar = 'nophoto.png';
+              }
+
+              if(empty($up_sign)){
+                $signpic = '../uploads/employees/nosign.png';
+              }else{
+                $signpic = '../uploads/employees/'.$up_sign;
+              }
+           ?>                 
+
+          <li class="dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                <img class="rounded-circle" style="width:34px;height:34px;" src="../uploads/employees/<?php echo $avatar; ?>" >
+                </a>
             <ul>
               <li><a href="../pages/myprofile_view.php" onclick="show()"><i class='fas fa-id-card fa-fw'></i>MY PROFILE</a></li>
               <li><a href="../pages/changepass.php" onclick="show()"><i class="fas fa-cogs fa-fw"></i>CHANGE PASSWORD</a></li>
