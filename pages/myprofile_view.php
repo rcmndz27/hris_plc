@@ -40,11 +40,12 @@
         
 ?>
 <link rel="stylesheet" type="text/css" href="../pages/myprof.css">
+<script type='text/javascript' src='../pages/up_signavatar.js'></script>
 <body>
 <div class="container">
     <div class="section-title">
           <h1>MY PROFILE</h1>
-        </div>
+    </div>
     <div class="main-body mbsda">
           <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
@@ -54,18 +55,25 @@
           </nav>
           <?php  
               $sex = $result['sex'];
-              $emp_pic_loc = $result['emp_pic_loc'];
+              $up_avatar = $result['up_avatar'];
+              $up_sign = $result['up_sign'];
 
-              if($sex == 'Male' AND empty($emp_pic_loc)){
+              if($sex == 'Male' AND empty($up_avatar)){
                   $avatar = 'avatar2.png';
-              }else if($sex == 'Female' AND empty($emp_pic_loc)){
+              }else if($sex == 'Female' AND empty($up_avatar)){
                   $avatar = 'avatar8.png';
-              }else if($sex == 'Male' AND !empty($emp_pic_loc)){
-                  $avatar = $emp_pic_loc;
-              }else if($sex == 'Female' AND !empty($emp_pic_loc)){
-                  $avatar = $emp_pic_loc;
+              }else if($sex == 'Male' AND !empty($up_avatar)){
+                  $avatar = $up_avatar;
+              }else if($sex == 'Female' AND !empty($up_avatar)){
+                  $avatar = $up_avatar;
               }else{
                   $avatar = 'nophoto.png';
+              }
+
+              if(empty($up_sign)){
+                $signpic = '../uploads/employees/nosign.png';
+              }else{
+                $signpic = '../uploads/employees/'.$up_sign;
               }
            ?>
           <div class="row gutters-sm">
@@ -81,8 +89,9 @@
                       <h4><?php echo $empName; ?></h4>
                       <p class="text-secondary mb-1"><?php echo $result['position']; ?></p>
                       <p class="text-muted font-size-sm"><?php echo $empCode.'-'.$result['emp_type']; ?></p>
-<!--                       <button class="btn btn-primary">Follow</button>
-                      <button class="btn btn-outline-primary">Message</button> -->
+                      <img class="border" src="<?php echo $signpic ?>" height="100px;" width="225px;">                      
+                      <button class="btn btn-primary btn-sm mt-3" id="upavatar">Upload Avatar</button>
+                      <button class="btn btn-outline-primary btn-sm mt-3" id="upsign">Upload Signature</button>
                     </div>
                   </div>
                 </div>
@@ -177,7 +186,95 @@
               </div>
             </div>
           </div>
+
+ <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Upload Avatar <i class="fas fa-images"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                 <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  <img src="../uploads/employees/<?php echo $avatar; ?>" alt="Admin" title="Primary Picture" 
+                  class="rounded-circle" width="150" id="tempava" >
+                    
+                    <div class="mt-3">
+                        <div class="col-md-12 text-center">
+                          <label title="Upload image file" for="up_avatar" class="btn btn-primary btn-sm ">
+                              <input type="file" accept="image/*" name="up_avatar" id="up_avatar" style="display:none" onchange="GetAvatarFile()">
+                              Change Avatar
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</button>
+                    <button type="button" class="btn btn-success" id="SubmitAvatar" onclick="uploadAvatar();" ><i class="fas fa-check-circle"></i> Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>  
+
+ <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="informationModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xs modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title bb" id="popUpModalTitle">Upload Signature <i class="fas fa-images"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times; </span>
+                    </button>
+                </div>
+                 <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                  <img src="<?php echo $signpic; ?>" alt="Admin" title="Primary Signature" class="rounded-circle" width="150" id="tempsign">
+                     <div class="mt-3">
+                        <div class="col-md-12 text-center">
+                          <label title="Upload image file" for="up_sign" class="btn btn-outline-primary btn-sm ">
+                              <input type="file" accept="image/*" name="up_sign" id="up_sign" style="display:none" onchange="GetSignFile()">
+                              Change Signature
+                          </label>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</button>
+                    <button type="button" class="btn btn-success" id="SubmitSign" onclick="uploadSign();" ><i class="fas fa-check-circle"></i> Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>     
+
       </div>
     </div>
 </body>
+
+<script type="text/javascript">
+  
+  up_avatar.onchange = evt => {
+  const [file] = up_avatar.files
+  if (file) {
+    tempava.src = URL.createObjectURL(file)
+  }
+}
+
+  up_sign.onchange = evt => {
+  const [file] = up_sign.files
+  if (file) {
+    tempsign.src = URL.createObjectURL(file)
+  }
+}
+</script>
 <?php include('../_footer.php');  ?>
