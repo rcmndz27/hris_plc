@@ -87,6 +87,7 @@
                     
                     <div class="mt-3">
                       <h4><?php echo $empName; ?></h4>
+                      <input type="text" class="form-control" name="empcode" id="empcode" hidden value="<?php echo $empCode; ?>">
                       <p class="text-secondary mb-1"><?php echo $result['position']; ?></p>
                       <p class="text-muted font-size-sm"><?php echo $empCode.'-'.$result['emp_type']; ?></p>
                       <img class="border" src="<?php echo $signpic ?>" height="100px;" width="225px;">                      
@@ -263,18 +264,229 @@
 
 <script type="text/javascript">
   
-  up_avatar.onchange = evt => {
-  const [file] = up_avatar.files
-  if (file) {
-    tempava.src = URL.createObjectURL(file)
-  }
+var pdfAvatar;
+var pdfSign;
+
+
+function GetAvatarFile() {
+    var selectedfile = document.getElementById("up_avatar").files;
+
+    // console.log('testing');
+    // return false;
+    if (selectedfile.length > 0) {
+        var uploadedFile = selectedfile[0];
+        var fileReader = new FileReader();
+        var fl = uploadedFile.name;
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result;
+            pdfAvatar =  fl;
+        }
+        fileReader.readAsDataURL(uploadedFile);
+    }
 }
 
-  up_sign.onchange = evt => {
-  const [file] = up_sign.files
-  if (file) {
-    tempsign.src = URL.createObjectURL(file)
-  }
+
+function uploadAvatar() {
+
+   var files = document.getElementById("up_avatar").files;
+
+   if(files.length > 0 ){
+
+      var formData = new FormData();
+      formData.append("file", files[0]);
+
+      var xhttp = new XMLHttpRequest();
+
+      // Set POST method and ajax file path
+      xhttp.open("POST", "ajax_avasign.php", true);
+
+      // call on request changes state
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+
+           var response = this.responseText;
+           if(response == 1){
+              // alert("Upload successfully.");
+           }else{
+              // alert("File not uploaded.");
+           }
+         }
+      };
+
+      // Send request with data
+      xhttp.send(formData);
+
+   }else{
+      // swal({text:"Please upload a file!",icon:"warning"});
+   }
+
+      var url = "../pages/up_signavatar_process.php";
+      var emp_code = document.getElementById("empcode").value;
+      var up_avatar = pdfAvatar;
+
+        // console.log(up_avatar);
+        // console.log(emp_code);
+        // return false;
+
+            swal({
+              title: "Are you sure?",
+              text: "You want to update your avatar?",
+              icon: "success",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((updateDedd) => {
+              if (updateDedd) {
+                    $.post (
+                        url,
+                        {
+                            action: 1,
+                            emp_code: emp_code ,
+                            up_avatar: up_avatar                            
+                        },
+                        function(data) {   
+                        console.log(data);                                      
+                            swal({
+                                title: "Success!", 
+                                text: "Successfully updated avatar!", 
+                                icon: "success",
+                            }).then(function() {
+                                location.href = '../pages/myprofile_view.php';
+                            }); 
+                        }
+                    );
+
+              } else {
+                swal({text:"You cancel your updating of avatar!",icon:"error"});
+              }
+            });   
+
 }
+
+    
+
+function GetSignFile() {
+    var selectedfile = document.getElementById("up_sign").files;
+    if (selectedfile.length > 0) {
+        var uploadedFile = selectedfile[0];
+        var fileReader = new FileReader();
+        var fl = uploadedFile.name;
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result;
+            pdfSign =  fl;
+        }
+        fileReader.readAsDataURL(uploadedFile);
+    }
+}
+
+
+function uploadSign() {
+
+   var files = document.getElementById("up_sign").files;
+
+   if(files.length > 0 ){
+
+      var formData = new FormData();
+      formData.append("file", files[0]);
+
+      var xhttp = new XMLHttpRequest();
+
+      // Set POST method and ajax file path
+      xhttp.open("POST", "ajax_avasign.php", true);
+
+      // call on request changes state
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) {
+
+           var response = this.responseText;
+           if(response == 1){
+              // alert("Upload successfully.");
+           }else{
+              // alert("File not uploaded.");
+           }
+         }
+      };
+
+      // Send request with data
+      xhttp.send(formData);
+
+   }else{
+      // swal({text:"Please upload a file!",icon:"warning"});
+   }
+
+        var url = "../pages/up_signavatar_process.php";
+        var emp_code = document.getElementById("empcode").value;
+        var up_sign = pdfSign;
+
+        // console.log(up_sign);
+        // console.log(emp_code);
+        // return false;
+
+            swal({
+              title: "Are you sure?",
+              text: "You want to update your signature?",
+              icon: "success",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((updateDedd) => {
+              if (updateDedd) {
+                    $.post (
+                        url,
+                        {
+                            action: 2,
+                            emp_code: emp_code ,
+                            up_sign: up_sign                            
+                        },
+                        function(data) {   
+                        console.log(data);                                      
+                            swal({
+                                title: "Success!", 
+                                text: "Successfully updated signature!", 
+                                icon: "success",
+                            }).then(function() {
+                                location.href = '../pages/myprofile_view.php';
+                            }); 
+                        }
+                    );
+
+              } else {
+                swal({text:"You cancel your updating of signature!",icon:"error"});
+              }
+            });
+
+}
+
+//   up_avatar.onchange = evt => {
+//   const [file] = up_avatar.files
+//   if (file) {
+//     tempava.src = URL.createObjectURL(file)
+//   }
+// }
+
+//   up_sign.onchange = evt => {
+//   const [file] = up_sign.files
+//   if (file) {
+//     tempsign.src = URL.createObjectURL(file)
+//   }
+// }
+
+
+$(function(){
+
+ $('#upavatar').click(function(e){
+        e.preventDefault();
+        $('#avatarModal').modal('toggle');
+    });
+
+ $('#upsign').click(function(e){
+        e.preventDefault();
+        $('#signModal').modal('toggle');
+    }); 
+
+});
+
 </script>
 <?php include('../_footer.php');  ?>

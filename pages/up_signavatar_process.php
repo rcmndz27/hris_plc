@@ -4,21 +4,15 @@
 
     include('../pages/up_signavatar.php');
     include('../config/db.php');
-    include('../controller/empInfo.php');
 
-    $empInfo = new EmployeeInformation();
-    $empInfo->SetEmployeeInformation($_SESSION['userid']);
-    $empCode = $empInfo->GetEmployeeCode();
+    $action = $_POST["action"];
+    $empCode = $_POST["emp_code"];
 
-    $upAvatarsign = json_decode($_POST["data"]);
-
-    if($upAvatarsign->{"Action"} == "UploadAvatar"){
-
-        $up_avatar = $upAvatarsign->{"up_avatar"};
+    if($action == 1){
+        $up_avatar = $_POST["up_avatar"];
         UpdateAvatar($empCode,$up_avatar);
-
     }else{
-        $up_sign = $upAvatarsign->{"up_sign"};
+        $up_sign = $_POST["up_sign"];
         UpdateSignature($empCode,$up_sign);
 
     }
