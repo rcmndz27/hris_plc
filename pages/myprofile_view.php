@@ -263,6 +263,22 @@
 </body>
 
 <script type="text/javascript">
+
+
+//   up_avatar.onchange = evt => {
+//   const [file] = up_avatar.files
+//   if (file) {
+//     tempava.src = URL.createObjectURL(file)
+//   }
+// }
+
+//   up_sign.onchange = evt => {
+//   const [file] = up_sign.files
+//   if (file) {
+//     tempsign.src = URL.createObjectURL(file)
+//   }
+// }
+  
   
 var pdfAvatar;
 var pdfSign;
@@ -458,20 +474,6 @@ function uploadSign() {
             });
 
 }
-
-//   up_avatar.onchange = evt => {
-//   const [file] = up_avatar.files
-//   if (file) {
-//     tempava.src = URL.createObjectURL(file)
-//   }
-// }
-
-//   up_sign.onchange = evt => {
-//   const [file] = up_sign.files
-//   if (file) {
-//     tempsign.src = URL.createObjectURL(file)
-//   }
-// }
 
 
 $(function(){
