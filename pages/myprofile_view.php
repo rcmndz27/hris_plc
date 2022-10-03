@@ -201,12 +201,12 @@
                  <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                   <img src="../uploads/employees/<?php echo $avatar; ?>" alt="Admin" title="Primary Picture" 
-                  class="rounded-circle" width="150" id="tempava" >
+                  class="rounded-circle" width="150" id="tempava" onerror="this.src='../uploads/employees/<?php echo $avatar; ?>'">
                     
                     <div class="mt-3">
                         <div class="col-md-12 text-center">
                           <label title="Upload image file" for="up_avatar" class="btn btn-primary btn-sm ">
-                              <input type="file" accept="image/*" name="up_avatar" id="up_avatar" style="display:none" onchange="GetAvatarFile()">
+                              <input type="file" accept="image/*" name="up_avatar" id="up_avatar" style="display:none" onchange="GetAvatarFile(this)">
                               Change Avatar
                           </label>
                         </div>
@@ -236,11 +236,11 @@
                 </div>
                  <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                  <img src="<?php echo $signpic; ?>" alt="Admin" title="Primary Signature" class="rounded-circle" width="150" id="tempsign">
+                  <img src="<?php echo $signpic; ?>" alt="Admin" title="Primary Signature" class="rounded-circle" width="150" id="tempsign" onerror="this.src='<?php echo $signpic; ?>'">
                      <div class="mt-3">
                         <div class="col-md-12 text-center">
                           <label title="Upload image file" for="up_sign" class="btn btn-outline-primary btn-sm ">
-                              <input type="file" accept="image/*" name="up_sign" id="up_sign" style="display:none" onchange="GetSignFile()">
+                              <input type="file" accept="image/*" name="up_sign" id="up_sign" style="display:none" onchange="GetSignFile(this)">
                               Change Signature
                           </label>
                         </div>
@@ -256,7 +256,7 @@
 
             </div>
         </div>
-    </div>     
+    </div>    
 
       </div>
     </div>
@@ -265,41 +265,36 @@
 <script type="text/javascript">
 
 
-//   up_avatar.onchange = evt => {
-//   const [file] = up_avatar.files
-//   if (file) {
-//     tempava.src = URL.createObjectURL(file)
-//   }
-// }
-
-//   up_sign.onchange = evt => {
-//   const [file] = up_sign.files
-//   if (file) {
-//     tempsign.src = URL.createObjectURL(file)
-//   }
-// }
-  
   
 var pdfAvatar;
 var pdfSign;
 
 
-function GetAvatarFile() {
-    var selectedfile = document.getElementById("up_avatar").files;
+function GetAvatarFile(input) {
 
-    // console.log('testing');
-    // return false;
-    if (selectedfile.length > 0) {
-        var uploadedFile = selectedfile[0];
-        var fileReader = new FileReader();
-        var fl = uploadedFile.name;
+if (input.files && input.files[0]) {
+var reader = new FileReader();
 
-        fileReader.onload = function (fileLoadedEvent) {
-            var srcData = fileLoadedEvent.target.result;
-            pdfAvatar =  fl;
-        }
-        fileReader.readAsDataURL(uploadedFile);
+reader.onload = function(e) {
+$('#tempava').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}  
+
+  var selectedfile = document.getElementById("up_avatar").files;
+
+  if (selectedfile.length > 0) {
+    var uploadedFile = selectedfile[0];
+    var fileReader = new FileReader();
+    var fl = uploadedFile.name;
+
+    fileReader.onload = function (fileLoadedEvent) {
+      var srcData = fileLoadedEvent.target.result;
+      pdfAvatar =  fl;
     }
+    fileReader.readAsDataURL(uploadedFile);
+  }
 }
 
 
@@ -382,7 +377,19 @@ function uploadAvatar() {
 
     
 
-function GetSignFile() {
+function GetSignFile(input) {
+
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function(e) {
+$('#tempsign').attr('src', e.target.result);
+}
+
+reader.readAsDataURL(input.files[0]);
+}
+
+
     var selectedfile = document.getElementById("up_sign").files;
     if (selectedfile.length > 0) {
         var uploadedFile = selectedfile[0];
