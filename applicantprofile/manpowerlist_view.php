@@ -125,12 +125,12 @@
 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> CANCEL</button>
-                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times-circle"></i> Cancel</button>
+                    <button type="button" class="btn btn-success" id="Submit" ><i class="fas fa-check-circle"></i> Submit</button>
                 </div>
 <!-- 
                                             <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup subbut" onmousedown="javascript:filterAtt()">
-                            SUBMIT
+                            Submit
                             </button>
                             <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup btn btn-danger">
                                 <a href="../applicantprofile/plantillalist_view.php" class="backtxt">BACK</a>

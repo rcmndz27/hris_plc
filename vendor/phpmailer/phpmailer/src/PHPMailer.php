@@ -55,7 +55,7 @@ class PHPMailer
     const ICAL_METHOD_PUBLISH = 'PUBLISH';
     const ICAL_METHOD_REPLY = 'REPLY';
     const ICAL_METHOD_ADD = 'ADD';
-    const ICAL_METHOD_CANCEL = 'CANCEL';
+    const ICAL_METHOD_Cancel = 'Cancel';
     const ICAL_METHOD_REFRESH = 'REFRESH';
     const ICAL_METHOD_COUNTER = 'COUNTER';
     const ICAL_METHOD_DECLINECOUNTER = 'DECLINECOUNTER';
@@ -169,7 +169,7 @@ class PHPMailer
         self::ICAL_METHOD_PUBLISH,
         self::ICAL_METHOD_REPLY,
         self::ICAL_METHOD_ADD,
-        self::ICAL_METHOD_CANCEL,
+        self::ICAL_METHOD_Cancel,
         self::ICAL_METHOD_REFRESH,
         self::ICAL_METHOD_COUNTER,
         self::ICAL_METHOD_DECLINECOUNTER,

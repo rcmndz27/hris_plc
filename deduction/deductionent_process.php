@@ -1,10 +1,10 @@
 <?php
 
-            date_default_timezone_set('Asia/Manila');
+date_default_timezone_set('Asia/Manila');
 
 
-    include('../deduction/deductionent.php');
-    include('../config/db.php');
+include('../deduction/deductionent.php');
+include('../config/db.php');
 
 $dedEnt = new DeductionEnt();
 

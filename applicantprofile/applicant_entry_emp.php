@@ -295,7 +295,7 @@ width: 30px;
                                 </div>                                                             
                             </div>                                                                                                  
                             <div class="mt-3 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary bup" id="Submit" ><i class="fas fa-check-circle"></i> SUBMIT</button>
+                                <button type="button" class="btn btn-primary bup" id="Submit" ><i class="fas fa-check-circle"></i> Submit</button>
                             </div>  
 
                 </div>

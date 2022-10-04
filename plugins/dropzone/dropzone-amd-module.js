@@ -2183,10 +2183,10 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       }).map(function (file) {
         return file;
       });
-    } // Cancels the file upload and sets the status to CANCELED
+    } // Cancels the file upload and sets the status to CancelED
     // **if** the file is actually being uploaded.
     // If it's still in the queue, the file is being removed from it and the status
-    // set to CANCELED.
+    // set to CancelED.
 
   }, {
     key: "cancelUpload",
@@ -2200,7 +2200,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         try {
           for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
             var groupedFile = _step19.value;
-            groupedFile.status = Dropzone.CANCELED;
+            groupedFile.status = Dropzone.CancelED;
           }
         } catch (err) {
           _iterator19.e(err);
@@ -2230,7 +2230,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
           this.emit("canceledmultiple", groupedFiles);
         }
       } else if (file.status === Dropzone.ADDED || file.status === Dropzone.QUEUED) {
-        file.status = Dropzone.CANCELED;
+        file.status = Dropzone.CancelED;
         this.emit("canceled", file);
 
         if (this.options.uploadMultiple) {
@@ -2687,7 +2687,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
     value: function _finishedUploading(files, xhr, e) {
       var response;
 
-      if (files[0].status === Dropzone.CANCELED) {
+      if (files[0].status === Dropzone.CancelED) {
         return;
       }
 
@@ -2723,7 +2723,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "_handleUploadError",
     value: function _handleUploadError(files, xhr, response) {
-      if (files[0].status === Dropzone.CANCELED) {
+      if (files[0].status === Dropzone.CancelED) {
         return;
       }
 
@@ -3184,7 +3184,7 @@ Dropzone.ACCEPTED = Dropzone.QUEUED;
 Dropzone.UPLOADING = "uploading";
 Dropzone.PROCESSING = Dropzone.UPLOADING; // alias
 
-Dropzone.CANCELED = "canceled";
+Dropzone.CancelED = "canceled";
 Dropzone.ERROR = "error";
 Dropzone.SUCCESS = "success";
 /*

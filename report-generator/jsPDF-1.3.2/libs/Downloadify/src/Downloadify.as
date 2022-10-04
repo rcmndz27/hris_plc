@@ -86,7 +86,7 @@ package {
       ExternalInterface.addCallback('setEnabled', setEnabled);
       
       file.addEventListener(Event.COMPLETE, onSaveComplete);
-      file.addEventListener(Event.CANCEL, onSaveCancel);
+      file.addEventListener(Event.Cancel, onSaveCancel);
     }
     
     private function setEnabled(isEnabled:Boolean):Boolean {

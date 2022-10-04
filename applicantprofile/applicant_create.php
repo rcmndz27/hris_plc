@@ -1317,7 +1317,7 @@ width: 30px;
                     </div>
 
                 <div class="mt-3 mb-5 d-flex justify-content-center">
-                    <input class="btn btn-primary submit" id="submit" type="submit" value="SUBMIT">
+                    <input class="btn btn-primary submit" id="submit" type="submit" value="Submit">
                 </div>
             </form>
 

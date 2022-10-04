@@ -133,7 +133,7 @@ if (isset($_POST['reset-pass'])) {
                                     </div>
                                 </div>
                                 <div class='d-flex justify-content-center'>
-                                    <input type="submit" name="reset-pass" id="reset-pass" class="btn btn-primary w-100" value="SUBMIT">
+                                    <input type="submit" name="reset-pass" id="reset-pass" class="btn btn-primary w-100" value="Submit">
                                 </div>
 <br>
                                 <div class='d-flex justify-content-center'>

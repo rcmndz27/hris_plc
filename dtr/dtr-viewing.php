@@ -23,20 +23,19 @@ Class EmployeeAttendance{
         if($empCodeParam == 'All')
         {
 
-
-                $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
-                $query = 'EXEC hrissys_test.dbo.xp_all_attendance_portal :startDate,:endDate';
-                $stmt =$connL->prepare($query);
-                $stmt->execute($param);
-                $result = $stmt->fetch();
+            $param = array(":startDate" => $dateFrom, ":endDate" => $dateTo );
+            $query = 'EXEC hrissys_test.dbo.xp_all_attendance_portal :startDate,:endDate';
+            $stmt =$connL->prepare($query);
+            $stmt->execute($param);
+            $result = $stmt->fetch();
         }else{
 
 
-                $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
-                $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
-                $stmt =$connL->prepare($query);
-                $stmt->execute($param);
-                $result = $stmt->fetch();
+            $param = array(":emp_ssn" => $empCodeParam, ":startDate" => $dateFrom, ":endDate" => $dateTo );
+            $query = 'EXEC hrissys_test.dbo.xp_attendance_portal :emp_ssn,:startDate,:endDate';
+            $stmt =$connL->prepare($query);
+            $stmt->execute($param);
+            $result = $stmt->fetch();
         }                
 
         echo "

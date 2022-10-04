@@ -220,7 +220,7 @@ color: #d64747;
                         </div>
                         <div class="mt-3 d-flex justify-content-center">        
                             <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup subbut" onmousedown="javascript:filterAtt()">
-                            SUBMIT
+                            Submit
                             </button>
                             <button type="button" id="search" class="btn btn-small btn-primary mr-1 bup btn btn-danger">
                                 <a href="../applicantprofile/plantillalist_view.php" class="backtxt">BACK</a>
