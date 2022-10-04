@@ -376,10 +376,10 @@ public function GetAllOtRepHistory($date_from,$date_to,$empCode){
             $total = round(($otend - $otsd)/3600,2);
         }
 
-        echo $otsd;
-        echo '\n';
-        echo $otend;
-        exit();
+        // echo $otsd;
+        // echo '\n';
+        // echo $otend;
+        // exit();
 
         $query = "INSERT INTO tr_overtime (emp_code,ot_date,datefiled,reporting_to,ot_start_dtime,ot_end_dtime,ot_req_hrs,remarks,audituser, auditdate) 
             VALUES(:emp_code,:otDate,:datefiled,:empReportingTo,:otStartDtime,:otEndDtime,:otReqHrs, :remarks,:audituser,:auditdate) ";

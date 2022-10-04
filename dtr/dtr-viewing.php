@@ -60,23 +60,29 @@ Class EmployeeAttendance{
             if($result){
                 do {
 
-                    $timeIn = (isset($result['timein']) ? $this->GetTime($result['timein']): '');
-                    $timeOut = (isset($result['timeout']) ? $this->GetTime($result['timeout']) : '');
- $late = ($result['late'] > 0 ? round($result['late']*60).' Min/s'  : 0);
+                        $timeIn = (isset($result['timein']) ? $this->GetTime($result['timein']): '');
+                        $timeOut = (isset($result['timeout']) ? $this->GetTime($result['timeout']) : '');
+                        $late = ($result['late'] > 0 ? round($result['late']*60).' Min/s'  : 0);
                         $undertime = ($result['undertime'] > 0 ? round($result['undertime']*60).' Min/s': 0);
                         $overtime = ($result['overtime'] > 0 ? round($result['overtime'],2).' Hr/s': 0);
+                        $class = (isset($result['timein']) || isset($result['timeout']) ?  '': "bg-danger");
+                        $slate = (isset($result['timein']) || isset($result['timeout']) ?  $late : '');
+                        $sundertime = (isset($result['timein']) || isset($result['timeout']) ?  $undertime : '');
+                        $sovertime = (isset($result['timein']) || isset($result['timeout']) ?  $overtime : '');
+                        $swork = (isset($result['timein']) || isset($result['timeout']) ?  round($result['workhours'],2): '');
     
                         echo    "<tr>".
-                                "<td>" . $result['name']. "</td>".
-                                "<td>" . date('F d, Y', strtotime($result['punch_date'])) . "</td>".
+                                "<td>" . $result['fullname'] . "</td>".
+                                "<td class=".$class.">" . date('F d, Y', strtotime($result['punch_date'])) . "</td>".
                                 "<td>" . $timeIn . "</td>".
                                 "<td>" . $timeOut . "</td>".
-                                "<td>" . round($result['workhours'],2) . "</td>".
-                                "<td>" . $late."</td>".
-                                "<td>" . $undertime."</td>".
-                                "<td>" . $overtime."</td>".
+                                "<td>" . $swork . "</td>".
+                                "<td>" . $slate."</td>".
+                                "<td>" . $sundertime."</td>".
+                                "<td>" . $sovertime."</td>".
                                 "<td>" . $result['remarks'] . "</td>".
                                 "</tr>";
+    
     
                         $totalWork += $result['workhours'];
                         $totalLate += round($result['late']*60);
