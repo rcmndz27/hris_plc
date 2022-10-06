@@ -16,7 +16,7 @@ body {
   background-size: cover;
   background-color: #ffff;
   font-family: 'Dosis', sans-serif;
-  background-image:  url('../img/loginbg.jpg');
+  background-image:  url('../img/bg.png');
 }
 
 .debtn btn-info {
@@ -52,16 +52,16 @@ body {
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .btn-login {
-  color: #1f2d3d;
-  background-color: #ffaa00;
-  border-color: #ffaa00;
+  color: #ffffff;
+  background-color: #6c757d;
+  border-color: #6c757d;
   box-shadow: none;
 }
 
 .btn-login:hover {
-  color: #1f2d3d;
-  background-color: #e0a800;
-  border-color: #d39e00;
+  color: #ffffff;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }
 
 .btn-login:focus,
@@ -323,5 +323,5 @@ body {
 
 .card-header a {
   text-decoration: none;
-  color: #ffaa00;
+  color: #6c757d;
 }
