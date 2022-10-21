@@ -87,7 +87,7 @@ if (empty($_SESSION['userid'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>PLC | Timekeeping</title>
+    <title>PLC | Web Portal</title>
     <noscript><h3>Please enable Javascript in order to use this form.</h3><meta HTTP-EQUIV='refresh' content=0; url='JavascriptNotEnabled.php'></noscript>
     
     <meta charset='utf-8'>
@@ -107,7 +107,7 @@ if (empty($_SESSION['userid'])) {
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script type='text/javascript' src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- <script type="text/javascript" src='js/script.js'></script> -->
+<script type="text/javascript" src='js/script.js'></script>
 <style type="text/css">    
 .loader {
             position: fixed;
@@ -130,7 +130,7 @@ if (empty($_SESSION['userid'])) {
       <div class="card card-outline card-primary">
         <div class="card-header text-center">
             
-            <a href="#" class="h5">
+            <a href="#" class="h5 text-secondary">
             <img class="mb-2 img-fluid mx-auto d-block newoblogo" src="img/plc-logo.png" alt="">    
             <b>Human Resource Information System</b> </a>
         </div>
@@ -168,7 +168,7 @@ if (empty($_SESSION['userid'])) {
                 }
             ?>
           <div class="social-auth-links text-center mt-2 mb-3">
-            <input type="submit" class="btn btn-login btn-block" name="loginSubmit" value="Login" >
+            <input type="submit" class="btn btn-login btn-block text-white" name="loginSubmit" value="Login" >
             <div class="row">
                 <!-- <h6>Forgot password?Kindly contact the administrator.</h6> -->
 <!--                 <div class="col-sm-6">

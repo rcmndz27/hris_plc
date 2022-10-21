@@ -80,7 +80,7 @@ $(function(){
 
     });
 
-    $(document).on('click','.btn btn-warning btn-sm',function(e){
+    $(document).on('click','.btn btn-secondary btn-sm',function(e){
 
         var prid = this.id;
         var apvdOb = 1;
