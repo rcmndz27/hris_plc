@@ -101,7 +101,7 @@ else
         <button type="button" id="search" class="btn btn-success mr-2" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> Generate                      
         </button>
-        <button type="button" class="btn btn-secondary mr-2" id="usersEntry"><i class="fas fa-plus-circle mr-1"></i> Add Employee </button>
+        <button type="button" class="btn btn-warning mr-2" id="usersEntry"><i class="fas fa-plus-circle mr-1"></i> Add Employee </button>
 
         <?php 
         if($tkstat == 'READY EMP' || $tkstat == 'DELETED EMP') {

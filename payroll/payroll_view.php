@@ -1,6 +1,5 @@
 <?php
 
-
 session_start();
 
 if (empty($_SESSION['userid']))
@@ -61,8 +60,15 @@ else
 ?>
 
 <link rel="stylesheet" href="../payroll/payroll.css">
-<script src="<?= constant('NODE'); ?>xlsx/dist/xlsx.core.min.js"></script>
-<script src="<?= constant('NODE'); ?>file-saverjs/FileSaver.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+<script type="text/javascript"  src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript"  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script type="text/javascript"  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 <div id = "myDiv" style="display:none;" class="loader"></div>
 <body  onload="javascript:generatePayrll();">
     <div class="container-fluid">
@@ -98,7 +104,7 @@ else
         <button type="button" id="search" class="btn btn-success mr-2" onmousedown="javascript:generatePayrll()">
             <i class="fas fa-search-plus"></i> Generate                      
         </button>
-        <button type="button" class="btn btn-secondary mr-2" id="usersEntry"><i class="fas fa-plus-circle mr-1"></i> Add Employee </button>
+        <button type="button" class="btn btn-warning mr-2" id="usersEntry"><i class="fas fa-plus-circle mr-1"></i> Add Employee </button>
 
         <?php 
         if($tkstat == 'READY' || $tkstat == 'DELETED') {
@@ -681,8 +687,7 @@ aria-hidden="true">
     function generatePayrll()
     {
 
-        
-            document.getElementById("myDiv").style.display="block";
+        // document.getElementById("myDiv").style.display="block";
             var url = "../payroll/payrollrep_process.php";
             var cutoff = $('#ddcutoff').find(":selected").text();
             var dates = cutoff.split(" - ");
@@ -716,22 +721,43 @@ aria-hidden="true">
                     
                 },
                 function(data) { 
-                    $("#contents").html(data).show();
-                    $("#payrollList").tableExport({
-                        headers: true,
-                        footers: true,
-                        formats: ['xlsx'],
-                        filename: 'id',
-                        bootstrap: false,
-                        exportButtons: true,
-                        position: 'top',
-                        ignoreRows: null,
-                        ignoreCols: null,
-                        trimWhitespace: true,
-                        RTL: false,
-                        sheetname: 'Payroll Attendance'
-                    });
-                    $(".btn btn-primary").prepend('<i class="fas fa-file-export"></i>');
+            
+                $("#contents").html(data).show();
+                $('#payrollList').DataTable({
+                    pageLength : 12,
+                    lengthMenu: [[12, 24, 36, -1], [12, 24, 36, 'All']],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'pageLength',
+                        {
+                            extend: 'excel',
+                            title: 'Timekeeping from'+dates[0]+' to '+dates[1], 
+                            text: '<img class="btnExcel" src="../img/excel.png" title="Export to Excel">',
+                            init: function(api, node, config) {
+                                $(node).removeClass('dt-button')
+                                },
+                                className: 'btn bg-transparent btn-sm'
+                        },
+                        {
+                            extend: 'pdf',
+                            title: 'Timekeeping from'+dates[0]+' to '+dates[1], 
+                            text: '<img class="btnExcel" src="../img/expdf.png" title="Export to PDF">',
+                            init: function(api, node, config) {
+                                $(node).removeClass('dt-button')
+                                },
+                                className: 'btn bg-transparent'
+                        },
+                        {
+                            extend: 'print',
+                            title: 'Timekeeping from'+dates[0]+' to '+dates[1], 
+                            text: '<img class="btnExcel" src="../img/print.png" title="Print Attendance">',
+                            init: function(api, node, config) {
+                                $(node).removeClass('dt-button')
+                                },
+                                className: 'btn bg-transparent'
+                        }
+                    ]                        
+                }); 
                     document.getElementById("myDiv").style.display="none"; 
                 }
                 );
